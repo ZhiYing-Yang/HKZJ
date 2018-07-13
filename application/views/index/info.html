@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.1" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url('style/index')?>/css/all.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('style/index')?>/css/third.css">
+    <title>数学季刊</title>
+</head>
+
+<body>
+    <!--Head 头部 Begin-->
+    <?php include('head.html');?>
+    <!-- Head 头部 End -->
+
+    <!-- look -->
+    <div class="look section">
+        <div class="main auto" id="look">
+            <div class="look_title">
+                <h2><?=$col['col_name']?></h2>
+            </div>
+        </div>
+    </div>
+    <!-- 内容 -->
+    <div class="newslist section">
+        <div class="main auto" id="newslist_main">
+            <div class="newslist_title">
+                <ul>
+                    <li class="active"><a href="<?=site_url('home/list/'.$col['col_id'])?>"><?=$col['col_name']?></a></li>
+                    <!-- <li><a href="">标题2</a></li>
+                    <li><a href="">标题3</a></li>
+                    <li><a href="">biaoti4</a></li> -->
+                </ul>
+            </div>
+            <div class="newslist_content contents main">
+                    <h2><?=$content['title']?></h2>
+                    <div class="info">
+                        <!-- <font>作者：</font> -->
+                        <font>时间：<?=date('Y-m-d H:i:s', $content['time'])?></font>
+                        <!-- <font> 访问量：7370</font> -->
+                    </div>
+                    <?=$content['content']?>
+                <!-- <div class="download">
+                    <a href="">&gt;&gt;点击下载稿件，查看完整内容&lt;&lt;</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer 底部 Begin -->
+    <?php include('footer.html');?>
+    <!-- Footer 底部 End -->
+</body>
+
+</html>
+<script type="text/javascript" src="<?=base_url('style/index')?>/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="<?=base_url('style/index')?>/js/all.js"></script>

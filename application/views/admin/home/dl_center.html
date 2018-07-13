@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>季刊介绍</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="/style/admin/css/public.css" rel="stylesheet">
+</head>
+
+<body>
+	<form action="<?=site_url('admin/admin/dl_center/'.$action.'/'.$content['id'])?>" method="post">
+    <table class="table">
+        <tr>
+            <td align="center">
+                <input type="text" name="title" class="input" value="<?=$content['id']?>" placeholder="请输入附件标题" required="required" style="width: 800px">
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <span class="hint">点击第一个图标添加附件</span>
+                <!-- 加载编辑器的容器 -->
+                <script id="container" name="content" type="text/plain"><?=$content['content']?></script>
+                <!-- 配置文件 -->
+                <script type="text/javascript" src="/org/ueditor.config.js"></script>
+                <!-- 编辑器源码文件 -->
+                <script type="text/javascript" src="/org/ueditor.all.js"></script>
+            </td>
+        </tr>
+        <tr>
+        	<td align="center"><input type="submit" class="input_button" value="添加"></td>
+        </tr>
+    </table>
+    </form>
+</body>
+
+</html>
+<!-- 实例化编辑器 -->
+<script type="text/javascript" src="/style/admin/js/dl_center.js"></script>

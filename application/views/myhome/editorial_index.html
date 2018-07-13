@@ -1,0 +1,35 @@
+<ul class="quick_btn">
+    <li><a class="go_home" href="<?=base_url()?>" title="首页" target="_blank">首页</a></li>
+    <li><a class="contribute" href="<?=site_url('index/editorial/list_article/finalize')?>" onClick="go_cmdurl('编委会定稿',this);border_left('TabPage2','left_tab2');" title="在线定稿" target="content3">在线定稿</a></li>
+</ul>
+<div class="menu_top"></div>
+<div class="menu" id="TabPage3">
+    <ul id="TabPage2">
+        <li id="left_tab1" class="Selected" onClick="javascript:border_left('TabPage2','left_tab1');" title="常用">常用</li>
+        <li id="left_tab2" onClick="javascript:border_left('TabPage2','left_tab2');" title="在线审核">审核</li>
+        <li id="left_tab3" onClick="javascript:border_left('TabPage3','left_tab3');" title="稿件浏览">稿件</li>
+    </ul>
+    <div id="left_menu_cnt">
+        <ul id="dleft_tab1">
+            <li id="now34" class="Selected"><a class="Selected" href="<?=site_url('index/myhome/user_info')?>" onClick="go_cmdurl('个人信息',this);" target="content3" title="个人信息">个人信息</a></li>
+            <li id="now1d"><a href="<?=site_url('index/myhome/edit_password')?>" onClick="go_cmdurl('修改密码',this);" target="content3" title="修改密码">修改密码</a></li>
+            <li id="now1b"><a href="<?=site_url('index/myhome/logout')?>" onClick="go_cmdurl('安全退出',this)" target="_self" title="安全退出">安全退出</a></li>
+        </ul>
+
+        <ul id="dleft_tab2" style="display:none;">
+            <li id="now1e"><a href="<?=site_url('index/editorial/list_article/finalize')?>" onClick="go_cmdurl('编委会定稿',this)" target="content3" title="编委会定稿">编委会定稿</a></li>
+            <li id="now53"><a href="<?=site_url('index/editorial/list_article/assign_first')?>" onClick="go_cmdurl('指定初审',this)" target="content3" title="指定初审">指定初审</a></li>
+            <li id="now52"><a href="<?=site_url('index/editorial/list_article/assign_second')?>" onClick="go_cmdurl('指定复审',this)" target="content3" title="指定复审">指定复审</a></li>
+            <li id="now26"><a href="<?=site_url('index/editorial/list_article/doubt')?>" onClick="go_cmdurl('疑问稿件',this)" target="content3" title="疑问稿件">疑问稿件<span id="sdraft_num"></span></a></li>
+        </ul>
+
+        <ul id="dleft_tab3" style="display:none;">
+            <li id="now23"><a href="<?=site_url('index/editorial/list_article/all')?>" onClick="go_cmdurl('全部稿件',this)" target="content3" title="全部稿件">全部稿件</a></li>
+            <li id="now1d"><a href="<?=site_url('index/editorial/list_article/edit')?>" onClick="go_cmdurl('返修稿件',this)" target="content3" title="返修稿件">返修稿件</a></li>
+            <li id="now24"><a href="<?=site_url('index/editorial/list_article/use')?>" onClick="go_cmdurl('已被录用',this)" target="content3" title="已被录用">已被录用</a></li>
+            <li id="now22"><a href="<?=site_url('index/editorial/list_article/wait_check')?>" onClick="go_cmdurl('待审核',this)" target="content3" title="待审核">待审核<span id="sdraft_num"></span></a></li>
+            <li id="now28"><a href="<?=site_url('index/editorial/list_article/refuses')?>" onClick="go_cmdurl('被拒稿件',this)" target="content3" title="被拒稿件">被拒稿件</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>

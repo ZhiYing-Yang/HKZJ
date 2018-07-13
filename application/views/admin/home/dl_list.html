@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>下载中心列表</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="<?=base_url('style/admin/')?>/css/public.css" rel="stylesheet">
+</head>
+<body>
+    <table class="table">
+    	<tr>
+    		<th align="center">文件名</th>
+    		<th align="center">附件</th>
+    		<th align="center">上传时间</th>
+    		<th align="center">操作</th>
+    	</tr>
+    	<?php foreach($content as $c):?>
+    		<tr>
+    			<td align="left"><?=$c['title']?></td>
+    			<td align="left"><?=$c['content']?></td>
+    			<td align="center"><?=date('Y-m-d H:i:s', $c['time'])?></td>
+    			<td align="center">
+    				【<a href="<?=site_url('admin/admin/dl_center/top/'.$c['id'])?>">
+    					<?=$c['is_top'] == 1?'取消置顶':'置顶'?>
+    				</a>】
+    				【<a href="<?=site_url('admin/admin/dl_center/see/'.$c['id'])?>">
+    					编辑
+    				</a>】
+    				【<a href="<?=site_url('admin/admin/dl_center/delete/'.$c['id'])?>">
+    					删除
+    				</a>】
+    			</td>
+    		</tr>
+    	<?php endforeach;?>
+    </table>
+    <p class="page"><?=$link?></p>
+</body>
+</html>

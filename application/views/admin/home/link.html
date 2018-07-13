@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>友情链接</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="<?=base_url('style/admin')?>/css/public.css" rel="stylesheet">
+</head>
+
+<body>
+    <table class="table">
+        <form action="<?=site_url('admin/admin/link/do/0/'.$col_id)?>" method="post">
+            <tr>
+                <td align="center">
+                    <input type="text" name="title" class="input" required="required" placeholder="请输入链接标题">
+                </td>
+                <td align="center">
+                    <input type="text" name="content" class="input" required="required" placeholder="请输入链接地址">
+                </td>
+                <td align="center">
+                    <input type="submit" class="input_button" value="添加">
+                </td>
+            </tr>
+        </form>
+    </table>
+    <table class="table">
+        <tr>
+            <th align="center">链接标题</th>
+            <th align="center">链接地址</th>
+            <th align="center">保存链接</th>
+            <th align="center">操作</th>
+        </tr>
+        <?php foreach($href as $h):?>
+        <tr>
+            <form action="<?=site_url('admin/admin/link/do/'.$h['id'])?>" method="post">
+                <td align="center">
+                    <input type="text" name="title" value="<?=$h['title']?>" class="input" required="required" placeholder="请输入链接标题"/>
+                </td>
+                <td align="center">
+                    <input type="text" name="content" value="<?=$h['content']?>" class="input" required="required" placeholder="请输入链接地址"/>
+                </td>
+                <td align="center">
+                    <input type="submit" class="input_button" value="保存"/>
+                </td>
+            </form>
+            <td align="center">
+                【
+                <a href="<?=site_url('admin/admin/link/top/'.$h['id'])?>">
+                    <?=$h['is_top']==0?'置顶':'取消置顶'?>
+                </a>】 【
+                <a href="javascript:fun(<?=$h['id']?>)">删除</a>】
+            </td>
+        </tr>
+        <?php endforeach;?>
+    </table>
+    <p class="page">
+        <?=$link?>
+    </p>
+</body>
+
+</html>
+<script>
+function fun(id) {
+    if (confirm('确定要删除吗！')) {
+        location.href = "<?=site_url('admin/admin/link/delete/')?>" + id;
+    }
+}
+</script>

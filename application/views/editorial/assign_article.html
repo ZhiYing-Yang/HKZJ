@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>指定专家初审</title>
+    <link href="/style/author/css/public.css" rel="stylesheet">
+    <script type="text/javascript" src="<?=base_url('style/index')?>/js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <table class="table">
+        <tr>
+            <td align="right">稿件题目：</td>
+            <td>
+                <?=$article['title']?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">稿件关键字：</td>
+            <td>
+                <?=$article['keywords']?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">稿件摘要：</td>
+            <td>
+                <?=$article['abstract']?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">稿件附件：</td>
+            <td><a href="<?=site_url('index/editorial/download/'.$article['article_id'])?>">点击下载附件</a></td>
+        </tr>
+        <?php foreach($suggest as $s):?>
+            <tr>
+                <td align="right"><?=$s['realname'].'专家初审意见：'?></td>
+
+                <td><?=$s['content']?><br/><br/>审核时间：<?=date('Y-m-d H:i:s', $s['time'])?></td>
+            </tr>
+        <?php endforeach;?>
+    </table>
+    <hr/>
+    <table class="table">
+        <tr>
+            <td colspan="4" align="center" style="font-size: 20px;">请选择两名初审专家</td>
+        </tr>
+        <form id="myform" action="<?=site_url('index/editorial/set_check/'.$article['article_id'])?>" method="post">
+        <?php foreach($specialist as $num_k => $v): ?>
+        <?=$num_k%4 == 0?'<tr>':''?>
+            <td>
+                <input type="checkbox" name="set_specialist[]" class="checkbox_input" value="<?=$v['user_id']?>"><?=$v['realname']?>
+            </td>
+        <?=($num_k+1)%4 == 0 || $num_k==count($specialist)-1?'</tr>':''?>
+        <?php endforeach;?>
+
+        <input type="hidden" name="article_id" value="<?=$article['article_id']?>">
+        <tr>
+            <td align="center" colspan="4">
+                <input type="submit" id="submit" value="指定初审专家" class="input_button">
+            </td>
+        </tr>
+        </form>
+    </table>
+</body>
+
+</html>
+<script>
+    $('#submit').click(function(event) {
+        /* Act on the event */
+        $(this).css('background', 'gray').val('正在指定...');
+    });
+    /*$("#myform").submit(function(event) {
+        
+        event.preventDefault();
+        if($("input[name='set_specialist[]']:checked").length != 2){
+            alert('必须选择两名专家审稿');
+            return;
+        }
+        $.post("<?=site_url('index/editorial/set_check/'.$article['article_id'])?>", $('#myform').serialize(), function(data, textStatus, xhr) {
+            
+        }, 'json');
+    });*/
+</script>

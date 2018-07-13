@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=0.1"/>
+    <meta name="description" content="《数学季刊》，全国中文核心期刊。由著名数学家陈景润院士于1985年创刊，创刊为中文版，现为英文版。是我国数学界委托河南大学承办，以刊登数学学科中具有创造性、代表学科水平的科研成果为主的综合性学术刊物。主编胡和生院士、林群院士；副主编王天泽教授。编委会由吴文俊院士、丁夏畦院士、谷超豪院士、王元院士、李大潜院士、文兰院士、李邦河院士等著名数学家组成。">
+    <meta name="keywords" content="数学季刊,数学季刊投稿系统,河南大学数学季刊投稿系统">
+    <meta name="author" content="107网站工作室">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('style/index')?>/css/all.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('style/index')?>/css/index.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('style/index')?>/css/login.css">
+    <script type="text/javascript" src="<?=base_url('style/index')?>/js/jquery-3.2.1.min.js"></script>
+    <title>数学季刊</title>
+</head>
+
+<body>
+    <!--Head 头部 Begin-->
+    <?php require('head.html');?>
+    <!-- Head 头部 End -->
+    <div class="bookinfo">
+        <div class="main auto" id="bookinfo">
+            <div class="bookimg fleft"><a href=""><img src="<?=base_url('style/index')?>/img/jikanfengmian.jpg" alt=""></a></div>
+            <div class="booklist fright">
+                <div class="booklist_title">
+                    <h2>数学季刊</h2>
+                    <h5>(季刊1986年创刊)</h5>
+                    <h5>封面题字:陈省身</h5></div>
+                <div class="booklist_content">
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 50%">
+                                <table class="table1" cellspacing="4">
+                                    <tr>
+                                        <th>Sponsor</th>
+                                        <td>Henan University</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Editors-in-Chief</th>
+                                        <td>HU He-sheng&nbsp;&nbsp;LIN Qun</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Editor&Publisher</th>
+                                        <td>The Editorial Board of Chinese Quarterly Journal of Mathematics
+                                            <br>(Kaifeng,Henan,China,475001)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>No.85,Minglun Road,Kaifeng Henan,475001,P.R.China</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Distrbutor</th>
+                                        <td>China International Book Trading Corporation
+                                            <br>(P.O.Box 339 Beijing,China)</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table2" cellspacing="5">
+                                    <tr>
+                                        <th>主办单位</th>
+                                        <td>河南大学</td>
+                                    </tr>
+                                    <tr>
+                                        <th>主编</th>
+                                        <td>胡和生&nbsp;&nbsp;林群</td>
+                                    </tr>
+                                    <tr>
+                                        <th>编辑出版</th>
+                                        <td>《数学季刊》编辑部(河南&nbsp;开封&nbsp;475001)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>地址</th>
+                                        <td>河南省开封市明伦街85号</td>
+                                    </tr>
+                                    <tr>
+                                        <th>印刷</th>
+                                        <td>开封日报社印务中心</td>
+                                    </tr>
+                                    <tr>
+                                        <th>国内发行</th>
+                                        <td>开封市邮电局</td>
+                                    </tr>
+                                    <tr>
+                                        <th>海外总发行</th>
+                                        <td>中国国际图书贸易总公司</td>
+                                    </tr>
+                                </table>
+                                <tr>
+                                    <th>刊号</th>
+                                    <td>ISSN&nbsp;&nbsp;1002-0462&nbsp;&nbsp;/&nbsp;&nbsp;CN&nbsp;&nbsp;41-1102/01</td>
+                                </tr>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="allitem">
+        <div class="auto main" id="allitem">
+            <div class="login padding">
+                <div class="item_title auto">
+                    <h2>登录系统</h2>
+                </div>
+                <ul>
+                    <li><a class="alterlogin" href="javascript:void(0)" onclick="loginshow('作者', 'author')">
+                            <img src="<?=base_url('style/index')?>/img/icon (1).png" alt="">
+                            <h4>作者投稿查询</h4>
+                        </a></li>
+                    <li><a class="alterlogin" href="javascript:void(0)" onclick="loginshow('专家', 'specialist')">
+                            <img src="<?=base_url('style/index')?>/img/icon (5).png" alt="">
+                            <h4>专家在线查稿</h4>
+                        </a></li>
+                    <li><a class="alterlogin" href="javascript:void(0)" onclick="loginshow('编委', 'editorial')">
+                            <img src="<?=base_url('style/index')?>/img/icon (4).png" alt="">
+                            <h4>编委在线定稿</h4>
+                        </a></li>
+                    <li><a class="alterlogin" href="javascript:void(0)" onclick="loginshow('编辑', 'edit')">
+                            <img src="<?=base_url('style/index')?>/img/icon (2).png" alt="">
+                            <h4>编辑在线办公</h4>
+                        </a></li>
+                    <li><a class="alterlogin" href="<?=site_url('admin/login')?>" target="_blank">
+                            <img src="<?=base_url('style/index')?>/img/icon (3).png" alt="">
+                            <h4>网站在线管理</h4>
+                        </a></li>
+                </ul>
+            </div>
+            <div class="contribute"><a href=""><img src="<?=base_url('style/index')?>/img/tglc.jpg" alt=""></a></div>
+            <div class="information padding">
+                <div class="item_title auto">
+                    <h2>资讯信息</h2>
+                </div>
+                <div class="info_items">
+                    <div class="info_item_title infopadding">
+                        <h4 class="fleft">最新录用</h4>
+                        <a href="<?=site_url('home/article/latest_list/0')?>" class="more fright">more</a>
+                    </div>
+                    <ul class="padding">
+                        <?php foreach($latest_article as $l):?>
+                        <li><a href="<?=site_url('home/article/see/'.$l['article_id'])?>" title="<?=$l['title']?>"><?=mb_strlen($l['title'])>12?mb_substr($l['title'], 0, 12).'...':$l['title']?><font class="fright"><?=date('Y-m-d', $l['use_time'])?></font></a></li>
+                        <?php endforeach;?>
+                        <!-- <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li> -->
+                    </ul>
+                </div>
+                <div class="info_items">
+                    <div class="info_item_title infopadding">
+                        <h4 class="fleft">当期目录</h4>
+                        <a href="<?=site_url('home/article/now_list/0')?>" class="more fright">more</a>
+                    </div>
+                    <ul class="padding">
+                        <?php foreach($now_article as $now):?>
+                        <li><a title="<?=$now['title']?>" href="<?=site_url('home/article/see/'.$now['article_id'])?>"><?=mb_strlen($now['title'])>12?mb_substr($now['title'], 0, 12).'...':$now['title']?><font class="fright"><?=date('Y-m-d', $now['use_time'])?></font></a></li>
+                        <?php endforeach;?>
+                        <!-- <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li> -->
+                    </ul>
+                </div>
+                <div class="info_items">
+                    <div class="info_item_title infopadding">
+                        <h4 class="fleft">下期目录</h4>
+                        <a href="<?=site_url('home/article/next_list/0')?>" class="more fright">more</a>
+                    </div>
+                    <ul class="padding">
+                        <?php foreach($next_article as $next):?>
+                        <li><a title="<?=$next['title']?>" href="<?=site_url('home/article/see/'.$next['article_id'])?>"><?=mb_strlen($next['title'])>16?mb_substr($next['title'], 0, 16).'...':$next['title']?><font class="fright"></font></a></li>
+                        <?php endforeach;?>
+                        <!-- <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="information padding">
+                <div class="info_items">
+                    <div class="info_item_title infopadding">
+                        <h4 class="fleft">过刊浏览</h4>
+                        <a href="<?=site_url('home/article/overdue_list/0')?>" class="more fright">more</a>
+                    </div>
+                    <ul class="padding">
+                        <?php foreach($overdue_article as $o):?>
+                        <li><a href="<?=site_url('home/article/see/'.$o['article_id'])?>"><?=mb_strlen($o['title'])>12?mb_substr($o['title'], 0, 12).'...':$o['title']?><font class="fright"><?=date('Y-m-d', $o['use_time'])?></font></a></li>
+                        <?php endforeach;?>
+                        <!-- <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li> -->
+                    </ul>
+                </div>
+                <div class="info_items">
+                    <div class="info_item_title infopadding">
+                        <h4 class="fleft">各年目次</h4>
+                        <a href="<?=site_url('home/year_list/0')?>" class="more fright">more</a>
+                    </div>
+                    <ul class="padding">
+                        <?php for($year = 2018, $j = 0; $year <= (int)date("Y") && $j<6; $year++, $j++){                  
+                            for($s = 1; $s<=4; $s++){
+                                echo '<li><a href="'.site_url("home/year/$year/$s/0").'">'.$year .' 年 <font class="fright">'."第 $s 期".'</font></a></li>';
+                                }
+                        }?>
+
+                        <!-- <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="second.html">123456789<font class="fright">2018-03-22</font></a></li>
+                        <li><a href="">123456789<font class="fright">2018-03-22</font></a></li> -->
+                    </ul>
+                </div>
+                <div class="info_img">
+                    <ul>
+                        <li><a href="<?=site_url('home/list/14')?>"><img src="<?=base_url('style/index')?>/img/author.jpg" alt="作者指南"></a></li>
+                        <li><a href="<?=site_url('home/list/17')?>"><img src="<?=base_url('style/index')?>/img/shenzhe.jpg" alt="审者指南"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="link">
+        <div class="auto main" id="id_link">
+            <!-- <div class="link_title">
+                <img src="<?=base_url('style/index')?>/img/link.png" alt="">
+                <h4>友情链接</h4>
+            </div> -->
+            <div class="link_links">
+                <?php foreach($link as $num_k=>$v):?>
+                <?=$num_k%5 == 0?'<ul>':''?>
+                    <li>
+                        <a href="<?=$v['content']?>">
+                            <?=$v['title']?>
+                        </a>
+                    </li>
+                    <?=($num_k+1)%5 == 0?'</ul>':''?>
+                        <?php endforeach;?>
+                        <!--  <ul>
+                    <li><a href="">友情链接</a></li>
+                    <li><a href="">友情链接</a></li>
+                    <li><a href="">友情链接</a></li>
+                    <li><a href="">友情链接</a></li>
+                    <li><a href="">友情链接</a></li>
+                </ul>
+                <ul>
+                    <li><a href="">友情链接</a></li>
+                    <li><a href="">友情链接</a></li>
+                    <li><a href="">友情链接</a></li>
+                    <li><a href="">友情链接</a></li>
+                    <li><a href="">友情链接</a></li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+    <!-- Footer 底部 Begin -->
+    <?php require('footer.html');?>
+    <!-- Footer 底部 End -->
+    <div class="login_back">
+    </div>
+    <div class="loginPage auto">
+        <form action="" method="post">
+            <div class="auto">
+                <div class="login_title">
+                    <a id="close"><img src="<?=base_url('style/index')?>/img/close.png" alt=""/></a>
+                </div>
+                <p class="title">作者登录</p>
+                <div class="login_main">
+                    <ul class="auto">
+                        <li><span>用户名</span>
+                            <input type="email" placeholder="请输入您的邮箱" required="required" name="username" />
+                        </li>
+                        <li><span>密码</span>
+                            <input type="password" required="required" placeholder="请输入密码" name="password" />
+                        </li>
+                        <li><span>验证码</span>
+                            <input id="yz" type="text" required="required" name="authcode" /><a href="javascript:void(0)" onclick="document.getElementById('yanzhengma').src='<?php echo site_url('home/authcode'); ?>/'+Math.random()" style="display:inline-block; height:40px; float:right;">
+                            <img  id="yanzhengma" src="<?php echo site_url('home/authcode'); ?>/<?php echo rand();?>" style="border-radius: 5px;"/>
+                        </a></li>
+                    </ul>
+                    <input type="hidden">
+                </div>
+                <div class="login_button_box">
+                    <button class="auto" id="login_submit">登录</button>
+                    <a href="<?=site_url('home/register')?>" class="register">注册</a>
+                </div>
+                <div class="forget_pwd_box">
+                    <a href="<?=site_url('home/forget_password')?>" title="找回密码" class="forget_pwd">忘记密码？</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="<?=base_url('style/index')?>/js/all.js"></script>
+<script type="text/javascript">
+function loginshow(identity, identity_en) {
+    var url = "<?=site_url('home/login_test/')?>" + identity_en + '/' + 'ajax';
+    $.get(url, function(data) {
+        if (data.code == 200) {
+            location.href = "<?=site_url('index/myhome')?>";
+        }else{
+            $('.loginPage .title').html(identity + "登录");
+            $('.login_button_box .register').attr('href', '<?=site_url("home/register/see/")?>' + identity_en);
+            $('.login_back').show();
+            $('.loginPage').fadeIn(500);
+        }
+    }, 'json');
+};
+
+$('#close').click(function() {
+    $('.loginPage').fadeOut(500);
+    $('.login_back').hide();
+});
+
+$('#login_submit').click(function(e) {
+    e.preventDefault();
+    var username = $("input[name='username']").val();
+    var password = $("input[name='password']").val();
+    var authcode = $("input[name='authcode']").val();
+    $.ajax({
+        type: "POST",
+        url: "<?=site_url('home/login_api')?>",
+        data: { email: username, password: password, authcode: authcode },
+        dataType: 'json',
+        success: function(data) {
+            if (data.code == 200) {
+                location.href = "<?=site_url('index/myhome')?>";
+            } else {
+                alert(data.message);
+                $("#yz").next('a').click();
+            }
+        },
+        error: function() {
+            alert('服务器未知错误，请检查您的网络！');
+        }
+    });
+});
+</script>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>在线期刊</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="/style/admin/css/public.css" rel="stylesheet">
+</head>
+<body>
+    <table class="table">
+    	<tr>
+    		<th align="right">稿件题目</th>
+    		<th align="right">作者</th>
+    		<th align="right">投稿时间</th>
+    		<th align="right">录用时间</th>
+    	</tr>
+    	<?php foreach($article as $a):?>
+    		<tr>
+    			<td><a href="<?=site_url('admin/admin/article_info/'.$a['article_id'])?>"><?=$a['title']?></a></td>
+    			<td align="center"><a href="<?=site_url('admin/admin/user_info/see/'.$a['user_id'])?>"><?=$a['author']?></a></td>
+    			<td align="center"><?=date('Y-m-d H:i:s', $a['create_time'])?></td>
+    			<td align="center"><?=empty($a['use_time'])?format_check_status($a['check_status']):date('Y-m-d H:i:s', $a['use_time'])?></td>
+    		</tr>
+    	<?php endforeach;?>
+    </table>
+</body>
+</html>

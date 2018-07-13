@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="数学季刊投稿系统个人中心">
+    <meta name="keywords" content="">
+    <script src="<?=base_url('style/author')?>/js/menu.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="<?=base_url('style/author')?>/css/default.css" type="text/css" />
+    <title>个人中心——数学季刊投稿系统</title>
+</head>
+
+<body>
+    <dl id="header">
+        <p><?=$this->session->userdata('realname')?>您好，欢迎使用数学季刊投稿系统</p>
+    </dl>
+    <div id="contents">
+        <div class="left">
+            <!-- 用户操作选项 Begin -->
+            <?=include($this->session->userdata('identity').'_index.html')?>
+            <!-- 用户操作选项 End -->
+            <div class="menu_end"></div>
+        </div>
+        <div class="right">
+            <ul id="TabPage1">
+                <li id="Tab3" class="Selected" style="display: block;"><span id="dnow99" style="display:block">个人信息</span></li>
+            </ul>
+            <div id="cnt">
+                <div id="dTab3" class="Box" style="display: block;">
+                    <iframe src="<?=site_url('index/myhome/user_info/see')?>" name="content3" id="content3" frameborder="0" scrolling="yes">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+
+</html>

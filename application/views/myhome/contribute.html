@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>修改密码</title>
+	<link rel="stylesheet" href="<?php echo base_url('style/author'); ?>/css/public.css" />
+</head>
+<body>
+	<style>span{color: red; }</style>
+	<form action="<?=site_url('index/author/contribute/do'); ?>" method="post" enctype="multipart/form-data">
+		<table class="table">
+			<tr>
+				<td align="right">稿件题目：</td>
+				<td>
+					<input type="text" class="input" name="title" required="required">
+					<span>稿件题目长度不能超过128个汉字或256个字符，包括空格</span>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">作者姓名：</td>
+				<td>
+					<input type="text" class="input" name="author" required="required">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">稿件关键词：</td>
+				<td>
+					<input type="text" class="input" name="keywords" required="required">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">稿件摘要：</td>
+				<td>
+					<textarea name="abstract" class="textarea"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">上传稿件附件：</td>
+				<td>
+					<input type="file" name="attachment" required="required">
+					<span>附件格式限制为doc、docx、pdf、tex、ctex</span>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" colspan="2">
+					<input type="submit" value="投稿" class="input_button" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
+

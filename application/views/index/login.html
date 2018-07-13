@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>登录——数学季刊投稿系统</title>
+    <meta name="description" content="数学季刊投稿系统登录界面">
+    <meta name="keywords" content="数学季刊登录">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('style/index')?>/css/all.css">
+    <link href="/style/index/css/login.css" rel="stylesheet">
+    <style>
+    li {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none
+    }
+    </style>
+</head>
+
+<body>
+	<!--Head 头部 Begin-->
+    <?php include('head.html');?>
+    <!-- Head 头部 End -->
+    <div class="login_box auto">
+        <div class="auto">
+            <p class="title">登录系统</p>
+            <form>
+            <div class="login_main">
+                    <ul class="auto">
+                        <li><span>用户名</span>
+                            <input type="email" placeholder="请输入您的邮箱" required="required" name="username" />
+                        </li>
+                        <li><span>密码</span>
+                            <input type="password" required="required" placeholder="请输入密码" name="password" />
+                        </li>
+                        <li><span>验证码</span>
+                            <input id="yz" type="text" required="required" name="authcode" /><a href="javascript:void(0)" onclick="document.getElementById('yanzhengma').src='<?php echo site_url('home/authcode'); ?>/'+Math.random()" style="display:inline-block; height:40px; float:right;">
+                            <img  id="yanzhengma" src="<?php echo site_url('home/authcode'); ?>/<?php echo rand();?>" style="border-radius: 5px;"/>
+                        </a></li>
+                    </ul>
+            </div>
+            <div class="login_button_box">
+                <button class="auto" id="login_submit">登录</button>
+                <a href="<?=site_url('home/register')?>" class="register">注册</a>
+            </div>
+            </form>
+            <div class="forget_pwd_box">
+                <a href="<?=site_url('home/forget_password')?>" title="找回密码" class="forget_pwd">忘记密码？</a>
+            </div>
+        </div>
+    </div>
+    <!-- Footer 底部 Begin -->
+    <?php include('footer.html');?>
+    <!-- Footer 底部 End -->
+</body>
+
+</html>
+<script type="text/javascript" src="<?=base_url('style/index')?>/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="<?=base_url('style/index')?>/js/all.js"></script>
+<script>
+$('#login_submit').click(function(e) {
+    e.preventDefault();
+    var username = $("input[name='username']").val();
+    var password = $("input[name='password']").val();
+    var authcode = $("input[name='authcode']").val();
+    $.ajax({
+        type: "POST",
+        url: "<?=site_url('home/login_api')?>",
+        data: { email: username, password: password, authcode: authcode },
+        dataType: 'json',
+        success: function(data) {
+            if (data.code == 200) {
+                location.href="<?=site_url('index/myhome')?>";
+            } else {
+                alert(data.message);
+                $("#yz").next('a').click();
+            }
+        },
+        error: function() {
+            alert('服务器未知错误，请检查您的网络！');
+        }
+    });
+});
+</script>

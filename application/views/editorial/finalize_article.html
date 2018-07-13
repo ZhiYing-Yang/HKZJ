@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>指定专家初审</title>
+    <link href="/style/author/css/public.css" rel="stylesheet">
+    <script type="text/javascript" src="<?=base_url('style/index')?>/js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <table class="table">
+        <tr>
+            <td align="right">稿件题目：</td>
+            <td>
+                <?=$article['title']?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">作者：</td>
+            <td><?=$article['author']?></td>
+        </tr>
+        <tr>
+            <td align="right">稿件关键字：</td>
+            <td>
+                <?=$article['keywords']?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">稿件摘要：</td>
+            <td>
+                <?=$article['abstract']?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">稿件附件：</td>
+            <td><a href="<?=site_url('index/editorial/download/'.$article['article_id'])?>">点击下载附件</a></td>
+        </tr>
+        <?php foreach($suggest as $s):?>
+            <?php if($s['user_id'] == $this->session->userdata('user_id')){continue;}?>
+        <tr>
+            <td align="right">
+                 <?=format_suggest_name($s['rank'], $s['realname'])?>
+            </td>
+            <td>
+                <?=$s['content']?>
+                <br/><br/><span class="hint">审核时间：<?=date('Y-m-d H:i:s', $s['time'])?><span>
+            </td>
+        </tr>
+        <?php endforeach;?>
+        <form id="myform" method="post">
+            <tr>
+                <td align="right">编委意见：</td>
+                <td>
+                    <textarea name="content" placeholder="请填写您的审稿意见" class="textarea" required></textarea>
+                </td>
+            </tr>
+            <input type="hidden" name="status">
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="录用此稿" status="use" class="input_button">
+                    <input type="submit" value="不合格—返修" status="edit" class="input_button" style="margin-left: 100px;">
+                    <input type="submit" value="不合格—拒稿" status="refuses" class="input_button" style="margin-left: 100px;">
+                </td>
+            </tr>
+        </form>
+    </table>
+    <hr/>
+    <table class="table">
+    </table>
+</body>
+
+</html>
+<script>
+$("input[type='submit']").click(function(event) {
+    event.preventDefault();
+    if($('textarea').val().length <=0 ){
+        alert('请输入您的审核意见！');
+        return;
+    }
+    var type = $(this).attr('status');
+    $.post("<?=site_url('index/editorial/finalize/'.$article['article_id'])?>"+"/"+type, $('#myform').serialize(), function(data, textStatus, xhr) {
+        if(data.code == 200){
+            alert(data.message);
+            location.href = "<?=site_url('index/editorial/list_article/finalize')?>";
+        }else{
+            alert(data.message);
+        }
+    }, 'json');
+});
+</script>

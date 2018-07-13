@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>指定专家初审</title>
+    <link href="/style/author/css/public.css" rel="stylesheet">
+    <script type="text/javascript" src="<?=base_url('style/index')?>/js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <table class="table">
+        <tr>
+            <td align="right">稿件题目：</td>
+            <td>
+                <?=$article['title']?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">稿件关键字：</td>
+            <td>
+                <?=$article['keywords']?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">稿件摘要：</td>
+            <td>
+                <?=$article['abstract']?>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">稿件附件：</td>
+            <td><a href="<?=site_url('index/editorial/download/'.$article['article_id'])?>">点击下载附件</a></td>
+        </tr>
+        <?php foreach($suggest as $s):?>
+        <tr>
+            <td align="right">
+                 <?=format_suggest_name($s['rank'], $s['realname'])?>
+            </td>
+            <td>
+                <?=$s['content']?>
+                    <br/>
+                    <br/><span class="hint">审核时间：<?=date('Y-m-d H:i:s', $s['time'])?><span>
+            </td>
+        </tr>
+        <?php endforeach;?>
+           
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="通过本次审核" status="pass" class="input_button">
+                    <input type="submit" value="不合格—返修" status="edit" class="input_button" style="margin-left: 100px;">
+                    <input type="submit" value="不合格—拒稿" status="refuses" class="input_button" style="margin-left: 100px;">
+                </td>
+            </tr>
+    </table>
+</body>
+
+</html>
+<script>
+$("input[type='submit']").click(function(event) {
+    var url = "<?=site_url('index/editorial/doubt_article/'.$article['article_id'])?>"+"/"+$(this).attr('status');
+    location.href = url;
+});
+</script>

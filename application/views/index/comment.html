@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=0.1" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url('style/index')?>/css/all.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('style/index')?>/css/second.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('style/index')?>/css/forget_password.css">
+    <title>数学季刊</title>
+</head>
+
+<body>
+    <!--Head 头部 Begin-->
+    <?php include('head.html');?>
+    <!-- Head 头部 End -->
+
+    <!-- look -->
+    <div class="look section">
+        <div class="main auto" id="look">
+            <div class="look_title">
+                <h2>在线留言</h2>
+            </div>
+        </div>
+    </div>
+    <!-- 内容条列表 -->
+    <div class="newslist section">
+        <div class="main auto" id="newslist_main">
+            <div class="newslist_title">
+                <ul>
+                    <li class="active"><a>在线留言</a></li>
+                </ul>
+            </div>
+            <div class="newslist_list">
+                <form action="" method="post" id="myform">
+                <table class="table">
+                    <tr>
+                        <td>留言人：</td>
+                        <td>
+                            <input type="text" name="realname" placeholder="请输入您的姓名" class="input" required="required">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>邮箱：</td>
+                        <td>
+                            <input type="email" name="email" placeholder="请输入您的邮箱" class="input" required="required">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>内容：</td>
+                        <td><textarea name="content" class="textarea" required="required" placeholder="请输入留言内容,不要超过256个字"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                           <input id="submit" type="submit" class="input_button" value="提交" style="font-size: 1.2em;padding: 0 30px;"> 
+                        </td>
+                    </tr>
+                </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+   <!-- Footer 底部 Begin -->
+   <?php include('footer.html');?>
+   <!-- Footer 底部 End -->
+</body>
+
+</html>
+<script type="text/javascript" src="<?=base_url('style/index')?>/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="<?=base_url('style/index')?>/js/all.js"></script>
+<script>
+    $('#submit').click(function(e) {
+        /* Act on the event */
+        e.preventDefault();
+        $.post("<?=site_url('home/comment/do')?>", $('#myform').serialize(), function(data, textStatus, xhr) {
+            /*optional stuff to do after success */
+            if(data.code == 200){
+                alert('已收到您的留言，我们回尽快给您回复，谢谢！');
+            }else{
+                alert(data.message);
+            }
+        }, 'json');
+    });
+</script>

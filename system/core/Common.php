@@ -910,5 +910,5 @@ function get_json($code, $message) {
 		'message' => $message,
 	);
 	echo json_encode($array, JSON_UNESCAPED_UNICODE);
-	exit;
+	return;
 }

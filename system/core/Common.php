@@ -790,125 +790,43 @@ function alert_msg($msg, $back = 'back', $url = '') {
 	}
 	exit;
 }
-
-//格式化审核状态
-function format_check_status($check_status) {
-	switch ($check_status) {
-	case '3':
-		return '已被录用';
-	case '2':
-		return '编委会审核中';
-	case '1':
-		return '专家复审中';
-	case '0':
-		return '专家初审中';
-	case '-1':
-		return '拒稿';
-	case '-2':
-		return '未通过专家初审';
-	case '-3':
-		return '未通过专家复审';
-	case '-4':
-		return '未通过编委会审核';
+//格式化时间多少天前
+function formatTime($time) {
+	if (!is_numeric($time)) {
+		$time = strtotime($time);
 	}
-}
-
-//格式化审核意见提示信息
-function format_suggest_name($rank, $realname = '') {
-	$message = '';
-	switch ($rank) {
-	case '0':
-		$message = $realname . '专家初审意见：';
-		break;
-	case '1':
-		$message = $realname . '专家复审意见';
-		break;
-	default:
-		$message = $realname . '编委审核意见';
-		break;
-	}
-	return $message;
-}
-
-//格式化用户身份
-function format_user_identity($identity) {
-	$identity_zh = '';
-	switch ($identity) {
-	case 'specialist':
-		$identity_zh = '专家';
-		break;
-	case 'editorial':
-		$identity_zh = '编委';
-		break;
-	case 'edit':
-		$identity_zh = '编辑';
-		break;
-	default:
-		$identity_zh = '作者';
-		break;
-	}
-	return $identity_zh;
-}
-
-//获取季节 默认本季度初 时间戳
-function get_season_time($time, $type = 'start') {
-	$month = date('m', $time);
-	$year = date('Y', $time);
-	switch ($month) {
-	case '3':
-	case '4':
-	case '5':
-		//春季
-		$season_arr = array(
-			'start' => mktime(0, 0, 0, 3, 1, $year),
-			'end' => mktime(23, 59, 59, 5, 31, $year),
-		);
-		break;
-	case '6':
-	case '7':
-	case '8':
-		//夏季
-		$season_arr = array(
-			'start' => mktime(0, 0, 0, 6, 1, $year),
-			'end' => mktime(23, 59, 59, 8, 31, $year),
-		);
-		break;
-	case '9':
-	case '10':
-	case '11':
-		//秋季
-		$season_arr = array(
-			'start' => mktime(0, 0, 0, 9, 1, $year),
-			'end' => mktime(23, 59, 59, 11, 30, $year),
-		);
-		break;
-	default:
-		//冬季
-		if ($month != 12) {
-
-			$b_year = $year - 1;
-			$e_year = $year;
+	$rtime = date("m-d H:i", $time);
+	$htime = date("H:i", $time);
+	$time = time() - $time;
+	if ($time < 60) {
+		$str = '刚刚';
+	} elseif ($time < 60 * 60) {
+		$min = floor($time / 60);
+		$str = $min . '分钟前';
+	} elseif ($time < 60 * 60 * 24) {
+		$h = floor($time / (60 * 60));
+		$str = $h . '小时前 ';
+	} elseif ($time < 60 * 60 * 24 * 3) {
+		$d = floor($time / (60 * 60 * 24));
+		if ($d == 1) {
+			$str = '昨天 ' . $rtime;
 		} else {
-
-			$b_year = $year;
-			$e_year = $year + 1;
+			$str = '前天 ' . $rtime;
 		}
-
-		$day = $e_year % 4 == 0 ? 29 : 28;
-
-		$season_arr = array(
-			'start' => mktime(0, 0, 0, 12, 1, $b_year),
-			'end' => mktime(23, 59, 59, 2, $day, $e_year),
-		);
-		break;
+	} else {
+		$str = $rtime;
 	}
-	return $season_arr[$type];
+	return $str;
 }
-function get_json($code, $message) {
+
+function get_json($code, $message, $data = '') {
 	$array = array(
 		'code' => $code,
 		'message' => $message,
 	);
+	if (!empty($data)) {
+		$array['data'] = $data;
+	}
 	echo json_encode($array, JSON_UNESCAPED_UNICODE);
 	return;
 }

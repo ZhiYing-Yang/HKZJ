@@ -5,6 +5,7 @@ class Home extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('index_model');
+		$this->session->set_userdata('id', 1);
 	}
 
 	//论坛首页
@@ -15,12 +16,39 @@ class Home extends CI_Controller {
 		if (in_array($type, $this->config->item('article_type'))) {
 			$where_arr = array('type' => $type);
 		}
-		$order_str = 'article.create_time DESC'; //排序规则
+		$order_str = 'article.create_time DESC, praise DESC'; //排序规则
 		//关联查询user表和article表 获取文章数据和想关发布者信息
 		$status = $this->index_model->get_user_article_list($where_arr, $order_str, $offset);
 		//格式化处理文章数据，去掉html标签，匹配出文章图片
 		$data['article'] = $this->index_model->format_data($status);
 		$this->load->view('index/index.html', $data);
+	}
+
+	//查看文章页
+	public function see_article($id) {
+		$article = $this->index_model->get_article(array('article_id' => $id));
+		if (empty($article)) {
+			$data['title'] = '文章不存在';
+			$data['str'] = '<h1 style="color:#fff;">该文章已被删除</h1>';
+			$this->load->view('404/404.html', $data);
+			return;
+		}
+		//文章存在， 获取文章信息
+		$data['article'] = $article[0];
+
+		//阅读量加1
+		$sql = 'UPDATE article SET `read` = `read` + 1 WHERE article_id =' . $article[0]['article_id'];
+		$this->db->query($sql);
+
+		//该篇文章评论量
+		$data['article']['comment_total'] = $this->db->where(array('article_id' => $article[0]['article_id']))->count_all_results('comment');
+
+		//作者信息
+		$data['user'] = $this->index_model->get_user(array('user_id' => $article[0]['user_id']))[0];
+
+		//评论列表
+		$data['comment'] = $this->index_model->get_user_comment_list(array('article_id' => $id), 'praise DESC, create_time DESC', 0);
+		$this->load->view('index/article.html', $data);
 	}
 
 	//添加文章页
@@ -107,6 +135,31 @@ class Home extends CI_Controller {
 			get_json(200, '点赞成功');
 		} else {
 			get_json(400, '点赞失败');
+		}
+	}
+
+	/*
+		*对文章的评论
+	*/
+	public function comment($id) {
+		if (!is_numeric($id)) {
+			get_json(400, '该文章不存在');
+		}
+
+		//接收评论信息
+		$data = array(
+			'article_id' => $id,
+			'user_id' => $this->session->userdata('id'),
+			'content' => $this->input->post('content'),
+			'create_time' => time(),
+		);
+		//执行插入评论信息操作 并返回信息
+		if ($this->db->insert('comment', $data)) {
+			//获取评论者的信息
+			$user = $this->index_model->get_user(array('user_id' => $this->session->userdata('id')))[0];
+			get_json(200, '评论成功', $user);
+		} else {
+			get_json(400, '评论失败，请稍后重试！');
 		}
 	}
 	public function ceshi() {

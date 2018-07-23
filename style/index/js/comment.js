@@ -1,5 +1,6 @@
 $(document).ready(function(e) {
     ImgIputHandler.Init();
+
 });
 
 //添加表情
@@ -80,27 +81,24 @@ var ImgIputHandler = {
             $(this).parent().css("-moz-box-shadow", "0 0 3px rgba(241,39,232,.5)");
             $(this).parent().css("-webkit-box-shadow", "0 0 3px rgba(19,105,252,3)");
         });
-        $(".imgBtn").click(function() {
+        $(".imgBtn").on('tap', function() {
             if (isShowImg == false) {
                 isShowImg = true;
                 $("#emotion").slideDown();
-                // if ($(".faceDiv").children().length == 0) {
-                //     for (var i = 0; i < ImgIputHandler.facePath.length; i++) {
-                //         $(".faceDiv").append("<img title=\"" + ImgIputHandler.facePath[i].faceName + "\" src=\"/img/face/" + ImgIputHandler.facePath[i].facePath + "\" />");
-                //     }
-                //     $(".faceDiv>img").click(function() {
-                //         isShowImg = false;
-                //         $(this).parent().animate({ marginTop: "3px" }, 300);
-                //         ImgIputHandler.insertAtCursor($(".Input_text")[0], "[" + $(this).attr("title") + "]");
-                //     });
-                // }
+                if ($(".faceDiv").children().length == 0) {
+                    for (var i = 0; i < ImgIputHandler.facePath.length; i++) {
+                        $(".faceDiv").append("<img title=\"" + ImgIputHandler.facePath[i].faceName + "\" src=\"/img/face/" + ImgIputHandler.facePath[i].facePath + "\" />");
+                    }
+                    $(".faceDiv>img").on('tap', function() {
+                        isShowImg = false;
+                        $(this).parent().animate({ marginTop: "3px" }, 300);
+                        ImgIputHandler.insertAtCursor($(".Input_text")[0], "[" + $(this).attr("title") + "]");
+                    });
+                }
             } else {
                 isShowImg = false;
                 $("#emotion").slideUp();
             }
-        });
-        $(".postBtn").click(function() {
-            alert($(".Input_text").val());
         });
     },
     insertAtCursor: function(myField, myValue) {
@@ -124,5 +122,27 @@ var ImgIputHandler = {
             myField.value += myValue;
             myField.focus();
         }
+    },
+    getEmoticonImg:function(content){
+        var patt = /\[[\u4e00-\u9fa5]{1,3}\]/g;
+        var imgStrArr = new Array();
+        var len = ImgIputHandler.facePath.length;
+        var result = '';
+
+        while((result = patt.exec(content)) != null){ //匹配表情字符
+            result +='';//将数组结果转换为字符串
+          
+            var faceName = result.substring(1, result.length-1);
+            
+            for(var j = 0; j<len; j++){//通过表情字符得到表情图
+                if(ImgIputHandler.facePath[j].faceName == faceName){
+                    var imgUrl = '/style/index/img/face/' + ImgIputHandler.facePath[j].facePath;
+                    var img = '<img src='+ imgUrl +'>';
+                    content = content.replace(result, img);
+                }
+            }
+        }
+        return content;
     }
-}
+};
+

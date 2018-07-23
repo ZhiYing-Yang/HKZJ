@@ -66,12 +66,13 @@ $(function() {
         
     };
     //点击弹出评论框
+    
     $(document).on('tap', '.commentClick', function(e) {
         e.stopPropagation();
         //点击评论按钮加载表情图片
         if ($(".faceDiv").children().length == 0) {
             for (var i = 0; i < ImgIputHandler.facePath.length; i++) {
-                $(".faceDiv").append("<img title=\"" + ImgIputHandler.facePath[i].faceName + "\" src=\"/img/face/" + ImgIputHandler.facePath[i].facePath + "\" />");
+                $(".faceDiv").append("<img title=\"" + ImgIputHandler.facePath[i].faceName + "\" src=\"/style/index/img/face/" + ImgIputHandler.facePath[i].facePath + "\" />");
             }
             $(".faceDiv>img").click(function() {
                 isShowImg = false;

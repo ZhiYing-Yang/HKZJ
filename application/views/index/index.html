@@ -7,7 +7,7 @@
     <meta name="viewport" content="user-scalable=no">
     <!-- iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>货卡之家代码自动同布</title>
+    <title>货卡之家论坛首页</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -106,10 +106,10 @@
                                 <a class="userimgBox" href="#"><img class="userimg" src="<?=$a['headimgurl']?>" class="media-object"></a>
                             </div>
                             <div class="media-body">
-                                <a href="##"><h2 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a>
+                                <a href="#"><h2 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a>
                                 <span class="datetime"><?=$a['create_time']?></span>
                                 <div class="invitation_comment">
-                                    <a href="invicomment.html" target="_self">
+                                    <a href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self">
                                         <h2><?=$a['title']?></h2>
                                         <p><?=$a['content']?></p>
                                         <!-- 文章图片 $col_i为col-xs-$col_i -->

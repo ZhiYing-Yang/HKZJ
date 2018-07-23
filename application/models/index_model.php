@@ -2,13 +2,30 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Index_model extends CI_model {
-	//获取
+	//关联user表和article表 获取文章列表+用户头像、昵称等信息
 	public function get_user_article_list($where_arr, $order_str, $offset, $per_page = 10) {
 		$get_info = 'article_id, article.user_id, type, title, content, article.create_time, praise, read, is_top, nickname, headimgurl, vip';
 		$status = $this->db->select($get_info)->order_by($order_str)->limit($per_page, $offset)->join('user', 'article.user_id = user.user_id')->get_where('article', $where_arr)->result_array();
 		return $status;
 	}
 
+	//获取文章信息
+	public function get_article($where_arr) {
+		$status = $this->db->get_where('article', $where_arr)->result_array();
+		return $status;
+	}
+	//获取用户信息
+	public function get_user($where_arr) {
+		$get_info = 'user_id, nickname, headimgurl, signature, sex, province, city, vip';
+		$status = $this->db->select($get_info)->get_where('user', $where_arr)->result_array();
+		return $status;
+	}
+	//获取评论信息
+	public function get_user_comment_list($where_arr, $order_str, $offset, $per_page = 20) {
+		$get_info = 'comment_id, comment.user_id, content, comment.create_time, praise, pid, nickname, headimgurl, vip';
+		$status = $this->db->select($get_info)->order_by($order_str)->limit($per_page, $offset)->join('user', 'user.user_id = comment.user_id')->get_where('comment', $where_arr)->result_array();
+		return $status;
+	}
 	/*
 		*处理文章列表数据
 		*获取
@@ -41,7 +58,7 @@ class Index_model extends CI_model {
 				}
 			}
 			//格式化时间， 几分钟前形式
-			$data['create_time'] = $this->formatTime($datas['create_time']);
+			$data['create_time'] = formatTime($datas['create_time']);
 			//获取每一篇文章的评论量
 			$comment_total = $this->db->where(array('article_id' => $datas['article_id']))->count_all_results('comment');
 			$datas['comment_total'] = $comment_total;
@@ -51,34 +68,5 @@ class Index_model extends CI_model {
 			$status[] = $datas;
 		}
 		return $status;
-	}
-
-	//格式化时间多少天前
-	private function formatTime($time) {
-		if (!is_numeric($time)) {
-			$time = strtotime($time);
-		}
-		$rtime = date("m-d H:i", $time);
-		$htime = date("H:i", $time);
-		$time = time() - $time;
-		if ($time < 60) {
-			$str = '刚刚';
-		} elseif ($time < 60 * 60) {
-			$min = floor($time / 60);
-			$str = $min . '分钟前';
-		} elseif ($time < 60 * 60 * 24) {
-			$h = floor($time / (60 * 60));
-			$str = $h . '小时前 ';
-		} elseif ($time < 60 * 60 * 24 * 3) {
-			$d = floor($time / (60 * 60 * 24));
-			if ($d == 1) {
-				$str = '昨天 ' . $rtime;
-			} else {
-				$str = '前天 ' . $rtime;
-			}
-		} else {
-			$str = $rtime;
-		}
-		return $str;
 	}
 }

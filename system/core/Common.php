@@ -823,10 +823,7 @@ function get_json($code, $message, $data = '') {
 	$array = array(
 		'code' => $code,
 		'message' => $message,
+		'data' => $data,
 	);
-	if (!empty($data)) {
-		$array['data'] = $data;
-	}
 	echo json_encode($array, JSON_UNESCAPED_UNICODE);
-	return;
 }

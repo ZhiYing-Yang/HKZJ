@@ -10,12 +10,13 @@
     <title>货卡之家论坛首页</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/style/index/js/jquery.mobile-events.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/style/index/css/mescroll.min.css">
     <link rel="stylesheet" type="text/css" href="/style/index/css/usual.css">
     <link rel="stylesheet" type="text/css" href="/style/index/css/all.css">
     <link rel="stylesheet" type="text/css" href="/style/index/css/home.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/style/index/js/jquery.mobile-events.min.js"></script>
 </head>
 
 <body>
@@ -23,6 +24,7 @@
     <div class="loading">
         <div class="pic"></div>
     </div>
+<div class="mescroll" id="mescroll">
     <!-- 用户头部信息 -->
     <div class="container-fluid">
         <div class="row">
@@ -67,10 +69,10 @@
         <div class="container-fluid">
             <!-- 广告页 -->
             <div class="row">
-                <div class="paddusal" id="ad_main">
-                    <a href="#" class="media">
+                <div class="paddusal col-xs-12" id="ad_main">
+                    <a href="#">
                         <div class="media-left">
-                            <a class="ad_imgBox" href="#"><img class="ad_img" src="/style/index/img/yonghu1.png" class="media-object"></a>
+                            <a class="ad_imgBox" href="#"><img class="ad_img media-object" src="/style/index/img/yonghu1.png"/></a>
                         </div>
                         <div class="media-body">
                             <h2 class#="media-heading">广告商</h2>
@@ -78,7 +80,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div id="ad_body">
-                                    <a href="invicomment.html"><img src="/style/index/img/ad_img.jpg"></a>
+                                    <a href="#"><img src="http://otu6v4c72.bkt.clouddn.com/FnjBwdC9D7sho1rU4nAHcNgja_wx?imageMogr2/auto-orient/thumbnail/!60p/format/jpg/interlace/1/blur/1x0/quality/50|imageslim"/></a>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +101,7 @@
             <!-- 论坛帖子详情 -->
             <div class="row">
                 <div class="invitation_body">
-                    <ul class="media-list">
+                    <ul class="media-list" id="dataList">
                         <?php foreach($article as $a):?>
                         <li class="media paddusal borderstyle">
                             <div class="media-left">
@@ -111,7 +113,9 @@
                                 <div class="invitation_comment">
                                     <a href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self">
                                         <h2><?=$a['title']?></h2>
-                                        <p><?=$a['content']?></p>
+                                        <p>
+                                            <?=$a['content']?>
+                                        </p>
                                         <!-- 文章图片 $col_i为col-xs-$col_i -->
                                         <div class="row">
                                             <?php foreach($a['url'] as $u):?>
@@ -134,120 +138,79 @@
                             <div class="row"><span class="label live_orange"><?=$a['type']?></span></div>
                         </li>
                         <?php endforeach;?>
-                        <!--<li class="media paddusal borderstyle">
-                            <div class="media-left">
-                                <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu1.png" class="media-object"></a>
-                            </div>
-                            <div class="media-body">
-                                <a href="#">
-                                    <h2 class="media-heading">用户124582<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2>
-                                </a>
-                                <span class="datetime">5分钟前</span>
-                                <div class="invitation_comment">
-                                    <a href="invicomment.html" target="_self">
-                                        <h2>求助一下</h2>
-                                        <p>希望帮帮忙</p>
-                                        <div class="invitation_imgs">
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="media-right">
-                                <div class="able able_praise"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">3526</span>
-                                </div>
-                                <div class="able"><a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">3526</span>
-                                    </a></div>
-                            </div>
-                            <div class="row"><span class="label exper_green">卡友经验</span></div>
-                        </li>
-                        <li class="media paddusal borderstyle">
-                            <div class="media-left">
-                                <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu.jpg" class="media-object"></a>
-                            </div>
-                            <div class="media-body">
-                                <a href="#"><h2 class="media-heading">用户124582<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a>
-                                <span class="datetime">5分钟前</span>
-                                <div class="invitation_comment">
-                                    <a href="invicomment.html" target="_self">
-                                        <h2>签到一下</h2>
-                                        <p>没什么就是签个到</p>
-                                        <div class="invitation_imgs">
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="media-right">
-                                <div class="able able_praise"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">3526</span>
-                                </div>
-                                <div class="able"><a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">3526</span>
-                                    </a></div>
-                            </div>
-                            <div class="row"><span class="label exper_green">卡友经验</span></div>
-                        </li>
-                        <li class="media paddusal borderstyle">
-                            <div class="media-left">
-                                <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/head_img.jpg" class="media-object"></a>
-                            </div>
-                            <div class="media-body">
-                                <a href="#"><h2 class="media-heading">用户124582<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a>
-                                <span class="datetime">5分钟前</span>
-                                <div class="invitation_comment">
-                                    <a href="invicomment.html" target="_self">
-                                        <h2>签到一下</h2>
-                                        <p>没什么就是签个到</p>
-                                        <div class="invitation_imgs">
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="media-right">
-                                <div class="able able_praise"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">3526</span>
-                                </div>
-                                <div class="able"><a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">3526</span>
-                                    </a></div>
-                            </div>
-                            <div class="row"><span class="label free_purprl">自由贸易</span></div>
-                        </li>
-                        <li class="media paddusal borderstyle">
-                            <div class="media-left">
-                                <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu1.png" class="media-object"></a>
-                            </div>
-                            <div class="media-body">
-                                <a href="#"><h2 class="media-heading">用户124582<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a>
-                                <span class="datetime">5分钟前</span>
-                                <div class="invitation_comment">
-                                    <a href="invicomment.html" target="_self">
-                                        <h2>签到一下</h2>
-                                        <p>没什么就是签个到</p>
-                                        <div class="invitation_imgs">
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="media-right">
-                                <div class="able able_praise"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">3526</span>
-                                </div>
-                                <div class="able"><a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">3526</span>
-                                    </a></div>
-                            </div>
-                            <div class="row"><span class="label chat_bule">灌水区</span></div>
-                        </li>-->
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
     <!-- menu -->
     <div id="header" class="header">
-        <?=include('menu.html')?>
+        <?=require_once('menu.html')?>
     </div>
+    <script type="text/javascript" src="/style/index/js/constant.js"></script>
+    <script>
+    function setListData(curPageData) {
+        for (var i = 0; i < curPageData.data.length; i++) {
+            var html = '<li class="media paddusal borderstyle" ><div class="media-left"><a class="userimgBox" href="#"><img class="userimg" src="' + curPageData.data[i].headimgurl + '" class="media-object"></a></div><div class="media-body"><a href="#"><h2 class="media-heading">' + curPageData.data[i].nickname + '<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a><#span class="datetime">' + curPageData.data.create_time + '</span><div class="invitation_comment"><a href="invicomment.html" target="_self"><h2>' + curPageData.data[i].title + '</h2><p>' + curPageData.data[i].content + '</p><div class="invitation_imgs"><div class="row">';
+                if(curPageData.data[i].url.length>0){
+                    var col = 12/curPageData.data[i].url.length;
+                    for(var j=0; i<curPageData.data[i].url.length; j++){
+                        html +='<div class="col-xs-'+ col +'"><img src="'+ curPageData.data[i].url[j] +'"></div>';
+                    }
+                }
+                
+            html += '</div></div></a></div></div><div class="media-right"><div class="able able_praise"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">3526</span></div><div class="able"><a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">3526</span></a></div></div><div class="row"><span class="label live_orange">' + curPageData.data[i].type + '</span></div></li>';
+            $('.media-list').append(html);
+        }
+    }
+    </script>
+    <script type="text/javascript" src="/style/index/js/all.js"></script>
+    <script type="text/javascript" src="/style/index/js/dropdown.js"></script>
+    <script type="text/javascript" src="/style/index/js/mescroll.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    $(function(){
+            //创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,重置列表数据;
+            var mescroll = new MeScroll("mescroll", {
+
+                down: {
+                    use: false
+                },
+                up: {
+                    callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
+                    isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+                    //clearEmptyId: "dataList", //1.下拉刷新时会自动先清空此列表,再加入数据;
+                    htmlLoading: '<p class="upwarp-progress mescroll-rotate" style="margin-bottom: 120px"></p><p class="upwarp-tip">加载中..</p>',
+                    htmlNodata: '<p class="upwarp-nodata" style="margin-bottom: 120px">-- 已加载全部内容 --</p>', 
+                },
+               
+            });
+
+            /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+            function getListData(page){
+
+                setTimeout(function(){$.ajax({
+                    url: UP_TO_MORE+ '<?=$type?>/'+page.num*page.size+'/up',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data){
+                        curPageData = data.data;
+                        totalSize = data.message;
+                        //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+                        //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+                        console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.length);
+                        mescroll.endSuccess(curPageData.length, totalSize);
+                        setListData(data);
+                    },
+                    error: function(){
+                        //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                        mescroll.endErr();
+                    }
+                });}, 1000);
+
+            }
+        });
+    </script>
 </body>
 
 </html>
-
-<script>
-var html = '<li class="media paddusal borderstyle" ><div class="media-left"><a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu(2).jpg" class="media-object"></a></div><div class="media-body"><a href="#"><h2 class="media-heading">用户124582<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a><#span class="datetime">5分钟前</span><div class="invitation_comment"><a href="invicomment.html" target="_self"><h2>出门</h2><p>也没有什么</p><div class="invitation_imgs"><img class="invitation_img" src="/style/index/img/sucai/test1.jpg"><img class="invitation_img" src="/img/sucai/test2.jpg"><img class="invitation_img" src="/img/sucai/test3.jpg"></div></a></div></div><div class="media-right"><div class="able able_praise"><img src="/img/icon/praise.png"><span class="text-center count fs20px">3526</span></div><div class="able"><a href="invicomment.html" target="_self"><img src="/img/icon/comment.png"><span class="text-center count fs20px">3526</span></a></div></div><div class="row"><span class="label live_orange">卡友生活</span></div></li>';
-var PRAISE_ARTICLE_URL = "<?=site_url('home/praise/article/')?>";
-</script>
-<script type="text/javascript" src="/style/index/js/all.js"></script>
-<script type="text/javascript" src="/style/index/js/dropdown.js"></script>

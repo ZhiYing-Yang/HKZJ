@@ -1,4 +1,5 @@
 $(function() {
+
     //loading加载
     document.onreadystatechange = function() {
         if (document.readyState == "complete") {
@@ -40,17 +41,23 @@ $(function() {
         $(this).html(signcount);
     });
     //论坛页点赞功能
-    $('.media-list').on('tap', '.able_praise', function(e) {
+    $('.media-list').on('click', '.able_praise', function(e) {
         e.stopPropagation();
         praise($(this), PRAISE_ARTICLE_URL+$(this).attr('data-id'));
     });
     //帖子
-    $('.able_praise').on('tap', function() {
-        praise($(this));
+    $('.able_praise').on('click', function() {
+        praise($(this), PRAISE_ARTICLE_URL+$(this).attr('data-id'));
     });
     //点赞方法
     function praise(praise_btn, url) {
-        if (praise_btn.attr('disabled') == 'disabled') { return; }
+        if (praise_btn.attr('disabled') == 'disabled') { 
+            layer.open({
+                content: '您已赞过啦！',
+                btn: '知道了'
+            });
+            return; 
+        }
         $.get(url, function(data) {
             /*optional stuff to do after success */
             if(data.code == 200){

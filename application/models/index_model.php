@@ -8,7 +8,6 @@ class Index_model extends CI_model {
 		$status = $this->db->select($get_info)->order_by($order_str)->limit($per_page, $offset)->join('user', 'article.user_id = user.user_id')->get_where('article', $where_arr)->result_array();
 		return $status;
 	}
-
 	//获取文章信息
 	public function get_article($where_arr) {
 		$status = $this->db->get_where('article', $where_arr)->result_array();
@@ -58,7 +57,7 @@ class Index_model extends CI_model {
 				}
 			}
 			//格式化时间， 几分钟前形式
-			$data['create_time'] = formatTime($datas['create_time']);
+			$datas['create_time'] = formatTime($datas['create_time']);
 			//获取每一篇文章的评论量
 			$comment_total = $this->db->where(array('article_id' => $datas['article_id']))->count_all_results('comment');
 			$datas['comment_total'] = $comment_total;

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/style/layer_mobile/need/layer.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/style/index/css/jubao.css">
+    <title>举报反馈</title>
+</head>
+<body>
+    <div class="all">
+        <div class="container container_fluid">
+            <div class="row">
+                <p class='because'>举报原因</p>
+                <div class="radio_list col-md-12 col-sm-12 col-xs-12">
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="accuse_radio" id="optionsRadios1" value="色情低俗">
+                        <span>色情低俗</span>
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="accuse_radio" id="optionsRadios2" value="政治敏感">
+                        <span>政治敏感</span>
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="accuse_radio" id="optionsRadios3" value="违法犯罪">
+                        <span>违法犯罪</span>
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="accuse_radio" id="optionsRadios4" value="侵权盗用">
+                        <span>侵权盗用</span>
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="accuse_radio" id="optionsRadios5" value="其他">
+                        <span>其他</span>
+                      </label>
+                    </div>
+                </div>
+                <p class='because'>举报描述</p>
+                <div class="data_input input-group  col-md-12 col-sm-11 col-xs-11">
+                  <textarea required="required" id="accuse_content" class="form-control" placeholder="请输入描述内容..." rows="4" style="border-radius: 10px;"></textarea>
+                </div>
+                <div class="button input-group col-xs-4"> 
+                  <botton class="btn btn-block btn-primary" id="accuse_submit">提交</botton>
+                </div>  
+            </div>
+        </div>
+    </div> 
+</body>
+</html>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="/style/index/js/constant.js"></script>
+<script src="/style/layer_mobile/layer.js"></script>
+<script>
+$('#accuse_submit').on('click', function(){
+  var checked=$("input[name='accuse_radio']:checked").val();
+
+  if(checked=='' || checked == null){
+    layer.open({
+      content: '请选择举报原因，以便尽快为您处理！',
+      btn: '知道了'
+    });
+    return;
+  }
+  var accuse_content=$.trim($('#accuse_content').val());
+  if(accuse_content==''){
+    layer.open({
+      content: '请输入举报描述，以便尽快为您处理!',
+      btn: '知道了'
+    });
+    return;
+  }
+  $.ajax({
+    url: '<?=site_url("home/accuse_article/do/").$id?>',
+    type: 'POST',
+    dataType: 'json',
+    data: {reason: checked, content: accuse_content},
+    success:function(data){
+     
+      if(data.code==200){
+        layer.open({
+          content: data.message,
+          skin: 'msg',
+          time: 2,
+          end: function(){//弹窗消失的回调函数
+            location.href = '<?=site_url("home/see_article/").$id?>';
+          }
+        });
+      }
+      else{
+        layer.open({
+          content: data.message,
+          btn: '知道了'
+        });
+      }
+    },
+    error: function(e){
+      layer.open({
+          content: '举报信息提交失败，请检查您的网络！',
+          btn: '知道了'
+        });
+    }
+  });
+  
+});
+</script>

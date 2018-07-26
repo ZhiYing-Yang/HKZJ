@@ -1,0 +1,41 @@
+
+.row label input{
+  width: 18px;
+  height: 18px;
+}
+.row label{
+  font-size:18px;
+}
+.row label span{
+  margin-left: 10px;
+}
+.row .because{
+  margin-left: 35px;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+.row{
+  color: #8796AC;
+}
+.data_input{
+	margin: 10px auto;
+    margin-top:2vw;
+}
+textarea{
+  border: 1px #ccc solid;
+  resize: none;
+}
+.button{
+	margin: 0 auto;
+}
+#alert_info{
+    position: fixed;
+    top: 50%;
+    background: #000;
+    color: #fff;
+    font-size: 1em;
+    border-radius: 15px;
+    padding: 5px 10px;
+    display: none;
+    z-index: 9999;
+}

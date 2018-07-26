@@ -8,11 +8,22 @@ class Home extends CI_Controller {
 		$this->session->set_userdata('id', 1);
 	}
 
-	//论坛首页
-	public function index($type = '', $offset = 0) {
-		$type = urldecode($type);
-		//文章类型
+	//论坛首页帖子，type = '精品' => 精品帖子
+	public function index($type = '所有', $offset = 0, $la = false) {
+		$type = urldecode($type); //文章类型
+		$data['type'] = $type;
 		$where_arr = array();
+		//精品帖子
+		if ($type == '精品') {
+			$order_str = 'praise DESC, read DESC';
+			$data['article'] = $this->index_model->get_user_article_list($where_arr, $order_str, $offset, 10);
+
+			$this->load->view('index/index_boutique.html', $data);
+			return;
+		}
+
+		//论坛首页帖子
+
 		if (in_array($type, $this->config->item('article_type'))) {
 			$where_arr = array('type' => $type);
 		}
@@ -21,6 +32,11 @@ class Home extends CI_Controller {
 		$status = $this->index_model->get_user_article_list($where_arr, $order_str, $offset);
 		//格式化处理文章数据，去掉html标签，匹配出文章图片
 		$data['article'] = $this->index_model->format_data($status);
+		$data['total_rows'] = $this->db->where($where_arr)->count_all_results('article');
+		if ($la) {
+			get_json(200, $data['total_rows'], $data['article']);
+			return;
+		}
 		$this->load->view('index/index.html', $data);
 	}
 
@@ -51,6 +67,29 @@ class Home extends CI_Controller {
 		$this->load->view('index/article.html', $data);
 	}
 
+	//举报文章页
+	public function accuse_article($action, $id) {
+		if (!is_numeric($id)) {
+			get_json(400, '您举报的文章也被删除！');return;
+		}
+		if ($action == 'do') {
+			$data = array(
+				'article_id' => $id, //文章ID
+				'reason' => $this->input->post('reason'), //举报原因
+				'content' => $this->input->post('content'), //举报描述
+				'create_time' => time(), //举报时间
+			);
+			if ($this->db->insert('accuse_article', $data)) {
+				get_json(200, '举报成功，我们会尽快处理！');
+			} else {
+				get_json(400, '举报信息提交失败，请稍后重试！');
+			}
+		} else {
+			$data['id'] = $id;
+			$this->load->view('index/jubao.html', $data);
+		}
+	}
+
 	//添加文章页
 	public function add_article($action = 'see') {
 		//默认添加文章页面
@@ -61,7 +100,7 @@ class Home extends CI_Controller {
 
 			//判断文章类型是否在规定的范围内
 			if (!isset($this->config->item('article_type')[$this->input->post('type')])) {
-				get_json(400, '请选择正确的文章类型哟！');
+				get_json(400, '请选择正确的文章类型哟！');return;
 			}
 
 			//文章类型
@@ -79,9 +118,9 @@ class Home extends CI_Controller {
 			//执行插入操作
 			$status = $this->db->insert('article', $article_data);
 			if ($status) {
-				get_json(200, '发布完成！');
+				get_json(200, '发布完成！');return;
 			} else {
-				get_json(400, '发布失败了, 请检查您的网络');
+				get_json(400, '发布失败了, 请检查您的网络');return;
 			}
 		} else {
 			//文章发布页面
@@ -132,9 +171,9 @@ class Home extends CI_Controller {
 			$sql = 'UPDATE comment SET praise = praise+1 WHERE comment_id = ' . $id;
 		}
 		if ($this->db->query($sql)) {
-			get_json(200, '点赞成功');
+			get_json(200, '点赞成功');return;
 		} else {
-			get_json(400, '点赞失败');
+			get_json(400, '点赞失败');return;
 		}
 	}
 
@@ -143,7 +182,7 @@ class Home extends CI_Controller {
 	*/
 	public function comment($id) {
 		if (!is_numeric($id)) {
-			get_json(400, '该文章不存在');
+			get_json(400, '该文章不存在');return;
 		}
 
 		//接收评论信息
@@ -157,9 +196,9 @@ class Home extends CI_Controller {
 		if ($this->db->insert('comment', $data)) {
 			//获取评论者的信息
 			$user = $this->index_model->get_user(array('user_id' => $this->session->userdata('id')))[0];
-			get_json(200, '评论成功', $user);
+			get_json(200, '评论成功', $user);return;
 		} else {
-			get_json(400, '评论失败，请稍后重试！');
+			get_json(400, '评论失败，请稍后重试！');return;
 		}
 	}
 	public function ceshi() {
@@ -167,7 +206,7 @@ class Home extends CI_Controller {
 			'data' => 200,
 			'message' => 'dada',
 		);
-		get_json(200, 'dadsad');
+		get_json(200, 'dadsad');return;
 		echo '2111';
 	}
 }

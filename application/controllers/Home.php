@@ -9,7 +9,7 @@ class Home extends CI_Controller {
 	}
 
 	//论坛首页帖子，type = '精品' => 精品帖子 '所有'=>除了卡友求助以外的全部帖子 '热门'=>卡友求助的热门帖子
-	public function index($type = '所有', $offset = 0, $la = false) {
+	public function index($type = 'all', $offset = 0, $la = '') {
 		$type = urldecode($type); //文章类型
 		$data['type'] = $type;
 		$where_arr = array('type !=' => '卡友求助');

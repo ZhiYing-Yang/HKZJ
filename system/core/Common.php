@@ -827,3 +827,25 @@ function get_json($code, $message, $data = '') {
 	);
 	echo json_encode($array, JSON_UNESCAPED_UNICODE);
 }
+
+/**
+ * 获取微信操作对象
+ * @staticvar array $wechat
+ * @param type $type
+ * @return WechatReceive
+ */
+function & load_wechat($type = '') {
+    static $wechat = array();
+    $index = md5(strtolower($type));
+    if (!isset($wechat[$index])) {
+        $CI = & get_instance();
+        $CI->db->reset_query();
+        $CI->db->select('token,appid,appsecret,encodingaeskey,mch_id,partnerkey,ssl_cer,ssl_key,qrc_img');
+        // 读取SDK动态配置
+        $config = $CI->db->get('wechat_config')->first_row('array');
+        // 设置SDK缓存路径
+        $config['cachepath'] = CACHEPATH . 'data/';
+        $wechat[$index] = \Wechat\Loader::get_instance($type, $config);
+    }
+    return $wechat[$index];
+}

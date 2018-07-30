@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author SanLingNet <202015066@qq.com>
  * @version 1.0，20171107
  */
-require_once(APPPATH.'libraries/Wechat/lib/Wechat_common.php');
+require_once(APPPATH.'libraries/Wexin/lib/Wechat_common.php');
 
 class Wechat_message extends CI_Wechat_common {
 

@@ -81,7 +81,7 @@ var ImgIputHandler = {
             $(this).parent().css("-moz-box-shadow", "0 0 3px rgba(241,39,232,.5)");
             $(this).parent().css("-webkit-box-shadow", "0 0 3px rgba(19,105,252,3)");
         });
-        $(".imgBtn").on('tap', function() {
+        $(".imgBtn").on('click', function() {
             if (isShowImg == false) {
                 isShowImg = true;
                 $("#emotion").slideDown();
@@ -89,7 +89,7 @@ var ImgIputHandler = {
                     for (var i = 0; i < ImgIputHandler.facePath.length; i++) {
                         $(".faceDiv").append("<img title=\"" + ImgIputHandler.facePath[i].faceName + "\" src=\"/img/face/" + ImgIputHandler.facePath[i].facePath + "\" />");
                     }
-                    $(".faceDiv>img").on('tap', function() {
+                    $(".faceDiv>img").on('click', function() {
                         isShowImg = false;
                         $(this).parent().animate({ marginTop: "3px" }, 300);
                         ImgIputHandler.insertAtCursor($(".Input_text")[0], "[" + $(this).attr("title") + "]");

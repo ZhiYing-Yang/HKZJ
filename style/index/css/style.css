@@ -95,9 +95,9 @@ input[type="search"],
 input[type="tel"],
 textarea {
   border: none;
-  font-size: 2em;
-  height: 50px;
-  line-height: 50px;
+  font-size: 1.5em;
+  height: 35px;
+  line-height: 35px;
   padding: 5px;
   color: #333333;
   font-family: "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "宋体", Arial, Verdana, sans-serif;
@@ -155,9 +155,9 @@ textarea:-ms-input-placeholder {
   background: #fff;
 }
 .publish-article-content .article-content {
-  height: 1000px;
+  height: 150px;
   border-bottom: 1px solid #ccc;
-  font-size: 1.8em;
+  font-size: 1.2em;
 }
 .publish-article-content .footer-btn .upload-img,.upload-emoji {
   display: inline-block;
@@ -177,9 +177,9 @@ textarea:-ms-input-placeholder {
 }
 .publish-article-btn{float: left;padding: 20px;font-size: 1.5em;}
 /*botton*/
-.editor_button input{height: 80px;color: #fff;font-size: 2em;border-radius: 10px;background: #0385FF;margin:30px 10px 0 0;}
+.editor_button input{color: #fff;font-size: 1.6em;border-radius: 0px;background: #0385FF;margin-top:30px;}
 /*eidtor_span*/
-.editor_span ul li{float: left;margin-left: 20px;height: 60px;line-height: 50px;color: #fff;}
-.editor_span_item{display: block;padding: 5px 20px;font-size: 1.8em;border: 1px solid #fff;border-radius: 50px;background: #959595;cursor: pointer;}
+.editor_span ul li{float: left;margin: 10px;line-height: 30px;color: #fff;}
+.editor_span_item{display: block;padding: 5px 8px;font-size: 1.0em;border: 1px solid #fff;border-radius: 10px;background: #959595;cursor: pointer;}
 .editor_active{background: #4C8CF5;box-shadow: 0 0 10px #4C8CF5;}
-.editor_button{margin-bottom: 120px;}
+.editor_button{margin-bottom: 80px;}

@@ -4,8 +4,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Index_model extends CI_model {
 	//关联user表和article表 获取文章列表+用户头像、昵称等信息
 	public function get_user_article_list($where_arr, $order_str, $offset, $per_page = 10) {
-		$get_info = 'article_id, article.user_id, type, title, content, article.create_time, praise, read, is_top, nickname, headimgurl, vip';
+		$get_info = 'article_id, article.user_id, type, title, content, article.create_time, praise, read, is_top, nickname, headimgurl, vip,solve';
 		$status = $this->db->select($get_info)->order_by($order_str)->limit($per_page, $offset)->join('user', 'article.user_id = user.user_id')->get_where('article', $where_arr)->result_array();
+		return $status;
+	}
+	//获取搜索的信息
+	public function get_help_search($search, $offset, $per_page = 10) {
+		$search = addslashes($search);
+		$offset = addslashes($offset);
+		$sql = 'SELECT * FROM ARTICLE WHERE type="卡友求助" AND ( title LIKE "%' . $search . '%" ESCAPE "!" OR content LIKE "%' . $search . '%" ESCAPE "!") ORDER BY create_time DESC LIMIT ' . $offset . ' ,' . $per_page;
+		$status = $this->db->query($sql)->result_array();
+		return $status;
+	}
+	//获取共有多少条搜索到的信息
+	public function get_help_search_count($search) {
+		$search = addslashes($search);
+		$sql = 'SELECT COUNT(*) AS total_rows FROM ARTICLE WHERE type="卡友求助" AND ( title LIKE "%' . $search . '%" ESCAPE "!" OR content LIKE "%' . $search . '%" ESCAPE "!")';
+		$status = $this->db->query($sql)->result_array();
 		return $status;
 	}
 	//获取文章信息
@@ -20,7 +35,7 @@ class Index_model extends CI_model {
 		return $status;
 	}
 	//获取评论信息
-	public function get_user_comment_list($where_arr, $order_str, $offset, $per_page = 20) {
+	public function get_user_comment_list($where_arr, $order_str, $offset, $per_page = 10) {
 		$get_info = 'comment_id, comment.user_id, content, comment.create_time, praise, pid, nickname, headimgurl, vip';
 		$status = $this->db->select($get_info)->order_by($order_str)->limit($per_page, $offset)->join('user', 'user.user_id = comment.user_id')->get_where('comment', $where_arr)->result_array();
 		return $status;
@@ -56,6 +71,8 @@ class Index_model extends CI_model {
 					$datas['url'][2] = $src[3][0];
 				}
 			}
+			//获取文章类型标签类名
+			$datas['type_class'] = $this->get_type_class($datas['type']);
 			//格式化时间， 几分钟前形式
 			$datas['create_time'] = formatTime($datas['create_time']);
 			//获取每一篇文章的评论量
@@ -67,5 +84,45 @@ class Index_model extends CI_model {
 			$status[] = $datas;
 		}
 		return $status;
+	}
+
+	//获取评论的回复
+	public function get_reply_comment($comment) {
+		if (empty($comment)) {
+			return $comment;
+		}
+
+		$status = array();
+		foreach ($comment as $c) {
+			$c['reply'] = $this->get_user_comment_list(array('pid' => $c['comment_id']), 'create_time DESC', 0, 10);
+			$status[] = $c;
+		}
+		return $status;
+	}
+
+	//获取文章类型标签的类名
+	private function get_type_class($type) {
+		$type_class = '';
+		switch ($type) {
+		case '卡友生活':
+			$type_calss = 'live_orange';
+			break;
+		case '卡友经验':
+			$type_calss = 'exper_green';
+			break;
+		case '卡友求助':
+			$type_class = 'help_red';
+			break;
+		case '自由贸易':
+			$type_calss = 'free_purprl';
+			break;
+		case '灌水区':
+			$type_calss = 'chat_bule';
+			break;
+		default:
+			# code...
+			break;
+		}
+		return $type_class;
 	}
 }

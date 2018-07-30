@@ -33,7 +33,7 @@ $(function() {
         return href.substring(url_num + 1, href.length - 5);
     };
     //签到功能
-    $('.signIn').on('tap', 'a', function() {
+    $('.signIn').on('click', 'a', function() {
         $(this).css('background', 'rgba(0,0,0,.5)');
         $(this).css('color', '#fff');
         var count1 = 1;
@@ -43,10 +43,11 @@ $(function() {
     //论坛页点赞功能
     $('.media-list').on('click', '.able_praise', function(e) {
         e.stopPropagation();
+        alert($(this).attr('data-id'));
         praise($(this), PRAISE_ARTICLE_URL+$(this).attr('data-id'));
     });
     //帖子
-    $('.able_praise').on('click', function() {
+    $('.menu_css .able_praise').on('click', function() {
         praise($(this), PRAISE_ARTICLE_URL+$(this).attr('data-id'));
     });
     //点赞方法
@@ -74,7 +75,7 @@ $(function() {
     };
     //点击弹出评论框
     
-    $(document).on('tap', '.commentClick', function(e) {
+    $(document).on('click', '.commentClick', function(e) {
         e.stopPropagation();
         //点击评论按钮加载表情图片
         if ($(".faceDiv").children().length == 0) {
@@ -95,15 +96,21 @@ $(function() {
         $('.commentBox_back').fadeIn(300);
         $('.commentBox').slideDown(400);
 
+        if($(this).attr('data-id')){
+            $('.commentBox .postBtn').attr('data-id', $(this).attr('data-id'));
+        }else{
+            $('.commentBox .postBtn').attr('data-id', 0);
+        }
+
         //点击遮盖区域隐藏评论区
-        $(document).on('tap', '.commentBox_back', function(e) {
+        $(document).on('click', '.commentBox_back', function(e) {
             e.stopPropagation();
             $('.commentBox_back').fadeOut();
             $('.commentBox').slideUp(300);
         });
     });
     //点击切换文章编辑页的标签状态
-    $(".editor_span_item").on('tap', function(e) {
+    $(".editor_span_item").on('click', function(e) {
         e.stopPropagation();
         $(this).addClass('editor_active').siblings().removeClass('editor_active');
     });

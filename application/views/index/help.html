@@ -4,17 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>货卡之家-求助</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="/style/index/css/mescroll.min.css">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/style/index/css/usual.css">
     <link rel="stylesheet" type="text/css" href="/style/index/css/all.css">
     <link rel="stylesheet" type="text/css" href="/style/index/css/help.css">
     <link rel="stylesheet" type="text/css" href="/style/index/css/aos.css">
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/style/index/js/jquery.mobile-events.min.js"></script>
 </head>
 
 <body>
@@ -22,20 +22,21 @@
     <div class="loading">
         <div class="pic"></div>
     </div>
+<div class="mescroll" id="mescroll">
     <!-- header -->
-    <ul class="nav nav-tabs nav-justified help_nav">
-        <li role="presentation" class="active"><a href="help.html" target="_self"><img src="img/icon/new.png">新提问</a></li>
-        <li role="presentation"><a href="help-hot.html" target="_self"><img src="img/icon/hot.png">热门</a></li>
+    <ul class="nav nav-tabs help_nav">
+        <li role="presentation" class="active"><a href="<?=site_url('home/index/卡友求助')?>" target="_self"><img src="/style/index/img/icon/new.png">新提问</a></li>
+        <li role="presentation" class=""><a href="<?=site_url('home/index/热门')?>" target="_self"><img src="/style/index/img/icon/hot.png">热门</a></li>
     </ul>
     <div class="container-fluid">
         <!-- 搜索框 -->
         <div class="row">
             <div class="search">
-                <div class="col-xs-10">
-                    <input type="text" class="form-control" placeholder="请输入查找的关键字">
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" id="search_input" placeholder="请输入查找的关键字">
                 </div>
-                <div class="col-xs-2">
-                    <button type="submit" class="btn btn-info">搜索</button>
+                <div class="col-xs-3">
+                    <button type="submit" class="btn btn-info" id="search_button">搜索</button>
                 </div>
             </div>
         </div>
@@ -43,186 +44,38 @@
         <div class="row help-item">
             <div class="col-xs-12 help-list">
                 <ul class="list-group">
+                    <?php foreach($article as $a):?>
                     <li class="list-group-item">
-                        <a href="#">
-                            <h1 class="list-group-item-heading">开封大梁门今日还堵吗?</h1>
-                            <p class="list-group-item-text">想问问今天的路况...</p>
-                            <span class="datatime">5分钟前</span>
+                        <a href="<?=site_url('home/see_article/').$a['article_id']?>">
+                            <h3 class="list-group-item-heading"><?=$a['title']?></h3>
+                            <p class="list-group-item-text">
+                                <?=$a['content']?>
+                            </p>
+                            <span class="datatime"><?=$a['create_time']?></span>
                             <div class="row">
-                                <div class="col-xs-6">
+                                <div class="col-xs-12">
                                     <div class="media">
                                         <div class="media-left">
-                                            <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu(2).jpg" class="media-object"></a>
+                                            <a class="userimgBox" href="#"><img class="userimg" src="<?=$a['headimgurl']?>" class="media-object"></a>
                                         </div>
                                         <div class="media-body">
-                                            <a href="#"><h2 class="media-heading">用户124582<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a>
+                                            <a href="javascript:void(0)"><h4 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/<?=$a['vip']==0?'common':'vip'?>_level.png" alt=""></span></h4></a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-push-2 col-xs-4"><span class="help-state text-danger">未解决</span><a href="invicomment.html" target="_self"><span class="help-btn btn">帮助</span></a></div>
                             </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            <h1 class="list-group-item-heading">问个路</h1>
-                            <p class="list-group-item-text">想问问今天的路况...</p>
-                            <span class="datatime">5分钟前</span>
                             <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu1.png" class="media-object"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#"><h2 class="media-heading">用户124582<span class="level"><img src="/style/index/img/icon/comment_level.png"></span></h2></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-push-2 col-xs-4"><span class="help-state text-success">已解决</span><a href="invicomment.html" target="_self"><span class="help-btn btn">帮助</span></a></div>
+                                <span class="help-state <?=$a['solve']==0?'text-danger':'text-success'?> col-xs-6"><?=$a['solve']==0?'未解决':'已解决'?></span>
+                                <a href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self"><span class="col-xs-6 help-btn btn">帮助</span></a>
                             </div>
                         </a>
                     </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            <h1 class="list-group-item-heading">开封大梁门今日还堵吗?</h1>
-                            <p class="list-group-item-text">想问问今天的路况...</p>
-                            <span class="datatime">5分钟前</span>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu(2).jpg" class="media-object"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#"><h2 class="media-heading">用户124582<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-push-2 col-xs-4"><span class="help-state text-danger">未解决</span><a href="invicomment.html" target="_self"><span class="help-btn btn">帮助</span></a></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            <h1 class="list-group-item-heading">问个路</h1>
-                            <p class="list-group-item-text">想问问今天的路况...</p>
-                            <span class="datatime">5分钟前</span>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu1.png" class="media-object"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#"><h2 class="media-heading">用户124582<span class="level"><img src="/style/index/img/icon/comment_level.png"></span></h2></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-push-2 col-xs-4"><span class="help-state text-success">已解决</span><a href="invicomment.html" target="_self"><span class="help-btn btn">帮助</span></a></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            <h1 class="list-group-item-heading">开封大梁门今日还堵吗?</h1>
-                            <p class="list-group-item-text">想问问今天的路况...</p>
-                            <span class="datatime">5分钟前</span>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu(2).jpg" class="media-object"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#"><h2 class="media-heading">用户124582<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-push-2 col-xs-4"><span class="help-state text-danger">未解决</span><a href="invicomment.html" target="_self"><span class="help-btn btn">帮助</span></a></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            <h1 class="list-group-item-heading">问个路</h1>
-                            <p class="list-group-item-text">想问问今天的路况...</p>
-                            <span class="datatime">5分钟前</span>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu1.png" class="media-object"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#"><h2 class="media-heading">用户124582<span class="level"><img src="/style/index/img/icon/comment_level.png"></span></h2></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-push-2 col-xs-4"><span class="help-state text-danger">未解决</span><a href="invicomment.html" target="_self"><span class="help-btn btn">帮助</span></a></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            <h1 class="list-group-item-heading">开封大梁门今日还堵吗?</h1>
-                            <p class="list-group-item-text">想问问今天的路况...</p>
-                            <span class="datatime">5分钟前</span>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu(2).jpg" class="media-object"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#"><h2 class="media-heading">用户124582<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-push-2 col-xs-4"><span class="help-state text-danger">未解决</span><a href="invicomment.html" target="_self"><span class="help-btn btn">帮助</span></a></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            <h1 class="list-group-item-heading">问个路</h1>
-                            <p class="list-group-item-text">想问问今天的路况...</p>
-                            <span class="datatime">5分钟前</span>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a class="userimgBox" href="#"><img class="userimg" src="/style/index/img/yonghu1.png" class="media-object"></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="#"><h2 class="media-heading">用户124582<span class="level"><img src="/style/index/img/icon/comment_level.png"></span></h2></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-push-2 col-xs-4"><span class="help-state text-success">已解决</span><a href="invicomment.html" target="_self"><span class="help-btn btn">帮助</span></a></div>
-                            </div>
-                        </a>
-                    </li>
+                    <?php endforeach;?>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container-fluid commentBox_back"></div>
-    <div class="container-fluid commentBox">
-        <div class="Main row">
-            <div class="Input_Box col-xs-12">
-                <div class="row">
-                    <textarea class="Input_text col-xs-12" autofocus name="" id="" cols="25" rows="10" data-role="none"></textarea>
-                </div>
-                <div class="row" style="height: 56px;">
-                    <div class="Input_Foot col-xs-12 overflow_hidden"> <a class="imgBtn" href="javascript:void(0);" data-role="none"><img class="center-block" src="/style/index/img/icon/biaoqing.png" alt=""></a><a class="postBtn">确定</a></div>
-                </div>
-                <div class="row" id="emotion" style="margin-top: 2px; display: none">
-                    <div class="faceDiv col-xs-12"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
     <!-- menu -->
     <div id="header" class="header">
         <?=include('menu.html')?>
@@ -232,4 +85,99 @@
 </html>
 <script type="text/javascript" src="/style/index/js/all.js"></script>
 <script type="text/javascript" src="/style/index/js/comment.js"></script>
+<script type="text/javascript" src="/style/index/js/constant.js"></script>
 <script type="text/javascript" src="/style/index/js/aos.js"></script>
+<script>
+    //搜索事件
+    $('#search_button').click(function(event) {
+        /* Act on the event */
+        var search = $('#search_input').val();
+        if(search_input.length == 0){
+            layer.open({
+                content: '请输入搜所内容',
+                btn: '我知道了'
+            });
+            return;
+        }
+        location.href = '<?=site_url("home/help_search/")?>'+search;
+    });
+</script>
+<script>
+
+var totalSize = '<?=$total_rows?>';
+
+function setListData(curPageData) {
+    console.log('执行力setListData函数，i<' + curPageData.length);
+    var html = '';
+    for (var i = 0; i < curPageData.length; i++) {
+        console.log('执行了setListData函数的第' + i + '次for循环');
+
+        html += '<li class="list-group-item">';
+                        html+='<a href="'+'<?=site_url("home/see_article/")?>'+ curPageData[i].article_id + '">';
+                            html+= '<h3 class="list-group-item-heading">'+curPageData[i].title+'</h3>';
+                            html+='<p class="list-group-item-text">'
+                                html+= curPageData[i].content;
+                            html+= '</p>';
+                            html+= '<span class="datatime">'+ curPageData[i].create_time +'</span>';
+                            html+= '<div class="row">';
+                                html+= '<div class="col-xs-12">';
+                                    html+= '<div class="media">';
+                                        html+= '<div class="media-left">';
+                                            html+= '<a class="userimgBox" href="#"><img class="userimg" src="'+ curPageData[i].headimgurl +'" class="media-object"></a>';
+                                        html+= '</div>';
+                                        html+= '<div class="media-body">';
+                                            html+= '<a href="javascript:void(0)"><h4 class="media-heading">'+ curPageData[i].nickname +'<span class="viper level"><img src="/style/index/img/icon/'+ (curPageData[i].vip==0?'common':'vip')+ '_level.png" alt=""></span></h4></a>';
+                                        html+= '</div>';
+                                    html+= '</div>';
+                                html+= '</div>';
+                            html+= '</div>';
+                            html+= '<div class="row">';
+                                html+='<span class="help-state '+(curPageData[i].solve==0?'text-danger':'text-success')+' col-xs-6">'+(curPageData[i].solve==0?'未解决':'已解决')+'</span>';
+                                html+= '<a href="'+'<?=site_url("home/see_article/")?>'+ curPageData[i].article_id +'" target="_self"><span class="col-xs-6 help-btn btn">帮助</span></a>';
+                            html+= '</div>';
+                        html+= '</a>';
+                    html+= '</li>';
+    }
+    $('.list-group').append(html);
+}
+</script>
+<script type="text/javascript" src="/style/index/js/mescroll.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+$(function() {
+    //创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,重置列表数据;
+    var mescroll = new MeScroll("mescroll", {
+        down: {
+            use: false,
+        },
+        up: {
+            callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
+            isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+            //clearEmptyId: "dataList", //1.下拉刷新时会自动先清空此列表,再加入数据;
+            htmlLoading: '<p class="upwarp-progress mescroll-rotate" style="margin-bottom: 73px"></p><p class="upwarp-tip">加载中..</p>',
+            htmlNodata: '<p class="upwarp-nodata" style="margin-bottom:73px">-- 已加载全部内容 --</p>',
+        },
+    });
+
+    /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+    function getListData(page) {
+        $.ajax({
+            url: UP_TO_MORE + '<?=$type?>/' + page.num * page.size + '/up',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                curPageData = data.data;
+
+                //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+                //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+                console.log("page.num=" + page.num + ", page.size=" + page.size + ", curPageData.length=" + curPageData.length + '，totalSize=' + totalSize);
+                mescroll.endSuccess(curPageData.length, totalSize);
+                setListData(curPageData);
+            },
+            error: function() {
+                //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                mescroll.endErr();
+            }
+        });
+    }
+});
+</script>

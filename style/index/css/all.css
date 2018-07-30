@@ -1,19 +1,18 @@
-p{font-size: 1.3em;color:#7C7C7C;}
+p{color:#7C7C7C;}
 *{margin:0;padding:0;}
 /*loading*/
 .loading{width: 100%;height: 100%;position: fixed;top: 0; left: 0; z-index: 1000;background: #fff;}
 .loading .pic{width: 180px; height: 152px; background: url(../img/icon/loading.gif); position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
 /*签到*/
-.signIn{height: 120px;}
-.signIn a{width:120px;height:50px;background:#E5AA25;line-height: 38px;font-size: 1.2em;}
+.signIn>a{width:90px;height:50px;background:#E5AA25;line-height: 38px;}
 /*头部用户*/
-.userheading {height: 180px;padding: 20px;background: url(../img/linkback.jpg)center center no-repeat;background-size: cover;}
+.userheading {padding: 10px;background: url(../img/linkback.jpg)center center no-repeat;background-size: cover;overflow: hidden;}
 .userheading a{color: #fff;}
-.user_img{width: 130px;height: 130px;border-radius: 50%;display: block;margin: 0 auto;vertical-align: middle;}
+.user_img{width: 60px;height: 60px;border-radius: 50%;display: block;margin: 0 auto;vertical-align: middle;}
+.name_level h3,.signIn{margin:5px 0 10px 0;}
 .userheading span{font-size: 1.4em;color:#7C7C7C;}
-.userheading h1{font-size: 3em;}
 /*精品贴样式*/
-.boutique{display: block;text-align: center;font-size: 45px;border-radius:10px;color: #fff;margin-top: 20px;}
+.boutique{display: block;text-align: center;font-size: 25px;border-radius:10px;color: #fff;}
 .boutique1{background: #EA2000;}
 .boutique2{background: #FFAA25;}
 .boutique3{background: #15C1F2;}
@@ -21,8 +20,8 @@ p{font-size: 1.3em;color:#7C7C7C;}
 .media-list li:last-of-type{}
 .overflow_hidden{overflow: hidden;}
 /*弹出评论 求助页评论页都有使用*/
-.commentBox_back{width: 100%;height: 100%;position: fixed;left: 0;top: 0;z-index: 97;background-color: rgba(0,0,0,.5);display: none;}
-.commentBox{width:100%;position: fixed;top: 0;left: 0;z-index: 99;display: none;}
+.commentBox_back{width: 100%;height: 100%;position: fixed;left: 0;top: 0;z-index: 9997;background-color: rgba(0,0,0,.5);display: none;}
+.commentBox{width:100%;position: fixed;top: 0;left: 0;z-index: 9999;display: none;}
 .Input_Box {
 	border: 1px solid #ccc;
 	transition: border linear .2s, box-shadow linear .5s;
@@ -39,7 +38,7 @@ p{font-size: 1.3em;color:#7C7C7C;}
 	box-shadow: 0 0 5px #ccc;
 }
 .Input_Box textarea {
-text-indent: 2em;height: 201px;
+	height: 201px;
  	padding: 15px; 
 	outline: none;
 	resize: none;
@@ -50,7 +49,7 @@ text-indent: 2em;height: 201px;
 	font-size: 1.2em;
 }
 .Input_Foot {
-	height: 56px;
+	height: 38px;
 	background-color: #fff;
 	-moz-border-radius: 0 0 5px 5px;
 	-webkit-border-radius: 0 0 5px 5px;
@@ -59,12 +58,12 @@ text-indent: 2em;height: 201px;
 }
 .imgBtn {
 	width: 50px;
-	height: 50px;
+	height: 32px;
 	float: left;
 	cursor: pointer;
-	margin-top: 9px;
+	margin-top: 4px;
 }
-.imgBtn img{width: 50px height:50px;}
+.imgBtn img{width: 32px; height:32px;}
 .postBtn {
 	float: right;
 	color: #808080;
@@ -83,6 +82,7 @@ text-indent: 2em;height: 201px;
 	padding: 10px 20px 6px 20px;
 }
 .faceDiv {
+	margin-left: 10px;
 	border-top: 1px solid #ccc;
 	background-color: #fff;
 	-moz-border-radius: 5px 5px 0 0;
@@ -90,11 +90,8 @@ text-indent: 2em;height: 201px;
 	border-radius: 5px 5px 0 0;
 }
 .faceDiv>img {
-	border: 1px solid #ccc;
-	float: left;
-	position: relative;
-	width: 70px;
-	height: 70px;
+	width: 35px;
+	height: 35px;
 	padding: 3px 3px 3px 3px;
 	cursor: pointer;
 }
@@ -103,4 +100,9 @@ text-indent: 2em;height: 201px;
 }
 .faceDiv>img:active {
 	padding: 4px 3px 2px 3px;
+}
+
+/*上拉加载更多*/
+.mescroll-upwarp{
+	margin-bottom: 73px;
 }

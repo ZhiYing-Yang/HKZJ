@@ -4,212 +4,206 @@
 <head lang="en">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="user-scalable=no">
-    <!-- iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览 -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>货卡之家论坛首页</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>货卡之家</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/style/index/css/mescroll.min.css">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/style/index/css/usual.css">
     <link rel="stylesheet" type="text/css" href="/style/index/css/all.css">
     <link rel="stylesheet" type="text/css" href="/style/index/css/home.css">
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/style/index/js/jquery.mobile-events.min.js"></script>
 </head>
 
 <body>
-    <!-- loading -->
+    <!-- loding -->
     <div class="loading">
         <div class="pic"></div>
     </div>
-<div class="mescroll" id="mescroll">
-    <!-- 用户头部信息 -->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12 userheading">
+    <div id="mescroll" class="mescroll">
+        <!-- 用户头部信息 -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="userheading">
+                    <div class="col-xs-3 head_img"><img src="/style/index/img/head_img.jpg" alt="" class="user_img"></div>
+                    <div class="col-xs-6">
+                        <div class="name_level">
+                            <a href="#"><h3>HK21<img class="vip-img" src="/style/index/img/icon/vip_level.png" alt=""></h3></a>
+                        </div>
+                        <p class="per_sign text-overflow">这位朋友很懒,没有留下什么...</p>
+                    </div>
+                    <div class="col-xs-3 text-center signIn"><a class="btn" role="button" href="#">签到</a></div>
+                </div>
+            </div>
+        </div>
+        <!-- 论坛帖子分类 -->
+        <div id="invitation">
+            <div class="container-fluid">
                 <div class="row">
-                    <a href="#">
-                        <div class="col-xs-2 head_img"><img src="/style/index/img/head_img.jpg" alt="" class="user_img"></div>
-                        <div class="col-xs-7">
-                            <div id="name_level">
-                                <h1>HK21<img src="/style/index/img/icon/vip_level.png" alt=""></h1></div>
-                            <p class="per_sign text-overflow lead">这位朋友很懒,没有留下什么...</p>
-                        </div>
-                        <div class="col-xs-3 text-center signIn"><a class="btn center-vertical" role="button" href="#">签到</a></div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 论坛帖子分类 -->
-    <div id="invitation">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 invitation_main">
-                    <ul class="nav nav-tabs nav-justified">
-                        <li role="presentation" class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="index.html" target="_self" role="button" aria-haspopup="true" aria-expanded="false"><img src="/style/index/img/icon/quanbu.png" alt="">全部<span class="caret"></span></a>
-                            <ul class="dropdown-menu list-group">
-                                <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="index.html">卡友生活</a></li>
-                                <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="index.html">卡友经验</a></li>
-                                <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="index.html">自由贸易</a></li>
-                                <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="index.html">灌水区</a></li>
-                            </ul>
-                        </li>
-                        <li role="presentation"><a target="_self" href="index_boutique.html"><img src="/style/index/img/icon/jingpin.png" alt="">精品</a></li>
-                        <li role="presentation"><a href="index_message.html" target="_self"><img src="/style/index/img/icon/xiaoxi.png" alt="">消息</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="contentmain">
-        <div class="container-fluid">
-            <!-- 广告页 -->
-            <div class="row">
-                <div class="paddusal col-xs-12" id="ad_main">
-                    <a href="#">
-                        <div class="media-left">
-                            <a class="ad_imgBox" href="#"><img class="ad_img media-object" src="/style/index/img/yonghu1.png"/></a>
-                        </div>
-                        <div class="media-body">
-                            <h2 class#="media-heading">广告商</h2>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div id="ad_body">
-                                    <a href="#"><img src="http://otu6v4c72.bkt.clouddn.com/FnjBwdC9D7sho1rU4nAHcNgja_wx?imageMogr2/auto-orient/thumbnail/!60p/format/jpg/interlace/1/blur/1x0/quality/50|imageslim"/></a>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="label label-info ad_label fs20px">广告</span>
-                    </a>
-                </div>
-            </div>
-            <!-- 论坛置顶消息内容 -->
-            <div class="row">
-                <div class="paddusal message_main">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item" data-aos="fade-in"><span class="tip inform">置顶</span>您有一条置顶帖子需要查看<span class="date">2018-04-12</span></a>
-                        <a href="#" class="list-group-item" data-aos="fade-in"><span class="tip inform">置顶</span>必看!论坛管理规则!<span class="date">2018-04-12</span></a>
-                        <a href="#" class="list-group-item" data-aos="fade-in"><span class="tip inform">置顶</span>管理员发布的论坛管理手册<span class="date">2018-04-12</span></a>
+                    <div class="invitation_main">
+                        <ul class="nav nav-tabs">
+                            <li role="presentation" class="dropdown col-xs-4">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="<?=site_url('home/index')?>" target="_self" role="button" aria-haspopup="true" aria-expanded="false"><img src="/style/index/img/icon/quanbu.png" alt="">全部<span class="caret"></span></a>
+                                <ul class="dropdown-menu list-group">
+                                    <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="<?=site_url('home/index/卡友生活')?>">卡友生活</a></li>
+                                    <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="<?=site_url('home/index/卡友经验')?>">卡友经验</a></li>
+                                    <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="<?=site_url('home/index/自由贸易')?>">自由贸易</a></li>
+                                    <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="<?=site_url('home/index/灌水区')?>">灌水区</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation" class="col-xs-4"><a target="_self" href="<?=site_url('home/index/精品')?>"><img src="/style/index/img/icon/jingpin.png" alt="">精品</a></li>
+                            <li role="presentation" class="col-xs-4"><a href="index_message.html" target="_self"><img src="/style/index/img/icon/xiaoxi.png" alt="">消息</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <!-- 论坛帖子详情 -->
-            <div class="row">
-                <div class="invitation_body">
-                    <ul class="media-list" id="dataList">
-                        <?php foreach($article as $a):?>
-                        <li class="media paddusal borderstyle">
+        </div>
+        <div id="contentmain">
+            <div class="container-fluid">
+                <!-- 广告页 -->
+                <div class="row">
+                    <div class="paddusal ad_main">
+                        <a href="#" class="media">
                             <div class="media-left">
-                                <a class="userimgBox" href="#"><img class="userimg" src="<?=$a['headimgurl']?>" class="media-object"></a>
+                                <a class="ad_imgBox" href="#"><img class="ad_img" src="/style/index/img/yonghu1.png" class="media-object"></a>
                             </div>
                             <div class="media-body">
-                                <a href="#"><h2 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a>
-                                <span class="datetime"><?=$a['create_time']?></span>
-                                <div class="invitation_comment">
-                                    <a href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self">
-                                        <h2><?=$a['title']?></h2>
-                                        <p>
-                                            <?=$a['content']?>
-                                        </p>
-                                        <!-- 文章图片 $col_i为col-xs-$col_i -->
-                                        <div class="row">
-                                            <?php foreach($a['url'] as $u):?>
-                                            <div class="col-xs-<?=12/count($a['url'])?> index-item-img-box">
-                                                <img class="invitation_img" src="<?=$u?>">
+                                <h4 class="media-heading">广告商</h4>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="ad_body">
+                                    <a href="invicomment.html"><img src="/style/index/img/ad_img.jpg"></a>
+                                </div>
+                            </div>
+                            <span class="label ad_label">广告</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- 论坛置顶消息内容 -->
+                <div class="row">
+                    <div class="paddusal message_main">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item"><span class="tip inform">置顶</span>您有一条置顶帖子需要查看<span class="date">2018-04-12</span></a>
+                            <a href="#" class="list-group-item"><span class="tip inform">置顶</span>必看!论坛管理规则!<span class="date">2018-04-12</span></a>
+                            <a href="#" class="list-group-item"><span class="tip inform">置顶</span>管理员发布的论坛管理手册<span class="date">2018-04-12</span></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 论坛帖子详情 -->
+                <div class="row">
+                    <div class="invitation_body">
+                        <ul class="media-list">
+                            <?php foreach($article as $a):?>
+                            <li class="media paddusal borderstyle">
+                                <div class="media-left">
+                                    <a class="userimgBox" href="#"><img class="userimg" src="<?=$a['headimgurl']?>" class="media-object"></a>
+                                </div>
+                                <div class="media-body">
+                                    <a href="##"><h4 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/<?=$a['vip']==0?'common':'vip'?>_level.png" alt=""></span></h4></a>
+                                    <span class="datetime"><?=$a['create_time']?></span>
+                                    <div class="invitation_comment">
+                                        <a href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self">
+                                            <h4><?=$a['title']?></h4>
+                                            <p>
+                                                <?=$a['content']?>
+                                            </p>
+                                            <!-- 文章图片 $col_i为col-xs-$col_i -->
+                                            <div class="row">
+                                                <?php foreach($a['url'] as $u):?>
+                                                <div class="col-xs-<?=12/count($a['url'])?> index-item-img-box">
+                                                    <img class="invitation_img" src="<?=$u?>">
+                                                </div>
+                                                <?php endforeach;?>
                                             </div>
-                                            <?php endforeach;?>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="media-right">
-                                <div class="able able_praise" data-id="<?=$a['article_id']?>"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px"><?=$a['praise']?></span>
+                                <div class="media-right">
+                                    <div class="able able_praise" data-id="<?=$a['article_id']?>"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px"><?=$a['praise']?></span>
+                                    </div>
+                                    <div class="able"><a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px"><?=$a['comment_total']?></span>
+                                    </a></div>
                                 </div>
-                                <div class="able">
-                                    <a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px"><?=$a['comment_total']?></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="row"><span class="label live_orange"><?=$a['type']?></span></div>
-                        </li>
-                        <?php endforeach;?>
-                    </ul>
+                                <div class="row"><span class="label <?=$a['type_class']?>"><?=$a['type']?></span></div>
+                            </li>
+                            <?php endforeach;?>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
     <!-- menu -->
-    <div id="header" class="header">
-        <?=require_once('menu.html')?>
-    </div>
+   <div id="header" class="header"><?=include('menu.html')?></div>
     <script type="text/javascript" src="/style/index/js/constant.js"></script>
     <script>
+    var totalSize = '<?=$total_rows?>';
+
     function setListData(curPageData) {
+        console.log('执行力setListData函数，i<' + curPageData.data.length);
+        var html = '';
         for (var i = 0; i < curPageData.data.length; i++) {
-            var html = '<li class="media paddusal borderstyle" ><div class="media-left"><a class="userimgBox" href="#"><img class="userimg" src="' + curPageData.data[i].headimgurl + '" class="media-object"></a></div><div class="media-body"><a href="#"><h2 class="media-heading">' + curPageData.data[i].nickname + '<span class="viper level"><img src="/style/index/img/icon/vip_level.png" alt=""></span></h2></a><#span class="datetime">' + curPageData.data.create_time + '</span><div class="invitation_comment"><a href="invicomment.html" target="_self"><h2>' + curPageData.data[i].title + '</h2><p>' + curPageData.data[i].content + '</p><div class="invitation_imgs"><div class="row">';
-                if(curPageData.data[i].url.length>0){
-                    var col = 12/curPageData.data[i].url.length;
-                    for(var j=0; i<curPageData.data[i].url.length; j++){
-                        html +='<div class="col-xs-'+ col +'"><img src="'+ curPageData.data[i].url[j] +'"></div>';
-                    }
+            if (curPageData.data.length == 4) {
+                console.log(curPageData.data);
+            }
+            console.log('执行了setListData函数的第' + i + '次for循环');
+
+            html += '<li class="media paddusal borderstyle" ><div class="media-left"><a class="userimgBox" href="#"><img class="userimg" src="' + curPageData.data[i].headimgurl + '" class="media-object"></a></div><div class="media-body"><a href="#"><h4 class="media-heading">' + curPageData.data[i].nickname + '<span class="viper level"><img src="/style/index/img/icon/' + (curPageData.data[i].vip == 0 ? 'common' : 'vip') + '_level.png" alt=""></span></h4></a><span class="datetime">' + curPageData.data[i].create_time + '</span><div class="invitation_comment"><a href="'+'<?=site_url("home/see_article/")?>'+ curPageData.data[i].article_id +'" target="_self"><h4>' + curPageData.data[i].title + '</h4><p>' + curPageData.data[i].content + '</p><div class="invitation_imgs"><div class="row">';
+            if (curPageData.data[i].url.length > 0) {
+                var col = 12 / curPageData.data[i].url.length;
+                for (var j = 0; j < curPageData.data[i].url.length; j++) {
+                    html += '<div class="col-xs-' + col + ' index-item-img-box"><img src="' + curPageData.data[i].url[j] + '" class="img-responsive"></div>';
                 }
-                
-            html += '</div></div></a></div></div><div class="media-right"><div class="able able_praise"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">3526</span></div><div class="able"><a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">3526</span></a></div></div><div class="row"><span class="label live_orange">' + curPageData.data[i].type + '</span></div></li>';
-            $('.media-list').append(html);
+            }
+
+            html += '</div></div></a></div></div><div class="media-right"><div class="able able_praise" data-id="'+ curPageData.data[i].article_id +'"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">' + curPageData.data[i].praise + '</span></div><div class="able"><a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">' + curPageData.data[i].comment_total + '</span></a></div></div><div class="row"><span class="label '+ curPageData.data[i].type_class +'">' + curPageData.data[i].type + '</span></div></li>';
         }
+        $('.media-list').append(html);
     }
     </script>
     <script type="text/javascript" src="/style/index/js/all.js"></script>
     <script type="text/javascript" src="/style/index/js/dropdown.js"></script>
     <script type="text/javascript" src="/style/index/js/mescroll.min.js"></script>
     <script type="text/javascript" charset="utf-8">
-    $(function(){
-            //创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,重置列表数据;
-            var mescroll = new MeScroll("mescroll", {
+    $(function() {
+        //创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,重置列表数据;
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                use: false,
+            },
+            up: {
+                callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
+                isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+                //clearEmptyId: "dataList", //1.下拉刷新时会自动先清空此列表,再加入数据;
+                htmlLoading: '<p class="upwarp-progress mescroll-rotate" style="margin-bottom: 73px"></p><p class="upwarp-tip">加载中..</p>',
+                htmlNodata: '<p class="upwarp-nodata" style="margin-bottom:73px">-- 已加载全部内容 --</p>',
+            },
 
-                down: {
-                    use: false
-                },
-                up: {
-                    callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
-                    isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
-                    //clearEmptyId: "dataList", //1.下拉刷新时会自动先清空此列表,再加入数据;
-                    htmlLoading: '<p class="upwarp-progress mescroll-rotate" style="margin-bottom: 120px"></p><p class="upwarp-tip">加载中..</p>',
-                    htmlNodata: '<p class="upwarp-nodata" style="margin-bottom: 120px">-- 已加载全部内容 --</p>', 
-                },
-               
-            });
-
-            /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
-            function getListData(page){
-
-                setTimeout(function(){$.ajax({
-                    url: UP_TO_MORE+ '<?=$type?>/'+page.num*page.size+'/up',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data){
-                        curPageData = data.data;
-                        totalSize = data.message;
-                        //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
-                        //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
-                        console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.length);
-                        mescroll.endSuccess(curPageData.length, totalSize);
-                        setListData(data);
-                    },
-                    error: function(){
-                        //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
-                        mescroll.endErr();
-                    }
-                });}, 1000);
-
-            }
         });
+
+        /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+        function getListData(page) {
+            $.ajax({
+                url: UP_TO_MORE + '<?=$type?>/' + page.num * page.size + '/up',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    curPageData = data.data;
+
+                    //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+                    //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+                    console.log("page.num=" + page.num + ", page.size=" + page.size + ", curPageData.length=" + curPageData.length + '，totalSize=' + totalSize);
+                    mescroll.endSuccess(curPageData.length, totalSize);
+                    setListData(data);
+                },
+                error: function() {
+                    //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                    mescroll.endErr();
+                }
+            });
+        }
+    });
     </script>
 </body>
 

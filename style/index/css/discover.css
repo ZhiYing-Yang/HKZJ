@@ -6,9 +6,9 @@
  * @version $Id$
  */
  .discover_title{border-left: 10px solid #4C8CF5;padding-left: 20px;color: #959595;}
- .icon-ul li{float: left;width: 25%;margin: 40px 0;}
+ .icon-ul li{float: left;width: 25%;margin: 10px 0;}
  .icon-ul li i{width:100%;height: 60px;display: block;}
- .icon-ul li .discover-span{display: inline-block;width:100%;font-size: 1.5em;margin: 10px 0 10px 0;color:#595959;}
+ .icon-ul li .discover-span{display: inline-block;width:100%;font-size: 1.1em;margin: 10px 0 10px 0;color:#595959;}
  /*货卡商城*/
  #goodsinfo{background: url(../img/icon/discovericon/goodsinfo.png)center center no-repeat;}
  #newcar{background: url(../img/icon/discovericon/newcar.png)center center no-repeat;}

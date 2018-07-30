@@ -8,22 +8,30 @@ class Home extends CI_Controller {
 		$this->session->set_userdata('id', 1);
 	}
 
-	//论坛首页帖子，type = '精品' => 精品帖子
+	//论坛首页帖子，type = '精品' => 精品帖子 '所有'=>除了卡友求助以外的全部帖子 '热门'=>卡友求助的热门帖子
 	public function index($type = '所有', $offset = 0, $la = false) {
 		$type = urldecode($type); //文章类型
 		$data['type'] = $type;
-		$where_arr = array();
+		$where_arr = array('type !=' => '卡友求助');
 		//精品帖子
 		if ($type == '精品') {
 			$order_str = 'praise DESC, read DESC';
-			$data['article'] = $this->index_model->get_user_article_list($where_arr, $order_str, $offset, 10);
-
+			$article = $this->index_model->get_user_article_list($where_arr, $order_str, $offset, 10);
+			$data['article'] = $this->index_model->format_data($article);
 			$this->load->view('index/index_boutique.html', $data);
 			return;
 		}
 
-		//论坛首页帖子
+		//热门求助
+		if ($type == '热门') {
+			$order_str = 'read DESC, article.create_time ASC';
+			$article = $this->index_model->get_user_article_list(array('type' => '卡友求助', 'solve' => 0), $order_str, $offset, 10);
+			$data['article'] = $this->index_model->format_data($article);
+			$this->load->view('index/help-hot.html', $data);
+			return;
+		}
 
+		//论坛首页帖子,获取不同类型的文章
 		if (in_array($type, $this->config->item('article_type'))) {
 			$where_arr = array('type' => $type);
 		}
@@ -32,14 +40,37 @@ class Home extends CI_Controller {
 		$status = $this->index_model->get_user_article_list($where_arr, $order_str, $offset);
 		//格式化处理文章数据，去掉html标签，匹配出文章图片
 		$data['article'] = $this->index_model->format_data($status);
-		$data['total_rows'] = $this->db->where($where_arr)->count_all_results('article');
-		if ($la) {
-			get_json(200, $data['total_rows'], $data['article']);
+
+		//如果是上拉加载更多，返回json数据，否则data多传一个total_rows给前端识别共多少条文章
+		if ($la == 'up') {
+			get_json(200, '加载成功', $data['article']);
 			return;
+		} else {
+			$data['total_rows'] = $this->db->where($where_arr)->count_all_results('article');
 		}
-		$this->load->view('index/index.html', $data);
+
+		if ($type == '卡友求助') {
+			$this->load->view('index/help.html', $data);
+		} else {
+			$this->load->view('index/index.html', $data);
+		}
 	}
 
+	//卡友求助的搜索页
+	public function help_search($search, $offset = 0, $la = '') {
+		$search = urldecode($search);
+		$status = $this->index_model->get_help_search($search, $offset);
+		$data['article'] = $this->index_model->format_data($status);
+		//print_r($data['article']);
+		if (!empty($la)) {
+			get_json(200, '加载成功！', $data['article']);return;
+		} else {
+			$total_rows = $this->index_model->get_help_search_count($search);
+			$data['total_rows'] = empty($total_rows) ? 0 : $total_rows[0]['total_rows'];
+			$data['search'] = $search;
+			$this->load->view('index/help-search.html', $data);
+		}
+	}
 	//查看文章页
 	public function see_article($id) {
 		$article = $this->index_model->get_article(array('article_id' => $id));
@@ -63,8 +94,19 @@ class Home extends CI_Controller {
 		$data['user'] = $this->index_model->get_user(array('user_id' => $article[0]['user_id']))[0];
 
 		//评论列表
-		$data['comment'] = $this->index_model->get_user_comment_list(array('article_id' => $id), 'praise DESC, create_time DESC', 0);
-		$this->load->view('index/article.html', $data);
+		$data['comment'] = $this->index_model->get_user_comment_list(array('article_id' => $id, 'pid' => 0), 'praise DESC, create_time DESC', 0);
+		$data['comment'] = $this->index_model->get_reply_comment($data['comment']);
+		if ($data['article']['type'] == '卡友求助') {
+			$this->load->view('index/help-article.html', $data);
+		} else {
+			$this->load->view('index/article.html', $data);
+		}
+	}
+	//更多评论或者回答页
+	public function get_more_comment($id, $offset) {
+		$data['comment'] = $this->index_model->get_user_comment_list(array('article_id' => $id, 'pid' => 0), 'create_time DESC', $offset);
+		$data['comment'] = $this->index_model->get_reply_comment($data['comment']);
+		get_json(200, '加载成功！', $data['comment']);
 	}
 
 	//举报文章页
@@ -180,8 +222,8 @@ class Home extends CI_Controller {
 	/*
 		*对文章的评论
 	*/
-	public function comment($id) {
-		if (!is_numeric($id)) {
+	public function comment($id, $pid) {
+		if (!is_numeric($id) && !is_numeric($id)) {
 			get_json(400, '该文章不存在');return;
 		}
 
@@ -191,6 +233,7 @@ class Home extends CI_Controller {
 			'user_id' => $this->session->userdata('id'),
 			'content' => $this->input->post('content'),
 			'create_time' => time(),
+			'pid' => $pid,
 		);
 		//执行插入评论信息操作 并返回信息
 		if ($this->db->insert('comment', $data)) {
@@ -202,11 +245,7 @@ class Home extends CI_Controller {
 		}
 	}
 	public function ceshi() {
-		$array = array(
-			'data' => 200,
-			'message' => 'dada',
-		);
-		get_json(200, 'dadsad');return;
-		echo '2111';
+		$a = '';
+		var_dump(empty($a));
 	}
 }

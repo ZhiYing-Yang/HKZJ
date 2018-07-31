@@ -62,7 +62,6 @@ class Weixin extends CI_Controller {
     /**
      * 关键字处理
      * @param type $keys      关键字（常规或规格关键字）
-     * @param type $default   是否启用默认模式
      * @return type
      */
     protected function _keys($keys) {

@@ -1,11 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Home extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('index_model');
-		$this->session->set_userdata('id', 1);
 	}
 
 	//论坛首页帖子，type = '精品' => 精品帖子 '所有'=>除了卡友求助以外的全部帖子 '热门'=>卡友求助的热门帖子
@@ -154,7 +153,7 @@ class Home extends CI_Controller {
 				'content' => $this->input->post('content', false),
 				'type' => $type,
 				'create_time' => time(),
-				'user_id' => 1,
+				'user_id' => $this->session->userdata('user_id'),
 			);
 
 			//执行插入操作
@@ -230,7 +229,7 @@ class Home extends CI_Controller {
 		//接收评论信息
 		$data = array(
 			'article_id' => $id,
-			'user_id' => $this->session->userdata('id'),
+			'user_id' => $this->session->userdata('user_id'),
 			'content' => $this->input->post('content'),
 			'create_time' => time(),
 			'pid' => $pid,
@@ -238,13 +237,10 @@ class Home extends CI_Controller {
 		//执行插入评论信息操作 并返回信息
 		if ($this->db->insert('comment', $data)) {
 			//获取评论者的信息
-			$user = $this->index_model->get_user(array('user_id' => $this->session->userdata('id')))[0];
+			$user = $this->index_model->get_user(array('user_id' => $this->session->userdata('user_id')))[0];
 			get_json(200, '评论成功', $user);return;
 		} else {
 			get_json(400, '评论失败，请稍后重试！');return;
 		}
-	}
-	public function ceshi() {
-		log_message('error', '错误日志测试');
 	}
 }

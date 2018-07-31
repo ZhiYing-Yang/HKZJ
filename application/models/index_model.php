@@ -125,4 +125,6 @@ class Index_model extends CI_model {
 		}
 		return $type_class;
 	}
+
+
 }

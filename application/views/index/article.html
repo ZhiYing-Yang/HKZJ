@@ -42,7 +42,7 @@
                             <a class="userimgBox" href=""><img class="userimg" src="<?=$user['headimgurl']?>" class="media-object"></a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading"><?=$user['nickname']?><img src="/style/index/img/icon/vip_level.png" alt=""></h4>
+                            <h4 class="media-heading"><?=$user['nickname']?><img src="/style/index/img/icon/<?=$user['vip']==0?'common':'vip'?>_level.png" alt=""></h4>
                             <span class="datetime"><?=formatTime($article['create_time'])?></span>
                         </div>
                         <div class="media-right">
@@ -74,7 +74,7 @@
                             <a class="userimgBox" href="#"><img class="userimg" src="<?=$c['headimgurl']?>" class="media-object"></a>
                         </div>
                         <div class="media-body">
-                            <a href=""><h4 class="media-heading"><?=$c['nickname']?><img src="/style/index/img/icon/vip_level.png" alt=""></h4></a>
+                            <a href=""><h4 class="media-heading"><?=$c['nickname']?><img src="/style/index/img/icon/<?=$c['vip']==0?'common':'vip'?>_level.png" alt=""></h4></a>
                             <span class="datetime"><?=formatTime($c['create_time'])?></span>
                             <div class="invitation_comment">
                                 <p>

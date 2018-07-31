@@ -307,7 +307,7 @@ abstract class CI_Wechat_basic {
     	
     	//
     	$this->CI->db->select('value');
-    	$this->CI->db->where('code', 'Wexin');
+    	$this->CI->db->where('code','wechat');
     	$this->CI->db->where('key','cache');
     	$this->CI->db->where('store_id','0');
     	
@@ -321,7 +321,7 @@ abstract class CI_Wechat_basic {
     		);
     		
     		$this->CI->db->where('store_id', '0');
-    		$this->CI->db->where('code', 'Wexin');
+    		$this->CI->db->where('code', 'wechat');
     		$this->CI->db->where('key', 'cache');
     		return $this->CI->db->update($this->CI->db->dbprefix('setting'), $data);
     		
@@ -329,7 +329,7 @@ abstract class CI_Wechat_basic {
     		//不存在，写入
     		$data = array(
     				'store_id'		=> '0',
-    				'code' 			=> 'Wexin',
+    				'code' 			=> 'wechat',
     				'key' 			=> 'cache',
     				'value' 		=> $value
     		);
@@ -350,7 +350,7 @@ abstract class CI_Wechat_basic {
     	
     	//
     	$this->CI->db->select('value');
-    	$this->CI->db->where('code', 'Wexin');
+    	$this->CI->db->where('code','wechat');
     	$this->CI->db->where('key','cache');
     	$this->CI->db->where('store_id','0');
     	 
@@ -378,7 +378,7 @@ abstract class CI_Wechat_basic {
     	);
     	
     	$this->CI->db->where('store_id', '0');
-    	$this->CI->db->where('code', 'Wexin');
+    	$this->CI->db->where('code', 'wechat');
     	$this->CI->db->where('key', 'cache');
     	return $this->CI->db->update($this->CI->db->dbprefix('setting'), $data);
     }

@@ -844,7 +844,7 @@ function & load_wechat($type = '') {
         // 读取SDK动态配置
         $config = $CI->db->get('wechat_config')->first_row('array');
         // 设置SDK缓存路径
-        $config['cachepath'] = CACHEPATH . 'data/';
+        $config['cachepath'] = '';
         $wechat[$index] = \Wechat\Loader::get_instance($type, $config);
     }
     return $wechat[$index];

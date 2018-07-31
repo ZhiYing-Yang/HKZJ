@@ -7,12 +7,14 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Wexin extends CI_Controller {
+class Weixin extends CI_Controller {
     /**
      * 微信消息对象
      * @var WechatReceive
      */
     protected $wechat;
+
+    protected $menu;
 
     /**
      * 微信openid
@@ -23,6 +25,7 @@ class Wexin extends CI_Controller {
     /**
      * 接口入口
      */
+
     public function index() {
         /* 创建接口操作对象 */
         $this->wechat = &load_wechat('Receive');
@@ -34,19 +37,24 @@ class Wexin extends CI_Controller {
         /* 获取openid */
         $this->openid = $this->wechat->getRev()->getRevFrom();
         /* 记录接口日志 */
-        $this->_logs();
+        //$this->_logs();
         /* 分别执行对应类型的操作 */
         switch ($this->wechat->getRev()->getRevType()) {
             case WechatReceive::MSGTYPE_TEXT:
+                log_message('INFO', '这个是MSGTYPE_TEXT');
                 $keys = $this->wechat->getRevContent();
                 return $this->_keys("wechat_keys#keys#{$keys}");
             case WechatReceive::MSGTYPE_EVENT:
+                log_message('INFO', '这个是MSGTYPE_EVENT');
                 return $this->_event();
             case WechatReceive::MSGTYPE_IMAGE:
+                log_message('INFO', '这个是MSGTYPE_IMAGE');
                 return $this->_image();
             case WechatReceive::MSGTYPE_LOCATION:
+                log_message('INFO', '这个是MSGTYPE_LOCATION');
                 return $this->_location();
             default:
+                log_message('INFO', '这个是MSGTYPE_default');
                 return $this->_default();
         }
     }
@@ -57,60 +65,12 @@ class Wexin extends CI_Controller {
      * @param type $default   是否启用默认模式
      * @return type
      */
-    protected function _keys($keys, $default = FALSE) {
-        list($table, $field, $value) = explode('#', $keys . '##');
-        if ($this->db->table_exists($table) && ($info = $this->db->where($field, $value)->get($table)->first_row('array'))) {
-            # 转发给多客服
-            if (!empty($info['type']) && $info['type'] === 'customservice') {
-                $this->wechat->sendCustomMessage(array('touser' => $this->openid, 'msgtype' => 'text', 'text' => array('content' => $info['content'])));
-                return $this->wechat->transfer_customer_service()->reply();
-            }
-            # 无法给出回复时调用默认回复机制
-            array_key_exists('status', $info) && empty($info['status']) && $this->_default_reply();
-            switch ($info['type']) {
-                case 'keys':/* 关键字 */
-                    empty($info['content']) && empty($info['name']) && exit('success');
-                    return $this->_keys('wechat_keys#keys#' . (empty($info['content']) ? $info['name'] : $info['content']));
-                case 'text':/* 文本消息 */
-                    empty($info['content']) && exit('success');
-                    return $this->wechat->text($info['content'])->reply();
-                case 'news':/* 图文消息 */
-                    empty($info['news_id']) && exit('success');
-                    return $this->_news($info['news_id']);
-                case 'music':/* 音频消息 */
-                    (empty($info['music_url']) || empty($info['music_title']) || empty($info['music_desc'])) && exit('success');
-                    $this->load->library('NewsData');
-                    $media_id = empty($info['music_image']) ? '' : $this->newsdata->upload_media($info['music_image'], 'image');
-                    empty($media_id) && exit('success');
-                    return $this->wechat->music($info['music_title'], $info['music_desc'], $info['music_url'], $info['music_url'], $media_id)->reply();
-                case 'voice':/* 语音消息 */
-                    empty($info['voice_url']) && exit('success');
-                    $this->load->library('NewsData');
-                    $media_id = $this->newsdata->upload_media($info['voice_url'], 'voice')->reply();
-                    empty($media_id) && exit('success');
-                    return $this->wechat->voice($media_id)->reply();
-                case 'image':/* 图文消息 */
-                    empty($info['image_url']) && exit('success');
-                    $this->load->library('NewsData');
-                    $media_id = $this->newsdata->upload_media($info['image_url'], 'image');
-                    empty($media_id) && exit('success');
-                    return $this->wechat->image($media_id)->reply();
-                case 'video':/* 视频消息 */
-                    (empty($info['video_url']) || empty($info['video_desc']) || empty($info['video_title'])) && exit('success');
-                    $this->load->library('NewsData');
-                    $data = array('title' => $info['video_title'], 'introduction' => $info['video_desc']);
-                    $media_id = $this->newsdata->upload_media($info['video_url'], 'video', TRUE, $data);
-                    if (false === $this->wechat->video($media_id, $info['video_title'], $info['video_desc'])->reply()) {
-                        return $this->wechat->text("{$this->wechat->errMsg}[{$this->wechat->errCode}]")->reply();
-                    }
-                    return true;
-            }
-        }
-
-        if ($default) {
-            exit('success');
-        }
-        return $this->_keys('wechat_keys#keys#default', TRUE);
+    protected function _keys($keys) {
+        $url="http://www.tuling123.com/openapi/api?key=78ceb20dc9414a4aa9c785b78af69ef3";
+        $url =$url.'&info='.$keys."&userid=1234";
+        $content=file_get_contents($url);
+        $msg=json_decode($content)->text;
+        $this->wechat->text($msg)->reply();
     }
 
     /**
@@ -264,7 +224,7 @@ class Wexin extends CI_Controller {
             $locationInfo = $this->wechat->getRev()->getRevSendGeoInfo();
             $data = array_merge($data, $locationInfo);
         }
-        $this->formdata->save('wechat_message', array_change_key_case($data, CASE_LOWER));
+        $this->wechat->formdata->save('wechat_message', array_change_key_case($data, CASE_LOWER));
     }
 
     /**
@@ -280,6 +240,65 @@ class Wexin extends CI_Controller {
             $this->fansdata->set($fansInfo);
         } else {
             $this->formdata->save('wechat_fans', array('openid' => $this->openid, 'subscribe' => '0'), 'openid');
+        }
+    }
+
+    //简单创建菜单 public=>允许访问创建菜单；private=>不允许访问创建菜单;
+    private function create_menu(){
+        $data = array(
+            //button类型
+            'button'=>array(
+                //第一个一级菜单
+                array(
+                    'name'=>'卡友圈',
+                    //二级菜单sub_button类型
+                    'sub_button'=>array(
+                        array(
+                            'type'=>'view',
+                            'name'=>'卡友论坛',
+                            'url'=>site_url('home/index'),
+                        ),
+                        array(
+                            'type'=>'view',
+                            'name'=>'卡友求助',
+                            'url'=>site_url('home/index/卡友求助'),
+                        ),
+                        array(
+                            'type'=>'view',
+                            'name'=>'货源信息',
+                            'url'=>base_url(),
+                        ),
+                        array(
+                            'type'=>'view',
+                            'name'=>'车辆监控',
+                            'url'=>base_url(),
+                        ),
+                    ),
+                ),
+
+                //第二个一级菜单
+                array(
+                    'type'=>'view',
+                    'name'=>'发现',
+                    'url'=>base_url(),
+                ),
+
+                //第三个二级菜单
+                array(
+                    'type'=>'view',
+                    'name'=>'二手车',
+                    'url'=>base_url(),
+                ),
+            ),
+        );
+        $this->menu = & load_wechat('menu');
+
+        $result = $this->menu->createMenu($data);
+
+        if($result == FALSE){
+            echo $this->menu->errMsg;
+        }else{
+            echo '菜单创建成功';
         }
     }
 }

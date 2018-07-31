@@ -1,0 +1,13 @@
+{
+    "name": "zoujingli/wechat",
+    "description": "wechat-php-sdk",
+    "authors": [
+        {
+            "name": "ascexz",
+            "email": "ascexz@qq.com"
+        }
+    ],
+    "require": {
+        "zoujingli/wechat-php-sdk": "^1.3"
+    }
+}

@@ -1,26 +1,41 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+// +----------------------------------------------------------------------
+// | wechat-php-sdk
+// +----------------------------------------------------------------------
+// | 版权所有 2014~2017 广州楚才信息科技有限公司 [ http://www.cuci.cc ]
+// +----------------------------------------------------------------------
+// | 官方文档: https://www.kancloud.cn/zoujingli/wechat-php-sdk
+// +----------------------------------------------------------------------
+// | 开源协议 ( https://mit-license.org )
+// +----------------------------------------------------------------------
+// | github开源项目：https://github.com/zoujingli/wechat-php-sdk
+// +----------------------------------------------------------------------
+
+namespace Wechat;
+
+use Wechat\Lib\Common;
+use Wechat\Lib\Tools;
 
 /**
  * 微信模板消息
- * @author SanLingNet <202015066@qq.com>
- * @version 1.0，20171107
+ *
+ * @author Anyon <zoujingli@qq.com>
+ * @date 2016/06/28 11:29
  */
-require_once(APPPATH.'libraries/Wechat/lib/Wechat_common.php');
+class WechatMessage extends Common
+{
 
-class Wechat_message extends CI_Wechat_common {
-
-	    /**
+    /**
      * 获取模板列表
      * @return bool|array
      */
     public function getAllPrivateTemplate()
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
-        $result = $this->http_post(self::API_URL_PREFIX . "/template/get_all_private_template?access_token={$this->access_token}", []);
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/template/get_all_private_template?access_token={$this->access_token}", []);
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {
@@ -32,16 +47,17 @@ class Wechat_message extends CI_Wechat_common {
         }
         return false;
     }
+
     /**
      * 获取设置的行业信息
      * @return bool|array
      */
     public function getTMIndustry()
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
-        $result = $this->http_post(self::API_URL_PREFIX . "/template/get_industry?access_token={$this->access_token}", []);
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/template/get_industry?access_token={$this->access_token}", []);
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {
@@ -53,6 +69,7 @@ class Wechat_message extends CI_Wechat_common {
         }
         return false;
     }
+
     /**
      * 删除模板消息
      * @param string $tpl_id
@@ -60,11 +77,11 @@ class Wechat_message extends CI_Wechat_common {
      */
     public function delPrivateTemplate($tpl_id)
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
         $data = array('template_id' => $tpl_id);
-        $result = $this->http_post(self::API_URL_PREFIX . "/template/del_private_template?access_token={$this->access_token}", [self::json_encode($data)]);
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/template/del_private_template?access_token={$this->access_token}", Tools::json_encode($data));
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {
@@ -76,6 +93,7 @@ class Wechat_message extends CI_Wechat_common {
         }
         return false;
     }
+
     /**
      * 模板消息 设置所属行业
      * @param string $id1 公众号模板消息所属行业编号，参看官方开发文档 行业代码
@@ -84,14 +102,14 @@ class Wechat_message extends CI_Wechat_common {
      */
     public function setTMIndustry($id1, $id2 = '')
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
         $data = array();
         !empty($id1) && $data['industry_id1'] = $id1;
         !empty($id2) && $data['industry_id2'] = $id2;
-        $json = self::json_encode($data);
-        $result = $this->http_post(self::API_URL_PREFIX . "/template/api_set_industry?access_token={$this->access_token}", $json);
+        $json = Tools::json_encode($data);
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/template/api_set_industry?access_token={$this->access_token}", $json);
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {
@@ -103,6 +121,7 @@ class Wechat_message extends CI_Wechat_common {
         }
         return false;
     }
+
     /**
      * 模板消息 添加消息模板
      * 成功返回消息模板的调用id
@@ -111,11 +130,11 @@ class Wechat_message extends CI_Wechat_common {
      */
     public function addTemplateMessage($tpl_id)
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
-        $data = self::json_encode(array('template_id_short' => $tpl_id));
-        $result = $this->http_post(self::API_URL_PREFIX . "/template/api_add_template?access_token={$this->access_token}", $data);
+        $data = Tools::json_encode(array('template_id_short' => $tpl_id));
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/template/api_add_template?access_token={$this->access_token}", $data);
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {
@@ -127,6 +146,7 @@ class Wechat_message extends CI_Wechat_common {
         }
         return false;
     }
+
     /**
      * 发送模板消息
      * @param array $data 消息结构
@@ -158,10 +178,10 @@ class Wechat_message extends CI_Wechat_common {
      */
     public function sendTemplateMessage($data)
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
-        $result = $this->http_post(self::API_URL_PREFIX . "/message/template/send?access_token={$this->access_token}", self::json_encode($data));
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/message/template/send?access_token={$this->access_token}", Tools::json_encode($data));
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {
@@ -173,6 +193,7 @@ class Wechat_message extends CI_Wechat_common {
         }
         return false;
     }
+
     /**
      * 根据标签进行群发 ( 订阅号与服务号认证后均可用 )
      * @param array $data 消息结构
@@ -192,10 +213,10 @@ class Wechat_message extends CI_Wechat_common {
      */
     public function sendMassMessage($data)
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
-        $result = $this->http_post(self::API_URL_PREFIX . "/message/mass/send?access_token={$this->access_token}", self::json_encode($data));
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/message/mass/send?access_token={$this->access_token}", Tools::json_encode($data));
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {
@@ -207,6 +228,7 @@ class Wechat_message extends CI_Wechat_common {
         }
         return false;
     }
+
     /**
      * 根据标签进行群发 ( 订阅号与服务号认证后均可用 )
      * @param array $data 消息结构
@@ -226,10 +248,10 @@ class Wechat_message extends CI_Wechat_common {
      */
     public function sendGroupMassMessage($data)
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
-        $result = $this->http_post(self::API_URL_PREFIX . "/message/mass/sendall?access_token={$this->access_token}", self::json_encode($data));
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/message/mass/sendall?access_token={$this->access_token}", Tools::json_encode($data));
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {
@@ -241,6 +263,7 @@ class Wechat_message extends CI_Wechat_common {
         }
         return false;
     }
+
     /**
      * 删除群发图文消息 ( 订阅号与服务号认证后均可用 )
      * @param string $msg_id 消息ID
@@ -248,11 +271,11 @@ class Wechat_message extends CI_Wechat_common {
      */
     public function deleteMassMessage($msg_id)
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
-        $data = self::json_encode(array('msg_id' => $msg_id));
-        $result = $this->http_post(self::API_URL_PREFIX . "/message/mass/delete?access_token={$this->access_token}", $data);
+        $data = Tools::json_encode(array('msg_id' => $msg_id));
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/message/mass/delete?access_token={$this->access_token}", $data);
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {
@@ -264,6 +287,7 @@ class Wechat_message extends CI_Wechat_common {
         }
         return false;
     }
+
     /**
      * 预览群发消息 ( 订阅号与服务号认证后均可用 )
      * @param array $data
@@ -281,10 +305,10 @@ class Wechat_message extends CI_Wechat_common {
      */
     public function previewMassMessage($data)
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
-        $result = $this->http_postt(self::API_URL_PREFIX . "/message/mass/preview?access_token={$this->access_token}", self::json_encode($data));
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/message/mass/preview?access_token={$this->access_token}", Tools::json_encode($data));
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {
@@ -296,6 +320,7 @@ class Wechat_message extends CI_Wechat_common {
         }
         return false;
     }
+
     /**
      * 查询群发消息发送状态 ( 订阅号与服务号认证后均可用 )
      * @param string $msg_id 消息ID
@@ -307,11 +332,11 @@ class Wechat_message extends CI_Wechat_common {
      */
     public function queryMassMessage($msg_id)
     {
-        if (!$this->access_token && !$this->checkAuth()) {
+        if (!$this->access_token && !$this->getAccessToken()) {
             return false;
         }
-        $data = self::json_encode(array('msg_id' => $msg_id));
-        $result = $this->http_post(self::API_URL_PREFIX . "/message/mass/get?access_token={$this->access_token}", $data);
+        $data = Tools::json_encode(array('msg_id' => $msg_id));
+        $result = Tools::httpPost(self::API_URL_PREFIX . "/message/mass/get?access_token={$this->access_token}", $data);
         if ($result) {
             $json = json_decode($result, true);
             if (empty($json) || !empty($json['errcode'])) {

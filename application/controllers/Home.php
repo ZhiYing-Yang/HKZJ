@@ -245,7 +245,6 @@ class Home extends CI_Controller {
 		}
 	}
 	public function ceshi() {
-		$a = '';
-		var_dump(empty($a));
+		log_message('error', '错误日志测试');
 	}
 }

@@ -105,19 +105,19 @@ class Index_model extends CI_model {
 		$type_class = '';
 		switch ($type) {
 		case '卡友生活':
-			$type_calss = 'live_orange';
+			$type_class = 'live_orange';
 			break;
 		case '卡友经验':
-			$type_calss = 'exper_green';
+			$type_class = 'exper_green';
 			break;
 		case '卡友求助':
 			$type_class = 'help_red';
 			break;
 		case '自由贸易':
-			$type_calss = 'free_purprl';
+			$type_class = 'free_purprl';
 			break;
 		case '灌水区':
-			$type_calss = 'chat_bule';
+			$type_class = 'chat_bule';
 			break;
 		default:
 			# code...

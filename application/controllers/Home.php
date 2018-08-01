@@ -1,10 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends MY_Controller {
+class Home extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('index_model');
+		if(empty($this->session->userdata('user_id'))){
+		    $this->session->set_userdata('user_id', 3);
+        }
 	}
 
 	//论坛首页帖子，type = '精品' => 精品帖子 '所有'=>除了卡友求助以外的全部帖子 '热门'=>卡友求助的热门帖子
@@ -255,5 +258,23 @@ class Home extends MY_Controller {
     public function discover(){
 	    $data['active'] = '发现';
 	    $this->load->view('index/discover.html', $data);
+    }
+
+    //个人中心 $id=>被访问者的id
+    public function person($id = ''){
+        if(!is_numeric($id)){
+            $this->load->view('404/404.html');return;
+        }
+        $user_id = $this->session->userdata('user_id'); //当前访问者的id
+
+        $data['active'] = '个人'; //图标高亮
+
+        if($user_id == $id){ //访问自己的个人中心
+            $user = $this->index_model->get_user(array('user_id'=>$user_id));
+            $data['user'] = $user[0];
+            $this->load->view('index/person.html', $data);
+        }else{//访问别人的个人中心
+
+        }
     }
 }

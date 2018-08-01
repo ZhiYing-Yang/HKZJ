@@ -26,14 +26,16 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="userheading">
-                    <div class="col-xs-3 head_img"><img src="<?=$user['headimgurl']?>" alt="" class="user_img"></div>
-                    <div class="col-xs-6">
-                        <div class="name_level">
-                            <a href="#"><h3><?=$user['nickname']?><img class="vip-img" src="/style/index/img/icon/<?=$user['vip']==0?'common':'vip'?>_level.png" alt=""></h3></a>
+                    <div class="col-xs-9 head_img">
+                        <img src="<?=$user['headimgurl']?>" alt="" class="user_img" style="float: left;">
+                        <div style="margin-left: 65px;">
+                            <div class="name_level">
+                               <a href="#"><h4><?=$user['nickname']?><img class="vip-img" src="/style/index/img/icon/<?=$user['vip']==0?'common':'vip'?>_level.png" alt=""></h4></a>
+                            </div>
+                            <p class="per_sign text-overflow"><?=$user['signature']?></p>
                         </div>
-                        <p class="per_sign text-overflow"><?=$user['signature']?></p>
                     </div>
-                    <div class="col-xs-3 text-center signIn"><a class="btn" role="button" href="#">签到</a></div>
+                    <div class="col-xs-3 text-center signIn"><a class="btn btn-block" role="button" href="#">签到</a></div>
                 </div>
             </div>
         </div>
@@ -100,7 +102,7 @@
                                     <a class="userimgBox" href="#"><img class="userimg" src="<?=$a['headimgurl']?>" class="media-object"></a>
                                 </div>
                                 <div class="media-body">
-                                    <a href="##"><h4 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/<?=$a['vip']==0?'common':'vip'?>_level.png" alt=""></span></h4></a>
+                                    <a href="##"><h4 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/<?=$a['vip']==0?'common':'vip'?>_level.png" class="vip-img" alt=""></span></h4></a>
                                     <span class="datetime"><?=$a['create_time']?></span>
                                     <div class="invitation_comment">
                                         <a href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self">
@@ -135,7 +137,10 @@
         </div>
     </div>
     <!-- menu -->
-   <div id="header" class="header"><?=include('menu.html')?></div>
+   <?php include('menu.html')?>
+
+
+
     <script type="text/javascript" src="/style/index/js/constant.js"></script>
     <script>
     var totalSize = '<?=$total_rows?>';
@@ -149,7 +154,7 @@
             }
             console.log('执行了setListData函数的第' + i + '次for循环');
 
-            html += '<li class="media paddusal borderstyle" ><div class="media-left"><a class="userimgBox" href="#"><img class="userimg" src="' + curPageData.data[i].headimgurl + '" class="media-object"></a></div><div class="media-body"><a href="#"><h4 class="media-heading">' + curPageData.data[i].nickname + '<span class="viper level"><img src="/style/index/img/icon/' + (curPageData.data[i].vip == 0 ? 'common' : 'vip') + '_level.png" alt=""></span></h4></a><span class="datetime">' + curPageData.data[i].create_time + '</span><div class="invitation_comment"><a href="'+'<?=site_url("home/see_article/")?>'+ curPageData.data[i].article_id +'" target="_self"><h4>' + curPageData.data[i].title + '</h4><p>' + curPageData.data[i].content + '</p><div class="invitation_imgs"><div class="row">';
+            html += '<li class="media paddusal borderstyle" ><div class="media-left"><a class="userimgBox" href="#"><img class="userimg" src="' + curPageData.data[i].headimgurl + '" class="media-object"></a></div><div class="media-body"><a href="#"><h4 class="media-heading">' + curPageData.data[i].nickname + '<span class="viper level"><img class="vip-img" src="/style/index/img/icon/' + (curPageData.data[i].vip == 0 ? 'common' : 'vip') + '_level.png" alt=""></span></h4></a><span class="datetime">' + curPageData.data[i].create_time + '</span><div class="invitation_comment"><a href="'+'<?=site_url("home/see_article/")?>'+ curPageData.data[i].article_id +'" target="_self"><h4>' + curPageData.data[i].title + '</h4><p>' + curPageData.data[i].content + '</p><div class="invitation_imgs"><div class="row">';
             if (curPageData.data[i].url.length > 0) {
                 var col = 12 / curPageData.data[i].url.length;
                 for (var j = 0; j < curPageData.data[i].url.length; j++) {

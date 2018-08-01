@@ -18,7 +18,7 @@ li{list-style: none;}
 .userimg,.userimgBox{width: 40px;height: 40px;}
 .userimgBox{border-radius: 50%;overflow: hidden;display: block;}
 .datatime{font-size: 1.2em;}
-.menu_css{position: fixed;bottom: 0;left: 0;padding:10px;z-index: 999;background: #fff;border-top: 1px solid #959595;width: 100%}
+.menu_css{position: fixed;bottom: 0;left: 0;padding:5px 0;z-index: 999;background: #fff;    border-top: 1px solid rgba(149, 149, 149, 0.35);width: 100%}
 .menu_css ul{width: 100%; overflow: hidden;margin-bottom: 0}
 .menu_css ul li{float: left;text-align: center;}
 /* .usual_menu 主界面菜单*/
@@ -47,4 +47,7 @@ li{list-style: none;}
 }
 .reply_comment a{
 	color: #337ab7;
+}
+.usual_menu img{
+	width: 25px;
 }

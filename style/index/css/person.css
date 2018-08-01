@@ -25,3 +25,11 @@
 #mystore{background: url(../img/icon/mystore.png)center center no-repeat;}
 #mypower{background: url(../img/icon/mypower.png)center center no-repeat;}
 
+/*改*/
+.person_nav{
+ margin-top:10px;
+}
+.person_nav li{
+ width: 50%;
+}
+

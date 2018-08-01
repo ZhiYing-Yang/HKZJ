@@ -16,7 +16,7 @@
                                     <img class="choose_img" src="/style/index/img/icon/4<?=$active=='发现'?'_xz':''?>.png" alt="发现">
                                     <p class="<?=$active=='发现'?'blue':''?>">发现</p>
                                 </a></li>
-        <li><a target="_top" class="<?=$active=='个人'?'chose':''?>" href="person.html">
+        <li><a target="_top" class="<?=$active=='个人'?'chose':''?>" href="<?=site_url('home/person/').$this->session->userdata('user_id')?>">
                                     <img class="choose_img" src="/style/index/img/icon/5<?=$active=='个人'?'_xz':''?>.png" alt="个人">
                                     <p class="<?=$active=='个人'?'blue':''?>">个人</p>
                                 </a></li>

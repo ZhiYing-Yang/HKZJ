@@ -14,7 +14,7 @@ $(function() {
         $(this).css('background', 'rgba(0,0,0,.5)');
         $(this).css('color', '#fff');
         var count1 = 1;
-        var signcount = '已签到 ' + count1 + ' 天';
+        var signcount = '已签到';
         $(this).html(signcount);
     });
     //论坛页点赞功能

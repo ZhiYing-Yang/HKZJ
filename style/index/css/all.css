@@ -4,12 +4,12 @@ p{color:#7C7C7C;}
 .loading{width: 100%;height: 100%;position: fixed;top: 0; left: 0; z-index: 1000;background: #fff;}
 .loading .pic{width: 180px; height: 152px; background: url(../img/icon/loading.gif); position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
 /*签到*/
-.signIn>a{width:90px;height:50px;background:#E5AA25;line-height: 38px;}
+.signIn>a{background:#E5AA25;}
 /*头部用户*/
-.userheading {padding: 10px;background: url(../img/linkback.jpg)center center no-repeat;background-size: cover;overflow: hidden;}
+.userheading {padding: 10px 0;background: url(../img/linkback.jpg)center center no-repeat;background-size: cover;overflow: hidden;}
 .userheading a{color: #fff;}
 .user_img{width: 60px;height: 60px;border-radius: 50%;display: block;margin: 0 auto;vertical-align: middle;}
-.name_level h3,.signIn{margin:5px 0 10px 0;}
+.name_level h4,.signIn{margin:5px 0 3px 0;}
 .userheading span{font-size: 1.4em;color:#7C7C7C;}
 /*精品贴样式*/
 .boutique{display: block;text-align: center;font-size: 25px;border-radius:10px;color: #fff;}
@@ -100,6 +100,9 @@ p{color:#7C7C7C;}
 }
 .faceDiv>img:active {
 	padding: 4px 3px 2px 3px;
+}
+.vip-img{
+	margin-left: 10px;
 }
 
 /*上拉加载更多*/

@@ -7,31 +7,8 @@ $(function() {
         }
 
     }
-    // 点击切换主界面图片
-    var imgs = $('#header_main ul li a img');
-    for (var i = 0; i < imgs.length; i++) {
-        var j = i + 1;
-        var path_before = "/style/index/img/icon/" + j + ".png";
-        imgs.eq(i).attr('src', path_before);
-        $('#header_main ul li a').children('p').css('color', '#4B4B4B');
-    }
-    var url = window.location.href;
-    $('#header_main ul li').each(function() {
-        var menu_url = returnUrl($(this).children('a').attr('href'));
-        if (menu_url == returnUrl(url) || returnUrl(url).indexOf(menu_url) != -1) {
-            var imgSrc = $(this).find('img');
-            var oldsrc_num = imgSrc.attr('src').lastIndexOf('.');
-            var oldsrc = imgSrc.attr('src').substring(0, oldsrc_num);
-            var path = oldsrc + '_xz.png';
-            imgSrc.attr('src', path);
-            $(this).find('p').css('color', '#0084FF');
-        }
-    });
-    //获取地址名称
-    function returnUrl(href) {
-        var url_num = href.lastIndexOf('/');
-        return href.substring(url_num + 1, href.length - 5);
-    };
+
+
     //签到功能
     $('.signIn').on('click', 'a', function() {
         $(this).css('background', 'rgba(0,0,0,.5)');

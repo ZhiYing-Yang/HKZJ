@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <!-- loding -->
+    <!-- loading -->
     <div class="loading">
         <div class="pic"></div>
     </div>
@@ -26,12 +26,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="userheading">
-                    <div class="col-xs-3 head_img"><img src="/style/index/img/head_img.jpg" alt="" class="user_img"></div>
+                    <div class="col-xs-3 head_img"><img src="<?=$user['headimgurl']?>" alt="" class="user_img"></div>
                     <div class="col-xs-6">
                         <div class="name_level">
-                            <a href="#"><h3>HK21<img class="vip-img" src="/style/index/img/icon/vip_level.png" alt=""></h3></a>
+                            <a href="#"><h3><?=$user['nickname']?><img class="vip-img" src="/style/index/img/icon/<?=$user['vip']==0?'common':'vip'?>_level.png" alt=""></h3></a>
                         </div>
-                        <p class="per_sign text-overflow">这位朋友很懒,没有留下什么...</p>
+                        <p class="per_sign text-overflow"><?=$user['signature']?></p>
                     </div>
                     <div class="col-xs-3 text-center signIn"><a class="btn" role="button" href="#">签到</a></div>
                 </div>

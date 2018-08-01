@@ -16,7 +16,7 @@
  * @property products_model   $products_model
  * @property film_model       $film_model
  * @property film_model1      $film_model1
- * @property index_model1     $index_model1
+ * @property index_model     $index_model
  *
  *
  */

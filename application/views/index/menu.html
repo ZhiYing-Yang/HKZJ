@@ -1,24 +1,24 @@
 <div class="menu_css" id="header_main">
     <ul class="usual_menu">
-        <li><a target="_top" class="chose" href="<?=site_url('home/index')?>">
-                                    <img class="choose_img" src="/style/index/img/icon/1_xz.png" alt="论坛">
-                                    <p class="blue">论坛</p>
+        <li><a target="_top" href="<?=site_url('home/index')?>">
+                                    <img class="choose_img" src="/style/index/img/icon/1<?=$active=='论坛'?'_xz':''?>.png" alt="论坛">
+                                    <p class="<?=$active=='论坛'?'blue':''?>">论坛</p>
                                 </a></li>
         <li><a target="_top" href="<?=site_url('home/index/卡友求助')?>">
-                                    <img class="choose_img" src="/style/index/img/icon/2.png" alt="求助">
-                                    <p>求助</p>
+                                    <img class="choose_img" src="/style/index/img/icon/2<?=$active=='求助'?'_xz':''?>.png" alt="求助">
+                                    <p class="<?=$active=='求助'?'blue':''?>">求助</p>
                                 </a></li>
-        <li><a target="_top" href="<?=site_url('home/add_article')?>">
-                                    <img class="choose_img" src="/style/index/img/icon/3.png" alt="添加">
-                                    <p>添加</p>
+        <li><a target="_top" class="<?=$active=='添加'?'chose':''?>" href="<?=site_url('home/add_article')?>">
+                                    <img class="choose_img" src="/style/index/img/icon/3<?=$active=='添加'?'_xz':''?>.png" alt="添加">
+                                    <p class="<?=$active=='添加'?'blue':''?>">添加</p>
                                 </a></li>
-        <li><a target="_top" href="discover.html">
-                                    <img class="choose_img" src="/style/index/img/icon/4.png" alt="发现">
-                                    <p>发现</p>
+        <li><a target="_top" class="<?=$active=='发现'?'chose':''?>" href="<?=site_url('home/discover')?>">
+                                    <img class="choose_img" src="/style/index/img/icon/4<?=$active=='发现'?'_xz':''?>.png" alt="发现">
+                                    <p class="<?=$active=='发现'?'blue':''?>">发现</p>
                                 </a></li>
-        <li><a target="_top" href="person.html">
-                                    <img class="choose_img" src="/style/index/img/icon/5.png" alt="个人">
-                                    <p>个人</p>
+        <li><a target="_top" class="<?=$active=='个人'?'chose':''?>" href="person.html">
+                                    <img class="choose_img" src="/style/index/img/icon/5<?=$active=='个人'?'_xz':''?>.png" alt="个人">
+                                    <p class="<?=$active=='个人'?'blue':''?>">个人</p>
                                 </a></li>
     </ul>
 </div>

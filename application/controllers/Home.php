@@ -17,6 +17,7 @@ class Home extends MY_Controller {
 			$order_str = 'praise DESC, read DESC';
 			$article = $this->index_model->get_user_article_list($where_arr, $order_str, $offset, 10);
 			$data['article'] = $this->index_model->format_data($article);
+            $data['active'] = '论坛'; //底部高亮标签名
 			$this->load->view('index/index_boutique.html', $data);
 			return;
 		}
@@ -26,6 +27,7 @@ class Home extends MY_Controller {
 			$order_str = 'read DESC, article.create_time ASC';
 			$article = $this->index_model->get_user_article_list(array('type' => '卡友求助', 'solve' => 0), $order_str, $offset, 10);
 			$data['article'] = $this->index_model->format_data($article);
+            $data['active'] = '求助'; //底部高亮标签名
 			$this->load->view('index/help-hot.html', $data);
 			return;
 		}
@@ -49,9 +51,12 @@ class Home extends MY_Controller {
 		}
 
 		if ($type == '卡友求助') {
+            $data['active'] = '求助'; //底部高亮标签名
 			$this->load->view('index/help.html', $data);
 		} else {
-			$this->load->view('index/index.html', $data);
+		    $data['user'] = $this->index_model->get_user(array('user_id'=>$this->session->userdata('user_id')))[0];
+            $data['active'] = '论坛'; //底部高亮标签名
+		    $this->load->view('index/index.html', $data);
 		}
 	}
 
@@ -67,6 +72,7 @@ class Home extends MY_Controller {
 			$total_rows = $this->index_model->get_help_search_count($search);
 			$data['total_rows'] = empty($total_rows) ? 0 : $total_rows[0]['total_rows'];
 			$data['search'] = $search;
+            $data['active'] = '求助'; //底部高亮标签名
 			$this->load->view('index/help-search.html', $data);
 		}
 	}
@@ -165,7 +171,8 @@ class Home extends MY_Controller {
 			}
 		} else {
 			//文章发布页面
-			$this->load->view('index/editor.html');
+            $data['active'] = '添加'; //底部高亮标签名
+			$this->load->view('index/editor.html', $data);
 		}
 	}
 
@@ -243,4 +250,10 @@ class Home extends MY_Controller {
 			get_json(400, '评论失败，请稍后重试！');return;
 		}
 	}
+
+	//发现页
+    public function discover(){
+	    $data['active'] = '发现';
+	    $this->load->view('index/discover.html', $data);
+    }
 }

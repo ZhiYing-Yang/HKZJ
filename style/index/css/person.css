@@ -33,3 +33,20 @@
  width: 50%;
 }
 
+.title{
+ font-weight: 700;
+ margin-top: 20px;
+}
+.icon{
+ margin-bottom: 5px;
+}
+.icon img{
+ width: 25px;
+ margin-right: 2px
+}
+.icon div{
+ text-align: center;
+ font-size: 13px;
+ color: #8a8a8a;
+}
+

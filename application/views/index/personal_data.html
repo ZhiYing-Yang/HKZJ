@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>个人资料</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="/style/index/css/personal_data.css">
+</head>
+
+<body>
+<div class="weui_cells">
+    <div class="weui_cell">
+        <div class="weui_cell_hd">
+            <img src="/style/index/img/icon/head_icon.png" alt="icon"
+                 style="width:25px;margin-right:10px;display:block">
+        </div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>头像</p>
+        </div>
+        <div class="weui_cell_ft" id="head_img">
+            <img class="head_img" src="<?=$user['headimgurl']?>" alt="">
+        </div>
+    </div>
+</div>
+<div class="weui_cells weui_cells_form">
+    <div class="weui_cell">
+        <div class="weui_cell_hd">
+            <label class="weui_label">昵称</label>
+        </div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" name="nickname" value="<?=$user['nickname']?>" placeholder="请输入昵称">
+        </div>
+    </div>
+</div>
+<div class="weui_cells_title">个性签名：</div>
+<div class="weui_cells weui_cells_form">
+    <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <textarea class="weui_textarea" name="signature" placeholder="请输入个性签名" rows="3"><?=$user['signature']?></textarea>
+            <div class="weui_textarea_counter"><span id="count"><?=mb_strlen($user['signature'])?></span>/200</div>
+        </div>
+    </div>
+</div>
+<div class="weui_cells weui_cells_access">
+    <a class="weui_cell open-popup" data-target="#phone" href="javascript:void(0);">
+        <div class="weui_cell_hd"><img src="/style/index/img/icon/person_phone.png" alt=""></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>手机号</p>
+        </div>
+        <div class="weui_cell_ft"><?=empty($user['phone'])?'请绑定手机号':$user['phone']?></div>
+    </a>
+</div>
+<div id="phone" class="weui-popup-container popup-bottom">
+    <div class="weui-popup-overlay"></div>
+    <div class="weui-popup-modal">
+        <div class="weui_cells weui_cells_form">
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p style="text-align: center;">绑定手机号</p>
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><img src="/style/index/img/icon/person_phone.png" alt=""></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" name="phone" type="tel" placeholder="请输入手机号">
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><img src="/style/index/img/icon/phone_code.png" alt=""></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" name="phone_code" type="number" placeholder="请输入验证码">
+                </div>
+                <div class="weui_cell_ft" style="width: 50%">
+                    <a href="javascript:;" class="weui_btn weui_btn_primary" id="get_phone_code">获取验证码</a>
+                </div>
+            </div>
+            <div class="weui-row" style="margin: 10px 0;">
+                <div class="weui-col-50">
+                    <a href="javascript:void(0);" class="weui_btn weui_btn_plain_default close-popup">取消</a>
+                </div>
+                <div class="weui-col-50">
+                    <a href="javascript:;" class="weui_btn weui_btn_plain_primary" id="submit_edit_phone">提交</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script src="/style/index/js/myReg.js"></script>
+<script>
+//控制textarea字数
+    var max = 200;
+    $('.weui_textarea').on('input', function () {
+        var text = $(this).val();
+        var len = text.length;
+        $('#count').text(len);
+        if (len > max) {
+            $(this).css('disabled', 'disabled');
+        } else {
+            $(this).closest('.weui_cell').removeClass('weui_cell_warn');
+        }
+    });
+
+    //头像
+    $('#head_img').click(function(){
+        $.toptip('该功能正在开发，敬请期待!','warning');
+    });
+
+    //昵称
+    $("input[name='nickname']").blur(function () {
+        var old_nickname = '<?=$user["nickname"]?>';
+        var nickname = $.trim($(this).val());
+
+        if(nickname == old_nickname){
+            return;
+        }
+        if(nickname.length==0){
+            $.alert('请输入昵称', '提示');
+            $(this).focus();
+            return;
+        }
+        if(nickname.length>20){
+            $.alert('你输入的昵称过长', '提示');
+            $(this).focus();
+            return;
+        }
+        $.post('<?=site_url("home/edit_personal_data")?>', {nickname: nickname}, function(data){
+            if(data.code == 200){
+                $.toast('保存成功');
+            }else{
+                $.alert(data.message);
+            }
+        },'json');
+    });
+
+    //个性签名
+
+$("textarea[name='signature']").blur(function () {
+    var old_signature = '<?=$user["signature"]?>';
+    var signature = $.trim($(this).val());
+
+    if(signature == old_signature){
+        return;
+    }
+    if(signature.length == 0){
+        $.alert('请输入签名', '提示');
+        $(this).focus();
+        return;
+    }
+    if(signature.length>200){
+        $.alert('你输入的签名过长！', '提示');
+        $(this).focus();
+        return;
+    }
+    $.post('<?=site_url("home/edit_personal_data")?>', {signature: signature}, function(data){
+        if(data.code == 200){
+            $.toast('保存成功');
+        }else{
+            $.alert(data.message);
+        }
+    },'json');
+});
+
+//获取验证码
+$('#get_phone_code').click(function(event) {
+    /* Act on the event */
+    if ($(this).attr('disabled') == 'disabled') {
+        return;
+    }
+    var phone = $("input[name='phone']").val();
+    if(!phoneReg(phone)){
+        $.toptip('请输入正确的手机号！','error');
+        $("input[name='phone']").focus();
+        return;
+    }
+    $.post('<?=site_url("home/get_phone_code")?>', {phone: phone},function(data) {
+        /*optional stuff to do after success */
+        if (data.code == 200) {
+            $('#get_phone_code').addClass('weui_btn_disabled');
+            $('#get_phone_code').attr('disabled', 'disabled');
+            $('#get_phone_code').html('重新获取（60s）');
+            var time = 59; //时长 s
+            $.toptip('验证码已发送！', 'success');
+            $("input[name='phone_code']").focus();
+            var timer = setInterval(function() {
+                $('#get_phone_code').html('重新获取（' + (time) + 's）');
+                if (time == 0) {
+                    $('#get_phone_code').html('重新获取');
+                    $('#get_phone_code').removeClass('weui_btn_disabled');
+                    $('#get_phone_code').attr('disabled', false);
+                    clearInterval(timer);
+                }
+                time--;
+            }, 1000);
+        } else {
+            $.toptip(data.message, 'error');
+        }
+    }, 'json');
+});
+
+//提交绑定手机号的请求
+$('#submit_edit_phone').click(function (event) {
+    /* Act on the event */
+    var phone = $("input[name='phone']").val();
+    if(!phoneReg(phone)){
+        $.toptip('请输入正确的手机号！','error');
+        $("input[name='phone']").focus();
+        return;
+    }
+    $.post('<?=site_url("home/edit_personal_data")?>', {phone: phone, phone_code: $("input[name='phone_code']").val()}, function(data){
+        if(data.code == 200){
+            $.closePopup();
+            $.toast('绑定成功');
+        }else{
+            $.toptip(data.message, 'error');
+        }
+    },'json');
+});
+</script>

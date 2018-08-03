@@ -2,11 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
+
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('index_model');
 		if(empty($this->session->userdata('user_id'))){
-		    $this->session->set_userdata('user_id', 3);
+		    $this->session->set_userdata('user_id', 2);
         }
 	}
 
@@ -20,6 +21,7 @@ class Home extends CI_Controller {
 			$order_str = 'praise DESC, read DESC';
 			$article = $this->index_model->get_user_article_list($where_arr, $order_str, $offset, 10);
 			$data['article'] = $this->index_model->format_data($article);
+			$data['user'] = $this->index_model->get_user(array('user_id'=>$this->session->userdata('user_id')))[0];
             $data['active'] = '论坛'; //底部高亮标签名
 			$this->load->view('index/index_boutique.html', $data);
 			return;
@@ -261,20 +263,92 @@ class Home extends CI_Controller {
     }
 
     //个人中心 $id=>被访问者的id
-    public function person($id = ''){
+    public function person($id = '', $type = 'article'){
         if(!is_numeric($id)){
             $this->load->view('404/404.html');return;
         }
         $user_id = $this->session->userdata('user_id'); //当前访问者的id
 
         $data['active'] = '个人'; //图标高亮
-
-        if($user_id == $id){ //访问自己的个人中心
-            $user = $this->index_model->get_user(array('user_id'=>$user_id));
-            $data['user'] = $user[0];
-            $this->load->view('index/person.html', $data);
+        $data['person'] = $user_id == $id?'self':'other';
+        $data['this_id'] = $id;
+        if($type == 'help'){ //访问自己的个人中心
+            $where_arr = array('type'=> '卡友求助', 'article.user_id'=>$id);
+            $view = 'index/person_help.html';
         }else{//访问别人的个人中心
-
+            $where_arr = array('article.user_id'=>$id, 'type !='=> '卡友求助');
+            $view = 'index/person.html';
         }
+        $article = $this->index_model->get_article_list($where_arr, 0);
+        $data['article'] = $this->index_model->format_data($article);
+        $user = $this->index_model->get_user(array('user_id'=>$user_id));
+        $data['user'] = $user[0];
+        $this->load->view($view, $data);
+    }
+    public function personal_data(){
+        $id = $this->session->userdata('user_id');
+
+        $user = $this->index_model->get_user(array('user_id'=>$id));
+        if(empty($user)){
+            $this->load->view('404/404.html');return;
+        }
+        $data['user'] = $user[0];
+        $this->load->view('index/personal_data.html', $data);
+    }
+
+    //修改个人资料 昵称、个性签名、手机号
+    public function edit_personal_data(){
+        //昵称
+        if(!empty($this->input->post('nickname'))){
+            $data['nickname'] = $this->input->post('nickname');
+        }
+
+        //个性签名
+        if(!empty($this->input->post('signature'))){
+            $data['signature'] = $this->input->post('signature');
+        }
+
+        //手机号
+        if(!empty($this->input->post('phone'))){
+            //post过来的验证码和session中的相等 且 手机号和session中的相等方可通过验证
+            if($this->session->tempdata('phone_code') == $this->input->post('phone_code') || $this->session->tempdata('phone') !=$this->input->post('phone')){
+                $data['phone'] = $this->input->post('phone');
+            }else {
+                get_json(400, '手机验证码错误，请重新输入！');
+            }
+        }
+
+        if(!empty($data)){
+            if($this->db->update('user',$data, array('user_id'=>$this->session->userdata('user_id')))){
+                get_json(200, '保存成功');
+            }else{
+                get_json(200, '保存失败，请稍后重试！');
+            }
+        }else{
+            get_json(400, '请输入要修改的内容');
+        }
+    }
+
+    //获取手机短信验证码
+    public function get_phone_code(){
+        //验证码防止操作过于频繁
+        if(!empty($this->session->tempdata('got'))){
+            get_json(400, '您的操作过于频繁！');
+        }
+        $phone = $this->input->post('phone');
+        //验证手机号的正确性 正则表达式验证 略
+
+        //验证手机号是否被绑定
+        $status = $this->index_model->get_user(array('phone'=>$phone));
+        if(!empty($status)){
+            get_json(400,'该手机号已经被绑定');
+        }
+
+        //生成并发送验证码
+        $phone_code = mt_rand(000000, 999999);
+        $this->session->set_tempdata('phone', $phone);//将被发送验证码的手机号存入session中以备后续验证
+        $this->session->set_tempdata('phone_code', $phone_code);//将验证码存入session中，已备验证
+        $this->session->set_tempdata('got', '已发送', 60);
+        get_json(200,'发送成功');
     }
 }

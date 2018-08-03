@@ -20,7 +20,7 @@ $(function() {
     //论坛页点赞功能
     $('.media-list').on('click', '.able_praise', function(e) {
         e.stopPropagation();
-        alert($(this).attr('data-id'));
+        //alert($(this).attr('data-id'));
         praise($(this), PRAISE_ARTICLE_URL+$(this).attr('data-id'));
     });
     //帖子

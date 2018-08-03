@@ -8,7 +8,12 @@ class Index_model extends CI_model {
 		$status = $this->db->select($get_info)->order_by($order_str)->limit($per_page, $offset)->join('user', 'article.user_id = user.user_id')->get_where('article', $where_arr)->result_array();
 		return $status;
 	}
-	//获取搜索的信息
+	//获取文章列表
+    public function get_article_list($where_arr, $offset, $per_page = 10){
+        $status = $this->db->select('*')->order_by('create_time DESC')->limit($per_page, $offset)->get_where('article', $where_arr)->result_array();
+        return $status;
+    }
+    //获取搜索的信息
 	public function get_help_search($search, $offset, $per_page = 10) {
 		$search = addslashes($search);
 		$offset = addslashes($offset);

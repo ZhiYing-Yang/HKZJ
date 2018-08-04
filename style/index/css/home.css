@@ -28,9 +28,18 @@ span{color:#7C7C7C;}
 .boutiqueorther{background: #4C4C4C;}
 /*消息栏目*/
 .message_main a{width: 100%;display: block;border-left: none;border-right: none;}
-.message_main span{padding: 5px;display: inline-block;font-size: 1em;}
+.message_main span{padding: 2px 8px;display: inline-block;font-size: 1em;}
 .tip{border-radius: 10px;color: #fff;margin-right: 10px;}
 .inform{background-color: #83C0EF;}
 .reply{background-color: #16A05D;}
 .date{float: right;}
 .reply_p{background-color: rgba(181, 181, 183,0.5);padding: 10px;color: #000;}
+.media-body .col-xs-4 img{
+    max-height:100px;
+}
+.media-body .row .col-xs-4{
+    padding: 0 2px;
+}
+.message_main .list-group-item{
+    padding: 5px 10px;
+}

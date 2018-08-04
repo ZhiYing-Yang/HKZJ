@@ -94,8 +94,8 @@ class Login extends CI_Controller{
 
     //测试一下
     public function ceshi() {
-        unset($_SESSION);
-        session_destroy();
+        //$this->load->library('mysms');
+        //$this->mysms->send_phone_code('17630026797', '123456');
     }
 
 }

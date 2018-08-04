@@ -73,9 +73,9 @@
                             <div class="media-body">
                                 <h4 class="media-heading">广告商</h4>
                             </div>
-                            <div class="col-xs-12">
+                            <div style="max-height: 210px;overflow: hidden;">
                                 <div class="ad_body">
-                                    <a href="invicomment.html"><img src="/style/index/img/marchant-img1.jpg"></a>
+                                    <a href="#"><img src="/style/index/img/marchant-img1.jpg"></a>
                                 </div>
                             </div>
                             <span class="label ad_label">广告</span>
@@ -84,7 +84,7 @@
                 </div>
                 <!-- 论坛置顶消息内容 -->
                 <div class="row">
-                    <div class="paddusal message_main">
+                    <div class="message_main">
                         <div class="list-group">
                             <a href="#" class="list-group-item"><span class="tip inform">置顶</span>您有一条置顶帖子需要查看<span class="date">2018-04-12</span></a>
                             <a href="#" class="list-group-item"><span class="tip inform">置顶</span>必看!论坛管理规则!<span class="date">2018-04-12</span></a>
@@ -124,7 +124,7 @@
                                 <div class="media-right">
                                     <div class="able able_praise" data-id="<?=$a['article_id']?>"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px"><?=$a['praise']?></span>
                                     </div>
-                                    <div class="able"><a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px"><?=$a['comment_total']?></span>
+                                    <div class="able"><a href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px"><?=$a['comment_total']?></span>
                                     </a></div>
                                 </div>
                                 <div class="row"><span class="label <?=$a['type_class']?>"><?=$a['type']?></span></div>
@@ -138,7 +138,6 @@
     </div>
     <!-- menu -->
    <?php include('menu.html')?>
-
 
 
     <script type="text/javascript" src="/style/index/js/constant.js"></script>
@@ -162,7 +161,7 @@
                 }
             }
 
-            html += '</div></div></a></div></div><div class="media-right"><div class="able able_praise" data-id="'+ curPageData.data[i].article_id +'"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">' + curPageData.data[i].praise + '</span></div><div class="able"><a href="invicomment.html" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">' + curPageData.data[i].comment_total + '</span></a></div></div><div class="row"><span class="label '+ curPageData.data[i].type_class +'">' + curPageData.data[i].type + '</span></div></li>';
+            html += '</div></div></a></div></div><div class="media-right"><div class="able able_praise" data-id="'+ curPageData.data[i].article_id +'"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">' + curPageData.data[i].praise + '</span></div><div class="able"><a href="' + '<?=site_url("home/see_article/")?>'+ curPageData.data[i].article_id + '" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">' + curPageData.data[i].comment_total + '</span></a></div></div><div class="row"><span class="label '+ curPageData.data[i].type_class +'">' + curPageData.data[i].type + '</span></div></li>';
         }
         $('.media-list').append(html);
     }

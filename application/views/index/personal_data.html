@@ -53,7 +53,7 @@
         <div class="weui_cell_bd weui_cell_primary">
             <p>手机号</p>
         </div>
-        <div class="weui_cell_ft"><?=empty($user['phone'])?'请绑定手机号':$user['phone']?></div>
+        <div class="weui_cell_ft my_phone"><?=empty($user['phone'])?'请绑定手机号':$user['phone']?></div>
     </a>
 </div>
 <div id="phone" class="weui-popup-container popup-bottom">
@@ -220,6 +220,7 @@ $('#submit_edit_phone').click(function (event) {
     $.post('<?=site_url("home/edit_personal_data")?>', {phone: phone, phone_code: $("input[name='phone_code']").val()}, function(data){
         if(data.code == 200){
             $.closePopup();
+            $('.my_phone').html(phone);
             $.toast('绑定成功');
         }else{
             $.toptip(data.message, 'error');

@@ -108,7 +108,8 @@
                 <button type="button" class="btn btn-link btn-block" onclick="javascript:window.history.go(-1);">&lt;&lt;返回</button>
             </div>
             <div class="col-xs-9">
-                <button type="button" class="btn btn-info btn-block commentClick">让我帮助他</button>
+                <button style="display: <?=$article['user_id']==$this->session->userdata('user_id')?'none':''?>" type="button" class="btn btn-info btn-block commentClick">让我帮助他</button>
+                <button style="display: <?=$article['user_id']==$this->session->userdata('user_id')?'':'none'?>" type="button" class="btn btn-info btn-block" id="solve_btn">问题已解决</button>
             </div>
         </div>
     </div>
@@ -276,4 +277,23 @@ $(function() {
         });
     }
 });
+</script>
+<script>
+    $('#solve_btn').click(function(){
+        $.get('<?=site_url("home/help_solve/").$article["article_id"]?>', function(data){
+            if(data.code == 200){
+                $('#solve_btn').attr('disabled', true);
+                layer.open({
+                    content: '恭喜您解决了问题！',
+                    skin:'msg',
+                    time: 3
+                });
+            }else{
+                layer.open({
+                    content:data.message,
+                    btn: '我知道了'
+                });
+            }
+        }, 'json');
+    });
 </script>

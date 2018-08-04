@@ -112,6 +112,18 @@ class Home extends CI_Controller {
 			$this->load->view('index/article.html', $data);
 		}
 	}
+	//求助解决
+    public function help_solve($id){
+	    if(!is_numeric($id)){
+	        get_json(400,'该文章已被删除');return;
+        }
+
+        if($this->db->update('article', array('solve'=>1), array('article_id'=>$id))){
+	        get_json(200, '问题已解决！');
+        }else{
+            get_json(200,'操作失败，请稍后重试！');
+        }
+    }
 	//更多评论或者回答页
 	public function get_more_comment($id, $offset) {
 		$data['comment'] = $this->index_model->get_user_comment_list(array('article_id' => $id, 'pid' => 0), 'create_time DESC', $offset);
@@ -315,6 +327,7 @@ class Home extends CI_Controller {
                 $data['phone'] = $this->input->post('phone');
             }else {
                 get_json(400, '手机验证码错误，请重新输入！');
+                return;
             }
         }
 
@@ -346,9 +359,15 @@ class Home extends CI_Controller {
 
         //生成并发送验证码
         $phone_code = mt_rand(000000, 999999);
-        $this->session->set_tempdata('phone', $phone);//将被发送验证码的手机号存入session中以备后续验证
-        $this->session->set_tempdata('phone_code', $phone_code);//将验证码存入session中，已备验证
-        $this->session->set_tempdata('got', '已发送', 60);
-        get_json(200,'发送成功');
+        $this->load->library('mysms'); //加载自定义发送短信类库
+        $result = $this->mysms->send_phone_code($phone, $phone_code);
+        if($result['result'] == 0){
+            $this->session->set_tempdata('phone', $phone);//将被发送验证码的手机号存入session中以备后续验证
+            $this->session->set_tempdata('phone_code', $phone_code);//将验证码存入session中，已备验证
+            $this->session->set_tempdata('got', '已发送', 60);
+            get_json(200,'发送成功');
+        }else{
+            get_json(400,$result['errmsg']);
+        }
     }
 }

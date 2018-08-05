@@ -5,7 +5,13 @@ class Index_model extends CI_model {
 	//关联user表和article表 获取文章列表+用户头像、昵称等信息
 	public function get_user_article_list($where_arr, $order_str, $offset, $per_page = 10) {
 		$get_info = 'article_id, article.user_id, type, title, content, article.create_time, praise, read, is_top, nickname, headimgurl, vip,solve';
-		$status = $this->db->select($get_info)->order_by($order_str)->limit($per_page, $offset)->join('user', 'article.user_id = user.user_id')->get_where('article', $where_arr)->result_array();
+		if($where_arr = '论坛'){ // 论坛首页展示所有文章
+		    $this->db->where_in('type', array('卡友生活', '卡友经验', '自由贸易', '灌水区'));
+        }else{
+		    $this->db->where($where_arr);
+        }
+		$status = $this->db->select($get_info)->order_by($order_str)->limit($per_page, $offset)->join('user', 'article.user_id = user.user_id')->get('article')->result_array();
+		//echo $this->db->last_query();
 		return $status;
 	}
 	//获取文章列表

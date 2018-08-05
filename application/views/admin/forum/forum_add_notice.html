@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>发布论坛公告</title>
+    <link rel="stylesheet" href="/style/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/style/admin/css/admin.css">
+    <script src="/style/admin/js/jquery.js"></script>
+    <script src="/style/admin/js/pintuer.js"></script>
+</head>
+
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 发布论坛公告</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="<?=site_url('admin/admin/forum_add_notice')?>">
+            <div class="form-group">
+                <div class="label">
+                    <label>标题：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" name="title" value="" placeholder="请输入公告标题" required/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>公告内容：</label>
+                </div>
+                <div class="field">
+                    <!-- 加载编辑器的容器 -->
+                    <script id="container" name="content" type="text/plain"></script>
+                    <!-- 配置文件 -->
+                    <script type="text/javascript" src="/org/ueditor.config.js"></script>
+                    <!-- 编辑器源码文件 -->
+                    <script type="text/javascript" src="/org/ueditor.all.js"></script>
+                    <div class="tips">公告内容</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>
+<!--实例化编辑器-->
+<script>
+var ue = UE.getEditor('container', {
+    initialFrameWidth: 350,
+    initialFrameHeight: 536,
+    elementPathEnabled: false, //关闭元素路径
+    //autoClearinitialContent:true,//focus时自动清空初始化内容
+    //wordCount: false, //关闭数字统计
+    //allowDivTransToP: false, //阻止div转换为p
+});
+</script>

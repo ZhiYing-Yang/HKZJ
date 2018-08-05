@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link rel="stylesheet" type="text/css" href="/style/index/css/mescroll.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/style/index/css/usual.css">
     <link rel="stylesheet" type="text/css" href="/style/index/css/all.css">
@@ -61,34 +62,45 @@
                 </div>
             </div>
         </div>
-        <div id="contentmain">
-            <div class="container-fluid">
-                <!-- 广告页 -->
-                <div class="row">
-                    <div class="paddusal ad_main">
-                        <a href="#" class="media">
-                            <div class="media-left">
-                                <a class="ad_imgBox" href="#"><img class="ad_img" src="/style/index/img/yonghu1.png" class="media-object"></a>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">广告商</h4>
-                            </div>
-                            <div style="max-height: 210px;overflow: hidden;">
-                                <div class="ad_body">
-                                    <a href="#"><img src="/style/index/img/marchant-img1.jpg"></a>
-                                </div>
-                            </div>
-                            <span class="label ad_label">广告</span>
-                        </a>
+        <!-- swiper轮播广告商 -->
+        <div class="swiper-container" style="width: 100%; height: 250px;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="advertisement_content">
+                        <img src="/style/index/img/marchant-img2.jpg" alt="">
+                        <p class="advertisement_label">广告</p>
+                        <p class="advertisement_info">内容介绍</p>
                     </div>
                 </div>
+                <div class="swiper-slide">
+                    <div class="advertisement_content">
+                        <img src="/style/index/img/marchant-img3.jpg" alt="">
+                        <p class="advertisement_label">广告</p>
+                        <p class="advertisement_info">内容介绍</p>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="advertisement_content">
+                        <img src="/style/index/img/marchant-img1.jpg" alt="">
+                        <p class="advertisement_label">广告</p>
+                        <p class="advertisement_info">内容介绍</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <div id="contentmain">
+            <div class="container-fluid">
+
                 <!-- 论坛置顶消息内容 -->
                 <div class="row">
                     <div class="message_main">
                         <div class="list-group">
-                            <a href="#" class="list-group-item"><span class="tip inform">置顶</span>您有一条置顶帖子需要查看<span class="date">2018-04-12</span></a>
-                            <a href="#" class="list-group-item"><span class="tip inform">置顶</span>必看!论坛管理规则!<span class="date">2018-04-12</span></a>
-                            <a href="#" class="list-group-item"><span class="tip inform">置顶</span>管理员发布的论坛管理手册<span class="date">2018-04-12</span></a>
+                            <?php foreach($notice as $n):?>
+                            <a href="<?=site_url('home/see_article/').$n['article_id']?>" class="list-group-item"><span class="tip inform">置顶</span><?=$n['title']?><span class="date"><?=date('Y-m-d', $n['create_time'])?></span></a>
+                            <?php endforeach;?>
                         </div>
                     </div>
                 </div>
@@ -141,6 +153,23 @@
 
 
     <script type="text/javascript" src="/style/index/js/constant.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
+    <!--swiper 广告商部分-->
+    <script>
+        var mySwiper = new Swiper ('.swiper-container', {
+            direction: 'horizontal',
+            loop: true,
+
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            //autoplay: true,
+        });
+
+    </script>
+
+    <!--mescroll 上拉加载更多-->
     <script>
     var totalSize = '<?=$total_rows?>';
 
@@ -175,13 +204,15 @@
         var mescroll = new MeScroll("mescroll", {
             down: {
                 use: false,
+                auto: false,
             },
             up: {
                 callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
+                auto:false, //初始化完毕,是否自动触发上拉加载的回调
                 isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
                 //clearEmptyId: "dataList", //1.下拉刷新时会自动先清空此列表,再加入数据;
-                htmlLoading: '<p class="upwarp-progress mescroll-rotate" style="margin-bottom: 73px"></p><p class="upwarp-tip">加载中..</p>',
-                htmlNodata: '<p class="upwarp-nodata" style="margin-bottom:73px">-- 已加载全部内容 --</p>',
+                htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>',
+                htmlNodata: '<p class="upwarp-nodata">-- 已加载全部内容 --</p>',
             },
 
         });

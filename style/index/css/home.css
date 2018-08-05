@@ -8,7 +8,7 @@ span{color:#7C7C7C;}
 .invitation_body .media:first-of-type{margin-top: 15px;border-top:none;}
 .invitation_body .media{margin-top: 15px;}
 .count{display: inline-block;width: 32px;height: 32px;line-height: 32px;}
-.label{display: inline-block;margin:10px;}
+.label{display: inline-block;margin:10px 20px;}
 .able{margin-top: 10px;width: 50%;}
 .invitation_img{width:100%;}
 .index-item-img-box{overflow: hidden;max-height: 200px;}
@@ -43,3 +43,33 @@ span{color:#7C7C7C;}
 .message_main .list-group-item{
     padding: 5px 10px;
 }
+
+/*swiper*/
+.swiper-container img{
+    width:100%;
+    height:250px;
+}
+.advertisement_content{
+    position: relative;
+}
+.advertisement_label{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 20px;
+    background: rgba(0,0,0,.5);
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+}
+.advertisement_info{
+    position: absolute;
+    top: 160px;
+    background: rgba(0,0,0,.5);
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    padding: 5px 0;
+}
+

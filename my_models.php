@@ -17,7 +17,7 @@
  * @property film_model       $film_model
  * @property film_model1      $film_model1
  * @property index_model     $index_model
- *
+ * @property admin_model     $admin_model
  *
  */
 class my_models

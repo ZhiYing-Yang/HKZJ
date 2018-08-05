@@ -15,7 +15,8 @@ class Home extends CI_Controller {
 	public function index($type = 'all', $offset = 0, $la = '') {
 		$type = urldecode($type); //文章类型
 		$data['type'] = $type;
-		$where_arr = array('type !=' => '卡友求助');
+		$where_arr = '论坛';//除了 卡友求助, 公告, 广告以外的所有文章
+
 		//精品帖子
 		if ($type == '精品') {
 			$order_str = 'praise DESC, read DESC';
@@ -52,7 +53,13 @@ class Home extends CI_Controller {
 			get_json(200, '加载成功', $data['article']);
 			return;
 		} else {
-			$data['total_rows'] = $this->db->where($where_arr)->count_all_results('article');
+            $data['notice'] = $this->index_model->get_article_list(array('type'=>'公告'), 0, 3);
+            if($where_arr = '论坛'){ // 论坛首页展示所有文章
+                $this->db->where_in('type', array('卡友生活', '卡友经验', '自由贸易', '灌水区'));
+            }else{ //根据条件决定
+                $this->db->where($where_arr);
+            }
+			$data['total_rows'] = $this->db->count_all_results('article');
 		}
 
 		if ($type == '卡友求助') {

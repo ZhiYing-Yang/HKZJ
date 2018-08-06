@@ -9,5 +9,14 @@ class Admin_model extends CI_Model {
         $status = $this->db->query($sql)->result_array();
         return $status;
     }
+
+
+    /***************  司机群部分  ****************/
+    public function  get_flock_search($keywords, $where_arr){
+        $keywords = addslashes($keywords);
+        $this->db->like('title', $keywords)->or_like('province', $keywords)->or_like('city', $keywords)->or_like('county', $keywords);
+        $status = $this->db->get_where('flock', $where_arr)->result_array();
+        return $status;
+    }
 	
 }

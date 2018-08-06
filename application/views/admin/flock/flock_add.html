@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>添加司机群</title>
+    <title><?=isset($id)?'编辑':'添加'?>司机群</title>
     <link rel="stylesheet" href="/style/admin/css/pintuer.css">
     <link rel="stylesheet" href="/style/admin/css/admin.css">
     <script src="/style/admin/js/jquery.js"></script>
@@ -15,15 +15,15 @@
 
 <body>
 <div class="panel admin-panel">
-    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 网站信息</strong></div>
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> <?=isset($id)?'编辑':'添加'?>司机群</strong></div>
     <div class="body-content">
-        <form method="post" class="form-x" action="<?=site_url('admin/admin/flock_add')?>">
+        <form method="post" class="form-x" action="<?=isset($id)?site_url('admin/admin/flock_edit/').$id:site_url('admin/admin/flock_add')?>">
             <div class="form-group">
                 <div class="label">
                     <label>省份名称：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="province" value="" placeholder="请输入省份名称" required/>
+                    <input type="text" class="input" name="province" value="<?=isset($province)?$province:''?>" placeholder="请输入省份名称" required/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     <label>城市名称：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="city" value="" placeholder="请输入城市名称" required/>
+                    <input type="text" class="input" name="city" value="<?=isset($city)?$city:''?>" placeholder="请输入城市名称" required/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                     <label>县（区）名称：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="county" value="" placeholder="请输入县（区）名称" />
+                    <input type="text" class="input" name="county" value="<?=isset($county)?$county:''?>" placeholder="请输入县（区）名称" />
                     <div class="tips"></div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                     <label>标题：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="title" value="" placeholder="请输入县（区）名称" />
+                    <input type="text" class="input" name="title" value="<?=isset($title)?$title:''?>" placeholder="请输入县（区）名称" />
                     <div class="tips">根据省份、城市、县区、自动生成加群标题，方便卡友搜索</div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="field">
                     <!-- 加载编辑器的容器 -->
-                    <script id="container" name="content" type="text/plain"></script>
+                    <script id="container" name="content" type="text/plain"><?=isset($content)?$content:''?></script>
                     <!-- 配置文件 -->
                     <script type="text/javascript" src="/org/ueditor.config.js"></script>
                     <!-- 编辑器源码文件 -->

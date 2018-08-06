@@ -1,0 +1,45 @@
+@charset "UTF-8";
+/**
+ * flock_see article
+ * @authors Your Name (you@example.org)
+ * @date    2018-08-06 11:38:13
+ * @version $Id$
+ */
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "Arial", 'Microsoft Yahei',"Lucida Grande", "Tahoma","Helvetica", "sans-serif";
+}
+a{
+	text-decoration: none;
+}
+.container{
+	padding: 0 15px;
+}
+.title{
+	font-size: 18px;
+	color: #000;
+	margin: 10px 0;
+}
+.info{
+	color: #ccc;
+	font-size: 14px;
+	margin-bottom: 20px;
+	height: 25px;
+	line-height: 25px;
+}
+.info img{
+	margin-right: 5px;
+}
+.info a  img{
+	float: left;
+	height: 25px;
+}
+.info span{
+	margin-left: 20px;
+}
+.info span img{
+	height: 20px;
+	vertical-align: middle;
+	margin-left: 10px;
+}

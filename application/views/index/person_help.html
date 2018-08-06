@@ -38,7 +38,7 @@
         </div>
         <div class="row person-icon borderstyle">
             <ul class="icon-ul">
-                <li><a href="#"><i id="personinfo"></i><span class="text-center">个人资料</span></a></li>
+                <li><a href="<?=site_url('home/personal_data')?>"><i id="personinfo"></i><span class="text-center">个人资料</span></a></li>
                 <li><a href="index_message.html" target="_self"><i id="mymessage"></i><span class="text-center">我的消息</span></a></li>
                 <li><a href="#"><i id="firendaction"></i><span class="text-center">好友动态</span></a></li>
             </ul>
@@ -65,13 +65,13 @@
                 <p class="h4 title"><?=$a['title']?></p>
                 <p class="h5 content" style="color: #8a8a8a;"><?=$a['content']?></p>
                 <div class="row icon">
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         <img src="/style/index/img/icon/person_time.png" alt="时间："><?=$a['create_time']?>
                     </div>
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         已帮助：<?=$a['comment_total']?>
                     </div>
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         <?=$a['solve']==0?'<span style="color:#b92c28">未解决</span>':'<span style="color:#3e8f3e">已解决</span>'?>
                     </div>
                 </div>

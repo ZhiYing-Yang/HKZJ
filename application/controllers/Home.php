@@ -304,6 +304,8 @@ class Home extends CI_Controller {
         $data['user'] = $user[0];
         $this->load->view($view, $data);
     }
+
+    //个人资料页
     public function personal_data(){
         $id = $this->session->userdata('user_id');
 
@@ -375,6 +377,49 @@ class Home extends CI_Controller {
             get_json(200,'发送成功');
         }else{
             get_json(400,$result['errmsg']);
+        }
+    }
+
+    /***************************** 论坛部分结束 ***************************/
+
+    /*************************  司机群部分Begin ***************************/
+
+    //司机群列表
+    public function flock_list($offset = 0, $la = null){
+        $where_arr = array();
+        $status = $this->index_model->get_flock_list($where_arr, $offset, 10);
+        $data['flock'] = $this->index_model->format_data($status, false);
+
+        if($la == ''){
+            $this->load->view('index/flock/flock_index.html', $data);
+        }else{
+            get_json(200, '获取成功', $data['flock']);
+        }
+    }
+
+    //司机群搜索列表
+    public function flock_search($offset = 0, $la= null){
+        $keywords = $this->input->post('keywords');
+        $status = $this->index_model->get_search_flock_list($keywords, $offset, 10);
+        $data['flock'] = $this->index_model->format_data($status, false);
+        if($la == ''){
+            $data['keywords'] = $keywords;//标识为搜索结果页 前台搜索框里显示搜索的关键词
+            $this->load->view('index/flock/flock_index.html', $data);
+        }else{
+            get_json(200, '获取成功', $data['flock']);
+        }
+    }
+
+    //查看司机群内容
+    public function flock_see($id){
+        $where_arr = array('id'=>$id);
+        $status = $this->index_model->get_flock($where_arr);
+        if(empty($status)){
+            $data['str'] = '<h4 style="color: #FFFFFF;">您访问的信息不存在</h4>';
+            $this->load->view('404/404.html', $data);
+        }else{
+            $data = $status[0];
+            $this->load->view('index/flock/flock_see.html', $data);
         }
     }
 }

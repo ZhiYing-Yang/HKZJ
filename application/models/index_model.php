@@ -55,7 +55,7 @@ class Index_model extends CI_model {
 		*处理文章列表数据
 		*获取
 	*/
-	public function format_data($data) {
+	public function format_data($data, $get_comment=true) {
 		//检查有没有信息 如果没有返回空数组 不予遍历
 		if (empty($data)) {
 			return array();
@@ -83,12 +83,16 @@ class Index_model extends CI_model {
 				}
 			}
 			//获取文章类型标签类名
-			$datas['type_class'] = $this->get_type_class($datas['type']);
+
 			//格式化时间， 几分钟前形式
 			$datas['create_time'] = formatTime($datas['create_time']);
 			//获取每一篇文章的评论量
-			$comment_total = $this->db->where(array('article_id' => $datas['article_id']))->count_all_results('comment');
-			$datas['comment_total'] = $comment_total;
+            if($get_comment){
+                $comment_total = $this->db->where(array('article_id' => $datas['article_id']))->count_all_results('comment');
+                $datas['comment_total'] = $comment_total;
+                $datas['type_class'] = $this->get_type_class($datas['type']);
+            }
+
 			//去掉html标签
 			$datas['content'] = preg_replace('/<\/?\s*\w+.*?>/', '', $datas['content']);
 			$datas['content'] = strlen($datas['content']) > 60 ? mb_substr($datas['content'], 0, 60) . '...' : $datas['content'];
@@ -137,5 +141,29 @@ class Index_model extends CI_model {
 		return $type_class;
 	}
 
+    /***************************** 论坛部分结束 ***************************/
 
+    /*************************  司机群部分Begin ***************************/
+
+    //获取司机群列表
+    public function get_flock_list($where_arr, $offset, $per_page = 10){
+        $status = $this->db->order_by('create_time DESC')->get_where('flock', $where_arr, $per_page, $offset)->result_array();
+        return $status;
+    }
+
+    //搜索司机群列表
+    public function get_search_flock_list($keywords, $offset, $per_page=10){
+        $keywords = addslashes($keywords);
+        $this->db->like('title', $keywords)->or_like('province', $keywords)->or_like('city', $keywords)->or_like('county', $keywords);
+        $status = $this->db->select('*')->get('flock', $per_page, $offset)->result_array();
+        //echo $this->db->last_query();
+        //var_dump($status);
+        return $status;
+    }
+
+    //获取司机群
+    public function get_flock($where_arr){
+        $status = $this->db->select('*')->get_where('flock', $where_arr)->result_array();
+        return $status;
+    }
 }

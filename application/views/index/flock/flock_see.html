@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title><?=$title?></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="/style/weui/css/flock_see.css">
+</head>
+
+<body>
+    <div class="container">
+    	<p class="title"><?=$title?></p>
+    	<p class="info"><a href="<?=site_url('home/index')?>"><img src="/style/weui/img/icon/head.png" alt="用户">货卡之家</a><span><img src="/style/weui/img/icon/time.png" alt="时间"><?=formatTime($create_time)?></span></p>
+    	<div class="content">
+    		<?=$content?>
+    	</div>
+    </div>
+</body>
+
+</html>

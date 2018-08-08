@@ -47,12 +47,12 @@
     <ul class="nav nav-tabs person_nav">
         <li role="presentation" class="active">
             <a href="<?=site_url('home/person/').$this_id?>/article">
-                <img style="margin-right: 10px;" src="/style/index/img/icon/my_article.png" alt="">我的帖子
+                <img style="margin-right: 10px;" src="/style/index/img/icon/my_article.png" alt=""><?=$person=='self'?'我':'他'?>的帖子
             </a>
         </li>
         <li role="presentation">
             <a href="<?=site_url('home/person/').$this_id?>/help">
-                我的求助<img style="margin-left: 10px;" src="/style/index/img/icon/my_help.png" alt="">
+                <?=$person=='self'?'我':'他'?>的求助<img style="margin-left: 10px;" src="/style/index/img/icon/my_help.png" alt="">
             </a>
         </li>
     </ul>
@@ -66,13 +66,13 @@
                 <p class="h5 content" style="color: #8a8a8a;"><?=$a['content']?></p>
                 <div class="row icon">
                     <div class="col-xs-6">
-                        <img src="/style/index/img/icon/person_time.png" alt="访问："><?=$a['create_time']?>
+                        <img src="/style/index/img/icon/person_time.png" alt="时间："><?=$a['create_time']?>
                     </div>
                     <div class="col-xs-3">
                         <img src="/style/index/img/icon/person_see.png" alt="访问："><?=$a['read']?>
                     </div>
                     <div class="col-xs-3">
-                        <img src="/style/index/img/icon/person_praise.png" alt="访问："><?=$a['praise']?>
+                        <img src="/style/index/img/icon/person_praise.png" alt="点赞："><?=$a['praise']?>
                     </div>
                 </div>
                 </a>

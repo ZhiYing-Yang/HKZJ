@@ -75,8 +75,10 @@ $(function() {
 
         if($(this).attr('data-id')){
             $('.commentBox .postBtn').attr('data-id', $(this).attr('data-id'));
+            $('.commentBox .postBtn').attr('data-to', $(this).attr('data-to'));
         }else{
             $('.commentBox .postBtn').attr('data-id', 0);
+            $('.commentBox .postBtn').attr('data-to', 0);
         }
 
         //点击遮盖区域隐藏评论区

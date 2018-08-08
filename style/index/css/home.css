@@ -7,9 +7,11 @@ span{color:#7C7C7C;}
 .userimg,.userimgBox{width: 40px;height: 40px;}
 .invitation_body .media:first-of-type{margin-top: 15px;border-top:none;}
 .invitation_body .media{margin-top: 15px;}
-.count{display: inline-block;width: 32px;height: 32px;line-height: 32px;}
+.count{display: inline-block;width: 32px;}
 .label{display: inline-block;margin:10px 20px;}
-.able{margin-top: 10px;width: 50%;}
+.able{margin-top: 10px;width: 100%;}
+.able img{width: 20px; margin-left: 6px}
+.able .count{height: 20px; line-height: 20px; font-size: 14px;overflow: hidden;}
 .invitation_img{width:100%;}
 .index-item-img-box{overflow: hidden;max-height: 200px;}
 /*广告*/

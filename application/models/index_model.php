@@ -54,6 +54,12 @@ class Index_model extends CI_model {
 		$status = $this->db->select($get_info)->order_by($order_str)->limit($per_page, $offset)->join('user', 'user.user_id = comment.user_id')->get_where('comment', $where_arr)->result_array();
 		return $status;
 	}
+	//获取论坛消息
+    public function get_message_list($where_arr, $offset, $per_page=10){
+        $get_info = 'comment_id, content, comment.user_id, article_id, comment.create_time, pid, nickname, headimgurl';
+        $status = $this->db->select($get_info)->order_by('comment.create_time DESC')->join('user', 'comment.user_id = user.user_id')->get_where('comment', $where_arr, $per_page, $offset)->result_array();
+        return $status;
+    }
 	/*
 		*处理文章列表数据
 		*获取

@@ -43,10 +43,10 @@
                                 <div class="col-xs-12">
                                     <div class="media">
                                         <div class="media-left">
-                                            <a class="userimgBox" href="#"><img class="userimg" src="<?=$a['headimgurl']?>" class="media-object"></a>
+                                            <a class="userimgBox" href="<?=site_url('home/person/').$a['user_id']?>"><img class="userimg" src="<?=$a['headimgurl']?>" class="media-object"></a>
                                         </div>
                                         <div class="media-body">
-                                            <a href="#"><h4 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/<?=$a['vip']==0?'common':'vip'?>_level.png" alt=""></span></h4></a>
+                                            <a href="<?=site_url('home/person/').$a['user_id']?>"><h4 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/<?=$a['vip']==0?'common':'vip'?>_level.png" alt=""></span></h4></a>
                                         </div>
                                     </div>
                                 </div>

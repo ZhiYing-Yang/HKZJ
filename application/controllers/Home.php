@@ -7,7 +7,7 @@ class Home extends CI_Controller {
 		parent::__construct();
 		$this->load->model('index_model');
 		if(empty($this->session->userdata('user_id'))){
-		    $this->session->set_userdata('user_id', 2);
+		    $this->session->set_userdata('user_id', 4);
         }
 	}
 
@@ -31,7 +31,7 @@ class Home extends CI_Controller {
 		//热门求助
 		if ($type == '热门') {
 			$order_str = 'read DESC, article.create_time ASC';
-			$article = $this->index_model->get_user_article_list(array('type' => '卡友求助', 'solve' => 0), $order_str, $offset, 10);
+			$article = $this->index_model->get_user_article_list(array('type' => '卡友求助'), $order_str, $offset, 10);
 			$data['article'] = $this->index_model->format_data($article);
             $data['active'] = '求助'; //底部高亮标签名
 			$this->load->view('index/help-hot.html', $data);
@@ -264,11 +264,14 @@ class Home extends CI_Controller {
 			'content' => $this->input->post('content'),
 			'create_time' => time(),
 			'pid' => $pid,
+            'to_user'=>$this->input->post('to_user'),
 		);
 		//执行插入评论信息操作 并返回信息
 		if ($this->db->insert('comment', $data)) {
 			//获取评论者的信息
+            $comment_id= $this->db->insert_id();
 			$user = $this->index_model->get_user(array('user_id' => $this->session->userdata('user_id')))[0];
+			$user['comment_id'] = $comment_id;
 			get_json(200, '评论成功', $user);return;
 		} else {
 			get_json(400, '评论失败，请稍后重试！');return;
@@ -291,16 +294,16 @@ class Home extends CI_Controller {
         $data['active'] = '个人'; //图标高亮
         $data['person'] = $user_id == $id?'self':'other';
         $data['this_id'] = $id;
-        if($type == 'help'){ //访问自己的个人中心
+        if($type == 'help'){
             $where_arr = array('type'=> '卡友求助', 'article.user_id'=>$id);
             $view = 'index/person_help.html';
-        }else{//访问别人的个人中心
+        }else{
             $where_arr = array('article.user_id'=>$id, 'type !='=> '卡友求助');
             $view = 'index/person.html';
         }
         $article = $this->index_model->get_article_list($where_arr, 0);
         $data['article'] = $this->index_model->format_data($article);
-        $user = $this->index_model->get_user(array('user_id'=>$user_id));
+        $user = $this->index_model->get_user(array('user_id'=>$id));
         $data['user'] = $user[0];
         $this->load->view($view, $data);
     }
@@ -355,7 +358,7 @@ class Home extends CI_Controller {
     public function get_phone_code(){
         //验证码防止操作过于频繁
         if(!empty($this->session->tempdata('got'))){
-            get_json(400, '您的操作过于频繁！');
+            get_json(400, '您的操作过于频繁！');return;
         }
         $phone = $this->input->post('phone');
         //验证手机号的正确性 正则表达式验证 略
@@ -363,7 +366,7 @@ class Home extends CI_Controller {
         //验证手机号是否被绑定
         $status = $this->index_model->get_user(array('phone'=>$phone));
         if(!empty($status)){
-            get_json(400,'该手机号已经被绑定');
+            get_json(400,'该手机号已经被绑定');return;
         }
 
         //生成并发送验证码
@@ -377,6 +380,18 @@ class Home extends CI_Controller {
             get_json(200,'发送成功');
         }else{
             get_json(400,$result['errmsg']);
+        }
+    }
+
+    //个人消息
+    public function forum_message($action = '', $offset=0){
+        $where_arr=array('comment.to_user' => $this->session->userdata('user_id'));
+        $status = $this->index_model->get_message_list($where_arr, $offset, 10);
+        if($action == 'more'){
+            get_json(200,'获取成功', $status);return;
+        }else{
+            $data['message']=$status;
+            $this->load->view('index/message.html', $data);
         }
     }
 
@@ -421,5 +436,10 @@ class Home extends CI_Controller {
             $data = $status[0];
             $this->load->view('index/flock/flock_see.html', $data);
         }
+    }
+
+    public function delete_sess(){
+        unset($_SESSION);
+        session_destroy();
     }
 }

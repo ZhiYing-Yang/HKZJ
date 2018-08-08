@@ -39,7 +39,7 @@
                 <div class="col-xs-12">
                     <div class="media">
                         <div class="media-left">
-                            <a class="userimgBox" href=""><img class="userimg" src="<?=$user['headimgurl']?>" class="media-object"></a>
+                            <a class="userimgBox" href="<?=site_url('home/person/').$user['user_id']?>"><img class="userimg" src="<?=$user['headimgurl']?>" class="media-object"></a>
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading"><?=$user['nickname']?><img src="/style/index/img/icon/<?=$user['vip']==0?'common':'vip'?>_level.png" alt="" class="vip_img"></h4>
@@ -57,13 +57,13 @@
                 </div>
             </div>
             <div class="row invitation_comstitle">
-                <div class="col-xs-10">
+                <div class="col-xs-9">
                     <span class="icon icon_item fs20px ">阅读</span><span class="icon fs20px "><?=$article['read']?></span>
                     <span class="icon icon_item fs20px ">点赞</span><span class="icon fs20px "><?=$article['praise']?></span>
                     <span class="icon icon_item fs20px ">评论</span><span class="icon fs20px "><?=$article['comment_total']?></span>
                 </div>
-                <div class="col-xs-2">
-                    <span class="icon text-right icon_item fs20px report" onclick="javascript:location.href='<?=site_url('home/accuse_article/see/').$article['article_id']?>'">举报!</span>
+                <div class="col-xs-3">
+                    <span class="icon text-right icon_item report" onclick="javascript:location.href='<?=site_url('home/accuse_article/see/').$article['article_id']?>'">举报!</span>
                 </div>
             </div>
             <div class="row invitation_comscom" id="comment_top" style="margin-bottom: 50px">
@@ -71,7 +71,7 @@
                     <?php foreach($comment as $c):?>
                     <li class="media">
                         <div class="media-left">
-                            <a class="userimgBox" href="#"><img class="userimg" src="<?=$c['headimgurl']?>" class="media-object"></a>
+                            <a class="userimgBox" href="<?=site_url('home/person/').$c['user_id']?>"><img class="userimg" src="<?=$c['headimgurl']?>" class="media-object"></a>
                         </div>
                         <div class="media-body">
                             <a href=""><h4 class="media-heading"><?=$c['nickname']?><img src="/style/index/img/icon/<?=$c['vip']==0?'common':'vip'?>_level.png" alt=""></h4></a>
@@ -86,7 +86,7 @@
                             <div class="reply_comment">
                                 <?php foreach($c['reply'] as $r):?>
                                 <p>
-                                    <a href="#">
+                                    <a href="<?=site_url('home/person/').$r['user_id']?>">
                                         <?=$r['nickname']?>：</a>
                                     <script>
                                     document.write(ImgIputHandler.getEmoticonImg("<?=$r['content']?>"))
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-push-10 col-xs-2 text-right"><span class="commentClick" data-id="<?=$c['comment_id']?>">回复</span></div>
+                            <div class="col-xs-push-10 col-xs-2 text-right"><span class="commentClick" data-id="<?=$c['comment_id']?>" data-to="<?=$c['user_id']?>">回复</span></div>
                         </div>
                         <hr/>
                     </li>
@@ -150,13 +150,14 @@
 <script type="text/javascript" src="/style/index/js/all.js"></script>
 <script type="text/javascript">
 //遍历显示数据
+var personUrl = '<?=site_url("home/person/")?>';
 function setListData(data) {
 
     for (var i = 0; i < data.length; i++) {
         var html = '';
         html = '<li class="media">';
         html += '<div class="media-left">'
-        html += '<a class="userimgBox" href=""><img class="userimg" src="' + data[i].headimgurl + '" class="media-object"></a></div>';
+        html += '<a class="userimgBox" href="' + personUrl+data[i].user_id +'"><img class="userimg" src="' + data[i].headimgurl + '" class="media-object"></a></div>';
 
         html += '<div class="media-body">';
         html += '<a href=""><h4 class="media-heading">' + data[i].nickname + '<img src="/style/index/img/icon/' + (data[i].vip == 0 ? 'common' : 'vip') + '_level.png" alt=""></h4></a>';
@@ -167,14 +168,14 @@ function setListData(data) {
         html += '<div class="reply_comment">';
 
         for (var j = 0; j < data[i].reply.length; j++) {
-            html += '<p><a href="#">' + data[i].reply[j].nickname + '</a>' + data[i].reply[j].content + '</p>';
+            html += '<p><a href="'+ personUrl+data[i].reply[j].user_id +'">' + data[i].reply[j].nickname + '</a>' + data[i].reply[j].content + '</p>';
         }
         
         html += '</div>';
         html += '</div>';
 
         html += '<div class="row">';
-        html += '<div class="col-xs-push-10 col-xs-2 text-right"><span class="commentClick" data-id="' + data[i].comment_id + '">回复</span></div>';
+        html += '<div class="col-xs-push-10 col-xs-2 text-right"><span class="commentClick" data-id="' + data[i].comment_id + '" data-to="'+ data[i].user_id +'">回复</span></div>';
         html += '</div>';
         html += '<hr/>';
         html += '</li>';
@@ -204,13 +205,14 @@ $('.postBtn').on('click', function(e) {
         shadeClose: false
     });
     var pid = $(this).attr('data-id');
-    $.post('<?=site_url("home/comment/").$article["article_id"]?>/' + pid, { content: content }, function(data, textStatus, xhr) {
+    var to_user = $(this).attr('data-to');
+    $.post('<?=site_url("home/comment/").$article["article_id"]?>/' + pid, { content: content, to_user: to_user }, function(data, textStatus, xhr) {
         /*optional stuff to do after success */
         if (data.code == 200) {
             if (pid == 0) {
                 var html = '<li class="media">';
                 html += '<div class="media-left">'
-                html += '<a class="userimgBox" href=""><img class="userimg" src="' + data.data.headimgurl + '" class="media-object"></a></div>';
+                html += '<a class="userimgBox" href="' + personUrl+data.data.user_id + '"><img class="userimg" src="' + data.data.headimgurl + '" class="media-object"></a></div>';
 
                 html += '<div class="media-body">';
                 html += '<a href=""><h4 class="media-heading">' + data.data.nickname + '<img src="/style/index/img/icon/' + (data.data.vip == 0 ? 'common' : 'vip') + '_level.png" alt=""></h4></a>';
@@ -221,7 +223,7 @@ $('.postBtn').on('click', function(e) {
                 html += '</div>';
 
                 html += '<div class="row">';
-                html += '<div class="col-xs-push-10 col-xs-2 text-right"><span class="commentClick">回复</span></div>';
+                html += '<div class="col-xs-push-10 col-xs-2 text-right"><span class="commentClick" data-id="'+ data.data.comment_id +'" data-to="'+ data.data.user_id +'">回复</span></div>'; //data-id为该条评论的id 传到后台作为回复的父id，data-to为该条评论的用户id 传到后台作为被回复者的id
                 html += '</div>';
                 html += '<hr/>';
                 html += '</li>';

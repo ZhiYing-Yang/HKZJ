@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>我的消息</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/style/index/js/comment.js"></script>
+</head>
+
+<body>
+    <div class="weui_tab">
+        <div class="weui_navbar">
+            <a class="weui_navbar_item weui_bar_item_on">
+      			论坛消息
+    		</a>
+            <a class="weui_navbar_item">
+      			系统消息
+    		</a>
+        </div>
+        <div class="weui_tab_bd">
+            <div class="weui_panel weui_panel_access">
+                <div class="weui_panel_bd">
+                    <?php foreach($message as $m):?>
+                    <a href="<?=site_url('home/see_article/').$m['article_id']?>" class="weui_media_box weui_media_appmsg">
+                        <div class="weui_media_hd">
+                            <img style="border-radius: 50%" class="weui_media_appmsg_thumb" src="<?=$m['headimgurl']?>" alt="">
+                        </div>
+                        <div class="weui_media_bd">
+                            <h4 class="weui_media_title"><span style="color: #2486ff;margin-right: 10px;"><?=$m['nickname']?></span><span style="font-size: 15px;color: #a2a9b6">回复：</span> </h4>
+                            <p class="weui_media_desc"><script>document.write(ImgIputHandler.getEmoticonImg("<?=$m['content']?>"))</script><br><span style="float: right;"><?=formatTime($m['create_time'])?></span></p>
+                        </div>
+                    </a>
+                    <?php endforeach;?>
+                    <!---->
+                </div>
+                <a class="weui_panel_ft" href="javascript:void(0);" id="get_more">查看更多</a>
+                <p id="no_more" style="color: #ccc; margin-top: 10px;text-align: center;font-size: 14px;display:none">-----已加载全部消息-----</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script>
+    function formatTime(date){
+        //获取js 时间戳
+        var time=new Date().getTime();
+        //去掉 js 时间戳后三位，与php 时间戳保持一致
+        date=(Date.parse(new Date(date)))/1000;
+        //alert(date);
+
+
+        time=parseInt((time-date*1000)/1000);
+
+        //存储转换值
+        var s;
+        if(time<60*10){//十分钟内
+            return '刚刚';
+        }else if((time<60*60)&&(time>=60*10)){
+            //超过十分钟少于1小时
+            s = Math.floor(time/60);
+            return  s+"分钟前";
+        }else if((time<60*60*24)&&(time>=60*60)){
+            //超过1小时少于24小时
+            s = Math.floor(time/60/60);
+            return  s+"小时前";
+        }else if((time<60*60*24*3)&&(time>=60*60*24)){
+            //超过1天少于3天内
+            s = Math.floor(time/60/60/24);
+            return s+"天前";
+        }else{
+            //超过3天
+            var date= new Date(parseInt(date) * 1000);
+            return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+        }
+    }
+</script>
+<script>
+    if($('.weui_media_box').length < 10){
+        $('#get_more').css('display', 'none');
+        $('#no_more').css('display', '');
+    }
+
+    var url = '<?=site_url("home/forum_message/more/")?>';
+    $('#get_more').click(function(){
+        $.showLoading('加载中');
+        var offset = $('.weui_media_box').length;
+        $.get(url + offset, function (data) {
+            if(data.code == 200){
+                if(data.data.length < 10){
+                    $('#get_more').css('display', 'none');
+                    $('#no_more').css('display', '');
+                }
+                setListData(data.data, data.data.length);
+                $.hideLoading();
+            }
+        }, 'json');
+    });
+
+    //格式化数据
+    function setListData(data, length){
+        var html = '';
+        for(var i = 0; i<length; i++){
+            html+='<a href="'+ '<?=site_url("home/see_article/")?>'+ data[i].article_id +'" class="weui_media_box weui_media_appmsg">';
+            html+='<div class="weui_media_hd">';
+            html+='<img class="weui_media_appmsg_thumb" style="border-radius: 50%" src="'+data[i].headimgurl+'" alt="">';
+            html+='</div>';
+            html+='<div class="weui_media_bd">';
+            html+='<h4 class="weui_media_title"><span style="color: #2486ff;margin-right: 10px;">'+ data[i].nickname + '</span><span style="font-size: 15px;color: #a2a9b6">回复：</span> </h4>';
+            html+='<p class="weui_media_desc">'+ ImgIputHandler.getEmoticonImg(data[i].content) + '<br><span style="float: right;">' + formatTime(data[i].create_time) + '</span></p>';
+            html+='</div>';
+            html+='</a>';
+        }
+        $('.weui_panel_bd').append(html);
+    }
+</script>

@@ -56,10 +56,10 @@
                                 <div class="col-xs-12">
                                     <div class="media">
                                         <div class="media-left">
-                                            <a class="userimgBox" href="#"><img class="userimg" src="<?=$a['headimgurl']?>" class="media-object"></a>
+                                            <a class="userimgBox" href="<?=site_url('home/person/').$a['user_id']?>"><img class="userimg" src="<?=$a['headimgurl']?>" class="media-object"></a>
                                         </div>
                                         <div class="media-body">
-                                            <a href="javascript:void(0)"><h4 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/<?=$a['vip']==0?'common':'vip'?>_level.png" alt=""></span></h4></a>
+                                            <a href="<?=site_url('home/person/').$a['user_id']?>"><h4 class="media-heading"><?=$a['nickname']?><span class="viper level"><img src="/style/index/img/icon/<?=$a['vip']==0?'common':'vip'?>_level.png" alt=""></span></h4></a>
                                         </div>
                                     </div>
                                 </div>
@@ -86,6 +86,7 @@
 <script type="text/javascript" src="/style/index/js/constant.js"></script>
 <script type="text/javascript" src="/style/index/js/aos.js"></script>
 <script>
+    var personUrl = '<?=site_url("home/person/")?>';
     //搜索事件
     $('#search_button').click(function(event) {
         /* Act on the event */
@@ -121,10 +122,10 @@ function setListData(curPageData) {
                                 html+= '<div class="col-xs-12">';
                                     html+= '<div class="media">';
                                         html+= '<div class="media-left">';
-                                            html+= '<a class="userimgBox" href="#"><img class="userimg" src="'+ curPageData[i].headimgurl +'" class="media-object"></a>';
+                                            html+= '<a class="userimgBox" href="'+ personUrl+curPageData[i].user_id +'"><img class="userimg" src="'+ curPageData[i].headimgurl +'" class="media-object"></a>';
                                         html+= '</div>';
                                         html+= '<div class="media-body">';
-                                            html+= '<a href="javascript:void(0)"><h4 class="media-heading">'+ curPageData[i].nickname +'<span class="viper level"><img src="/style/index/img/icon/'+ (curPageData[i].vip==0?'common':'vip')+ '_level.png" alt=""></span></h4></a>';
+                                            html+= '<a href="'+ personUrl+curPageData[i].user_id +'"><h4 class="media-heading">'+ curPageData[i].nickname +'<span class="viper level"><img src="/style/index/img/icon/'+ (curPageData[i].vip==0?'common':'vip')+ '_level.png" alt=""></span></h4></a>';
                                         html+= '</div>';
                                     html+= '</div>';
                                 html+= '</div>';

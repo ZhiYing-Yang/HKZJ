@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin_model extends CI_Model {
 
+    /******************** 论坛部分Begin *********************/
+    //论坛文章搜索
     public function get_forum_search($keywords){
         $keywords = addslashes($keywords);//防止sql注入攻击
         $get_info = 'article_id, article.user_id, type, title, content, article.create_time, praise, `read`, is_top, nickname, headimgurl, vip, solve';
@@ -9,6 +11,36 @@ class Admin_model extends CI_Model {
         $status = $this->db->query($sql)->result_array();
         return $status;
     }
+
+    //论坛用户列表
+    public function get_user_list($where_arr, $offset, $per_page=10){
+        $get_info = 'user_id, phone, nickname, headimgurl, signature, province, city, vip, sex, status';
+        $status = $this->db->select($get_info)->order_by('user_id DESC')->get_where('user', $where_arr, $per_page, $offset)->result_array();
+        return $status;
+    }
+
+    //论坛用户搜索
+    public function get_forum_user_search($keywords){
+        $keywords = addslashes($keywords);//防止sql注入攻击
+        $get_info = 'user_id, phone, nickname, headimgurl, signature, province, city, vip, sex, status';
+        $status = $this->db->select($get_info)->get('user')->like('nickname', $keywords)->or_like('phone', $keywords)->or_like('province', $keywords)->or_like('city', $keywords)->or_like('signature', $keywords)->result_array();
+        return $status;
+    }
+
+    //获取用户的发帖数
+    public function get_user_article_count($data){
+        if(empty($data)){
+            return $data;
+        }
+
+        foreach ($data as $d){
+            $d['article_total'] = $this->db->where(array('user_id'=>$d['user_id']))->count_all_results('article');
+            $status[] = $d;
+        }
+        return $status;
+
+    }
+    /******************** 论坛部分End *********************/
 
 
     /***************  司机群部分  ****************/
@@ -18,5 +50,7 @@ class Admin_model extends CI_Model {
         $status = $this->db->get_where('flock', $where_arr)->result_array();
         return $status;
     }
+
+
 	
 }

@@ -102,6 +102,55 @@ class Admin extends CI_Controller {
         }
     }
 
+    //论坛用户
+    public function forum_user($type = 'all', $offset = 0){
+        $per_page = 10;
+        $data['keywords'] = '';
+        $data['type'] = $type;
+        if($type == 'bound_phone'){
+            $where_arr = array('phone is not null'=>null);
+        }else if($type == 'vip'){
+            $where_arr = array('vip'=>1);
+        }else{
+            $where_arr = array();
+        }
+        $user = $this->admin_model->get_user_list($where_arr, $offset, $per_page);
+        $data['user'] = $this->admin_model->get_user_article_count($user);
+
+        //分页
+        $page_url = site_url('admin/admin/forum_user/').$type;
+        $offset_uri_segment = 5;
+        $total_rows = $this->db->where($where_arr)->count_all_results('user');
+        $this->load->library('myclass');
+        $data['link'] = $this->myclass->fenye($page_url, $offset_uri_segment, $total_rows, $per_page);
+        $this->load->view('admin/forum/forum_user.html', $data);
+    }
+    //用户搜索
+    public function forum_user_search($keywords){
+        $keywords = urldecode($keywords);
+        $status = $this->admin_model->get_forum_user_search($keywords);
+        $data['user'] = $this->admin_model->get_user_article_count($status);
+        $data['keywords'] = $keywords;
+        $data['link'] = '';
+        $this->load->view('admin/forum/forum_user.html', $data);
+    }
+    //论坛用户管理
+    public function forum_user_action($action, $id, $status = ''){
+        if($action == 'forbidden'){
+            if($status == 0){
+                $array = array('status'=>1);
+                $msg = '解封成功！';
+            }else{
+                $array = array('status'=>0);
+                $msg = '封禁成功！';
+            }
+            if($this->db->update('user', $array, array('user_id'=>$id))){
+                alert_msg($msg);
+            }else{
+                alert_msg('操作失败，请稍后重试');
+            }
+        }
+    }
     /********************************** 论坛部分 END************************************/
 
     /********************************** 司机群部分 Begin************************************/

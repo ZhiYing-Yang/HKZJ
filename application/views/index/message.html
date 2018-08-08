@@ -17,15 +17,16 @@
 <body>
     <div class="weui_tab">
         <div class="weui_navbar">
-            <a class="weui_navbar_item weui_bar_item_on">
+            <a href="#forum_message" class="weui_navbar_item weui_bar_item_on">
       			论坛消息
     		</a>
-            <a class="weui_navbar_item">
+            <a href="#system_message" class="weui_navbar_item">
       			系统消息
     		</a>
         </div>
         <div class="weui_tab_bd">
-            <div class="weui_panel weui_panel_access">
+            <!-- 论坛消息 -->
+            <div id="forum_message" class="weui_panel weui_panel_access weui_tab_bd_item weui_tab_bd_item_active">
                 <div class="weui_panel_bd">
                     <?php foreach($message as $m):?>
                     <a href="<?=site_url('home/see_article/').$m['article_id']?>" class="weui_media_box weui_media_appmsg">
@@ -38,10 +39,14 @@
                         </div>
                     </a>
                     <?php endforeach;?>
-                    <!---->
                 </div>
                 <a class="weui_panel_ft" href="javascript:void(0);" id="get_more">查看更多</a>
                 <p id="no_more" style="color: #ccc; margin-top: 10px;text-align: center;font-size: 14px;display:none">-----已加载全部消息-----</p>
+            </div>
+
+            <!--系统消息-->
+            <div id="system_message" class="weui_panel weui_panel_access weui_tab_bd_item">
+                <p style="text-align:center; color: #a2a9b6">暂无任何消息</p>
             </div>
         </div>
     </div>

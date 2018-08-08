@@ -129,14 +129,6 @@
                                             <p>
                                                 <?=$a['content']?>
                                             </p>
-                                            <!-- 文章图片 $col_i为col-xs-$col_i -->
-                                            <div class="row">
-                                                <?php foreach($a['url'] as $u):?>
-                                                <div class="col-xs-<?=12/count($a['url'])?> index-item-img-box">
-                                                    <img class="invitation_img" src="<?=$u?>">
-                                                </div>
-                                                <?php endforeach;?>
-                                            </div>
                                         </a>
                                     </div>
                                 </div>
@@ -146,7 +138,17 @@
                                     <div class="able"><a href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px"><?=$a['comment_total']?></span>
                                     </a></div>
                                 </div>
+                                <!-- 文章图片 $col_i为col-xs-$col_i -->
+                                <a href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self">
+                                <div class="row article_img">
+                                    <?php foreach($a['url'] as $u):?>
+                                    <div class="col-xs-<?=12/count($a['url'])?> index-item-img-box">
+                                        <img class="invitation_img" src="<?=$u?>">
+                                    </div>
+                                    <?php endforeach;?>
+                                </div>
                                 <div class="row"><span class="label <?=$a['type_class']?>"><?=$a['type']?></span></div>
+                                </a>
                             </li>
                             <?php endforeach;?>
                         </ul>
@@ -190,15 +192,17 @@
             }
             console.log('执行了setListData函数的第' + i + '次for循环');
 
-            html += '<li class="media paddusal borderstyle" ><div class="media-left"><a class="userimgBox" href="'+ personUrl+curPageData.data[i].user_id +'"><img class="userimg" src="' + curPageData.data[i].headimgurl + '" class="media-object"></a></div><div class="media-body"><a href="'+ personUrl+curPageData.data[i].user_id +'"><h4 class="media-heading">' + curPageData.data[i].nickname + '<span class="viper level"><img class="vip-img" src="/style/index/img/icon/' + (curPageData.data[i].vip == 0 ? 'common' : 'vip') + '_level.png" alt=""></span></h4></a><span class="datetime">' + curPageData.data[i].create_time + '</span><div class="invitation_comment"><a href="'+'<?=site_url("home/see_article/")?>'+ curPageData.data[i].article_id +'" target="_self"><h4>' + curPageData.data[i].title + '</h4><p>' + curPageData.data[i].content + '</p><div class="invitation_imgs"><div class="row">';
+            html += '<li class="media paddusal borderstyle" ><div class="media-left"><a class="userimgBox" href="'+ personUrl+curPageData.data[i].user_id +'"><img class="userimg" src="' + curPageData.data[i].headimgurl + '" class="media-object"></a></div><div class="media-body"><a href="'+ personUrl+curPageData.data[i].user_id +'"><h4 class="media-heading">' + curPageData.data[i].nickname + '<span class="viper level"><img class="vip-img" src="/style/index/img/icon/' + (curPageData.data[i].vip == 0 ? 'common' : 'vip') + '_level.png" alt=""></span></h4></a><span class="datetime">' + curPageData.data[i].create_time + '</span><div class="invitation_comment"><a href="'+'<?=site_url("home/see_article/")?>'+ curPageData.data[i].article_id +'" target="_self"><h4>' + curPageData.data[i].title + '</h4><p>' + curPageData.data[i].content + '</p><div class="invitation_imgs">';
+
+
+            html += '</div></a></div></div><div class="media-right"><div class="able able_praise" data-id="'+ curPageData.data[i].article_id +'"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">' + curPageData.data[i].praise + '</span></div><div class="able"><a href="' + '<?=site_url("home/see_article/")?>'+ curPageData.data[i].article_id + '" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">' + curPageData.data[i].comment_total + '</span></a></div></div><div class="row"><span class="label '+ curPageData.data[i].type_class +'">' + curPageData.data[i].type + '</span></div></li>';
+            html+= '<a href="' + '<?=site_url("home/see_article/")?>'+ curPageData.data[i].article_id + '" target="_self"><div class="row im">';
             if (curPageData.data[i].url.length > 0) {
                 var col = 12 / curPageData.data[i].url.length;
                 for (var j = 0; j < curPageData.data[i].url.length; j++) {
                     html += '<div class="col-xs-' + col + ' index-item-img-box"><img src="' + curPageData.data[i].url[j] + '" class="img-responsive"></div>';
                 }
             }
-
-            html += '</div></div></a></div></div><div class="media-right"><div class="able able_praise" data-id="'+ curPageData.data[i].article_id +'"><img src="/style/index/img/icon/praise.png"><span class="text-center count fs20px">' + curPageData.data[i].praise + '</span></div><div class="able"><a href="' + '<?=site_url("home/see_article/")?>'+ curPageData.data[i].article_id + '" target="_self"><img src="/style/index/img/icon/comment.png"><span class="text-center count fs20px">' + curPageData.data[i].comment_total + '</span></a></div></div><div class="row"><span class="label '+ curPageData.data[i].type_class +'">' + curPageData.data[i].type + '</span></div></li>';
         }
         $('.media-list').append(html);
     }

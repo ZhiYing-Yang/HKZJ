@@ -11,6 +11,7 @@ Class MY_Controller extends CI_Controller {
 		parent::__construct();
 		$user_id = $this->session->userdata('user_id');
 		if (empty($user_id)) {
+		    $this->session->set_userdata('go_url', current_url());
 			header('location:' . site_url('login/weChat_login'));
 		}
 	}

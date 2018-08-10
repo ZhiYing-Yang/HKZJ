@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
+		$this->session->set_userdata('admin_id', 1);
 		/*$id = $this->session->userdata('id');
 		$admin_name = $this->session->userdata('admin_name');
 		$identity = $this->session->userdata('identity');
@@ -81,7 +82,7 @@ class Admin extends CI_Controller {
 
         $this->load->view('admin/forum/forum_list.html', $data);
     }
-
+    //添加公告
     public function forum_add_notice(){
         if(empty($this->input->post('title'))){
             $this->load->view('admin/forum/forum_add_notice.html');
@@ -101,7 +102,42 @@ class Admin extends CI_Controller {
             }
         }
     }
+    //用户举报的帖子
+    public function accuse_article_list($type = 'all', $offset =0){
+        $per_page = 10;
+        if($type == 'undisposed'){ //未处理
+            $where_arr = array('disposed' => 0);
+        }else{ //全部举报内容
+            $where_arr = array();
+        }
+        $data['accuse'] = $this->admin_model->get_accuse_article_list($where_arr, $offset, $per_page);
 
+        //分页
+        $this->load->library('myclass');
+        $page_url = site_url('admin/admin/accuse_article_list/').$type;
+        $offset_uri_segment = 5;
+        $total_rows = $this->db->where($where_arr)->count_all_results('accuse_article');
+        $data['link'] = $this->myclass->fenye($page_url, $offset_uri_segment, $total_rows, $per_page);
+        $this->load->view('admin/forum/accuse_list.html', $data);
+    }
+    //举报管理
+    public function accuse_action($action, $id){
+        if($action == 'disposed'){
+            $status = $this->db->update('accuse_article', array('disposed'=>1), array('id'=>$id));
+            $msg = '处理';
+        }else if($action == 'delete'){
+            $status = $this->db->delete('accuse_article', array('id'=>$id));
+            $msg = '删除';
+        }else{
+            $status = false;
+        }
+
+        if($status){
+            alert_msg($msg.'成功');
+        }else{
+            alert_msg($msg.'失败');
+        }
+    }
     //论坛用户
     public function forum_user($type = 'all', $offset = 0){
         $per_page = 10;

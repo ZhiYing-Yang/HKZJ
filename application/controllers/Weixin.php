@@ -41,20 +41,20 @@ class Weixin extends CI_Controller {
         /* 分别执行对应类型的操作 */
         switch ($this->wechat->getRev()->getRevType()) {
             case WechatReceive::MSGTYPE_TEXT:
-                log_message('INFO', '这个是MSGTYPE_TEXT');
+
                 $keys = $this->wechat->getRevContent();
                 return $this->_keys("wechat_keys#keys#{$keys}");
             case WechatReceive::MSGTYPE_EVENT:
-                log_message('INFO', '这个是MSGTYPE_EVENT');
+
                 return $this->_event();
             case WechatReceive::MSGTYPE_IMAGE:
-                log_message('INFO', '这个是MSGTYPE_IMAGE');
+
                 return $this->_image();
             case WechatReceive::MSGTYPE_LOCATION:
-                log_message('INFO', '这个是MSGTYPE_LOCATION');
+
                 return $this->_location();
             default:
-                log_message('INFO', '这个是MSGTYPE_default');
+
                 return $this->_default();
         }
     }
@@ -279,7 +279,7 @@ class Weixin extends CI_Controller {
                 array(
                     'type'=>'view',
                     'name'=>'发现',
-                    'url'=>base_url(),
+                    'url'=>site_url('home/discover'),
                 ),
 
                 //第三个二级菜单

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Home extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
@@ -113,6 +113,9 @@ class Home extends CI_Controller {
 		//评论列表
 		$data['comment'] = $this->index_model->get_user_comment_list(array('article_id' => $id, 'pid' => 0), 'praise DESC, create_time DESC', 0);
 		$data['comment'] = $this->index_model->get_reply_comment($data['comment']);
+		if(!empty($this->session->userdata('admin_id'))){ //管理员查看文章
+		    $this->load->view('admin/forum/forum_article.html', $data);return;
+        }
 		if ($data['article']['type'] == '卡友求助') {
 			$this->load->view('index/help-article.html', $data);
 		} else {
@@ -146,6 +149,7 @@ class Home extends CI_Controller {
 		if ($action == 'do') {
 			$data = array(
 				'article_id' => $id, //文章ID
+                'user_id' => $this->session->userdata('user_id'),
 				'reason' => $this->input->post('reason'), //举报原因
 				'content' => $this->input->post('content'), //举报描述
 				'create_time' => time(), //举报时间

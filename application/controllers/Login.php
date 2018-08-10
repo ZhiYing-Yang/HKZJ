@@ -13,6 +13,7 @@ class Login extends CI_Controller{
      * 创建微信网页授权URL
      */
     public function weChat_login($scope_code = 0){
+
         //SDK对象实例
         $oauth = & load_wechat('Oauth');
 
@@ -72,22 +73,29 @@ class Login extends CI_Controller{
                         'sex' => $result['sex'] == 1 ? '男' : '女',
                         'province' => $result['province'],
                         'city' => $result['city'],
-                        'headimgurl' => $result['headimgurl']
+                        'headimgurl' => $result['headimgurl'],
+                        'login_time' => time(),//更新登录时间
                     );
 
                     //获取用户信息，自行序列化后插入数据库
                     if ($this->db->insert('user', $user_data)) {
                         $id = $this->db->insert_id();
                         $this->session->set_userdata(array('user_id' => $id));//将用户id存储到session
-                        header('Location:' . site_url('home/index'));
+                        header('Location:' . $this->session->userdata('go_url'));
                     } else {
                         echo '插入用户信息失败，请重试';
                     }
                 }
             } else {//数据库里有用户信息
+                if($user[0]['status'] == 0){ //账号被封
+                    $data['str'] = '<h4 style="color: #f7f9fa;">您的账户存在违规行为，已被管理员封禁</h4>';
+                    $data['title'] = '账号已被封禁';
+                    $this->load->view('404/404.html', $data);return;
+                }
                 $id = $user[0]['user_id'];
+                $this->db->update('user', array('login_time'=>time()), array('user_id'=>$id));//更新登录时间
                 $this->session->set_userdata(array('user_id' => $id));
-                header('Location:' . site_url('home/index'));
+                header('Location:' . $this->session->userdata('go_url'));
             }
         }
     }

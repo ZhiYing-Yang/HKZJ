@@ -36,10 +36,10 @@
                 <div class="col-xs-3 text-center signIn"><a class="btn btn-block" role="button" href="#">签到</a></div>
             </div>
         </div>
-        <div class="row person-icon borderstyle">
+        <div class="row person-icon borderstyle" style="display: <?=$person=='self'?'':'none'?>">
             <ul class="icon-ul">
                 <li><a href="<?=site_url('home/personal_data')?>"><i id="personinfo"></i><span class="text-center">个人资料</span></a></li>
-                <li><a href="index_message.html" target="_self"><i id="mymessage"></i><span class="text-center">我的消息</span></a></li>
+                <li><a href="<?=site_url('home/forum_message')?>" target="_self"><i id="mymessage"></i><span class="text-center">我的消息</span></a></li>
                 <li><a href="#"><i id="firendaction"></i><span class="text-center">好友动态</span></a></li>
             </ul>
         </div>
@@ -47,12 +47,12 @@
     <ul class="nav nav-tabs person_nav">
         <li role="presentation" >
             <a href="<?=site_url('home/person/').$this_id?>/article">
-                <img style="margin-right: 10px;" src="/style/index/img/icon/my_article.png" alt="">我的帖子
+                <img style="margin-right: 10px;" src="/style/index/img/icon/my_article.png" alt=""><?=$person=='self'?'我的':'他的'?>帖子
             </a>
         </li>
         <li role="presentation" class="active">
             <a href="<?=site_url('home/person/').$this_id?>/help">
-                我的求助<img style="margin-left: 10px;" src="/style/index/img/icon/my_help.png" alt="">
+                <?=$person=='self'?'我的':'他的'?>求助<img style="margin-left: 10px;" src="/style/index/img/icon/my_help.png" alt="">
             </a>
         </li>
     </ul>

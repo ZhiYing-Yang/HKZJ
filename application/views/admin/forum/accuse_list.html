@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>举报列表</title>
+    <link rel="stylesheet" href="/style/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/style/admin/css/admin.css">
+    <script src="/style/admin/js/jquery.js"></script>
+    <script src="/style/admin/js/pintuer.js"></script>
+</head>
+
+<body>
+<form method="post" action="" id="listform">
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder"> 被举报帖子列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+        <div class="padding border-bottom">
+            <ul class="search" style="padding-left:10px;">
+                <if condition="$iscid eq 1">
+                    <li>
+                        <select name="cid" class="input" style="width:200px; line-height:17px;" onchange="changetype(this)">
+                            <option value="">请选择类型</option>
+                            <option value="undisposed">未处理</option>
+                        </select>
+                    </li>
+                </if>
+                <li>
+            </ul>
+        </div>
+        <table class="table table-hover text-center">
+            <tr>
+                <th>原因</th>
+                <th>举报内容</th>
+                <th>被举报帖子</th>
+                <th>举报人</th>
+                <th>被举报人</th>
+                <th>举报时间</th>
+                <th width="310">操作</th>
+            </tr>
+            <volist name="list" id="vo">
+                <?php foreach($accuse as $a):?>
+                <tr>
+                    <td><?=$a['reason']?></td>
+                    <td><?=$a['content']?></td>
+                    <td>
+                        <a href="<?=site_url('home/see_article/').$a['article_id']?>"><?=$a['title']?></a>
+                    </td>
+                    <td>
+                        <a href="<?=site_url('home/person/').$a['accuser_id']?>">查看原举报用户</a>
+                    </td>
+                    <td>
+                        <a href="<?=site_url('home/person/').$a['accused_id']?>">查看被举报用户</a>
+                    </td>
+                    <td><?=date('Y-m-d', $a['create_time'])?></td>
+                    <td>
+                        <div class="button-group"> <a href="<?=site_url('admin/admin/accuse_action/disposed/').$a['id']?>" class="button border-<?=$a['disposed'] == 0?'main':'black'?>" ><span class="icon-truck"></span> <?=$a['disposed']==0?'处理':'已处理'?></a> <a class="button border-red" href="javascript:void(0)" onclick="return del(<?=$a['id']?>)"><span class="icon-trash-o"></span> 删除</a> </div>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+
+
+                <tr>
+                    <td colspan="8">
+                        <div class="pagelist"> <?=$link?> </div>
+                    </td>
+                </tr>
+            </volist>
+        </table>
+    </div>
+</form>
+<script type="text/javascript">
+    function changetype(the){
+        location.href = "<?=site_url('admin/admin/accuse_article_list/')?>"+the.value;
+    }
+
+    //单个删除
+    function del(id) {
+        if (confirm("您确定要删除吗?")) {
+            location.href="<?=site_url('admin/admin/accuse_action/delete/')?>"+id;
+        }
+    }
+</script>
+</body>
+
+</html>

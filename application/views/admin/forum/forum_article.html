@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <title>
+        <?=$article['title']?>
+    </title>
+    <link rel="stylesheet" type="text/css" href="/style/layer_mobile/need/layer.css">
+    <link rel="stylesheet" type="text/css" href="/style/index/css/mescroll.min.css">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/style/index/css/usual.css">
+    <link rel="stylesheet" type="text/css" href="/style/index/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/style/index/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/style/index/css/invicomment.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/style/index/js/jquery.mobile-events.min.js"></script>
+    <script type="text/javascript" src="/style/index/js/constant.js"></script>
+    <script type="text/javascript" src="/style/index/js/comment.js"></script>
+    <script type="text/javascript" src="/style/layer_mobile/layer.js"></script>
+</head>
+
+<body>
+    <!-- loding -->
+    <div class="loading">
+        <div class="pic"></div>
+    </div>
+    <div class="mescroll" id="mescroll">
+        <div class="container invicomment">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="page-header"><?=$article['title']?></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="media">
+                        <div class="media-left">
+                            <a class="userimgBox" href="<?=site_url('home/person/').$user['user_id']?>"><img class="userimg" src="<?=$user['headimgurl']?>" class="media-object"></a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><?=$user['nickname']?><img src="/style/index/img/icon/<?=$user['vip']==0?'common':'vip'?>_level.png" alt="" class="vip_img"></h4>
+                            <span class="datetime"><?=formatTime($article['create_time'])?></span>
+                        </div>
+                        <div class="media-right">
+                        </div>
+                        <div class="row"><span class="label live_orange"><?=$article['type']?></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 invicomment_text">
+                    <?=$article['content']?>
+                </div>
+            </div>
+            <div class="row invitation_comstitle">
+                <div class="col-xs-9">
+                    <span class="icon icon_item fs20px ">阅读</span><span class="icon fs20px "><?=$article['read']?></span>
+                    <span class="icon icon_item fs20px ">点赞</span><span class="icon fs20px "><?=$article['praise']?></span>
+                    <span class="icon icon_item fs20px ">评论</span><span class="icon fs20px "><?=$article['comment_total']?></span>
+                </div>
+                <div class="col-xs-3">
+                    <span class="icon text-right icon_item report" onclick="javascript:location.href='<?=site_url('home/accuse_article/see/').$article['article_id']?>'">举报!</span>
+                </div>
+            </div>
+            <div class="row invitation_comscom" id="comment_top" style="margin-bottom: 50px">
+                <ul class="media-list col-xs-12">
+                    <?php foreach($comment as $c):?>
+                    <li class="media">
+                        <div class="media-left">
+                            <a class="userimgBox" href="<?=site_url('home/person/').$c['user_id']?>"><img class="userimg" src="<?=$c['headimgurl']?>" class="media-object"></a>
+                        </div>
+                        <div class="media-body">
+                            <a href=""><h4 class="media-heading"><?=$c['nickname']?><img src="/style/index/img/icon/<?=$c['vip']==0?'common':'vip'?>_level.png" alt=""></h4></a>
+                            <span class="datetime"><?=formatTime($c['create_time'])?></span>
+                            <div class="invitation_comment">
+                                <p>
+                                    <script>
+                                    document.write(ImgIputHandler.getEmoticonImg("<?=$c['content']?>"))
+                                    </script>
+                                    <a href="<?=site_url('admin/admin/forum_comment_delete/').$c['comment_id']?>" type="button" class="btn btn-danger">删除评论</a>
+                                </p>
+                            </div>
+                            <div class="reply_comment">
+                                <?php foreach($c['reply'] as $r):?>
+                                <p>
+                                    <a href="<?=site_url('home/person/').$r['user_id']?>">
+                                        <?=$r['nickname']?>：</a>
+                                    <script>
+                                    document.write(ImgIputHandler.getEmoticonImg("<?=$r['content']?>"))
+                                    </script>
+                                    <a href="<?=site_url('admin/admin/forum_comment_delete/').$c['comment_id']?>" type="button" class="btn btn-danger">删除评论</a>
+                                </p>
+                                <?php endforeach;?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-push-10 col-xs-2 text-right"><span class="commentClick" data-id="<?=$c['comment_id']?>" data-to="<?=$c['user_id']?>">回复</span></div>
+                        </div>
+                        <hr/>
+                    </li>
+                    <?php endforeach;?>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid commentBox_back"></div>
+    <div class="container-fluid commentBox">
+        <div class="Main row">
+            <div class="Input_Box col-xs-12">
+                <div class="row">
+                    <textarea class="Input_text col-xs-12" autofocus cols="25" rows="10" data-role="none"></textarea>
+                </div>
+                <div class="row" style="height: 38px;">
+                    <div class="Input_Foot col-xs-12 overflow_hidden"> <a class="imgBtn" href="javascript:void(0);" data-role="none"><img class="center-block" src="/style/index/img/icon/biaoqing.png" alt=""></a><a class="postBtn">确定</a> </div>
+                </div>
+                <div class="row" id="emotion" style="display: none">
+                    <div class="faceDiv"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="/style/index/js/all.js"></script>
+<script type="text/javascript">
+//遍历显示数据
+var personUrl = '<?=site_url("home/person/")?>';
+function setListData(data) {
+
+    for (var i = 0; i < data.length; i++) {
+        var html = '';
+        html = '<li class="media">';
+        html += '<div class="media-left">'
+        html += '<a class="userimgBox" href="' + personUrl+data[i].user_id +'"><img class="userimg" src="' + data[i].headimgurl + '" class="media-object"></a></div>';
+
+        html += '<div class="media-body">';
+        html += '<a href=""><h4 class="media-heading">' + data[i].nickname + '<img src="/style/index/img/icon/' + (data[i].vip == 0 ? 'common' : 'vip') + '_level.png" alt=""></h4></a>';
+        html += '<span class="datetime">' + data[i].create_time + '</span>';
+        html += '<div class="invitation_comment">';
+        html += '<p>' + ImgIputHandler.getEmoticonImg(data[i].content) + '<a href="' + '<?=site_url("admin/admin/forum_comment_delete/")?>'+ data[i].comment_id + '" type="button" class="btn btn-danger">删除评论</a></p>';
+        html += '</div>';
+        html += '<div class="reply_comment">';
+
+        for (var j = 0; j < data[i].reply.length; j++) {
+            html += '<p><a href="'+ personUrl+data[i].reply[j].user_id +'">' + data[i].reply[j].nickname + '</a>' + ImgIputHandler.getEmoticonImg(data[i].reply[j].content) + '<a href="' + '<?=site_url("admin/admin/forum_comment_delete/")?>'+ data[i].comment_id + '" type="button" class="btn btn-danger">删除评论</a></p>';
+        }
+        
+        html += '</div>';
+        html += '</div>';
+
+        html += '<div class="row">';
+        html += '<div class="col-xs-push-10 col-xs-2 text-right"><span class="commentClick" data-id="' + data[i].comment_id + '" data-to="'+ data[i].user_id +'">回复</span></div>';
+        html += '</div>';
+        html += '<hr/>';
+        html += '</li>';
+        $('.invitation_comscom ul.media-list').append(html);
+    }
+}
+$('.postBtn').on('click', function(e) {
+    var content = $('.Input_text').val();
+    if (content.length == 0) {
+        layer.open({
+            content: '请输入评论内容',
+            style: 'font-size: 3em',
+            btn: '知道了'
+        });
+        return;
+    }
+    if (content.length > 256) {
+        layer.open({
+            content: '评论内容不能超过256个字',
+            btn: '知道了'
+        });
+        return;
+    }
+    layer.open({
+        type: 2,
+        content: '正在提交...',
+        shadeClose: false
+    });
+    var pid = $(this).attr('data-id');
+    var to_user = $(this).attr('data-to');
+    $.post('<?=site_url("home/comment/").$article["article_id"]?>/' + pid, { content: content, to_user: to_user }, function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+        if (data.code == 200) {
+            if (pid == 0) {
+                var html = '<li class="media">';
+                html += '<div class="media-left">'
+                html += '<a class="userimgBox" href="' + personUrl+data.data.user_id + '"><img class="userimg" src="' + data.data.headimgurl + '" class="media-object"></a></div>';
+
+                html += '<div class="media-body">';
+                html += '<a href=""><h4 class="media-heading">' + data.data.nickname + '<img src="/style/index/img/icon/' + (data.data.vip == 0 ? 'common' : 'vip') + '_level.png" alt=""></h4></a>';
+                html += '<span class="datetime">刚刚</span>';
+                html += '<div class="invitation_comment">';
+                html += '<p>' + ImgIputHandler.getEmoticonImg(content) + '</p>';
+                html += '</div>';
+                html += '</div>';
+
+                html += '<div class="row">';
+                html += '<div class="col-xs-push-10 col-xs-2 text-right"><span class="commentClick" data-id="'+ data.data.comment_id +'" data-to="'+ data.data.user_id +'">回复</span></div>'; //data-id为该条评论的id 传到后台作为回复的父id，data-to为该条评论的用户id 传到后台作为被回复者的id
+                html += '</div>';
+                html += '<hr/>';
+                html += '</li>';
+
+                $('.commentBox_back').fadeOut();
+                $('.commentBox').slideUp(300);
+                $('.Input_text').val('');
+                layer.closeAll();
+                $('html, body').animate({ scrollTop: $('#comment_top').offset().top }, 100);
+                $('.invitation_comscom ul.media-list').prepend(html);
+            } else {
+                var html = '<p><a href="#">' + data.data.nickname + '：</a>' + ImgIputHandler.getEmoticonImg(content) + '</p>'
+                $(".commentClick[data-id='" + pid + "']").parents('.media').find('.reply_comment').append(html);
+                $('.commentBox_back').fadeOut();
+                $('.commentBox').slideUp(300);
+                $('.Input_text').val('');
+                layer.closeAll();
+            }
+
+        } else {
+
+            layer.open({
+                content: data.message,
+                btn: '知道了'
+            });
+        }
+    }, 'json');
+});
+</script>
+<!-- 上拉加载更多 -->
+<script type="text/javascript" src="/style/index/js/mescroll.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+var totalSize = "<?=$article['comment_total']?>";
+$(function() {
+    //创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,重置列表数据;
+    var mescroll = new MeScroll("mescroll", {
+        down: {
+            use: false,
+        },
+        up: {
+            callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
+            isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+            //clearEmptyId: "dataList", //1.下拉刷新时会自动先清空此列表,再加入数据;
+            htmlNodata: '<p class="upwarp-nodata" style="margin-bottom:50px">-- 已加载全部内容 --</p>',
+        },
+
+    });
+
+    /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+    function getListData(page) {
+        $.ajax({
+            url: "<?=site_url('home/get_more_comment/').$article['article_id']?>/" + page.num * 10,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                curPageData = data.data;
+
+                //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+                //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+                console.log("page.num=" + page.num + ", page.size=" + page.size + ", curPageData.length=" + curPageData.length + '，totalSize=' + totalSize);
+                mescroll.endSuccess(curPageData.length, totalSize);
+                setListData(curPageData);
+            },
+            error: function() {
+                //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                mescroll.endErr();
+            }
+        });
+    }
+});
+</script>

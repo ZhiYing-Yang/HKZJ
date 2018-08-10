@@ -12,10 +12,17 @@ class Admin_model extends CI_Model {
         return $status;
     }
 
+    //用户举报帖子
+    public function get_accuse_article_list($where_arr, $offset, $per_page=10){
+        $get_info = 'id, accuse_article.article_id, reason, accuse_article.content, accuse_article.create_time, disposed, title, accuse_article.user_id as accuser_id, article.user_id as accused_id';
+        $status = $this->db->select($get_info)->order_by('create_time DESC')->join('article', 'accuse_article.article_id = article.article_id')->get_where('accuse_article', $where_arr, $per_page, $offset)->result_array();
+        return $status;
+    }
+
     //论坛用户列表
     public function get_user_list($where_arr, $offset, $per_page=10){
-        $get_info = 'user_id, phone, nickname, headimgurl, signature, province, city, vip, sex, status';
-        $status = $this->db->select($get_info)->order_by('user_id DESC')->get_where('user', $where_arr, $per_page, $offset)->result_array();
+        $get_info = 'user_id, phone, nickname, headimgurl, signature, province, city, vip, sex, status, login_time';
+        $status = $this->db->select($get_info)->order_by('login_time DESC, user_id DESC')->get_where('user', $where_arr, $per_page, $offset)->result_array();
         return $status;
     }
 
@@ -40,6 +47,7 @@ class Admin_model extends CI_Model {
         return $status;
 
     }
+
     /******************** 论坛部分End *********************/
 
 

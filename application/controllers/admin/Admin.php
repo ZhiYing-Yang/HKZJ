@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
-		$this->session->set_userdata('admin_id', 1);
+		$this->session->set_userdata('admin_id', 9);//货卡之家货运平台管理员
 		/*$id = $this->session->userdata('id');
 		$admin_name = $this->session->userdata('admin_name');
 		$identity = $this->session->userdata('identity');

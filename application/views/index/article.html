@@ -42,7 +42,7 @@
                             <a class="userimgBox" href="<?=site_url('home/person/').$user['user_id']?>"><img class="userimg" src="<?=$user['headimgurl']?>" class="media-object"></a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading"><?=$user['nickname']?><img src="/style/index/img/icon/<?=$user['vip']==0?'common':'vip'?>_level.png" alt="" class="vip_img"></h4>
+                            <h4 class="media-heading"><?=$user['nickname']?><img src="/style/index/img/icon/<?=$user['vip']==0?'common':'vip'?>_level.png" alt="" class="vip-img"></h4>
                             <span class="datetime"><?=formatTime($article['create_time'])?></span>
                         </div>
                         <div class="media-right">
@@ -66,8 +66,8 @@
                     <span class="icon text-right icon_item report" onclick="javascript:location.href='<?=site_url('home/accuse_article/see/').$article['article_id']?>'">举报!</span>
                 </div>
             </div>
-            <div class="row invitation_comscom" id="comment_top" style="margin-bottom: 50px">
-                <ul class="media-list col-xs-12">
+            <div class="row invitation_comscom" id="comment_top">
+                <ul class="media-list col-xs-12" id="dataList">
                     <?php foreach($comment as $c):?>
                     <li class="media">
                         <div class="media-left">
@@ -108,7 +108,7 @@
     <!-- header -->
     <div class="header">
         <div class="menu_css">
-            <ul>
+            <ul class="article_menu">
                 <li class="col-xs-4"><a target="_top" class="chose" href="<?=site_url('home/index')?>">
                                     <img class="choose_img" src="/style/index/img/icon/1_xz.png" alt="论坛">
                                     <p class="blue">论坛</p>
@@ -267,7 +267,7 @@ $(function() {
             callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
             isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
             //clearEmptyId: "dataList", //1.下拉刷新时会自动先清空此列表,再加入数据;
-            htmlNodata: '<p class="upwarp-nodata" style="margin-bottom:50px">-- 已加载全部内容 --</p>',
+            htmlNodata: '<p class="upwarp-nodata">-- 已加载全部内容 --</p>',
         },
 
     });

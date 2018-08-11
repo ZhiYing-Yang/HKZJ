@@ -54,7 +54,7 @@
                     <td>
                         <a href="<?=site_url('home/person/').$a['accused_id']?>">查看被举报用户</a>
                     </td>
-                    <td><?=date('Y-m-d', $a['create_time'])?></td>
+                    <td><?=date('Y-m-d H:i:s', $a['create_time'])?></td>
                     <td>
                         <div class="button-group"> <a href="<?=site_url('admin/admin/accuse_action/disposed/').$a['id']?>" class="button border-<?=$a['disposed'] == 0?'main':'black'?>" ><span class="icon-truck"></span> <?=$a['disposed']==0?'处理':'已处理'?></a> <a class="button border-red" href="javascript:void(0)" onclick="return del(<?=$a['id']?>)"><span class="icon-trash-o"></span> 删除</a> </div>
                     </td>

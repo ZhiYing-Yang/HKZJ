@@ -45,8 +45,8 @@ class Weixin extends CI_Controller {
                 $keys = $this->wechat->getRevContent();
                 return $this->_keys("wechat_keys#keys#{$keys}");
             case WechatReceive::MSGTYPE_EVENT:
-
-                return $this->_event();
+                $event = $this->wechat->getRevEvent();
+                return $this->_event($event);
             case WechatReceive::MSGTYPE_IMAGE:
 
                 return $this->_image();
@@ -132,30 +132,21 @@ class Weixin extends CI_Controller {
      * 事件处理
      * @return type
      */
-    protected function _event() {
-        $event = $this->wechat->getRevEvent();
+    protected function _event($event) {
+
         switch (strtolower($event['event'])) {
             case 'subscribe':/* 关注事件 */
-                $this->_sync_fans(true);
-                if (!empty($event['key']) && stripos($event['key'], 'qrscene_') !== false) {
-                    $this->_spread(preg_replace('|^.*?(\d+).*?$|', '$1', $event['key']));
-                }
-                return $this->_keys('wechat_keys#keys#subscribe');
+                return $this->wechat->text('欢迎关注货卡人之家公众号！更好的为卡友、物流企业、配件商家、维修企业提供最优质的服务。平台提供新旧车信息，货源信息，货物仓储服务，保险代理咨询，车辆消费信贷金融咨询，车辆动态监控，车辆救援服务，配件销售，维修企业名录等。一切为了更好的服务用户！')->reply();
             case 'unsubscribe':/* 取消关注 */
-                $this->_sync_fans(false);
+                return $this->wechat->text('欢迎关注货卡人之家公众号！更好的为卡友、物流企业、配件商家、维修企业提供最优质的服务。平台提供新旧车信息，货源信息，货物仓储服务，保险代理咨询，车辆消费信贷金融咨询，车辆动态监控，车辆救援服务，配件销售，维修企业名录等。一切为了更好的服务用户！')->reply();
                 exit('success');
             case 'click': /* 点击链接 */
                 return $this->_keys($event['key']);
             case 'scancode_push':
             case 'scancode_waitmsg':/* 扫码推事件 */
-                $scanInfo = $this->wechat->getRev()->getRevScanInfo();
-                if (isset($scanInfo['ScanResult'])) {
-                    return $this->_keys($scanInfo['ScanResult']);
-                }exit('success');
+                return $this->wechat->text('欢迎关注货卡人之家公众号！更好的为卡友、物流企业、配件商家、维修企业提供最优质的服务。平台提供新旧车信息，货源信息，货物仓储服务，保险代理咨询，车辆消费信贷金融咨询，车辆动态监控，车辆救援服务，配件销售，维修企业名录等。一切为了更好的服务用户！')->reply();
             case 'scan':
-                if (!empty($event['key'])) {
-                    return $this->_spread($event['key']);
-                }exit('success');
+                return $this->wechat->text('欢迎关注货卡人之家公众号！更好的为卡友、物流企业、配件商家、维修企业提供最优质的服务。平台提供新旧车信息，货源信息，货物仓储服务，保险代理咨询，车辆消费信贷金融咨询，车辆动态监控，车辆救援服务，配件销售，维修企业名录等。一切为了更好的服务用户！')->reply();
         }
     }
 

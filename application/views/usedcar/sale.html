@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>卖车</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link rel="stylesheet" type="text/css" href="/style/usedcar/css/sale.css" />
+</head>
+
+<body>
+<div class="weui-gallery" id="gallery">
+    <span class="weui-gallery__img" id="galleryImg"></span>
+    <div class="weui-gallery__opr">
+        <a href="javascript:" class="weui-gallery__del">
+            <i class="weui-icon-delete weui-icon_gallery-delete"></i>
+        </a>
+    </div>
+</div>
+
+<form action="" class="weui-cells_form">
+    <div class="header">
+        <span class="return"><a href="javascript:window.history.go(-1);">&lt;</a></span>
+        <h1 class="main-tittle">填写货车信息</h1>
+        <span style="position: absolute;top: 0;right: 15px;"><a href="javascript:void(0);" style="color: #f4615c;" calss="publish">发布</a></span>
+    </div>
+
+    <div class="uploading-img">
+        <p>车辆照片上传（照片清晰详细可获得更好的展示）</p>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <div class="weui-uploader">
+                    <div class="weui-uploader__hd">
+                        <p class="weui-uploader__title">最多可上传9张图片</p>
+                    </div>
+                    <div class="weui-uploader__bd">
+                        <ul class="weui-uploader__files" id="uploaderFiles">
+
+                        </ul>
+                        <div class="weui-uploader__input-box">
+                            <input id="uploaderInput" class="weui-uploader__input zjxfjs_file" type="file" accept="image/*" capture="camera" multiple="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p>请上传您的行驶证照片</p>
+        <div class="photos">
+            <div class="weui_uploader_bd">
+                <div class="weui_uploader_input_wrp photo">
+                    <input id="upload_license" class="weui_uploader_input" type="file" accept="image/*" capture="camera" multiple="">
+                </div>
+                <span>
+					最多可上传1张
+				</span>
+            </div>
+        </div>
+        <p>车辆基本信息</p>
+    </div>
+
+
+    <div class="weui_cells weui_cells_access basic_information">
+        <a class="weui_cell" href="javascript:;">
+            <div class="weui_cell_bd weui_cell_primary choice">
+                <label><p>选择车型<i>*</i><input type="text" required="required" name="smodel" class="smodel weui-input" onchange="typeChange()"/></p></label>
+            </div>
+            <div class="weui_cell_ft"></div>
+        </a>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">请输入车辆品牌<i>*</i></label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="text" name="brand" style="text-align: right"  placeholder="请输入车辆品牌">
+            </div>
+        </div>
+
+        <a class="weui_cell" href="javascript:;">
+            <div class="weui_cell_bd weui_cell_primary choice">
+                <label><p>车辆所在地<i>*</i><input type="text" id='city-picker' required="required"/></p></label>
+            </div>
+            <div class="weui_cell_ft"></div>
+        </a>
+
+
+        <div class="weui_cell weui_cell_switch dispack">
+            <div class="weui_cell_hd weui_cell_primary"><label>是否提供挂靠<i>*</i></label></div>
+            <input class="weui_switch" type="checkbox" name="guakao" required="required">
+        </div>
+        <div class="weui_cell weui_cell_switch">
+            <div class="weui_cell_hd weui_cell_primary"><label>是否可以过户<i>*</i><label></div>
+            <input class="weui_switch" type="checkbox" name="guohu" required="required">
+        </div>
+
+
+        <div class="weui_cells_form input_s weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">表显里程</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="tel"  dir="rtl" name="distance" style="width: 110px" placeholder="请输入表显里程&nbsp;">
+                <span>万公里</span>
+            </div>
+        </div>
+        <div class=" weui_cells_form input_s weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">全款价格<i>*</i></label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="tel" name="whole_price" required="required"  dir="rtl" placeholder="请输入全款价格&nbsp;">
+                <span>万元</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="weui_cells weui_cells_checkbox buy_form">
+        <label class="weui_cell weui_check_label" style="padding-right: 0">
+            <div class="weui_cell_hd">
+
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>付款方式</p>
+                </div>
+            </div>
+        </label>
+        <div class="buy_choise">
+            <label class="weui_cell weui_check_label" style="padding-left: 5px" for="s11">
+                <div class="weui_cell_hd">
+                    <input type="radio" class="weui_check" name="radio" value="0" id="s11" checked="checked">
+                    <i class="weui_icon_checked"></i>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>全款购车</p>
+                </div>
+            </label>
+            <label class="weui_cell weui_check_label" for="s12"  style="padding-left: 5px" >
+                <div class="weui_cell_hd">
+                    <input type="radio" name="radio" value="1" class="weui_check choose" id="s12">
+                    <i class="weui_icon_checked"></i>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>分期付款</p>
+                </div>
+            </label>
+        </div>
+    </div>
+    <div class="weui_cells input_s checked">
+        <div class=" weui_cells_form weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">首付价格<i>*</i></label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="tel" required="required" name="down_payment"  dir="rtl" placeholder="请输入首付价格&nbsp;">
+                <span>万元</span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="weui_cells weui_cells_access basic_information">
+
+
+        <a class="weui_cell" href="javascript:;">
+            <div class="weui_cell_bd weui_cell_primary choice">
+                <label><p>行驶证登记日期<i>*</i><input type="text" required="required" name="xszdjrq" class="retime"/></p></label>
+            </div>
+            <div class="weui_cell_ft"></div>
+        </a>
+        <a class="weui_cell" href="javascript:;">
+            <div class="weui_cell_bd weui_cell_primary choice">
+                <label><p>交强险过期时间<i>*</i><input type="text" required="required" name="jqxgqsj" class="extime"/></p></label>
+            </div>
+            <div class="weui_cell_ft"></div>
+        </a>
+    </div>
+
+    <!------------车辆主要参数------------>
+    <!-------------------牵引车 0-5----------->
+    <div class="common motor_tractor">
+        <div class="else">
+            <p>车辆主要参数</p>
+        </div>
+
+        <div class="weui_cells weui_cells_access basic_information">
+
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>排放标准<i>*</i><input type="text" id="qy0" required="required" class="estandard"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>变速箱挡位<i>*</i><input type="text" required="required" id='qy1' class="gears"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>驱动形式<i>*</i><input type="text" id='qy2' required="required" class="driving_form"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <div class="weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">马力<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required" id="qy3"  dir="rtl" placeholder="请输入马力">
+                    <span>马力</span>
+                </div>
+            </div>
+            <div class=" weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">货箱长度<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required" id="qy4"  dir="rtl" placeholder="请输入货箱长度">
+                    <span>米</span>
+                </div>
+            </div>
+
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>后桥速比<i>*</i><input type="text" id='qy5' required="required" class="speed_ratio"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+        </div>
+    </div>
+
+    <!-------------载货车 0-7------------>
+
+    <div class="common load_vehicle">
+        <div class="else">
+            <p>车辆主要参数</p>
+        </div>
+
+        <div class="weui_cells weui_cells_access basic_information">
+
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>排放标准<i>*</i><input type="text" required="required" id='zh0' class="estandard"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>变速箱挡位<i>*</i><input type="text" required="required" id='zh1' class="gears"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>驱动形式<i>*</i><input type="text" required="required" id='zh2' class="load_driving_form"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <div class="weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">马力<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required" id="zh3" dir="rtl" placeholder="请输入马力">
+                    <span>马力</span>
+                </div>
+            </div>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>货箱形式<i>*</i><input type="text" id='zh4' required="required" class="driving_crate"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+
+            <div class=" weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">货箱长度<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required" id="zh5"  dir="rtl" placeholder="请输入货箱长度">
+                    <span>米</span>
+                </div>
+            </div>
+            <div class=" weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">准载质量</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" id="zh6"  dir="rtl" placeholder="请输入准载质量">
+                    <span>吨</span>
+                </div>
+            </div>
+            <div class=" weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">自重</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" id="zh7"  dir="rtl" placeholder="请输入自重">
+                    <span>吨</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-------------轻卡----------------->
+    <div class="common light_truck">
+        <div class="else">
+            <p>车辆主要参数</p>
+        </div>
+
+        <div class="weui_cells weui_cells_access basic_information">
+
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>排放标准<i>*</i><input type="text" id='picker' required="required" class="estandard"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>变速箱挡位<i>*</i><input type="text" required="required" id='picker' class="gears"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <div class="weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">马力<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required"  dir="rtl" placeholder="请输入马力">
+                    <span>马力</span>
+                </div>
+            </div>
+            <div class=" weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">货箱长度<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required"  dir="rtl" placeholder="请输入货箱长度">
+                    <span>米</span>
+                </div>
+            </div>
+            <div class=" weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">准载质量</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel"  dir="rtl" placeholder="请输入准载质量">
+                    <span>吨</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-------------挂车 0-3------------->
+    <div class="common trailer">
+        <div class="else">
+            <p>车辆主要参数</p>
+        </div>
+
+        <div class="weui_cells weui_cells_access basic_information">
+
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>挂车形式<i>*</i><input type="text" required="required" id='g0' class="trailer_form"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>轴数<i>*</i><input type="text" required="required" id='g1' class="number_axles"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>悬挂形式<i>*</i><input type="text" required="required" id='g2' class="suspension_form"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <div class="weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">挂车长度<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required" id="g3"  dir="rtl" placeholder="请输入挂车长度">
+                    <span>米</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-----------搅拌车------------>
+    <div class="common mixer_truck">
+        <div class="else">
+            <p>车辆主要参数</p>
+        </div>
+
+        <div class="weui_cells weui_cells_access basic_information">
+
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>排放标准<i>*</i><input type="text" required="required" id='jb0' class="estandard"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>变速箱挡位<i>*</i><input type="text" required="required" id='jb1' class="gears"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>驱动形式<i>*</i><input type="text" required="required" id='jb2' class="mixer_form"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <div class="weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">马力<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required" id="jb3"  dir="rtl" placeholder="请输入马力">
+                    <span>马力</span>
+                </div>
+            </div>
+
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>后桥速比<i>*</i><input type="text" required="required" id='jb4' class="speed_ratio"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <div class="weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">上装品牌<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required" id="jb5"  dir="rtl" placeholder="请输入上装品牌">
+                </div>
+            </div>
+            <div class="weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">减速机品牌<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required" id="jb6"  dir="rtl" placeholder="请输入减速机品牌">
+                </div>
+            </div>
+            <div class="weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">方量<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required" id="jb7"  dir="rtl" placeholder="请输入方量">
+                    <span>m³</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-------------专用车--------------->
+    <div class="common special_vehicle">
+        <div class="else">
+            <p>车辆主要参数</p>
+        </div>
+
+        <div class="weui_cells weui_cells_access basic_information">
+
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>排放标准<i>*</i><input type="text" required="required" id='zy0' class="estandard"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>变速箱挡位<i>*</i><input type="text" required="required" id='zy1' class="gears"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary choice">
+                    <label><p>驱动形式<i>*</i><input type="text" required="required" id='zy2' class="load_driving_form"/></p></label>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            <div class="weui_cells_form input_s weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">马力<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="tel" required="required" id="zy3"  dir="rtl" placeholder="请输入马力">
+                    <span>马力</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--------------车辆主要参数end----------------->
+
+
+    <div class="else">
+        <p>其他</p>
+    </div>
+    <div class="weui_cells input_x">
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>标题<i>*</i></p>
+            </div>
+            <div class="weui_cell_ft ex_headline">
+                <a href="javascript:;" class="open-popup" data-target="#tittle"><input type="text" required="required" placeholder="请输入标题"/></a>
+            </div>
+        </div>
+
+
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>卖家附言</p>
+            </div>
+            <div class="weui_cell_ft ex_postscript">
+                <a href="javascript:;" class="open-popup" data-target="#postst"><input type="text" placeholder="请输入卖家附言"/></a>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="weui_cells_form vcode weui_cell">
+            <div class="weui_cell weui_vcode">
+                <div class="weui_cell_hd"><label class="weui_label captcha_label" >验证码<i>*</i></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text" required="required" name="authcode" placeholder="验证码">
+                </div>
+                <div class="weui_cell_ft" id="captcha">
+                    <img src="<?=site_url('usedcar/authcode')?>" width="100" height="40" onclick="this.src='<?=site_url("usedcar/authcode/").mt_rand(0, 100)?>'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="tittle" class="weui-popup-container">
+        <!--<div class="weui-popup-overlay"></div>-->
+        <div class="weui-popup-modal">
+            <div class="header">
+                <span class="return" style="font-size: 15px;"><a href="#" class='close-popup'>取消</a></span>
+                <h1 class="main-tittle">标题</h1>
+                <span class="succeed"><a href="#" class='close-popup'>完成</a></span>
+            </div>
+            <div class="weui_cells_title"></div>
+            <div class="weui_cells weui_cells_form headline">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <textarea class="weui_textarea" name="title" placeholder="请输入标题" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="postst" class="weui-popup-container">
+        <!--<div class="weui-popup-overlay"></div>-->
+        <div class="weui-popup-modal">
+            <div class="header">
+                <span class="return" style="font-size: 15px;"><a href="#" class='close-popup'>取消</a></span>
+                <h1 class="main-tittle">卖家附言</h1>
+                <span class="succeed"><a href="#" class='close-popup'>完成</a></span>
+            </div>
+            <div class="weui_cells_title"></div>
+            <div class="weui_cells weui_cells_form postscript">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <textarea class="weui_textarea input_box" name="postscript" placeholder="温馨提醒：&#13;&#10;简单介绍车况，保养维修记录等情况，可帮助卡友更好做出购车决策。&#13;&#10;请您绑定手机号并保持畅通，方便买家直接联系您，在附言中不得露出联系方式，否则将导致车辆审核不通过，感谢您的支持！" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <a href="javascript:;" class="weui_btn weui_btn_warn issue_btn publish">发布</a>
+</form>
+
+</body>
+
+</html>
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/city-picker.min.js"></script>
+<script type="text/javascript" src="/style/usedcar/js/sale.js" ></script>
+<script>
+    //车辆所在地选择
+    $("#city-picker").cityPicker({
+        title: "请选择车辆所在地"
+    });
+    //如果个人资料没有完善不能发布卖车信息 跳转到完善个人资料页
+    var info = '<?=isset($info)?$info:""?>';
+    if(info == 'empty'){
+        $.alert('您需要先完善个人资料才能发布卖车信息', '温馨提示', function(){
+            location.href="<?=site_url('usedcar/personal_data')?>";
+        });
+    }
+</script>
+<script>
+
+
+        var tmpl = '<li class="weui-uploader__file" data-url = "#url#" style="background-image:url(#url#)"></li>',
+            $gallery = $("#gallery"),
+            $galleryImg = $("#galleryImg"),
+            $uploaderInput = $("#uploaderInput"),
+            $uploaderFiles = $("#uploaderFiles");
+
+        $uploaderInput.on("change", function(e) {
+            $.showLoading('正在上传');
+            if($uploaderFiles.find('li').length >= 6){
+                $.toptip('最多上传6张图片', 'error');
+                $uploaderInput.parent().remove();
+                $.hideLoading();
+                return;
+            }
+            var src, url = window.URL || window.webkitURL || window.mozURL,
+                files = e.target.files;
+            //for(var i = 0, len = files.length; i < len; ++i) {
+                var file = files[0];
+
+                var img = new Image();
+                var reader = new FileReader();
+
+                reader.onload = function(f){
+                    img.src = f.target.result;
+                    setTimeout(function(){
+                        var imageData = compressImage(img, Math.ceil(file.size / 1024 / 1024));
+
+                        $.post('<?=site_url("usedcar/uploadImage")?>', {image: imageData}, function(data){
+                            if(data.code == 200){
+                                src = data.data.path;
+                                $uploaderFiles.append($(tmpl.replace('#url#', src).replace('#url#', img.src)));
+                                $.hideLoading();
+                            }else{
+                                $.hideLoading();
+                                $.toptip(data.message, 'error');
+                            }
+                        }, 'json');
+                    }, 10);
+                };
+                reader.readAsDataURL(file);
+                /*if(url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }*/
+
+
+            //}
+        });
+        var index; //第几张图片
+        $uploaderFiles.on("click", "li", function() {
+            index = $(this).index();
+            $galleryImg.attr("style", this.getAttribute("style"));
+            $gallery.fadeIn(100);
+        });
+        $gallery.on("click", function() {
+            $gallery.fadeOut(100);
+        });
+        //删除图片
+        $(".weui-gallery__del").click(function() {
+            var imageUrl = $uploaderFiles.find("li").eq(index).attr('data-url');
+            imageUrl = imageUrl.substring(1, imageUrl.length);
+            $.post('<?=site_url("usedcar/delete_image")?>', {image_url: imageUrl}, function(data){
+                if(data.code == 200){
+                    $uploaderFiles.find("li").eq(index).remove();
+
+                }else{
+                    $.toptip(data.message, 'error');
+                }
+            }, 'json');
+
+        });
+
+        //行驶证上传
+        $('#upload_license').on('change', function(e){
+            $.showLoading('正在上传');
+            var url = window.URL || window.webkitURL || window.mozURL;
+            var file = e.target.files[0];
+            if(Math.ceil(file.size / 1024 / 1024)>=20){ //上传图片最大不能超过20M
+                $.toptip('您上传的图片过大！请上传小于10M图片');
+            }
+            url = url.createObjectURL(file);
+            var reader = new FileReader();
+            reader.onload = function(f){
+                var imageData = f.target.result;
+                $.post('<?=site_url("usedcar/uploadImage")?>', {image: imageData}, function(data){
+                    if(data.code == 200){
+                        src = data.data.path;
+
+                        $('.photos .weui_uploader_bd').prepend("<img id='license_img' data-url='"+ src +"' src='" + url +"' width='60' height='60' >");
+                        $('.photo').remove();
+                        $.hideLoading();
+                    }else{
+                        $.hideLoading();
+                        $.toptip(data.message, 'error');
+                    }
+                }, 'json');
+            };
+            reader.readAsDataURL(file);
+        });
+</script>

@@ -8,6 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Login extends CI_Controller{
 
+
     /**
      * 微信登录，网页授权第一步
      * 创建微信网页授权URL
@@ -100,10 +101,50 @@ class Login extends CI_Controller{
         }
     }
 
+    /**
+     * 二手车交易平台登录
+     */
+    public function used_car_login(){
+        if(empty($this->session->userdata('user_id'))){ //如果用户没有登录论坛，先登录论坛
+            $this->session->set_userdata('go_url', site_url('login/used_car_login'));
+            $this->weChat_login();return;
+        }else{  //取用户部分信息填入二手车
+            $forum_id = $this->session->userdata('user_id');
+
+            $this->load->model('usedcar_model');
+            $user = $this->usedcar_model->get_user_info(array('forum_id'=>$forum_id));
+
+            if(empty($user)){   //二手车用户表里没有该用户相关信息
+                $this->load->model('index_model');
+                $data = $this->index_model->get_user(array('user_id'=>$forum_id));
+                if(empty($data)){   //论坛用户表里没有用户数据，重新执行微信网页授权登录
+                    $this->weChat_login();return;
+                }else{ //将信息插入二手车用户表
+                    $user_data = array(
+                        'forum_id'=>$data[0]['user_id'],
+                        'headimgurl'=>$data[0]['headimgurl'],
+                        'nickname'=>$data[0]['nickname'],
+                    );
+                    if($this->db->insert('used-car_user', $user_data)){
+                        $used_car_user_id = $this->db->insert_id();
+                        $this->session->set_userdata('used_car_user_id', $used_car_user_id);
+
+                        header('location:'.site_url('usedcar/index'));
+                    }else{
+                        header('location:'.base_url());
+                    }
+                }
+            }else{
+                $this->session->set_userdata('used_car_user_id',$user[0]['id']);
+                header('location:'.site_url('usedcar/index'));
+            }
+        }
+    }
+
+
     //测试一下
     public function ceshi() {
-        //$this->load->library('mysms');
-        //$this->mysms->send_phone_code('17630026797', '123456');
+       var_dump(file_exists('uploads/usedcarImg/1/20180815/a983dea9dffa5dbb7e9f310b7e345767.jpeg'));
     }
 
 }

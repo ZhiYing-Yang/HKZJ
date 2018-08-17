@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , user-scalable=no , initial-scale=1.0 , maximum-scale=1.0 ,minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="">
+    <title>我的车辆</title>
+    <link rel="stylesheet" href="/style/usedcar/css/mycar.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+</head>
+
+<body>
+<div class="header">
+    <div class="wrap">
+        <a href="<?=site_url('usedcar/person')?>"><i class="bowleft fa fa-angle-left"></i></a>
+        <h1>我的车辆</h1>
+        <a href="<?=site_url('usedcar/sale')?>" class="distribute">发布</a>
+    </div>
+</div>
+<div class="weui_tab nav">
+    <div class="weui_navbar">
+        <a href="<?=site_url('usedcar/my_car/审核中')?>" class="weui_navbar_item checking <?=$type=='审核中'?'weui_bar_item_on':''?>">
+            审核中
+        </a>
+        <a href="<?=site_url('usedcar/my_car/在售')?>" class="weui_navbar_item selling <?=$type=='在售'?'weui_bar_item_on':''?>">
+            在售
+        </a>
+        <a href="<?=site_url('usedcar/my_car/已售')?>" class="weui_navbar_item done <?=$type=='已售'?'weui_bar_item_on':''?>">
+            已售
+        </a>
+    </div>
+    <div class="weui_tab_bd">
+
+        <!--列表内容-->
+
+    </div>
+</div>
+<div class="more" style="text-align: center; margin-top: 10px; background:#ffffff;">
+    <a id="get_more" href="javascript:void(0);" style="color: #09bb07;"><i class="weui_icon_download"></i> 查看更多</a>
+    <p id="no_more" style="color: #ccc; text-align: center;font-size: 14px;display:none">-----已加载全部内容-----</p>
+</div>
+
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script>
+    $('#get_more').click(function () {
+        console.log('<?=$type?>');
+        var url = '<?=site_url("usedcar/my_car/").$type?>/'+$('.lovebox').length+'/get';
+        console.log(url);
+        $.get(url, function(data){
+            if(data.code == 200){
+                if(data.data.length < 10){
+                    $('#get_more').css('display', 'none');
+                    $('#no_more').css('display', 'block');
+                }
+                setDataList(data.data);
+            }else{
+                $.toptip(data.message, 'error');
+            }
+        }, 'json');
+    });
+
+    function setDataList(data){
+        var html='';
+        for(var i = 0, len = data.length; i < len; i++){
+            html+= '<div class="lovebox">';
+            html+= '<div class="loves">';
+            html+= '<a href="car-detail.html" class="weui_cell  love">';
+            html+='<div class="weui_cell_hd thumb">';
+            html+='<img src="'+ data[i].img_arr_str.split('-$-')[0] +'" alt="icon">';
+            html+='</div>';
+            html+='<div class="weui_cell_bd">';
+            html+='<div class="message">';
+            html+='<span class="car-type">'+ data[i].car_type +'&emsp;</span>';
+            html+='<span class="car-name">'+ data[i].title +'</span>';
+            html+='</div>';
+            html+='<div class="other"><span class="price">'+ data[i].whole_price +'万</span></div>';
+            html+='<div>';
+            html+='<span class="date text-grey">'+ formatDate(data[i].create_time) +'</span><span class="adress text-grey">'+ data[i].address +'</span>';
+            html+='</div>';
+            html+='</div>';
+            html+='</a>';
+            html+='</div>';
+            html+='</div>';
+        }
+        $('.weui_tab_bd').append(html);
+    }
+    $('#get_more').click(); //加载数据
+
+    function formatDate(date){
+        //console.log(date);
+        var date = new Date(date*1000);
+        var Y = date.getFullYear() + '.';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
+        var D = date.getDate() + ' ';
+        return (Y+M+D);
+    }
+</script>
+</body>
+</html>

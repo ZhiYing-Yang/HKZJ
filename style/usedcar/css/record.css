@@ -1,0 +1,113 @@
+body{
+    background: #eee;
+    font-family:"宋体" , Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+a{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.header{
+    background-color: #fff;
+    height: 40px;
+    width: 100%;
+}
+.header .wrap{
+    height: 100%;
+    width: 100%;
+}
+.header .wrap h1{
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+
+}
+.header .wrap .bowleft {
+    position: absolute;
+    left: 0;
+    display: block;
+    line-height: 38px;
+    font-size: 30px;
+    width: 40px;
+    text-align: center;
+    color: #000;
+    border: 1px #ccc solid  ;
+    box-sizing: border-box;
+}
+.weui_tab_bd{
+    overflow-x: hidden;
+    
+}
+.lovebox{
+    border-top: 1px #ccc solid;
+    width: 100%;
+    background-color: #fff;
+    overflow-x: hidden;
+}
+.lovebox .loves{
+    width: 98%;
+    margin: 0 auto;
+
+
+}
+
+
+.lovebox .loves .empty{
+    padding: 20px;
+}
+.lovebox .loves .love{
+    
+    padding: 5px 0 5px 0;
+    color: #333;
+}
+.lovebox .loves .love .thumb{
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+}
+.lovebox .loves .love .thumb img{
+    width: 80px;
+    height: 80px;
+}
+.lovebox .loves .love .car-name,.lovebox .loves .love .car-type{
+    font-size: 14px;
+}
+.lovebox .loves .love  .date{
+    margin-left: 10px;
+    font-size: 14px;
+    float: left;
+}
+.lovebox .loves .love  .adress{
+    margin-left: 20px;
+    font-size: 12px;
+    float: left;
+}
+.lovebox .loves .love  .adress:before{
+    content: '地址：';
+}
+.lovebox .loves .love .message{
+    margin-left: 10px;
+    font-size: 16px;
+}
+.lovebox .loves .love .other{
+    margin-left: 10px;
+}
+.lovebox .loves .love .other .price{
+    color: #FF6666;
+    font-weight: bold;
+}
+.lovebox .loves .love .other .delete{
+    display: block;
+    text-align: center;
+    height: 20px;
+    width: 20px;
+    border: 1px #ccc solid;
+    float: right;
+    color: #777;
+}
+.historybox  .histories .empty{
+    text-align: center;
+}
+.text-grey{
+    color: #999;
+}
+

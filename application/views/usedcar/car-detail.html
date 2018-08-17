@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>详细信息</title>
+    <link rel="stylesheet" href="../static/css/car-detail.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
+</head>
+<body>
+<div id="return"><span class="fa fa-angle-left"></span></div>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="../static/images/car.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="../static/images/car.jpg" alt=""></div>
+    </div>
+    <div class="count"><span class="current">1</span> / <span class="sum"></span></div>
+</div>
+
+<div class="summarize">
+    <p class="car-summarize">
+        <span class="type">载货车</span>
+        <span class="name">东风柳汽 350马力</span>
+    </p>
+    <p class="distribute-message">
+        <span class="adress"><i class=""></i>广西 南宁</span>
+        <span class="time"><i class="fa fa-calendar-check-o" style="color:#FF6666; margin-right: 10px"></i>2015-05-28</span>
+        <span class="host">小志</span>
+    </p>
+    <div class="markbox">
+        <span class="mark-text">推荐商家</span>
+        <span class="mark-text">代办过户</span>
+    </div>
+</div>
+<div class="pricebox">
+    <p> <span>车主售价 ：</span><span class="price" >125.00</span><span>万</span></p>
+</div>
+<div class="car-document">
+    <h3><span>车辆档案</span></h3>
+    <div class="content">
+        <div class="weui-row weui-no-gutter">
+            <div class="weui-col-33 item">
+                <p class="value">载货车</p>
+                <p class="key">车型</p>
+             </div>
+            <div class="weui-col-33 item">
+                <p class="value">2014年5月</p>
+                <p class="key">上牌时间</p>
+            </div>
+            <div class="weui-col-33 item">
+                <p class="value">载货车</p>
+                <p class="key">车型</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="description">
+    <h3>
+        <span>车辆描述</span>
+        <hr>
+    </h3>
+    <p>2015年的商户的东风雪铁龙前四后八  ，  国四排放 手续齐全 ， 可随时提档</p>
+</div>
+<div class="alert">
+    <p>车源信息均为车主发布，请注意鉴别，欢迎举报虚假信息，交易时，请仔
+        细审核合同条款以及相关手续是否真实是否有效 。</p>
+</div>
+<div class="report">
+
+</div>
+<!--***********************************footer****************************************-->
+<div class="footer">
+
+        <!--加一个collsioned类就可以显示为已收藏的样式-->
+        <div class="collsion collsioned">
+            <i class="fa fa-star-o"></i>
+            <i class="fa fa-star"></i>
+            <p></p>
+        </div>
+        <div class="askmin">
+            <p>询底价</p>
+        </div>
+        <div class="contact">
+            <p>联系卖家</p>
+        </div>
+
+</div>
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.js"></script>
+<script>
+    var slidesum =$(".swiper-wrapper .swiper-slide").length;
+    $(".swiper-container .sum").text(slidesum);
+    var swiper = new Swiper(".swiper-container",{
+        autoplay: true,
+        loop:true   ,
+        height:200,
+        delay:5000,
+        on : {
+            slideChange:function () {
+                $(".swiper-container .current").text(this.realIndex+1);
+            }
+        }
+    });
+    if($(".content .item").length%3==2){
+        $(".content>div").append($("<div class='weui-col-33 item'></div>"));
+    }
+    $("#return").click(function () {
+        window.history.go(-1);
+    })
+</script>
+</body>
+</html>

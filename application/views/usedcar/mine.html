@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>我的</title>
+	<link rel="stylesheet" href="/style/usedcar/css/footer.css">
+	<link rel="stylesheet" href="/style/usedcar/font/style.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+	<link rel="stylesheet" href="/style/usedcar/css/mine.css">
+</head>
+<body>
+<!--头部-->
+<div class="message-box">
+	<div class="message-content">
+		<div class="head-photo-wrap">
+			<a href=""><img src="<?=$user['headimgurl']?>" alt=""></a>
+		</div>
+		<div class="personal-desc">
+			<p class="name"><?=$user['nickname']?></p>
+			<p class="identification">个人</p>
+		</div>
+		<div class="edit-button-wrap ">
+			<a href="<?=site_url('usedcar/personal_data')?>" class="button ">编辑</a>
+		</div>
+	</div>
+</div>
+
+<!--功能区-->
+<div class="function-wrap">
+	<div class="function-list-wrap">
+		<ul class="function-list">
+			<li class="function-item-box">
+				<a href="<?=site_url('usedcar/my_car')?>" class="function-item">
+					<span class="icon icon-car"></span>
+					<span class="desc">我的车辆</span>
+					<span class="goto icon-bow"></span>
+				</a>
+			</li>
+			<li class="function-item-box">
+				<a href="collision.html" class="function-item">
+					<span class="icon icon-collsion"></span>
+					<span class="desc">我的收藏</span>
+					<span class="goto icon-bow"></span>
+				</a>
+			</li>
+			<li class="function-item-box">
+				<a href="record.html" class="function-item">
+					<span class="icon icon-record"></span>
+					<span class="desc" >浏览记录</span>
+					<span class="goto icon-bow"></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="weui_cells weui_cells_access" style="font-size: 14px;">
+	<a class="weui_cell" href="">
+		<div class="weui_cell_hd">
+			<img src="/style/usedcar/images/authentication.png" alt="icon" style="width:20px;margin-right:5px;display:block">
+		</div>
+		<div class="weui_cell_bd weui_cell_primary">
+			<p>申请经纪人或商家</p>
+		</div>
+		<div class="weui_cell_ft">立即申请</div>
+	</a>
+</div>
+<!-- ******************************----footer-------------******************************************** -->
+<?php include('footer.html')?>
+
+</body>
+</html>

@@ -31,6 +31,7 @@ class Myclass {
 		return $link;
 	}
 
+	//发送邮件
 	public function send_email($to, $subject = '', $message = '') {
 		$this->CI->load->library('email');
 		$this->CI->email->clear();
@@ -57,4 +58,44 @@ class Myclass {
 		}*/
 		return $this->CI->email->send();
 	}
+
+	//生成验证码
+    public function authcode($key) {
+        /*if (!isset($_SESSION)) {
+            session_start();
+        }*/
+        $img = imagecreatetruecolor(100, 40);
+        $bgcolor = imagecolorallocate($img, rand(200, 255), rand(200, 255), rand(200, 255));
+        imagefill($img, 0, 0, $bgcolor);
+        $captch_code = "";
+        $fontfile = $this->CI->config->item('MYPATH') . 'Soopafresh.ttf';
+        for ($i = 0; $i < 4; $i++) {
+            $fontsize = 20;
+            $fontcolor = imagecolorallocate($img, rand(0, 100), rand(0, 100), rand(0, 100));
+            $date = "abcdefghjkmnpqrstuvwxyz23456789";
+            $fontcontent = substr($date, rand(0, strlen($date)), 1);
+            $captch_code .= $fontcontent;
+
+            $x = ($i * 100 / 4) + rand(5, 10);
+            $y = rand(25, 30);
+
+            imagettftext($img, $fontsize, 0, $x, $y, $fontcolor, $fontfile, $fontcontent);
+        }
+        $this->CI->session->set_userdata(array($key => $captch_code));
+        //点干扰
+        for ($i = 0; $i < 200; $i++) {
+            $pointcolor = imagecolorallocate($img, rand(50, 200), rand(50, 200), rand(50, 200));
+            imagesetpixel($img, rand(1, 99), rand(1, 29), $pointcolor);
+
+        }
+
+        //线干扰
+        for ($i = 0; $i < 3; $i++) {
+            $linecolor = imagecolorallocate($img, rand(80, 220), rand(80, 220), rand(80, 220));
+            imageline($img, rand(1, 99), rand(1, 29), rand(1, 99), rand(1, 29), $linecolor);
+        }
+
+        header('content-type:image/png');
+        imagepng($img);
+    }
 }

@@ -1,0 +1,47 @@
+
+
+
+/*------------------------尾部-----------------------------*/
+.footer{
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    border-top: 1px #ccc solid;
+    z-index: 1000;
+}
+.footer .footer-item-box{
+    width: 100%;
+    height: 100%;
+
+}
+
+.footer .footer-item-box .footer-item{
+    display: block;
+    float: left;
+    width: 25%;
+    height: 100%;
+    color: #555;
+
+}
+.footer .footer-item-box .footer-item .item-box{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top: 5px;
+}
+.footer .footer-item-box .footer-item .item-box i{
+    font-size: 28px;
+}
+.footer .footer-item-box .footer-item .item-box p{
+    font-size: 10px;
+    position: relative;
+    bottom: 4px;
+}
+.footer .footer-item-box .footer-itemed {
+    /*color: #FF6724 !important;*/
+    background-color: #FF6724;
+    color: #fff;
+}

@@ -1,0 +1,154 @@
+@charset "utf-8";
+*{
+	font-size:13px;
+}
+a{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+label{
+	font-size:13px;
+}
+html,body{
+	margin: 0px;
+	padding: 0px;
+	background-color: #F5F5F5;
+	overflow-x: hidden;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+.header{
+	position: relative;
+	height: 40px;
+	width: 100%;
+	background: white;
+	line-height: 40px;
+	font-size: 16px;
+}
+
+.header .return{ 
+	float: left;
+	font-size: 20px;
+	margin-left: 10px;
+}
+.header .main-tittle{
+	font-size: 16px;
+	text-align: center;
+}
+.header .succeed{
+	position: relative;
+	float: right;
+	margin-right: 10px;
+	margin-top: -40px;
+}
+.header .succeed a{
+	color: #FF6666;
+}
+.uploading-img p{
+	color: #999999;
+	font-size: 13px;
+	line-height: 30px;
+	margin-left: 10px;
+}
+.photos{
+	width: 100%;
+	height: 60px;
+	padding: 10px;
+	background: white;
+}
+.photo{
+	width: 60px;
+	height: 60px;
+	border: 1px dashed #FF6666;
+}
+.photos span{
+	line-height: 60px;
+	margin-left: 10px;
+	color: #999999;
+	font-size: 13px;
+}
+.basic_information{
+	margin-top: 0;
+}
+.choice span{
+	color: #FF6666;
+}
+.choice input{
+	border: none;
+	width:120px;
+	float: right;
+}
+.input_s{
+	margin-top: 0;
+}
+.input_s input{
+	width: 120px;
+}
+.input_s span{
+	color: #FF6666;
+	float: right;
+}
+i{
+	color: #FF6666;
+}
+.else p{
+	padding-left: 10px;
+	line-height: 30px;
+	color: #999999;
+	font-size: 13px;
+}
+.issue_btn{
+	width: 90%;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color:#F00000;
+	border-radius: 10px;
+}
+.input_box{
+	height: 200px;
+}
+.extime,.retime{
+	width: 80px;
+	float: right;
+	border: none;
+}
+.input_x{
+	margin-top: 0;
+}
+
+.common{
+	display: none;
+}
+.ex_headline input,.ex_postscript input{
+	border: none;
+	float: right;
+	width: 120px;
+	height: 20px;
+}
+.buy_form{
+	margin-top: 0;
+}
+
+.buy_form label{
+	float: left;
+}
+.buy_choise{
+	float: right;
+}
+.checked{
+	display:none;
+}
+.weui_cell_bd input[name="distance"]{
+	width: 110px;
+}
+#captcha{
+	width: 100px;
+	height: 44px;
+
+}
+.weui_label.captcha_label{
+	position: relative;
+	right: 15px;
+}

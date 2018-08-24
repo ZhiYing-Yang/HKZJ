@@ -46,6 +46,7 @@
 
 <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script src="/style/usedcar/js/public.js"></script>
 <script>
     $('#get_more').click(function () {
         console.log('<?=$type?>');
@@ -57,48 +58,13 @@
                     $('#get_more').css('display', 'none');
                     $('#no_more').css('display', 'block');
                 }
-                setDataList(data.data);
+                setDataList(data.data, $('.weui_tab_bd'));
             }else{
                 $.toptip(data.message, 'error');
             }
         }, 'json');
     });
-
-    function setDataList(data){
-        var html='';
-        for(var i = 0, len = data.length; i < len; i++){
-            html+= '<div class="lovebox">';
-            html+= '<div class="loves">';
-            html+= '<a href="car-detail.html" class="weui_cell  love">';
-            html+='<div class="weui_cell_hd thumb">';
-            html+='<img src="'+ data[i].img_arr_str.split('-$-')[0] +'" alt="icon">';
-            html+='</div>';
-            html+='<div class="weui_cell_bd">';
-            html+='<div class="message">';
-            html+='<span class="car-type">'+ data[i].car_type +'&emsp;</span>';
-            html+='<span class="car-name">'+ data[i].title +'</span>';
-            html+='</div>';
-            html+='<div class="other"><span class="price">'+ data[i].whole_price +'万</span></div>';
-            html+='<div>';
-            html+='<span class="date text-grey">'+ formatDate(data[i].create_time) +'</span><span class="adress text-grey">'+ data[i].address +'</span>';
-            html+='</div>';
-            html+='</div>';
-            html+='</a>';
-            html+='</div>';
-            html+='</div>';
-        }
-        $('.weui_tab_bd').append(html);
-    }
-    $('#get_more').click(); //加载数据
-
-    function formatDate(date){
-        //console.log(date);
-        var date = new Date(date*1000);
-        var Y = date.getFullYear() + '.';
-        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
-        var D = date.getDate() + ' ';
-        return (Y+M+D);
-    }
+    $('#get_more').click();
 </script>
 </body>
 </html>

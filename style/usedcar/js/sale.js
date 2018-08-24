@@ -240,7 +240,7 @@ function compressImage(img, fileSize, quality) {
 
 var url = 'http://www.jxhkzj.com/usedcar/sale';
 $('.publish').click(function(){
-    $.show Loading("正在提交...");
+    $.showLoading("正在提交...");
     //车辆展示图片
     if($('#uploaderFiles').find('li').length == 0){
         $.hideLoading();
@@ -281,6 +281,7 @@ $('.publish').click(function(){
     var parameter_arr = new Array("", "", "", "", "", "", "", "");
     for(var i = 0, len = parameter_input.length; i < len; i++){
         if($.trim(parameter_input.eq(i).val()).length == 0){
+            console.log('参数'+$.trim(parameter_input.eq(i).val()));
             $.hideLoading();
             $.toptip('请完善车辆参数', 'error');
             parameter_input.eq(i).focus();
@@ -390,7 +391,7 @@ $('.publish').click(function(){
 
     var data = {img_arr_str: img_arr_str, brand: brand, license_img: license_img, car_type: car_type, address: address, guakao: guakao, guohu: guohu, bxlc: bxlc, whole_price: whole_price,
         pay_type: pay_type, down_payment: down_payment, xszdjrq: xszdjrq, jqxgqsj: jqxgqsj,
-        parameter0: parameter_arr[0], parameter1: parameter_arr[1], parameter2: parameter_arr[2], parameter3: parameter_arr[3], parameter4: parameter_arr[4], parameter5: parameter_arr[6], parameter7: parameter_arr[7],
+        parameter0: parameter_arr[0], parameter1: parameter_arr[1], parameter2: parameter_arr[2], parameter3: parameter_arr[3], parameter4: parameter_arr[4], parameter5: parameter_arr[5], parameter6:parameter_arr[6], parameter7: parameter_arr[7],
         title: title, postscript: postscript, authcode: authcode
     };
 
@@ -398,7 +399,7 @@ $('.publish').click(function(){
         if(data.code == 200){
             $.hideLoading();
             $.toast('发布成功', function(){
-                location.href = '<?=site_url("usedcar/index")?>';
+                window.location.href = '/usedcar/index';
             });
         }else{
             $.hideLoading();

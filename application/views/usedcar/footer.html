@@ -1,25 +1,25 @@
 
 <div class="footer">
     <div class="footer-item-box">
-        <a href="<?=site_url('usedcar/index')?>" class="footer-item footer-itemed ">
+        <a href="<?=site_url('usedcar/index')?>" class="footer-item <?=$active == '首页'?'footer-itemed':''?>">
             <div class="item-box">
                 <i class="icon-index"></i>
                 <p>首页</p>
             </div>
         </a>
-        <a href="buycar.html" class="footer-item">
+        <a href="<?=site_url('usedcar/buy')?>" class="footer-item <?=$active == '买车'?'footer-itemed':''?>">
             <div class="item-box">
                 <i class="icon-buy "></i>
                 <p>买车</p>
             </div>
         </a>
-        <a href="<?=site_url('usedcar/sale')?>" class="footer-item">
+        <a href="<?=site_url('usedcar/sale')?>" class="footer-item <?=$active == '卖车'?'footer-itemed':''?>">
             <div class="item-box">
                 <i class="icon-sale"></i>
                 <p>卖车</p>
             </div>
         </a>
-        <a href="<?=site_url('usedcar/person')?>" class="footer-item ">
+        <a href="<?=site_url('usedcar/person')?>" class="footer-item <?=$active == '我的'?'footer-itemed':''?>">
             <div class="item-box">
                 <i class="icon-mine"></i>
                 <p>我的</p>

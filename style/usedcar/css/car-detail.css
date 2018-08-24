@@ -79,7 +79,6 @@ body{
 }
 .summarize .distribute-message span:nth-child(2){
     float: right ;
-    margin-left: 10px;
 }
 .summarize .distribute-message span:nth-child(3){
     float: right;
@@ -148,6 +147,7 @@ body{
 .car-document .content .item{
     height: 60px;
     border-right: 1px #ccc solid;
+    margin:10px 0;
 }
 
 .car-document .content .item:nth-child(3n){

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>详细信息</title>
+	<link rel="stylesheet" href="/style/usedcar/css/report.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
+</head>
+
+<body>
+<div class="header">
+	<div class="wrap">
+		<a id="return"><i class="bowleft fa fa-angle-left"></i></a>
+		<h1>车源举报</h1>
+	</div>
+</div>
+<div class="weui-row car-message">
+	<div class="weui-col-20 car-type"><?=$sale['car_type']?></div>
+	<div class="weui-col-80 car-name"><?=$sale['title']?></div>
+</div>
+<form action="<?=site_url('usedcar/accuse/').$sale['id']?>" id="accuse_form" class="weui_cells_form" method="post">
+	<div class="report-reason">
+		<div class="weui-row">
+			<div class="weui-col-100 form-item-title">
+				<p><span class="alert">*</span>举报原因</p>
+			</div>
+		</div>
+		<div class="weui-row report-reason-items">
+			<div class="weui-col-30  report-reason-item">
+				<input type="radio" name="reason" value="车型不符">
+				<p>车型不符</p>
+			</div>
+			<div class="weui-col-30  report-reason-item">
+				<input type="radio" name="reason" value="此车已售">
+				<p>此车已售</p>
+			</div>
+			<div class="weui-col-30  report-reason-item">
+				<input type="radio" name="reason" value="价格太低">
+				<p>价格太低</p>
+			</div>
+			<div class="weui-col-30  report-reason-item">
+				<input type="radio" name="reason" value="无法过户">
+				<p>无法过户</p>
+			</div>
+			<div class="weui-col-30  report-reason-item">
+				<input type="radio" name="reason" value="联系不上">
+				<p>联系不上</p>
+			</div>
+			<div class="weui-col-30  report-reason-item">
+				<input type="radio" name="reason" value="描述不符">
+				<p>描述不符</p>
+			</div>
+			<div class="weui-col-30  report-reason-item">
+				<input type="radio" name="reason" value="其他">
+				<p>其他</p>
+			</div>
+		</div>
+	</div>
+	<div class="desc position-relative">
+		<div class="weui-row">
+			<div class="weui-col-100 form-item-title">
+				<p><span class="alert">*</span>补充描述</p>
+			</div>
+		</div>
+		<div class="desc-input">
+			<input type="text" name="otherdesc" style="display: none">
+			<div class="inputview" contenteditable="true" id="counted-input"></div>
+		</div>
+		<div class="font-count">
+			<span class="now ">0</span> /
+			<span class="max">300</span>
+		</div>
+	</div>
+	<div class="phone-left">
+		<div class="weui-row">
+			<div class="weui-col-100 form-item-title">
+				<p>留下您的手机号</p>
+			</div>
+		</div>
+		<div class="phone-input weui-row">
+			<input type="text" name="phone" class="" />
+		</div>
+	</div>
+	<div class="submit weui-row">
+		<a href="javascript:;" class="weui_btn weui_btn_warn weui-col-80" style="margin-bottom: 20px;" id="submit">提交举报</a>
+	</div>
+</form>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script>
+    $(".report-reason-item").click(function() {
+        $(this).find("input").attr("checked", "checked");
+        $(".report-reason-item").removeClass("report-reason-itemd");
+        $(this).addClass("report-reason-itemd");
+    });
+    //-------------------------------------
+    $("#counted-input")[0].oninput = function() {
+        if ($(this).text().length < 300) {
+            $(".font-count .now").text($(this).text().length);
+            $(".desc-input input").val($(this).text());
+
+        } else{
+            $.toast("不能更多了", "text");
+        }
+    };
+    //------------------------------------
+    $("#submit").click(function(e) {
+        e.preventDefault();
+        var reason = $('input[name="reason"]:checked').val();
+        console.log(reason);
+        if(!reason || reason.length == 0){
+            $.toptip('请选择举报原因！', 'error');
+            return;
+		}
+
+		var content = $(".desc-input input").val();
+        if(content.length == 0){
+            $.toptip('请输入举报描述！', 'error');
+            return;
+		}
+
+		var phone = $('input[name="phone"]').val();
+        if(!(/^1[34578]\d{9}$/.test(phone))){
+            $.toptip('请输入正确的手机号', 'error');
+            $('input[name="phone"]').focus();
+            return;
+		}
+
+		$.post('<?=site_url("usedcar/accuse/".$sale["id"])?>', {reason: reason, content: content, phone: phone}, function(data){
+		    if(data.code == 200){
+		        $.toast('举报成功', function () {
+					location.href='<?=site_url("usedcar/see/".$sale["id"])?>';
+                });
+			}else{
+                $.toast(data.message, "cancel");
+			}
+		}, 'json');
+
+    });
+    $("#return").click(function() {
+        window.history.go(-1);
+    })
+</script>
+</body>
+
+</html>

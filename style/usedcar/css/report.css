@@ -1,0 +1,133 @@
+a{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+body{
+    background: #eee;
+}
+.header{
+    position: relative;
+    background-color: #fff;
+    height: 40px;
+    width: 100%;
+}
+.header .wrap{
+    height: 100%;
+    width: 100%;
+}
+.header .wrap h1{
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+
+}
+.header .wrap .bowleft {
+    position: absolute;
+    left: 0;
+    display: block;
+    line-height: 38px;
+    font-size: 30px;
+    width: 40px;
+    text-align: center;
+    color: #000;
+    border: 1px #ccc solid  ; 
+    box-sizing: border-box;
+}
+
+.car-message{
+    margin-top: 20px;
+    font-size: 14px;
+    background: #fff;
+    padding: 10px 0 10px 20px;
+    border-bottom: 1px #ccc solid;
+}
+.car-message p{
+    font-size: 14px;
+    margin-left: 10px;
+}
+.alert{
+    color: #ff0000;
+    position: relative;
+    top: 2px;
+}
+form{
+    background: #fff;
+}
+.form-item-title{
+    padding: 10px 0 10px 20px;
+
+    
+}
+.form-item-title p{
+    font-size: 14px;
+    color: #555;
+    border-bottom: 1px #ddd solid;
+
+}
+.report-reason-items{
+    padding-bottom: 20px;
+}
+.report-reason-item{
+    border: 1px #ccc solid;
+    color: #555;
+    padding: 5px 20px 5px 20px;
+    border-radius: 5px;
+    margin: 10px 0 0 5px;
+}
+.report-reason-item p{
+    font-size: 12px;
+}
+.report-reason-items .report-reason-item.report-reason-itemd{
+    border: 1px #ff4040 solid;
+    color: #ff4040;
+}
+.report-reason-item input{
+    display:none;
+}
+.position-relative {
+    position: relative;
+}
+.desc{
+    width: 100%;
+    position: relative;
+}
+.desc .desc-input{
+    padding-bottom: 20px;
+
+}
+.desc .desc-input div{
+    background: #eee;
+    height: 100px;
+    border-radius: 5px;
+    width: 90%;
+    margin: 0 auto;
+    border: 1px #ccc solid;
+}
+.desc .desc-input div textarea{
+    height: 100%;
+    width: 100%;
+    border: 0 ;
+    display: block;
+}
+.desc .font-count{
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    color: #777;
+    font-size: 12px;
+}
+.desc .font-count .now{
+    color: #ff9200;
+}
+.phone-input input{
+    border-radius: 5px;
+    border: 1px #ccc solid;
+    height: 30px;
+    font-size: 14px;
+    width: 90%;
+    background: #eee;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    color: #555;
+    padding-left: 20px;
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , user-scalable=no , initial-scale=1.0 , maximum-scale=1.0 ,minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="">
+    <title>申请成为经纪人</title>
+    <link rel="stylesheet" href="/style/usedcar/css/apply-for-personal.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style/usedcar/css/footer.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+</head>
+
+<body>
+<div class="header">
+    <div class="wrap">
+        <a href="javascript:window.history.go(-1)"><i class="bowleft fa fa-angle-left"></i></a>
+        <h1>申请成为经纪人</h1>
+    </div>
+</div>
+<form action="" enctype="multipart/form-data">
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">姓名</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="name" placeholder="请输入姓名">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">所在城市</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary " style="position: relative">
+                <input class="weui_input" type="text" name="city" id="city-picker" placeholder="">
+                <span style="position: absolute;right: 0;top: 0; "><i class="fa fa-angle-right"   ></i></span>
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">身份证号</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="id" placeholder="请输入身份证号">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">卖车手机号</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="telNum" placeholder="请输入手机号">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">微信号</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="weixinNum" placeholder="请输入微信号">
+            </div>
+        </div>
+        <div class="weui_cell weui_vcode">
+            <div class="weui_cell_hd">
+                <label class="weui_label">验证码</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="captcha" placeholder="验证码">
+            </div>
+            <div class="weui_cell_ft">
+                <img src="/style/usedcar/images/car.jpg">
+            </div>
+        </div>
+        <div class="weui_cell weui_cell_warn">
+            <div class="weui_cell" style="position: relative;">
+                <div class="weui_uploader_input_wrp">
+                    <input class="weui_uploader_input" type="file" name="id_card_front" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">身份证正面照</p>
+                </div>
+                <div class="weui_uploader_input_wrp">
+                    <input class="weui_uploader_input" type="file" name="id_card_back" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">身份证反面照</p>
+                </div>
+                <div class="weui_uploader_input_wrp">
+                    <input class="weui_uploader_input" type="file" name="id_card_handle" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">手持身份证照</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="weui-row">
+        <a href="javascript:;" type="submit" class="weui_btn submit_btn  weui_btn_warn  weui-col-80">提交</a>
+    </div>
+</form>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/city-picker.min.js"></script>
+<script>
+    $(function() {
+        $("#city-picker").cityPicker({
+            title: "请选择地址"
+        });
+
+        $("#return").click(function() {
+            window.history.go(-1);
+        });
+        $(".submit_btn").click(function() {
+            $("button[type='submit']").click()
+        })
+    })
+</script>
+</body>
+
+</html>

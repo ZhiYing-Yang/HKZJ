@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , user-scalable=no , initial-scale=1.0 , maximum-scale=1.0 ,minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="">
+    <title>请选择申请类型</title>
+    <link rel="stylesheet" href="/style/usedcar/css/apply-for.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style/usedcar/css/footer.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+</head>
+
+<body>
+<div class="header">
+    <div class="wrap">
+        <a href="mine.html"><i class="bowleft fa fa-angle-left"></i></a>
+        <h1>商家申请</h1>
+    </div>
+</div>
+<div class="choice">
+    <a href="<?=site_url('usedcar/renzheng/personal')?>" class="type-item">
+        <div class="weui-row">
+            <div class="weui-col-20 iconbox">
+                <i class="icon fa fa-male"></i>
+            </div>
+            <div class="weui-col-70">
+                <h3>个人性质</h3>
+                <p>没有公司，只是个人身份</p>
+            </div>
+            <div class="weui-col-10"><i class="fa fa-angle-right"></i></div>
+        </div>
+    </a>
+    <a href="<?=site_url('usedcar/renzheng/company')?>" class="company type-item">
+        <div class="weui-row">
+            <div class="weui-col-20 iconbox ">
+                <i class="icon fa fa-university"></i>
+            </div>
+            <div class="weui-col-70" style="position: relative ;left:10px ;">
+                <h3>公司性质</h3>
+                <p>二手车商，有开设自己的公司</p>
+            </div>
+            <div class="weui-col-10"><i class="fa fa-angle-right"></i> </div>
+        </div>
+    </a>
+</div>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+</body>
+
+</html>

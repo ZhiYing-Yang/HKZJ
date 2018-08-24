@@ -25,22 +25,44 @@ class Usedcar extends CI_Controller {
     }
 
     //二手车交易首页
-    public function index($type = ''){
-        $this->load->view('usedcar/index.html');
+    public function index($type = '', $data_type = ''){
+        $type = urldecode($type);
+        if($type == '最好车源'){
+            $order_str = 'create_time DESC';
+        }else if($type = '降价急售'){
+            $order_str = 'whole_price DESC';
+        }else{
+            $order_str = 'read DESC';
+        }
+        $data['sale'] = $this->usedcar_model->get_sale_list(array(), 0, 10, $order_str);
+        if($data_type == 'json'){
+            get_json(200, '获取成功', $data['sale']);
+        }else{
+            $data['active'] = '首页';
+            $this->load->view('usedcar/index.html', $data);
+        }
+    }
+
+    //买车
+    public function buy(){
+        $data['active'] = '买车';
+        $this->load->view('usedcar/buycar.html');
     }
 
     //卖二手车
     public function sale(){
         $user = $this->usedcar_model->get_user_info(array('id'=>$this->id));
+        $data['active'] = '卖车';
         //如果用户信息不完善 不能发布卖车信息 跳转完善个人信息页
         if(!isset($user[0]) || empty($user[0]['address'])){
             $data['info'] = 'empty';
+
             $this->load->view('usedcar/sale.html', $data);
             return;
         }
 
         if(empty($this->input->post())){
-            $this->load->view('usedcar/sale.html');
+            $this->load->view('usedcar/sale.html', $data);
         }else{
             $authcode = $this->input->post('authcode');
             if($authcode  != $this->session->userdata('usedcar_authcode')){
@@ -84,8 +106,9 @@ class Usedcar extends CI_Controller {
         }
     }
 
-    //个人页
+    //个人页 我的
     public function person(){
+        $data['active'] = '我的';
         $data['user'] = $this->usedcar_model->get_user_info(array('id'=>$this->id))[0];
         $this->load->view('usedcar/mine.html', $data);
     }
@@ -136,8 +159,88 @@ class Usedcar extends CI_Controller {
     public function see($id){
         $info = $this->usedcar_model->get_sale_list(array('id'=>$id), 0, 1);
         if(empty($info)){
-            $this->load->view('usedcar/not_found.html');
+            $data['str'] = '该卖车信息已被删除！';
+            $this->load->view('usedcar/not_found.html', $data);
+            return;
         }
+
+        $data['sale'] = $info[0];   //卖车信息
+
+        $data['parameter'] = $this->usedcar_model->get_format_parameter($data); //获取车辆参数数组
+
+        $data['img_arr'] = explode('-$-', $data['sale']['img_arr_str']); //获取车辆图片数组
+
+
+        $data['user'] = $this->usedcar_model->get_user_info(array('id'=>$data['sale']['user_id']))[0];  //获取卖车用户信息
+
+        $see_user = $this->usedcar_model->get_user_info(array('id'=>$this->id))[0]; //获取浏览者信息
+
+        $data['collect'] = in_array($id, explode('-$-', $see_user['collect']))?true:false; //判断该篇文章
+
+        $this->db->update('used-car_sale', array('read'=>($data['sale']['read']+1)));//访问量加一
+
+        $this->load->view('usedcar/car-detail.html', $data);
+    }
+
+    //收藏卖车信息
+    public function collect($id){
+        $collect = $this->usedcar_model->get_user_info(array('id'=>$id))[0]['collect'];
+        if(empty($collect)){
+            $str = $id;
+        }else{
+            $str = $collect.'-$-'.$id;
+        }
+
+        if($this->db->update('used-car_user', array('collect'=>$str), array('id'=>$this->id))){
+            get_json(200,'收藏成功！');
+        }else{
+            get_json(400,'收藏失败！');
+        }
+    }
+
+    //举报卖车信息
+    public function accuse($id){
+        $accuse = $this->usedcar_model->get_sale_list(array('id'=>$id), 0, 1);
+        if(empty($accuse)){
+            $data['str'] = '该卖车信息已被删除！';
+            $this->load->view('usedcar/not_found.html', $data);
+            return;
+        }
+
+        if(empty($this->input->post('reason'))){
+            $data['sale'] = $accuse[0];
+            $this->load->view('usedcar/report.html', $data);
+        }else{
+            $data = array(
+                'reason'=>$this->input->post('reason'),
+                'content'=>$this->input->post('content'),
+                'phone'=>$this->input->post('phone'),
+                'create_time'=>time(),
+                'sale_id'=>$id,
+                'user_id'=>$this->id
+            );
+            if($this->db->insert('used-car_accuse', $data)){
+                get_json(200, '举报成功！');
+            }else{
+                get_json(400, '举报失败！');
+            }
+        }
+    }
+
+    //选择经纪人或者商家认证页面以及经纪人和商家认证页面
+    public function renzheng($type = 'select'){
+        if($type == 'personal'){    //个人认证页
+            $this->load->view('usedcar/apply-for-personal.html');
+        }else if($type == 'company'){   //商家认证页
+            $this->load->view('usedcar/apply-for-company.html');
+        }else{  //选择认证方式
+            $this->load->view('usedcar/apply-for.html');
+        }
+    }
+
+    //执行认证操作 提交表单处理后存放数据库
+    public function apply(){
+
     }
 
     //图片上传

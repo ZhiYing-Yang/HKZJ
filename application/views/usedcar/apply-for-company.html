@@ -14,7 +14,7 @@
 <body>
 <div class="header">
     <div class="wrap">
-        <a href="apply-for.html" ><i class="bowleft fa fa-angle-left"></i></a>
+        <a href="javascript:window.history.go(-1)"><i class="bowleft fa fa-angle-left"></i></a>
         <h1>申请成为商家</h1>
     </div>
 </div>
@@ -23,14 +23,14 @@
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">商家类型</label></div>
             <div class="weui_cell_bd weui_cell_primary " style="position: relative">
-                <input class="weui_input" type="text" name="merchantType" id="merchant" placeholder="">
+                <input class="weui_input" type="text" name="merchant_type" id="merchant" placeholder="">
                 <span style="position: absolute;right: 0;top: 0; "><i class="fa fa-angle-right"   ></i></span>
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">公司名称</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text" name="companyName" placeholder="请输入公司名称">
+                <input class="weui_input" type="text" name="company_name" placeholder="请输入公司名称">
             </div>
         </div>
         <div class="weui_cell">
@@ -43,13 +43,13 @@
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">注册号</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text" name="registerNum" placeholder="请输入注册号">
+                <input class="weui_input" type="text" name="registration_number" placeholder="请输入注册号">
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">公司地址</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text" name="companyAdress" placeholder="请输入公司地址">
+                <input class="weui_input" type="text" name="company_address" placeholder="请输入公司地址">
             </div>
         </div>
     </div>
@@ -57,76 +57,85 @@
         <div class="weui_cell" style=" ">
             <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text" name="name" placeholder="请输入姓名">
+                <input class="weui_input" type="text" name="realname" placeholder="请输入姓名">
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">所在城市</label></div>
             <div class="weui_cell_bd weui_cell_primary " style="position: relative">
-                <input class="weui_input" type="text" name="city" id="city-picker" placeholder="">
+                <input class="weui_input" type="text" name="address" id="city-picker" placeholder="">
                 <span style="position: absolute;right: 0;top: 0; "><i class="fa fa-angle-right"   ></i></span>
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">身份证号</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text" name="id" placeholder="请输入身份证号">
+                <input class="weui_input" type="text" name="ID_card" placeholder="请输入身份证号">
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">卖车手机号</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text" name="telNum" placeholder="请输入手机号">
+                <input class="weui_input" type="text" name="phone" placeholder="请输入手机号">
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">微信号</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text" name="weixinNum" placeholder="请输入微信号">
+                <input class="weui_input" type="text" name="we_chat" placeholder="请输入微信号">
             </div>
         </div>
         <div class="weui_cell weui_vcode">
             <div class="weui_cell_hd"><label class="weui_label">验证码</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" type="text" name="captcha" placeholder="验证码">
+                <input class="weui_input" type="text" name="authcode" placeholder="验证码">
             </div>
             <div class="weui_cell_ft">
-                <img src="/style/usedcar/images/car.jpg">
+                <img class="authcode_img" src="<?=site_url('usedcar/authcode')?>" onclick="this.src='<?=site_url("usedcar/authcode/").mt_rand(0, 100)?>'">
             </div>
         </div>
         <div class="weui_cell weui_cell_warn weui-row">
-            <div class="weui_cell" style="position: relative; margin:0 auto;" >
+            <div class="weui_cell upload" style="position: relative; margin:0 auto;" >
+                <div class="upload_box">
                 <div class="weui_uploader_input_wrp" >
                     <input class="weui_uploader_input" type="file" name="id_card_front" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
                     <p class="note">身份证正面照</p>
                 </div>
+                </div>
+
+                <div class="upload_box">
                 <div class="weui_uploader_input_wrp " style="margin-left: 40px" >
                     <input class="weui_uploader_input" type="file" name="id_card_back"  accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
                     <p class="note">身份证反面照</p>
                 </div>
+                </div>
             </div>
         </div>
         <div class="weui_cell weui_cell_warn weui-row">
-            <div class="weui_cell" style="position: relative; margin:0 auto;">
+            <div class="weui_cell upload" style="position: relative; margin:0 auto;">
+                <div class="upload_box">
                 <div class="weui_uploader_input_wrp">
                     <input class="weui_uploader_input" type="file" name="id_card_handle"  accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
                     <p class="note">手持身份证照</p>
                 </div>
+                </div>
+
+                <div class="upload_box">
                 <div class="weui_uploader_input_wrp" style="margin-left: 40px">
                     <input class="weui_uploader_input" type="file" name="business_license"  accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
                     <p class="note">营业执照照片</p>
+                </div>
                 </div>
             </div>
         </div>
         <div class="weui_cell server_note_box">
             <div class="weui_cell_hd weui_cell_primary">阅读并同意 <span  class="server_note">《 服务条款 》</span></div>
-            <input type="checkbox" checked>
+            <input id="checkbox" type="checkbox" checked>
         </div>
     </div>
     <div class="weui-row">
-        <a href="javascript:;" type="submit"  class="weui_btn submit_btn  weui_btn_warn  weui-col-80">提交</a>
+        <a href="javascript:;" type="商家"  class="weui_btn submit_btn  weui_btn_warn  weui-col-80">提交</a>
     </div>
-    <button type="submit"></button>
 
 </form>
 <div id="popup-server-message" class="weui-popup-container">
@@ -209,6 +218,7 @@
 <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
 <script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/city-picker.min.js"></script>
+<script src="/style/usedcar/js/apply.js"></script>
 <script>
     $(function () {
         $("#city-picker").cityPicker({

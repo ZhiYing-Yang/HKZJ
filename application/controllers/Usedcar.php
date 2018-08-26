@@ -239,8 +239,40 @@ class Usedcar extends CI_Controller {
     }
 
     //执行认证操作 提交表单处理后存放数据库
-    public function apply(){
+    public function apply($type){
+        $type = urldecode($type);
+        $authcode = $this->input->post('authcode');
+        if($authcode != $this->session->userdata('usedcar_authcode')){
+            get_json(400, '验证码错误!');
+            return;
+        }
 
+        $data = array(
+            'realname'  =>  $this->input->post('realname'),     //真实姓名
+            'address'   =>  $this->input->post('address'),      //所在地址
+            'ID_card'   =>  $this->input->post('ID_card'),      //身份证号
+            'phone'     =>  $this->input->post('phone'),        //卖车手机号
+            'we_chat'   =>  $this->input->post('we_chat'),      //微信号
+            'img0'      =>  $this->input->post('img0'),         //身份证正面
+            'img1'      =>  $this->input->post('img1'),         //身份证背面
+            'img2'      =>  $this->input->post('img2'),         //手持身份证
+            'type'      =>  $type, //认证类型
+        );
+        //商家额外信息
+        if($type == '商家'){
+            $data['img3'] = $this->input->post('img3'); //营业执照
+            $data['merchant_type'] = $this->input->post('merchant_type'); //商家类型
+            $data['company_name'] = $this->input->post('company_name'); //公司名称
+            $data['indate'] = $this->input->post('indate'); //有效期
+            $data['registration_number'] = $this->input->post('registration_number'); //注册号
+            $data['company_address'] = $this->input->post('company_address'); //公司地址
+        }
+
+        if($this->db->insert('used-car_apply', $data)){
+            get_json(200, '提交成功!');
+        }else{
+            get_json(200, '提交失败!');
+        }
     }
 
     //图片上传

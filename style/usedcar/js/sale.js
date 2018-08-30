@@ -130,6 +130,7 @@ $('.succeed').click(function(){
     var z=$('.postscript textarea').val();
     $('.ex_headline input').val(y);
     $('.ex_postscript input').val(z);
+    $('html, body').animate({scrollTop: $('html').height()}, 0);
 });
 
 
@@ -240,11 +241,18 @@ function compressImage(img, fileSize, quality) {
 
 var url = 'http://www.jxhkzj.com/usedcar/sale';
 $('.publish').click(function(){
+    var _this = $(this);
+    if(_this.attr('disabled') == 'disabled'){
+        $.toast("请勿重复提交", "forbidden");
+        return;
+    }
+    _this.attr('disabled', 'disabled'); //设为已提交状态
     $.showLoading("正在提交...");
     //车辆展示图片
     if($('#uploaderFiles').find('li').length == 0){
         $.hideLoading();
         $.toptip('请上传车辆图片 以获得更好的展示', 'error');
+        _this.attr('disabled', '');
         return;
     }
     var img_arr_str = '';
@@ -258,6 +266,7 @@ $('.publish').click(function(){
     if($('#license_img').length == 0){
         $.hideLoading();
         $.toptip('请上传该车辆的行驶证照片', 'error');
+        _this.attr('disabled', '');
         return;
     }
     var license_img = $('#license_img').attr('data-url');
@@ -267,6 +276,7 @@ $('.publish').click(function(){
     if(car_type.length == 0){
         $.hideLoading();
         $.toptip('请选择车型', 'error');
+        _this.attr('disabled', '');
         return;
     }
 
@@ -285,6 +295,7 @@ $('.publish').click(function(){
             $.hideLoading();
             $.toptip('请完善车辆参数', 'error');
             parameter_input.eq(i).focus();
+            _this.attr('disabled', '');
             return;
         }
         parameter_arr[i] = $.trim(parameter_input.eq(i).val());
@@ -296,6 +307,7 @@ $('.publish').click(function(){
         $.hideLoading();
         $.toptip('请输入您的车辆品牌');
         $('input[name="brand"]').focus();
+        _this.attr('disabled', '');
         return;
     }
 
@@ -304,6 +316,7 @@ $('.publish').click(function(){
     if(address.length == 0){
         $.hideLoading();
         $.toptip('请选择车辆所在地', 'error');
+        _this.attr('disabled', '');
         return;
     }
 
@@ -319,6 +332,7 @@ $('.publish').click(function(){
         $.hideLoading();
         $.toptip('请输入表显里程', 'error');
         $('input[name="distance"]').focus();
+        _this.attr('disabled', '');
         return;
     }
 
@@ -328,6 +342,7 @@ $('.publish').click(function(){
         $.hideLoading();
         $.toptip('请输入全款价格', 'error');
         $('input[name="whole_price"]').focus();
+        _this.attr('disabled', '');
         return;
     }
 
@@ -342,6 +357,7 @@ $('.publish').click(function(){
             $.hideLoading();
             $.toptip('请输入首付价格', 'error');
             $('input[name="down_payment"]').focus();
+            _this.attr('disabled', '');
             return;
         }
     }
@@ -352,6 +368,7 @@ $('.publish').click(function(){
         $.hideLoading();
         $.toptip('请输入行驶证登记日期', 'error');
         $('input[name="xszdjrq"]').focus();
+        _this.attr('disabled', '');
         return;
     }
 
@@ -361,6 +378,7 @@ $('.publish').click(function(){
         $.hideLoading();
         $.tiptop('请输入交强险过其时间', 'error');
         $('input[name="jqxgqsj"]').focus();
+        _this.attr('disabled', '');
         return;
     }
 
@@ -369,6 +387,7 @@ $('.publish').click(function(){
     if(title.length == 0){
         $.hideLoading();
         $.toptip('请输入标题', 'error');
+        _this.attr('disabled', '');
         return;
     }
 
@@ -377,6 +396,7 @@ $('.publish').click(function(){
     if(postscript.length == 0){
         $.hideLoading();
         $.toptip('请输入描述', 'error');
+        _this.attr('disabled', '');
         return;
     }
 
@@ -386,6 +406,7 @@ $('.publish').click(function(){
         $.hideLoading();
         $.toptip('请输入验证码', 'error');
         $('input[name="authcode"]').focus();
+        _this.attr('disabled', '');
         return;
     }
 
@@ -404,6 +425,7 @@ $('.publish').click(function(){
         }else{
             $.hideLoading();
             $.toptip(data.message, 'error');
+            _this.attr('disabled', '');
         }
     }, 'json');
 

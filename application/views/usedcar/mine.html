@@ -40,14 +40,14 @@
 				</a>
 			</li>
 			<li class="function-item-box">
-				<a href="collision.html" class="function-item">
+				<a href="<?=site_url('usedcar/my_collect')?>" class="function-item">
 					<span class="icon icon-collsion"></span>
 					<span class="desc">我的收藏</span>
 					<span class="goto icon-bow"></span>
 				</a>
 			</li>
 			<li class="function-item-box">
-				<a href="record.html" class="function-item">
+				<a href="javascript:void(0);" class="function-item maintain">
 					<span class="icon icon-record"></span>
 					<span class="desc" >浏览记录</span>
 					<span class="goto icon-bow"></span>
@@ -72,4 +72,11 @@
 <?php include('footer.html')?>
 
 </body>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
 </html>
+<script>
+	$('.maintain').click(function(){
+        $.toast("正在开发...", "text");
+	});
+</script>

@@ -84,7 +84,7 @@ $('input[type="file"]').on('change', function(e){
 //提交表单
 $(".submit_btn").click(function(e) {
     e.preventDefault();
-    $.showLoading();
+    $.showLoading('正在提交');
     var url = '/usedcar/apply/'+$(this).attr('type');
     //验证码
     var authcode = $.trim($('input[name="authcode"]').val());
@@ -228,7 +228,7 @@ $(".submit_btn").click(function(e) {
         if(data.code == 200){
             $.hideLoading();
             $.toast("操作成功", function(){
-
+                location.href = '/usedcar/person';
             });
         }else{
             $.hideLoading();

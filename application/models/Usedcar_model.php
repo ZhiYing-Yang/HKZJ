@@ -9,17 +9,29 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Usedcar_model extends CI_model {
+    //获取用户信息
     public function get_user_info($where_arr){
         $status = $this->db->get_where('used-car_user', $where_arr)->result_array();
         return $status;
     }
-
+    //获取收藏信息
+    public function get_collect_list($where_in, $offset, $perpage = 10){
+        $this->db->where_in('id', $where_in);
+        $status = $this->db->order_by('create_time DESC')->get_where('used-car_sale', array(), 10, $offset)->result_array();
+        return $status;
+    }
     //获取卖车列表信息
     public function get_sale_list($where_arr, $offset, $per_page = 10, $order_str = 'create_time DESC'){
         $status = $this->db->order_by($order_str)->get_where('used-car_sale', $where_arr, $per_page, $offset)->result_array();
+        //echo $this->db->last_query();
         return $status;
     }
-
+    //获取搜索到的卖车信息
+    public function get_search_list($keywords, $offset, $per_page = 10){
+        $this->db->like('title', $keywords)->or_like('postscript', $keywords)->or_like('brand', $keywords);
+        $status = $this->db->order_by('create_time DESC')->get_where('used-car_sale', array(), $per_page, $offset)->result_array();
+        return $status;
+    }
     //格式化车辆参数
     public function get_format_parameter($data){
         $parameter = array(

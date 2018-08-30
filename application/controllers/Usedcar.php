@@ -44,11 +44,56 @@ class Usedcar extends CI_Controller {
     }
 
     //买车
-    public function buy(){
+    public function buy($offset = 0, $key = '其他', $value = '其他', $data_type = 'html'){
+        $key = urldecode($key);
+        $value = urldecode($value);
         $data['active'] = '买车';
-        $this->load->view('usedcar/buycar.html');
-    }
+        $order_str = 'create_time DESC';
+        $array = array();
+        if($key == '排序'){
+            switch ($value){
+                case '最新上架':
+                    $order_str = 'create_time DESC';
+                    break;
+                case '价格最低':
+                    $order_str = 'whole_price ASC';
+                    break;
+                case '价格最高':
+                    $order_str = 'whole_price DESC';
+                    break;
+                case '降价急售':
+                    $order_str = 'whole_price ASC';
+                    break;
+            }
+        }elseif ($key == '车型'){
+            $array = array('car_type'=>$value);
+        }elseif ($key == '价格'){
+            $price = explode('到', $value);
+            $array = array('whole_price <=' => (float)$price[1], 'whole_price >=' => (float)$price[0]);
+        }elseif ($key == '排放'){
+                $array = array('parameter0' => $value);
+        }
+        else{
+            $array = array();
+            $order_str = 'create_time DESC';
+        }
+        $data['car'] = $this->usedcar_model->get_sale_list($array, $offset, 10, $order_str);
 
+        $data['key'] = $key;
+        $data['value'] = $value;
+        if($data_type == 'json'){
+            get_json(200, '加载成功', $data['car']);
+        }else{
+            $this->load->view('usedcar/buycar.html', $data);
+        }
+
+    }
+    public function search($offset = 0){
+        $data['active'] = '买车';
+        $keywords = $this->input->post('keywords');
+        $data['car'] = $this->usedcare_model->get_search_list($keywords, $offset, 10);
+        $this->load->view('usedcar/buycar.html', $data);
+    }
     //卖二手车
     public function sale(){
         $user = $this->usedcar_model->get_user_info(array('id'=>$this->id));
@@ -115,6 +160,7 @@ class Usedcar extends CI_Controller {
 
     //个人资料
     public function personal_data(){
+        $data['active'] = '我的';
         if(empty($this->input->post('address'))){
             $data['user'] = $this->usedcar_model->get_user_info(array('id'=>$this->id))[0];
             $this->load->view('usedcar/edit-data.html', $data);
@@ -152,6 +198,44 @@ class Usedcar extends CI_Controller {
             }
             $data = $this->usedcar_model->get_sale_list($where_arr, $offset);
             get_json(200, '加载成功', $data);
+        }
+    }
+
+    //我的收藏
+    public function my_collect($offset = 0, $type = 'see'){
+        $data['active'] = '我的';  //底部导航栏高亮
+        $user = $this->usedcar_model->get_user_info(array('id'=>$this->id))[0];
+        if(empty($user['collect'])){
+            $data['collect'] = array();
+        }else{
+            $where_in = explode('-$-', $user['collect']);
+            $data['collect'] = $this->usedcar_model->get_collect_list($where_in, $offset, 10);
+        }
+
+        if($type == 'get'){
+
+        }else{
+            $this->load->view('usedcar/collision.html', $data);
+        }
+    }
+
+    //删除收藏
+    public function delete_collect($id){
+        if(!is_numeric($id)){
+            get_json(400, '数据异常');
+            return;
+        }
+        $user = $this->usedcar_model->get_user_info(array('id'=>$this->id))[0];
+        $collect_arr = explode('-$-', $user['collect']);
+        if(!in_array($id, $collect_arr)){ //要删除的id未在收藏里
+            get_json(400,'您为收藏该信息');
+        }
+        $collect_arr = array_values(array_diff($collect_arr, [$id]));//删除数组中的$id 并重置数组索引
+        $collect_arr_str = implode('-$-',$collect_arr);
+        if($this->db->update('used-car_user', array('collect'=>$collect_arr_str), array('id'=>$this->id))){
+            get_json(200, '删除成功!');
+        }else{
+            get_json(400, '删除失败!');
         }
     }
 

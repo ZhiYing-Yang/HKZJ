@@ -2,78 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width , user-scalable-no , initial-scale=1.0 , maximum-scale=1.0 ,minium-scale=1.0">
+    <meta name="viewport" content="width=device-width , user-scalable=no , initial-scale=1.0 , maximum-scale=1.0 ,minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="">
-    <title>Title</title>
-    <link rel="stylesheet" href="../static/css/collsion.css">
+    <title>我的收藏</title>
+    <link rel="stylesheet" href="/style/usedcar/css/collsion.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/font/style.css">
-    <link rel="stylesheet" href="../static/css/footer.css">
+    <link rel="stylesheet" href="/style/usedcar/font/style.css">
+    <link rel="stylesheet" href="/style/usedcar/css/footer.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
 </head>
 <body>
 <div class="header">
     <div class="wrap">
-        <a href="mine.html"><i class="bowleft fa fa-angle-left"></i></a>
+        <a href="javascript:window.history.go(-1);"><i class="bowleft fa fa-angle-left"></i></a>
         <h1>我的收藏</h1>
     </div>
 </div>
 <div class="lovebox">
     <div class="weui_cells loves">
         <!--空位视图-->
-        <div class=" empty">
+        <div class="empty">
             <div class=" text-center "><i class="fa fa-ban"></i></div>
             <p class="text-center">啊哦！ 您还什么都没有收藏</p>
         </div>
-        <!---->
-        <a href="car-detail.html" class="weui_cell  love">
+
+        <!--List-->
+        <?php foreach($collect as $c):?>
+        <a href="javascript:void(0);" class="weui_cell love" data-id="<?=$c['id']?>">
             <div class="weui_cell_hd thumb">
-                <img src="../static/images/car.jpg" alt="icon">
+                <img src="<?=explode('-$-', $c['img_arr_str'])[0]?>" alt="icon">
             </div>
             <div class="weui_cell_bd">
                 <div class="message">
-                    <span class="car-type">自卸车</span>
-                    <span class="car-name">东风商用车 385马力</span>
+                    <span class="car-type"><?=$c['car_type']?></span>
+                    <span class="car-name"><?=$c['title']?></span>
                 </div>
-                <div class="other"><span class="price">27.12万</span> <span class="delete"><i class="fa fa-trash"></i></span></div>
+                <div class="other"><span class="price"><?=$c['whole_price']?>万</span> <span class="delete" data-id="<?=$c['id']?>"><i class="fa fa-trash"></i></span></div>
                 <div>
-                   <span class="date text-grey">2017.1</span><span class="adress text-grey">河南 许昌 禹州</span>
+                    <span class="date text-grey"><?=date('Y-m-d', $c['create_time'])?></span><span class="adress text-grey"><?=$c['address']?></span>
                 </div>
             </div>
         </a>
+        <?php endforeach;?>
     </div>
 </div>
 
-    <!-- ******************************----footer-------------******************************************** -->
-    <div class="footer">
-        <div class="footer-item-box">
-            <a href="index.html" class="footer-item  ">
-                <div class="item-box">
-                    <i class="icon-index"></i>
-                    <p>首页</p>
-                </div>
-            </a>
-            <a href="buycar.html" class="footer-item ">
-                <div class="item-box">
-                    <i class="icon-buy "></i>
-                    <p>买车</p>
-                </div>
-            </a>
-            <a href="sale.html" class="footer-item">
-                <div class="item-box">
-                    <i class="icon-sale"></i>
-                    <p>卖车</p>
-                </div>
-            </a>
-            <a href="mine.html" class="footer-item ">
-                <div class="item-box">
-                    <i class="icon-mine"></i>
-                    <p>我的</p>
-                </div>
-            </a>
-        </div>
-    </div>
+<!-- ******************************----footer-------------******************************************** -->
+<?php include('footer.html')?>
 
 
 
@@ -87,8 +63,49 @@
         }else{
             $(".empty").css("display","none");
         }
-    })
+    });
 
+    $('.lovebox').on('click', '.love', function (e) {
+       e.stopPropagation();
+       window.location.href = '<?=site_url("usedcar/see/")?>'+$(this).attr('data-id');
+    });
+
+    //删除按钮
+    $('.lovebox').on('click', '.delete', function (e) {
+        e.stopPropagation();
+        var this_id = $(this).attr('data-id');
+        var grandpa = $(this).parents('.love');
+        $.confirm('确定要删除该收藏吗?', function(){//确定删除
+
+            $.showLoading('正在删除');
+
+            if(this_id.length == 0){
+                $.toptip('该信息已被删除', 'error');
+                grandpa.remove();
+                $.hideLoading();
+                return;
+            }
+
+            var url = '<?=site_url("usedcar/delete_collect/");?>'+this_id;
+            $.get(url, function(data){
+                if(data.code == 200){
+                    $.hideLoading();
+                    $.toast("删除成功", function(){
+                        grandpa.remove();
+
+                    });
+                }else{
+                    $.hideLoading();
+                    $.toast(data.message, 'cancel');
+                }
+            }, 'json');
+
+        }, function(){  //取消删除
+
+            $.toptip('已取消', 'warning');
+        });
+
+    });
 </script>
 </body>
 </html>

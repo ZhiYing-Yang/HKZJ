@@ -82,7 +82,7 @@ body{
 }
 .summarize .distribute-message span:nth-child(3){
     float: right;
-    margin-right: 50px;
+    margin-right: 10px;
 }
 .summarize .markbox{
     float: left;

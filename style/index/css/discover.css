@@ -13,9 +13,9 @@
  /*货卡商城*/
  #goodsinfo{background: url(../img/icon/discovericon/goodsinfo.png)center center no-repeat;}
  #newcar{background: url(../img/icon/discovericon/newcar.png)center center no-repeat;}
- #sell-parts{background: url(../img/icon/discovericon/sellparts.png)center center no-repeat;}
+
  #trailer{background: url(../img/icon/discovericon/trailer.png)center center no-repeat;}
- #used-car{background: url(../img/icon/discovericon/usedcar.png)center center no-repeat;}
+ .used-car, #used-car{background: url(../img/icon/discovericon/usedcar.png)center center no-repeat;}
  #choose-car{background: url(../img/icon/discovericon/choose-car.png)center center no-repeat;}
  #sell-parts{background: url(../img/icon/discovericon/sell-parts.png)center center no-repeat;}
  #addshanjia{background: url(../img/icon/discovericon/addshanjia.png)center center no-repeat;}
@@ -35,5 +35,8 @@
  /*卡友必备*/
  #serialnumbel{background: url(../img/icon/discovericon/serialnumbel.png)center center no-repeat;}
  #waybill{background: url(../img/icon/discovericon/waybill.png)center center no-repeat;}
- #trading-record{background: url(../img/icon/discovericon/trading-record.png)center center no-repeat;}
- #driver_qun{background: url(../img/icon/discovericon/driver_qun.png)center center no-repeat;}
+ .trading-record, #trading-record{background: url(../img/icon/discovericon/trading-record.png)center center no-repeat;}
+ .driver_qun, #driver_qun{background: url(../img/icon/discovericon/driver_qun.png)center center no-repeat;}
+
+ /*常用功能*/
+.car_monitor{background: url(../img/icon/discovericon/car_monitor.png)center center no-repeat;}

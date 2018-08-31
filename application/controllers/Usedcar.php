@@ -16,7 +16,7 @@ class Usedcar extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->session->set_userdata('used_car_user_id', 1);
+        /*$this->session->set_userdata('used_car_user_id', 1);*/
         $this->id = $this->session->userdata('used_car_user_id');
         if(empty($this->id)){
             header('location:'.site_url('login/used_car_login'));
@@ -88,6 +88,7 @@ class Usedcar extends CI_Controller {
         }
 
     }
+    //车辆搜索
     public function search($offset = 0){
         $data['active'] = '买车';
         $keywords = $this->input->post('keywords');
@@ -268,7 +269,7 @@ class Usedcar extends CI_Controller {
 
     //收藏卖车信息
     public function collect($id){
-        $collect = $this->usedcar_model->get_user_info(array('id'=>$id))[0]['collect'];
+        $collect = $this->usedcar_model->get_user_info(array('id'=>$this->id))[0]['collect'];
         if(empty($collect)){
             $str = $id;
         }else{

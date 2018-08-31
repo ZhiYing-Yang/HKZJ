@@ -119,11 +119,15 @@
         if($('.collsioned').length != 0){
             $.toptip('您已收藏该信息！如需删除，请到我的收藏。', 'warning');
         }else{
+            $.showLoading('正在收藏');
             $.get('<?=site_url("usedcar/collect/").$sale["id"]?>', function(data){
                 if(data.code == 200){
+
                     $('.collsion').addClass('collsioned');
+                    $.hideLoading();
                     $.toast('收藏成功');
                 }else{
+                    $.hideLoading();
                     $.toast(data.message, 'cancel');
                 }
             }, 'json');

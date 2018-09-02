@@ -60,5 +60,11 @@ class Admin_model extends CI_Model {
     }
 
 
+    /*******************  二手车交易平台  *********************/
+    //获取车辆信息
+    public function get_car_info($where_arr){
+        $status = $this->db->get_where('used-car_sale', $where_arr)->result_array();
+        return $status;
+    }
 	
 }

@@ -29,12 +29,15 @@ class Usedcar extends CI_Controller {
         $type = urldecode($type);
         if($type == '最好车源'){
             $order_str = 'create_time DESC';
-        }else if($type = '降价急售'){
-            $order_str = 'whole_price DESC';
+        }elseif($type == '降价急售'){
+
+            $order_str = 'whole_price ASC';
         }else{
             $order_str = 'read DESC';
         }
+
         $data['sale'] = $this->usedcar_model->get_sale_list(array(), 0, 10, $order_str);
+
         if($data_type == 'json'){
             get_json(200, '获取成功', $data['sale']);
         }else{
@@ -89,11 +92,25 @@ class Usedcar extends CI_Controller {
 
     }
     //车辆搜索
-    public function search($offset = 0){
+    public function search($offset = 0, $type = 'html'){
         $data['active'] = '买车';
-        $keywords = $this->input->post('keywords');
-        $data['car'] = $this->usedcare_model->get_search_list($keywords, $offset, 10);
-        $this->load->view('usedcar/buycar.html', $data);
+        if($type == 'html'){ //正常请求
+            $keywords = $this->input->post('keywords');
+        }else{
+            $keywords = urldecode($type);
+        }
+
+
+        $data['car'] = $this->usedcar_model->get_search_list($keywords, $offset, 10);
+
+        if($type == 'html'){
+            $data['keywords'] = $keywords; //将关键字传给前端
+            $data['is_search'] = '搜索'; //标识为搜索页
+            $this->load->view('usedcar/buycar.html', $data);
+        }else{
+            get_json(200,'加载成功！', $data['car']);
+        }
+
     }
     //卖二手车
     public function sale(){

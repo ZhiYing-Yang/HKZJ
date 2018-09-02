@@ -18,10 +18,10 @@
 <div class="header">
   <div class="searchbox">
     <div class="weui_search_bar" id="search_bar">
-      <form class="weui_search_outer">
+      <form class="weui_search_outer" action="<?=site_url('usedcar/search/0')?>" method="post">
         <div class="weui_search_inner">
           <i class="weui_icon_search"></i>
-          <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" required/>
+          <input type="search" class="weui_search_input" name="keywords" id="search_input" placeholder="搜索" required/>
           <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
         </div>
         <label for="search_input" class="weui_search_text" id="search_text">
@@ -39,12 +39,12 @@
 <div class="fullscreen-search">
   <div class="head-search">
     <div class="search_bar" id="search_wrap">
-      <form class="">
+      <form action="<?=site_url('usedcar/search/0')?>" method="post">
         <div class="input" id="input_search">
           <label for="search_input">
             <i class="weui_icon_search"></i>
           </label>
-          <input type="text" id="search" placeholder="搜索" name="search" />
+          <input type="text" id="search" placeholder="搜索" name="keywords" />
         </div>
         <a href="javascript:" class="search_cancel" id="search_cancel">取消</a>
       </form>
@@ -451,6 +451,18 @@
 <script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
 <script src="/style/usedcar/js/city.js"></script>
 <script>
+    if($(".loves a").length == 0){
+        $(".empty").css("display","block");
+        $('.more').css('display', 'none');
+    }else{
+        $(".empty").css("display","none");
+    }
+
+    if($(".loves a").length <10){
+        $('#get_more').css('display', 'none');
+        $('#no_more').css('display', 'block');
+    }
+
   //车型选择
   $('input[name="radio3"]').on('change', function(){
       if($(this).val() == '不限'){
@@ -491,13 +503,9 @@
   }
 
 
-  $(function () {
-        if($(".loves a").length==0){
-            $(".empty").css("display","block");
-        }else{
-            $(".empty").css("display","none");
-        }
-    });
+
+
+
 
     $("#search_cancel").click(function() {
         $(".fullscreen-search").animate({ "left": "100%" }, 200);
@@ -509,9 +517,18 @@
 
   $('#get_more').click(function () {
       $.showLoading('正在加载');
-      var url = '<?=site_url("usedcar/buy/")?>'+$('.love').length+'/<?=$key?>'+'/<?=$value?>/'+'json';
+      var is_search = '<?=isset($is_search)?1:0?>';
+      var keywords = '<?=isset($keywords)?$keywords:""?>';
+      var key = '<?=isset($key)?$key:""?>';
+      var value = '<?=isset($value)?$value:""?>';
+      if(is_search == '1'){
+          var url = '<?=site_url("usedcar/search/")?>'+$('.love').length+'/'+keywords;
+      }else{
+          var url = '<?=site_url("usedcar/buy/")?>'+$('.love').length+'/'+ key +'/'+value+'/json';
+      }
       console.log(url);
       $.get(url, function(data){
+
           if(data.code == 200){
               if(data.data.length < 10){
                   $('#get_more').css('display', 'none');

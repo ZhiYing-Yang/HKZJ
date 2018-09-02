@@ -19,10 +19,10 @@
 <div class="header">
   <div class="searchbox">
     <div class="weui_search_bar" id="search_bar">
-      <form class="weui_search_outer">
+      <form class="" class="weui_search_outer" action="<?=site_url('usedcar/search/0')?>" method="post">
         <div class="weui_search_inner">
           <i class="weui_icon_search"></i>
-          <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" required/>
+          <input type="search" class="weui_search_input" name="keywords" id="search_input" placeholder="搜索" required/>
           <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
         </div>
         <label for="search_input" class="weui_search_text" id="search_text">
@@ -137,27 +137,27 @@
 </div> -->
 <div class="weui_grids type">
   <h3>车型快查</h3>
-  <a href="javascript:;" class="weui_grid js_grid  type-item" data-id="button">
+  <a href="<?=site_url('usedcar/buy/0/车型/牵引车')?>" class="weui_grid js_grid  type-item" data-id="button">
     <p class="weui_grid_label">
       牵引车
     </p>
   </a>
-  <a href="javascript:;" class="weui_grid js_grid type-item" data-id="cell">
+  <a href="<?=site_url('usedcar/buy/0/车型/载货车')?>" class="weui_grid js_grid type-item" data-id="cell">
     <p class="weui_grid_label">
       载货车
     </p>
   </a>
-  <a href="javascript:;" class="weui_grid js_grid type-item" data-id="toast">
+  <a href="<?=site_url('usedcar/buy/0/车型/自卸车')?>" class="weui_grid js_grid type-item" data-id="toast">
     <p class="weui_grid_label">
       自卸车
     </p>
   </a>
-  <a href="javascript:;" class="weui_grid js_grid type-item" data-id="toast">
+  <a href="<?=site_url('usedcar/buy/0/车型/搅拌车')?>" class="weui_grid js_grid type-item" data-id="toast">
     <p class="weui_grid_label">
       搅拌车
     </p>
   </a>
-  <a href="javascript:;" class="weui_grid js_grid type-item" data-id="toast">
+  <a href="<?=site_url('usedcar/buy/0/车型/轻卡')?>" class="weui_grid js_grid type-item" data-id="toast">
     <p class="weui_grid_label">
       轻卡
     </p>
@@ -167,17 +167,17 @@
       挂车
     </p>
   </a>
-  <a href="javascript:;" class="weui_grid js_grid type-item" data-id="toast">
+  <a href="<?=site_url('usedcar/buy/0/车型/专用车')?>" class="weui_grid js_grid type-item" data-id="toast">
     <p class="weui_grid_label">
       专用车
     </p>
   </a>
-  <a href="javascript:;" class="weui_grid js_grid type-item" data-id="toast">
+  <a href="<?=site_url('usedcar/buy/0')?>" class="weui_grid js_grid type-item" data-id="toast">
     <p class="weui_grid_label">
       二手车
     </p>
   </a>
-  <a href="javascript:;" class="weui_grid js_grid type-item" data-id="toast">
+  <a href="<?=site_url('usedcar/buy/0')?>" class="weui_grid js_grid type-item" data-id="toast">
     <p class="weui_grid_label">
       库存车
     </p>
@@ -269,7 +269,7 @@
   $('.weui_navbar a').click(function(){
       $.showLoading();
      var index = $(this).index();
-     var type = $(this).html();
+     var type = $.trim($(this).html());
      $('.weui_navbar a').removeClass('weui_bar_item_on');
      $(this).addClass('weui_bar_item_on');
      var box = $('.loves').eq(index);
@@ -304,9 +304,9 @@
 
   //遍历输出数据
   function setDataList(data, box){
-      var html='';
-      for(var i = 0, len = data.length; i < len; i++){
 
+      for(var i = 0, len = data.length; i < len; i++){
+          var html='';
           html+= '<a href="'+ '/usedcar/see/'+ data[i].id +'" class="weui_cell  love">';
           html+='<div class="weui_cell_hd thumb">';
           html+='<img src="'+ data[i].img_arr_str.split('-$-')[0] +'" alt="icon">';
@@ -322,8 +322,9 @@
           html+='</div>';
           html+='</div>';
           html+='</a>';
+          box.append(html);
       }
-      box.append(html);
+
   }
 
 </script>

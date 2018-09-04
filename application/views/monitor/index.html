@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车辆监控—货卡之家</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/color.css">
+    <link rel="stylesheet" href="/style/monitor/css/monitor.css">
+    <base target="frame"/>
+</head>
+<body>
+<div class="weui-search-bar" id="searchBar">
+    <form class="weui-search-bar__form" id="my_form" action="<?=site_url('monitor/car_monitor')?>" method="post">
+        <div class="weui-search-bar__box">
+            <i class="weui-icon-search"></i>
+            <input type="search" class="weui-search-bar__input" name="license_number" id="searchInput" placeholder="请输入车牌号" required="">
+            <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+        </div>
+        <label class="weui-search-bar__label" id="searchText">
+            <i class="weui-icon-search"></i>
+            <span>请输入车牌号</span>
+        </label>
+    </form>
+    <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+</div>
+<div class="weui-flex" style="margin-top: 10px">
+    <div class="weui-flex__item"></div>
+    <div class="weui-flex__item"><a href="javascript:void(0);" id="submit_btn" class="weui-btn weui-btn_primary">立即查询</a></div>
+    <div class="weui-flex__item"></div>
+</div>
+
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>本月剩余免费次数</p>
+        </div>
+        <div class="weui-cell__ft" id="free">20</div>
+    </div>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__bd">
+            <p>剩余付费查询次数</p>
+        </div>
+        <div class="weui-cell__ft" id="pay">
+            10
+        </div>
+    </a>
+</div>
+
+<div class="result" style="display: none">
+    <p class="title">查询结果</p>
+    <div class="result_info">
+        <p>车牌号：<span class="red" id="car_number">赣C1N980</span></p>
+        <p>最近更新时间：<span class="red" id="last_time">2018-09-13 13:23:03</span></p>
+        <p>当前车速：<span class="red" id="speed">23.7km/h</span></p>
+        <p>车辆位置：<span class="red" id="location">安徽省安庆市怀宁县长琳塑业，向西方向，148 米</span></p>
+    </div>
+    <div style="overflow: hidden;">
+        <button style="float: right;" id="see_map" class="weui-btn weui-btn_mini weui-btn_primary">查看地图</button>
+    </div>
+</div>
+
+<div class="content gray">
+    <h3 align="center">温馨提示</h3>
+    <div class="info" style="font-size: 14px;padding: 0 15px;">
+        1. 货卡之家为卡友每月提供30次免费查询，本月内超出30次以外的部分可进行付费查询。<br>
+        2. 查询车辆位置请先征得车主的同意，货卡之家提醒您提前和车主沟通好以免出现侵权的情况；如您未征得车主同意，查询了车辆位置，由此带来的法律责任将由您自行承担<br>
+        3. 货卡之家不对查询位置的准确性负责（数据来自于官方）。<br>
+        4. 鉴于车辆故障等原因，部分车辆可能会出现查询不到的情况（95%以上可以查询到结果）
+    </div>
+</div>
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"> </script>
+<script src="/style/monitor/js/cordinate.js"></script>
+<script>
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '<?=$appId?>', // 必填，公众号的唯一标识
+        timestamp: '<?=$timestamp?>', // 必填，生成签名的时间戳
+        nonceStr: '<?=$nonceStr?>', // 必填，生成签名的随机串
+        signature: '<?=$signature?>',// 必填，签名，见附录1
+        jsApiList: [
+            'openLocation',
+            'getLocation'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    //提交查询
+    $('#my_form').submit(function(e){
+        e.preventDefault();
+        $.showLoading('努力查询中');
+        var license_number = $.trim($('input[name="license_number"]').val());
+        if(license_number.length == 0){
+            $.hideLoading();
+            $.toptip('请输入车牌号', 'error');
+            return;
+        }
+
+        $.post($('#my_form').attr('action'), {license_number: license_number}, function (data) {
+            if(data.code == 200){
+
+                $.hideLoading();
+                set_data(data.data);
+                $.confirm('已查到您的车辆信息，是否打开地图查看？', '查询成功', function(){
+                    //点击确认后的回调函数
+                    see_map(data.data);
+                },function(){
+                    //点击取消后的回调函数
+                    $.toptip('查询成功，您的车辆位置信息如下', 'success');
+                });
+            }else if(data == '401'){
+                $.toptip('无结果，该车辆可能未入网', 'cancel');
+            }else{
+                $.toptip(data.message, 'error');
+            }
+        }, 'json');
+    });
+    $('#submit_btn').click(function () {
+        $('#my_form').submit();
+    });
+
+    function see_map(data){
+        wx.ready(function() {
+            var cordinate = wgs84togcj02((data.lon/600000), (data.lat/600000));
+            $.hideLoading();
+            wx.openLocation({
+                latitude: cordinate[1], //维度
+                longitude: cordinate[0], //经度
+                name: '车牌号：' + data.license_number,
+                address: data.address,
+                //address: '最近更新时间：'+data.time+'\n当前车速：'+data.spd+'km/h \n车辆位置'+data.address,
+                scale: 18,
+                infoUrl: 'http://www.jxhkzj.com'
+            });
+        });
+    }
+
+    function set_data(data){
+
+        $('#car_number').html(data.license_number); //车牌号
+        $('#last_time').html(data.time); //最后更新时间
+        $('#speed').html(data.spd+' km/h'); //车速
+        $('#location').html(data.location); //车辆位置
+        $('#location').attr({lon:data.lon, lat:data.lat});
+        $('.result').fadeIn(); //显示查询结果
+    }
+
+    $('#see_map').click(function(){
+        var lon = parseInt($('#location').attr('lon'));
+        var lat = parseInt($('#location').attr('lat'));
+        var data = {lon:lon, lat:lat, license_number:$('#car_number').html(), address:$('#location').html()};
+        see_map(data);
+    });
+
+    //判断是付费查询还是收费查询，并减少相应的次数
+    function charge(charge){
+        if(charge == 'pay'){ //付费免费
+            var pay_time = parseInt($('#pay').html());
+            if(pay_time > 0){
+                $('#pay').html(pay_time-1);
+            }
+
+        }else{ //免费查询
+            var free_time = parseInt($('#free').html());
+            if(free_time > 0){
+                $('#free').html(free_time-1);
+            }
+        }
+    }
+    /*wx.ready(function() {
+        var cordinate = wgs84togcj02(116.824115, 30.751815);
+
+        wx.openLocation({
+            latitude: cordinate[1], //维度
+            longitude: cordinate[0], //经度
+            name: '车牌号：赣C1N980',
+            address: '最后更新时间：2018-09-02 13:29:06\n当前车速：23.7km/h  行驶方向：西南\n车辆位于：安徽省安庆市怀宁县长琳塑业，向西方向，148 米',
+            scale: 20,
+        });
+    });*/
+
+
+</script>
+</html>

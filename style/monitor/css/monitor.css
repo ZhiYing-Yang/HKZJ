@@ -1,0 +1,13 @@
+.result{
+    width: 85%;
+    padding:10px 15px;
+    margin: 20px auto;
+    background: #f7f9fa;
+    box-shadow: 0 4px 16px rgba(0,0,0,.3);
+    border-radius: 10px;
+}
+.result .title{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}

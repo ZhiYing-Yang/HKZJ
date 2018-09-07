@@ -141,6 +141,49 @@ class Login extends CI_Controller{
         }
     }
 
+    /**
+     *车辆监控登录
+     */
+    public function car_monitor_login(){
+        if(empty($this->session->userdata('user_id'))){ //如果用户没有登录论坛，先登录论坛
+            $this->session->set_userdata('go_url', site_url('login/car_monitor_login'));
+            $this->weChat_login();return;
+        }else { //取用户部分信息填入二手车
+            $forum_id = $this->session->userdata('user_id');
+
+            $this->load->model('monitor_model');
+            $user = $this->monitor_model->get_user_info(array('forum_id'=>$forum_id));
+
+            if(empty($user)){   //车辆监控用户表里没有该用户相关信息
+                $this->load->model('index_model');
+                $data = $this->index_model->get_user(array('user_id'=>$forum_id));
+                if(empty($data)){   //论坛用户表里没有用户数据，重新执行微信网页授权登录
+                    $this->weChat_login();return;
+                }else{ //将信息插入二手车用户表
+                    $user_data = array(
+                        'openid' => $data[0]['openid'],
+                        'forum_id'=>$data[0]['user_id'],
+                        'headimgurl'=>$data[0]['headimgurl'],
+                        'nickname'=>$data[0]['nickname'],
+                        'month' => date('m'), //当前月份
+                    );
+                    if($this->db->insert('monitor_user', $user_data)){
+                        $monitor_user_id = $this->db->insert_id();
+                        $this->session->set_userdata('monitor_user_id', $monitor_user_id);
+
+                        header('location:'.site_url('monitor/index'));
+                    }else{
+                        header('location:'.base_url());
+                    }
+                }
+            }else{
+                $this->session->set_userdata('monitor_user_id',$user[0]['id']);
+                header('location:'.site_url('monitor/index'));
+            }
+        }
+
+    }
+
 
     //测试一下
     public function ceshi() {

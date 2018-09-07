@@ -18,8 +18,8 @@
  * @property film_model1      $film_model1
  * @property index_model     $index_model
  * @property admin_model     $admin_model
- * @property usedcar_model     $usedcar_model
- *
+ * @property usedcar_model   $usedcar_model
+ * @property Monitor_model   $Monitor_model
  */
 class my_models
 {

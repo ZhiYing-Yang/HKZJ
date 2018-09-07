@@ -36,7 +36,7 @@
         <div class="weui-cell__bd">
             <p>本月剩余免费次数</p>
         </div>
-        <div class="weui-cell__ft" id="free">20</div>
+        <div class="weui-cell__ft" id="free"><?=$free_time?></div>
     </div>
     <a class="weui-cell weui-cell_access" href="javascript:;">
         <div class="weui-cell__bd">
@@ -104,6 +104,9 @@
         $.post($('#my_form').attr('action'), {license_number: license_number}, function (data) {
             if(data.code == 200){
 
+                charge(data.data.charge);//查询费用问题
+
+                localStorage.setItem('car_data', JSON.stringify(data.data));//web本地存储
                 $.hideLoading();
                 set_data(data.data);
                 $.confirm('已查到您的车辆信息，是否打开地图查看？', '查询成功', function(){
@@ -183,7 +186,9 @@
             scale: 20,
         });
     });*/
-
+    if(localStorage.car_data){
+        set_data(JSON.parse(localStorage.car_data));
+    }
 
 </script>
 </html>

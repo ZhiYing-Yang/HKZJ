@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>货卡币充值中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="/style/monitor/css/recharge.css">
+</head>
+<body>
+<div class="container">
+    <p class="title">货卡币充值中心</p>
+    <p class="info">请选择充值数量</p>
+    <div class="weui-flex">
+        <div class="weui-flex__item"><div class="num">1 个</div></div>
+        <div class="weui-flex__item"><div class="num">2 个</div></div>
+        <div class="weui-flex__item"><div class="num">5 个</div></div>
+    </div>
+    <div class="weui-flex">
+        <div class="weui-flex__item"><div class="num">10 个</div></div>
+        <div class="weui-flex__item"><div class="num">15 个</div></div>
+        <div class="weui-flex__item"><div class="num">20 个</div></div>
+    </div>
+    <div class="weui-flex">
+        <div class="weui-flex__item"><div class="num">25 个</div></div>
+        <div class="weui-flex__item"><div class="num">30 个</div></div>
+        <div class="weui-flex__item"><div class="num">50 个</div></div>
+    </div>
+    <div class="btn_box">
+        <button id="submit" class="weui-btn weui-btn_primary">立即充值</button>
+    </div>
+    <div class="weui-footer weui-footer_fixed-bottom">
+        <p class="weui-footer__text">Copyright © 2008 江西货卡人之家科技有限公司</p>
+    </div>
+</div>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script>
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '<?=$appId?>', // 必填，公众号的唯一标识
+        timestamp: '<?=$timestamp?>', // 必填，生成签名的时间戳
+        nonceStr: '<?=$nonceStr?>', // 必填，生成签名的随机串
+        signature: '<?=$signature?>',// 必填，签名，见附录1
+        jsApiList: [
+            'openLocation',
+            'getLocation'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    //选择充值数量
+    $('.num').click(function () {
+        $('.num').removeClass('selected');
+        $(this).addClass('selected');
+        //console.log(parseInt($('.selected').html()));
+    });
+
+    //充值
+    $('#submit').click(function () {
+        if($('.selected').length == 0){
+            $.toptip('请选择充值数量', 'error');
+            return;
+        }
+
+        $.showLoading('正在充值');
+        var fee = parseInt($('.selected').html());
+
+        $.post('/monitor/recharge/do', {fee: fee}, function (data) {
+            if(data.code == 200){
+                $.hideLoading();
+
+                //发起微信js-api支付
+                wx.ready(function () {
+
+                    // 这里获取到PHP生成签名参数包，注意是JSON格式
+                    var  options = data.data.options;
+
+                    // 支付成功后的操作
+                    options.success = function () {
+                        $.toast('充值成功', function(){
+                            window.history.go(-1);
+                        });
+                        //window.location.href = "支付成功后的跳转地址，通常是订单列表";
+                    };
+
+                    //  取消支付的操作
+                    options.cancel = function () {
+                        $.toptip('您取消了支付', 'warning');
+                    };
+
+                    // 支付失败的处理
+                    options.fail = function () {
+                        $.toptip('支付失败', 'warning');
+                    };
+
+                    // 传入参数，发起JSAPI支付
+                    wx.chooseWXPay(options);
+                });
+            }else{
+                $.hideLoading();
+                $.toptip('当前充值人数较多，请稍后再试！', 'error');
+            }
+        }, 'json');
+    });
+</script>
+</html>

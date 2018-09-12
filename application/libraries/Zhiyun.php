@@ -46,8 +46,9 @@ class Zhiyun
         $result_arr = json_decode($result_json, true);
 
         if($result_arr['status'] == 1001){ //验证令牌是否获取成功
-            $this->CI->db->update('zhiyun_config', array('token'=>$result_arr['token']), array('id'=>1));
-            return $result_arr['token'];
+            $this->CI->db->update('zhiyun_config', array('token'=>$result_arr['result']), array('id'=>1));
+            //echo $result_arr['result'];
+            return $result_arr['result'];
         }else{
             return false;
         }
@@ -74,6 +75,41 @@ class Zhiyun
         if($result_arr['status'] == 1016){ //令牌失效
             if($this->get_token()){ //获取令牌 更新数据库信息 成功后继续请求获取位置
                 $this->get_location($car_number);
+            }else{ //否则返回错误结果
+                return false;
+            }
+        }elseif($result_arr['status'] == 1001){ //数据获取成功
+            return $result_arr['result']; //返回位置信息
+        }elseif($result_arr['status'] == 1006){
+            return '无结果';
+        }else{
+            return false;
+        }
+    }
+
+    /*
+     * 车辆信息查询
+     * @param $car_number 车牌号
+     * @param $color_code 车牌颜色号码 1：蓝色   2：黄色
+     */
+    public function get_car_info($car_number, $color_code){
+        $token = $this->CI->db->select('token')->get_where('zhiyun_config', array('id'=>1))->result_array()[0]['token']; //获取token
+        $p = 'token='.$token.'&vclN='.$car_number.'&vco='.$color_code; //拼接数据
+
+        $p = $this->des_cbc_encrypt($p, $this->des_key, $this->iv); //加密
+
+        $url =  $this->apiUrl."/vQueryInfo/".$p."?client_id=".$this->clientId; //拼接uri
+
+        $result = $this->https_curl($url); //请求API，获取信息
+
+        $result_json = $this->des_cbc_decrypt($result, $this->des_key, $this->iv); //解密数据
+        echo $result_json;
+        $result_arr = json_decode($result_json, true);
+
+        // 业务逻辑
+        if($result_arr['status'] == 1016){ //令牌失效
+            if($this->get_token()){ //获取令牌 更新数据库信息 成功后继续请求获取位置
+                $this->get_car_info($car_number, $color_code);
             }else{ //否则返回错误结果
                 return false;
             }

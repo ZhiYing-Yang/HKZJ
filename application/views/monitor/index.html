@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
     <link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/color.css">
     <link rel="stylesheet" href="/style/monitor/css/monitor.css">
-    <base target="frame"/>
 </head>
 <body>
 <div class="weui-search-bar" id="searchBar">
@@ -38,12 +37,12 @@
         </div>
         <div class="weui-cell__ft" id="free"><?=$free_time?></div>
     </div>
-    <a class="weui-cell weui-cell_access" href="javascript:;">
+    <a class="weui-cell weui-cell_access" href="<?=site_url('monitor/recharge')?>">
         <div class="weui-cell__bd">
-            <p>剩余付费查询次数</p>
+            <p>剩余货卡币数量</p>
         </div>
         <div class="weui-cell__ft" id="pay">
-            10
+            <?=$money?>个
         </div>
     </a>
 </div>
@@ -108,7 +107,8 @@
 
                 localStorage.setItem('car_data', JSON.stringify(data.data));//web本地存储
                 $.hideLoading();
-                set_data(data.data);
+                set_data(data.data); //显示查询结果
+
                 $.confirm('已查到您的车辆信息，是否打开地图查看？', '查询成功', function(){
                     //点击确认后的回调函数
                     see_map(data.data);
@@ -116,9 +116,17 @@
                     //点击取消后的回调函数
                     $.toptip('查询成功，您的车辆位置信息如下', 'success');
                 });
-            }else if(data == '401'){
+            }else if(data.code == 401){
+                $.hideLoading();
                 $.toptip('无结果，该车辆可能未入网', 'cancel');
-            }else{
+            }else if(data.code == 410){ //免费次数已经用完，需要付费
+                $.hideLoading();
+                $.alert('您的货卡币余额不足，请即时充值！', '余额不足', function(){
+                    window.location.href = '<?=site_url("monitor/recharge")?>';
+                });
+            }
+            else{
+                $.hideLoading();
                 $.toptip(data.message, 'error');
             }
         }, 'json');

@@ -1,0 +1,35 @@
+.container{
+    padding: 0 15px;
+}
+.num{
+    border-radius: 5px;
+    border: 1px solid #2486ff;
+    color: #0057c3;
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+    margin: 5px 5px;
+}
+.selected{
+    color: #FFFFFF;
+    background: #2486ff;
+}
+.weui-flex .weui-flex__item:first-of-type .num{
+    margin-left: 0;
+}
+.weui-flex .weui-flex__item:last-of-type .num{
+    margin-right: 0;
+}
+.title{
+    text-align: center;
+    font-size: 20px;
+    color: #4c5161;
+}
+.info{
+    color: #a2a9b6;
+    font-size: 15px;
+    margin: 30px 0 5px 0;
+}
+.btn_box{
+    margin-top: 30px;
+}

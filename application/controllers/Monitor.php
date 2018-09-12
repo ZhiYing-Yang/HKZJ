@@ -79,13 +79,12 @@ class Monitor extends CI_Controller
         }
 
         //模拟查询
-
-        $status = '{"result":{"adr":"安徽省安庆市怀宁县长琳塑业，向西方向，148 米","drc":"225","lat":"18451089","lon":"70094469","spd":"73.0","utc":"1536049439000","province":"安徽省","city":"安庆市","country":"怀宁县"},"status":1001}';
-        $arr    = json_decode($status, true)['result'];
+        /*$status = '{"result":{"adr":"安徽省安庆市怀宁县长琳塑业，向西方向，148 米","drc":"225","lat":"18451089","lon":"70094469","spd":"73.0","utc":"1536049439000","province":"安徽省","city":"安庆市","country":"怀宁县"},"status":1001}';
+        $arr    = json_decode($status, true)['result'];*/
 
         //正式调用接口查询
-        /*$this->load->library('zhiyun');
-        $arr = $this->zhiyun->get_location($car_num);*/
+        $this->load->library('zhiyun');
+        $arr = $this->zhiyun->get_location($car_num);
 
         if (is_array($arr)) { //查询成功
 

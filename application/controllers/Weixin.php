@@ -261,7 +261,7 @@ class Weixin extends CI_Controller {
                         array(
                             'type'=>'view',
                             'name'=>'车辆监控',
-                            'url'=>base_url(),
+                            'url'=>site_url('monitor/index'),
                         ),
                     ),
                 ),

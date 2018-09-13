@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="/style/monitor/css/seek_car.css">
+</head>
+<body>
+<!--经纬度 通过微信获取，车型 -->
+<div class="container">
+
+    <p class="tip">请允许货卡人之家获取您的地理位置<br>以便为您查询附近车辆</p>
+    <p>当前位置：</p>
+    <p class="location_info"></p>
+</div>
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">车型</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" id="type"  placeholder="请输入车型">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">载重</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" id="load"  placeholder="请输入载重区间">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">车长</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" id="length"  placeholder="请输入车长区间">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">车辆距离</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" id="dist"  placeholder="请输入车辆距离">
+        </div>
+        <div class="weui-cell__ft">
+            公里
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">车辆籍贯地</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" id="belCity"  placeholder="例如：黑">
+        </div>
+    </div>
+    <div class="container">
+        <a href="javascript:void(0);" id="submit_btn" class="weui-btn weui-btn_primary">立即找车</a>
+    </div>
+
+</div>
+
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script>
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '<?=$appId?>', // 必填，公众号的唯一标识
+        timestamp: '<?=$timestamp?>', // 必填，生成签名的时间戳
+        nonceStr: '<?=$nonceStr?>', // 必填，生成签名的随机串
+        signature: '<?=$signature?>',// 必填，签名，见附录1
+        jsApiList: [
+            'openLocation',
+            'getLocation'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    //获取位置
+    wx.ready(function() {
+        wx.getLocation({
+
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+
+            success: function (res) {
+
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+
+                var speed = res.speed; // 速度，以米/每秒计
+
+                var accuracy = res.accuracy; // 位置精度
+
+                $('.location_info').attr({lat: latitude, lon: longitude});
+                $('.location_info').html('经度' + longitude + ' 纬度：' + latitude + '位置精度：'+accuracy);
+            },
+            cancle: function(){
+                $.toptip('无法获取您的位置信息，将无法寻找附近车辆！', 'error');
+            }
+        });
+    });
+
+    //表单
+    $('#submit_btn').click(function(){
+        var lon = $.trim($('.location_info').attr('lon')); //经度
+        var lat = $.trim($('.location_info').attr('lat')); //纬度
+        if(lon.length == 0 || lat.length == 0){
+            $.toptip('您拒绝授权获取地理位置，不能查询附近车辆！', 'error');
+            return;
+        }
+
+        var str = '&lon='+lon+'&lat='+lat;
+
+        //车型
+        var type = $.trim($('#type').attr('data-values'));
+        //console.log(type+':'+type.length);
+        if(type.length != 0){
+            str += '&type='+type;
+        }
+
+        //载重区间
+        var load = $.trim($('#load').attr('data-values'));
+        if(load.length !=0){
+            str += '&load='+load;
+        }
+
+        //车长区间
+        var length = $.trim($('#length').attr('data-values'));
+        if(length.length != 0){
+            str += '&length='+length;
+        }
+
+        //方圆距离
+        var dist = $.trim($('#dist').val());
+        if(dist.length != 0){
+            str += '&dist='+dist;
+        }
+
+        //车辆籍贯地
+        var belCity = $.trim($('#belCity').val());
+        if(belCity.length != 0){
+            str += '&belCity='+belCity;
+        }
+
+        $.post('/monitor/', {}, function(){
+
+        }, 'json');
+    });
+
+
+
+    /* Select选择 车型 载重区间 车长区间*/
+    //车型
+    $('#type').select({
+        title: '请选择车型',
+        items:[
+            {title: '栏板车', value: 1}, {title: '高栏车', value: 2}, {title: '厢式货车', value: 3}, {title: '自卸车', value: 4}, {title: '冷藏车', value: 5},
+            {title: '混凝土车', value: 6}, {title: '平板车', value: 7}, {title: '集装箱车', value: 9}, {title: '牵引车', value: 10}, {title: '其他', value: 8}
+        ]
+    });
+
+    //载重区间
+    $('#load').select({
+        title: '请选择载重区间', multi: true,
+        items: [
+            {title: '8吨以下', value: 1}, {title: '8-10吨', value: 2}, {title: '10-15吨', value: 3}, {title: '15-20吨', value: 4}, {title: '20-25吨', value: 5},
+            {title: '25-30吨', value: 6}, {title: '30吨以上', value: 7}
+        ]
+    });
+
+    //车长区间
+    $('#length').select({
+        title: '请选择车长区间', multi: true,
+        items: [
+            {title: '6米以下', value: 1}, {title: '6-9米', value: 2}, {title: '9-11米', value: 3}, {title: '11-15米', value: 4}, {title: '15-18米'},
+            {title: '18-23米', value: 6}, {title: '23米以上', value: 7}
+        ]
+    });
+</script>
+</html>

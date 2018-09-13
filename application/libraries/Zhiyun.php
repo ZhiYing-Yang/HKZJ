@@ -88,17 +88,17 @@ class Zhiyun
     }
 
     /*
-     * 车辆信息查询
+     * 行驶证信息查询
      * @param $car_number 车牌号
      * @param $color_code 车牌颜色号码 1：蓝色   2：黄色
      */
-    public function get_car_info($car_number, $color_code){
+    public function get_driving_license($car_number, $color_code){
         $token = $this->CI->db->select('token')->get_where('zhiyun_config', array('id'=>1))->result_array()[0]['token']; //获取token
         $p = 'token='.$token.'&vclN='.$car_number.'&vco='.$color_code; //拼接数据
 
         $p = $this->des_cbc_encrypt($p, $this->des_key, $this->iv); //加密
 
-        $url =  $this->apiUrl."/vQueryInfo/".$p."?client_id=".$this->clientId; //拼接uri
+        $url =  $this->apiUrl."//vQueryLicense/".$p."?client_id=".$this->clientId; //拼接uri
 
         $result = $this->https_curl($url); //请求API，获取信息
 
@@ -109,7 +109,40 @@ class Zhiyun
         // 业务逻辑
         if($result_arr['status'] == 1016){ //令牌失效
             if($this->get_token()){ //获取令牌 更新数据库信息 成功后继续请求获取位置
-                $this->get_car_info($car_number, $color_code);
+                $this->get_driving_license($car_number, $color_code);
+            }else{ //否则返回错误结果
+                return false;
+            }
+        }elseif($result_arr['status'] == 1001){ //数据获取成功
+            return $result_arr['result']; //返回位置信息
+        }elseif($result_arr['status'] == 1006){
+            return '无结果';
+        }else{
+            return false;
+        }
+    }
+
+    /*
+     * 找车接口 获取附近车辆
+     * */
+    public function get_car_info($str){
+        $token = $this->CI->db->select('token')->get_where('zhiyun_config', array('id'=>1))->result_array()[0]['token']; //获取token
+        $p = 'token='.$token.$str; //拼接数据
+
+        $p = $this->des_cbc_encrypt($p, $this->des_key, $this->iv); //加密
+
+        $url =  $this->apiUrl."/queryVclByMulFs/".$p."?client_id=".$this->clientId; //拼接uri
+
+        $result = $this->https_curl($url); //请求API，获取信息
+
+        $result_json = $this->des_cbc_decrypt($result, $this->des_key, $this->iv); //解密数据
+        echo $result_json;
+        $result_arr = json_decode($result_json, true);
+
+        // 业务逻辑
+        if($result_arr['status'] == 1016){ //令牌失效
+            if($this->get_token()){ //获取令牌 更新数据库信息 成功后继续请求获取位置
+                $this->get_car_info($str);
             }else{ //否则返回错误结果
                 return false;
             }

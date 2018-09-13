@@ -112,6 +112,7 @@ class Monitor extends CI_Controller
         }
     }
 
+    //货卡币充值
     public function recharge($action = 'see')
     {
         if ($action == 'see') {
@@ -145,6 +146,7 @@ class Monitor extends CI_Controller
 
     }
 
+    //行驶证查询
     public function driving_license(){
         //if(empty($this->input->post('car_number'))){ //车辆行驶证信息查询页面
 
@@ -155,10 +157,29 @@ class Monitor extends CI_Controller
             $color_code = 2;
             $this->load->library('zhiyun');
 
-            var_dump($this->zhiyun->get_car_info($car_number, $color_code));
+            var_dump($this->zhiyun->get_driving_license($car_number, $color_code));
         //}
     }
 
+    //找车
+    public function seek_car(){
+        $data = array(
+            'url' => site_url('monitor/seek_car'),
+            'timestamp' => time(),
+            'noncestr' => 'Wm3WZYTPz0wzccnW',
+            'appid' => $this->config->item('wechat_appid'),
+        );
+        $data = $this->get_signature($data); //获取签名
+        $this->load->view('monitor/seek_car.html', $data);
+    }
+
+    //获取车辆信息
+    public function car_info(){
+        //$str = $this->input->post('str');
+        $str = '&lon=188.629231&lat=34.657181';
+        $this->load->library('zhiyun');
+        $this->zhiyun->get_car_info($str);
+    }
     //获取志云平台token
     /*public function get_token(){
         $this->load->library('zhiyun');
@@ -199,9 +220,8 @@ class Monitor extends CI_Controller
 
 
     /*
-     * notify
+     * notify，微信支付完成回调接口
      * */
-
     public function notify()
     {
         // 实例支付接口

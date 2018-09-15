@@ -11,3 +11,10 @@
     font-weight: bold;
     text-align: center;
 }
+
+.result .result_tip{
+    text-align: center;
+    font-size: 15px;
+    color: #a2a9b6;
+    margin-top: 10px;
+}

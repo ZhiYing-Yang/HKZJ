@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>附近车辆信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="/style/monitor/css/car_info.css">
+    <link rel="stylesheet" href="/style/monitor/css/monitor.css">
+</head>
+<body>
+<div class="weui-panel weui-panel_access">
+    <div class="weui-panel__hd">附近车辆</div>
+    <div class="weui-panel__bd">
+        <?php foreach($car as $c): ?>
+        <div class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd">
+                <img class="weui-media-box__thumb" src="<?=$c['img']?>">
+            </div>
+            <div class="weui-media-box__bd">
+                <p class="weui-media-box__title">
+                    <button data-lon="<?=$c['lon']?>" data-lat="<?=$c['lat']?>" class="location weui-btn weui-btn_mini weui-btn_plain-primary">查看位置</button><span></span>
+                    <button data-vid="<?=$c['vid']?>" class="connect weui-btn weui-btn_mini weui-btn_plain-primary">联系车主</button>
+                </p>
+                <p class="weui-media-box__desc info">车牌号：<?=$c['vno']?>&emsp;车型：<?=$c['vcltype']?><br>定位时间：<?=date('Y-m-d H:i:s', ($c['utc']/1000))?></p>
+            </div>
+        </div>
+        <?php endforeach;?>
+    </div>
+    <div id="result" class="weui-popup__container">
+        <div class="weui-popup__overlay"></div>
+        <div class="weui-popup__modal">
+            <div class="result" style="margin-top: 150px">
+                <p class="title">查询结果</p>
+                <div class="result_info">
+                    <p>车主电话：<a class="#2486ff" id="phone"></a></p>
+                    <p>车主姓名：<span class="#4c5161" id="name">王浩鹏</span></p>
+                    <p>车牌号码：<sapn calss="#4c5161" id="car_number"></sapn></p>
+                    <p>车牌颜色：<span id="color">黄色</span></p>
+                    <p class="result_tip">查询结果请截图保存</p>
+                </div>
+            </div>
+            <div style="padding: 0 15px; margin-top: 50px">
+                <a href="javascript:void(0);" class="weui-btn weui-btn_primary close-popup" data-target="result">返回</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script>
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '<?=$appId?>', // 必填，公众号的唯一标识
+        timestamp: '<?=$timestamp?>', // 必填，生成签名的时间戳
+        nonceStr: '<?=$nonceStr?>', // 必填，生成签名的随机串
+        signature: '<?=$signature?>',// 必填，签名，见附录1
+        jsApiList: [
+            'openLocation',
+            'getLocation'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    //查看位置
+    $('.weui-panel').on('click', '.location', function(e){
+        e.stopPropagation();
+        var lat = $(this).attr('data-lat');
+        var lon = $(this).attr('data-lon');
+        wx.ready(function() {
+            wx.openLocation({
+                latitude: lat, //维度
+                longitude: lon, //经度
+                name: '',
+                address: '',
+                scale: 15,
+                infoUrl: 'http://www.jxhkzj.com'
+            });
+        });
+    });
+
+    //获取车主联系方式
+    $('.weui-panel').on('click', '.connect', function(e){
+        e.stopPropagation();
+        $.showLoading('正在查询');
+        var vid = $(this).attr('data-vid');
+        $.alert("本次查询将消耗2货卡币，你将获得车主联系电话，车主姓名，及车牌号码等相关信息！", '温馨提示', function(){
+
+            //$.alert(vid);return;
+            $.post('/monitor/driver_info', {vid: vid}, function(data){
+                if(data.code == 200){
+                    $.hideLoading();
+                    $.toptip('查询成功', 'success');
+                    set_data(data.data);
+
+                    $('#result').popup();
+                }else if(data.code == 410){ //提醒充值货卡币
+                    $.alert('货卡币余额不足，为了方便您的查询，请及时充值', '温馨提示', function(){
+                        window.location.href="/monitor/recharge";
+                    });
+                } else{
+                    $.hideLoading();
+                    $.toptip(data.message, 'error');
+                }
+            }, 'json');
+        });
+
+
+    });
+
+    function set_data(data){
+        $('#car_number').html(data.vehicleno);
+        if( data.platecolorid == 1){
+            $('#color').css('color', '#2486ff');
+            $('#color').html('蓝色');
+        }else{
+            $('#color').css('color', '#f28c48');
+            $('#color').html('黄色');
+        }
+        $('#name').html(data.vehicleOwnerName);
+        $('#phone').html(data.vehicleOwnerPhone);
+        $('#phone').attr('href', 'tel:'+data.vehicleOwnerPhone)
+    }
+</script>
+</html>

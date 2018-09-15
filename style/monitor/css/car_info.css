@@ -1,0 +1,17 @@
+.location, .connect{
+    height: 25px;
+    line-height: 25px;
+}
+.location{
+
+
+    float: left;
+}
+.connect{
+
+
+    float: right;
+}
+.info{
+    margin-top: 5px;
+}

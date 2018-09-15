@@ -161,8 +161,9 @@ class Monitor extends CI_Controller
         //}
     }
 
-    //找车
+    //找车,调用找车接口获取车辆信息
     public function seek_car(){
+        //获取微信js-Api签名
         $data = array(
             'url' => site_url('monitor/seek_car'),
             'timestamp' => time(),
@@ -170,16 +171,55 @@ class Monitor extends CI_Controller
             'appid' => $this->config->item('wechat_appid'),
         );
         $data = $this->get_signature($data); //获取签名
-        $this->load->view('monitor/seek_car.html', $data);
+
+        if(empty($this->input->post('str'))){ //找车页面
+
+            $this->load->view('monitor/seek_car.html', $data);
+
+        }else{ //调用接口获取附近车辆信息
+            $str = $this->input->post('str');
+
+            $this->load->library('zhiyun');
+            $data['car'] = $this->zhiyun->get_car_info($str);
+            //print_r($data['car']);
+            $this->load->view('monitor/car_info.html', $data);
+        }
     }
 
-    //获取车辆信息
-    public function car_info(){
-        //$str = $this->input->post('str');
-        $str = '&lon=188.629231&lat=34.657181';
+    //车主信息
+    public function driver_info(){
+        $vid = $this->input->post('vid');
+
+        $this->load->model('monitor_model');
+        $user = $this->monitor_model->get_user_info(array('id'=>$this->id))[0];
+        if($user['money'] < 2){ //货卡币不够，提醒用户充值
+            get_json(410, '货卡币余额不足，请及时充值');
+            return;
+        }
+
         $this->load->library('zhiyun');
-        $this->zhiyun->get_car_info($str);
+        $data = $this->zhiyun->get_driver_info($vid);
+        /*$data = array(
+            'vehicleno'=>'京 A12345',
+            'platecolorid'=>1,
+            'vehicleOwnerName'=>'王郝鹏',
+            'vehicleOwnerPhone'=>'15515613215'
+        );*/
+        if($data){
+            $this->db->update('monitor_user', array('money'=>($user['money']-2)), array('id'=>$this->id));
+            get_json(200, '查询成功', $data);
+        }else{
+            get_json(400, '未查询到相关信息，本次将不消耗货卡币！');
+        }
     }
+
+    public function car_info(){
+        $vid = '1194039326092323738';
+        $this->load->library('zhiyun');
+        $data = $this->zhiyun->get_driver_info($vid);
+        var_dump($data);
+    }
+
     //获取志云平台token
     /*public function get_token(){
         $this->load->library('zhiyun');

@@ -278,12 +278,13 @@ class Monitor extends CI_Controller
             //支付通知数据获取成功
             if ($notifyInfo['result_code'] == 'SUCCESS' && $notifyInfo['return_code'] == 'SUCCESS') {
                 // 支付状态完全成功，可以更新订单的支付状态了
-                $money = $this->monitor_model->get_user_info(array('id'=>$this->id))[0]['money'];
+                $user = $this->monitor_model->get_user_info(array('id'=>$this->id))[0];
                 //log_message('INFO', '充了这么多钱：'.$notifyInfo['total_fee']);
 
                 //更新用户货卡币数量
-                $recharged_money = $money + ($notifyInfo['total_fee']/100);
-                $this->db->update('monitor_user', array('money'=>$recharged_money), array('id'=>$this->id));
+                $recharged_money = $user['money'] + ($notifyInfo['total_fee']/100);
+                $pay_total = $user['pay_total'] + ($notifyInfo['total_fee']/100);
+                $this->db->update('monitor_user', array('money'=>$recharged_money, 'pay_total'=>$pay_total), array('id'=>$this->id));
                 // @todo
                 // 返回XML状态，至于XML数据可以自己生成，成功状态是必需要返回的。
                 $xml = '<xml>';

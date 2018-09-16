@@ -1,0 +1,4 @@
+[2018/08/10 07:51:16] ERR - wx6054b990b2f13757 - WechatOauth::getOauthUserInfo Fail.api unauthorized, hints: [ req_id: q04762273 ] [48001]
+[2018/08/10 08:01:01] ERR - wx6054b990b2f13757 - WechatOauth::getOauthUserInfo Fail.api unauthorized, hints: [ req_id: kUSsuA00602269 ] [48001]
+[2018/08/10 08:52:05] MSG - wx6054b990b2f13757 - Get New AccessToken Success.
+[2018/08/10 11:34:12] MSG - wx6054b990b2f13757 - getOauthAccessToken Fail, Because there is no access to the code value in get.

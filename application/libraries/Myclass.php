@@ -13,7 +13,7 @@ class Myclass {
 	}
 
 	//分页
-	public function fenye($page_url, $total_rows, $offset_uri_segment, $per_page = 10) {
+	public function fenye($page_url , $total_rows, $offset_uri_segment, $per_page = 10) {
 		//载入分页类
 		$this->CI->load->library('pagination');
 		//配置分页信息

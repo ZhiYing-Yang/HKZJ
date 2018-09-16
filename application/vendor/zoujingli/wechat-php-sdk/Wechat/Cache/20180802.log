@@ -1,0 +1,2 @@
+[2018/08/02 01:37:53] MSG - wx6054b990b2f13757 - Get New AccessToken Success.
+[2018/08/02 01:38:03] ERR - wx6054b990b2f13757 - WechatOauth::getOauthUserInfo Fail.api unauthorized, hints: [ req_id: r1cwKa0883hb45 ] [48001]

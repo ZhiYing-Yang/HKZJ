@@ -44,7 +44,7 @@ class Index_model extends CI_model {
 	}
 	//获取用户信息
 	public function get_user($where_arr) {
-		$get_info = 'user_id, nickname, headimgurl, phone, signature, sex, province, city, vip, status, openid';
+		$get_info = 'user_id, nickname, headimgurl, phone, signature, sex, province, city, vip, status';
 		$status = $this->db->select($get_info)->get_where('user', $where_arr)->result_array();
 		return $status;
 	}

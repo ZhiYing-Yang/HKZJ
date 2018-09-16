@@ -12,7 +12,7 @@
     <script src="/style/admin/js/jquery.js"></script>
 </head>
 
-<body style="background-color:#f2f9fd;">
+<body style="background-color:#f2f9fd; ">
 <div class="header bg-main">
     <div class="logo margin-big-left fadein-top">
         <h1><img style="width: 50px;height: 50px;" src="/style/index/img/marchant-img1.jpg" class="radius-circle rotate-hover" height="50" alt="" />货卡之家后台管理中心</h1>
@@ -43,15 +43,23 @@
 
     <!--二手车 Begin-->
     <h2><span class="icon-pencil-square-o"></span>二手车</h2>
-    <ul style="display:block">
+    <ul>
         <li><a href="<?=site_url('admin/admin/car_list')?>" target="right"><span class="icon-caret-right"></span>车辆列表</a></li>
-        <li><a href="<?=site_url('admin/admin/forum_list/公告/0')?>" target="right"><span class="icon-caret-right"></span>公告列表</a></li>
-        <li><a href="<?=site_url('admin/admin/forum_add_notice')?>" target="right"><span class="icon-caret-right"></span>添加公告</a></li>
-        <li><a href="<?=site_url('admin/admin/forum_user')?>" target="right"><span class="icon-caret-right"></span>论坛用户</a></li>
-        <li><a href="<?=site_url('admin/admin/accuse_article_list/')?>" target="right"><span class="icon-caret-right"></span>用户举报</a></li>
-        <li><a href="column.html" target="right"><span class="icon-caret-right"></span>栏目管理</a></li>
+        <li><a href="<?=site_url('admin/admin/forum_user')?>" target="right"><span class="icon-caret-right"></span>二手车用户</a></li>
+        <li><a href="<?=site_url('admin/admin/accuse_article_list/')?>" target="right"><span class="icon-caret-right"></span>二手车用户举报</a></li>
+        <li><a href="<?=site_url('admin/usedCar/developLog')?>" target="right"><span class="icon-caret-right"></span>开发日志</a></li>
     </ul>
     <!--二手车 End-->
+
+    <!--车辆监控 Begin-->
+    <h2><span class="icon-pencil-square-o"></span>车辆监控</h2>
+    <ul>
+        <li><a href="<?=site_url('admin/monitor/user_list')?>" target="right"><span class="icon-caret-right"></span>用户列表</a></li>
+        <li><a href="<?=site_url('admin/admin/forum_user')?>" target="right"><span class="icon-caret-right"></span>二手车用户</a></li>
+        <li><a href="<?=site_url('admin/admin/accuse_article_list/')?>" target="right"><span class="icon-caret-right"></span>二手车用户举报</a></li>
+        <li><a href="<?=site_url('admin/usedCar/developLog')?>" target="right"><span class="icon-caret-right"></span>开发日志</a></li>
+    </ul>
+    <!--车辆监控 End-->
 
 </div>
 <script type="text/javascript">

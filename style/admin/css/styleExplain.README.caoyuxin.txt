@@ -1,0 +1,9 @@
+@(pintuer.css)
+{
+    bootstap类似的栅格系统
+    栅格代码 {@(pintuer.css[line:88-91])}
+    x[n]:       每行总共12格
+    x[n]-left:  向右边n格
+    x[n]-right: 向左边n格
+    x[n]-move:  向右边推n格（margin-left）
+}

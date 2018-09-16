@@ -5,12 +5,7 @@ class Admin extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->session->set_userdata('admin_id', 9);//货卡之家货运平台管理员
-		/*$id = $this->session->userdata('id');
-		$admin_name = $this->session->userdata('admin_name');
-		$identity = $this->session->userdata('identity');
-		if (empty($id) || empty($admin_name) || empty($identity)) {
-			header('location:' . site_url('admin/login'));
-		}*/
+        $this->load->library('my_control'); //登录控制
 		$this->load->model('admin_model');
 	}
 	/*
@@ -284,43 +279,59 @@ class Admin extends CI_Controller {
 
     /**************************** 二手车管理 Begin************************************/
     //车辆列表
-    public function car_list($key = '其他', $value = '其他', $offset = 0){
-        $key = urldecode($key);
-        $value = urldecode($value);
+    public function car_list($offset = 0){
 
+        if(empty($_POST)){
+
+        }else{
+            p($_POST);
+        }
         $data['key'] = $key;
         $data['value'] = $value;
-
-
         $order_str = 'create_time DESC';
-        $array = array();
-        if($key == '排序'){
-            switch ($value){
-                case '最新上架':
-                    $order_str = 'create_time DESC';
-                    break;
-                case '价格最低':
-                    $order_str = 'whole_price ASC';
-                    break;
-                case '价格最高':
-                    $order_str = 'whole_price DESC';
-                    break;
-                case '降价急售':
-                    $order_str = 'whole_price ASC';
-                    break;
-            }
-        }elseif ($key == '车型'){
-            $array = array('car_type'=>$value);
-        }elseif ($key == '价格'){
-            $price = explode('到', $value);
-            $array = array('whole_price <=' => (float)$price[1], 'whole_price >=' => (float)$price[0]);
-        }elseif ($key == '排放'){
-            $array = array('parameter0' => $value);
+        $array = array(
+            "s_ishome" =>$this->input->post("s_ishome"),
+            "s_isvouch" =>$this->input->post("s_isvouch"),
+            "s_istop" =>$this->input->post("s_istop")
+        );
+
+//        if($key == '排序'){
+//            switch ($value){
+//                case '最新上架':
+//                    $order_str = 'create_time DESC';
+//                    break;
+//                case '价格最低':
+//                    $order_str = 'whole_price ASC';
+//                    break;
+//                case '价格最高':
+//                    $order_str = 'whole_price DESC';
+//                    break;
+//                case '降价急售':
+//                    $order_str = 'whole_price ASC';
+//                    break;
+//            }
+//        }elseif ($key == '车型'){
+//            $array = array('car_type'=>$value);
+//        }elseif ($key == '价格'){
+//            $price = explode('到', $value);
+//            $array = array('whole_price <=' => (float)$price[1], 'whole_price >=' => (float)$price[0]);
+//        }elseif ($key == '排放'){
+//            $array = array('parameter0' => $value);
+//        }
+//        else{
+//            $array = array();
+//            $order_str = 'create_time DESC';
+//        }
+        if($this->input->post("s_ishome")=="全部"){
+            $array["s_ishome"] = "";
         }
-        else{
-            $array = array();
-            $order_str = 'create_time DESC';
+        if($this->input->post("s_ishome")=="全部"){
+            $array["s_isvouch"] = "";
         }
+        if($this->input->post("s_ishome")=="全部"){
+            $array["s_istop"] = "";
+        }
+
         $this->load->model('usedcar_model');
 
         $per_page = 10;

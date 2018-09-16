@@ -45,6 +45,7 @@ class Login extends CI_Controller{
      * 通过code换取网页授权access_token 成功后 -->获取授权后的用户资料
      */
     public function get_access_token(){
+        log_message('INFO', '走到get_access_token这一步了');
         $oauth = & load_wechat('Oauth');
 
         //执行接口操作

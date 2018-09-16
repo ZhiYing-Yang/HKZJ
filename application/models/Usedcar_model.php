@@ -28,8 +28,7 @@ class Usedcar_model extends CI_model {
     }
     //获取搜索到的卖车信息
     public function get_search_list($keywords, $offset, $per_page = 10){
-
-        $this->db->like('title', $keywords)->or_like('postscript', $keywords)->or_like('brand', $keywords)->or_like('car_type', $keywords);
+        $this->db->like('title', $keywords)->or_like('postscript', $keywords)->or_like('brand', $keywords);
         $status = $this->db->order_by('create_time DESC')->get_where('used-car_sale', array(), $per_page, $offset)->result_array();
         return $status;
     }
@@ -52,5 +51,9 @@ class Usedcar_model extends CI_model {
             $i++;
         }
         return $parameter_arr;
+    }
+    //获取开发日志
+    public function develop(){
+
     }
 }

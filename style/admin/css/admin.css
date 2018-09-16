@@ -33,7 +33,7 @@ ul,li{ list-style-type:none;}
 .leftnav ul li a:hover,.leftnav ul li a.on{ color:#09c;}
 
 /***主要内容***/
-.admin{background:#fff;position:fixed;border-left:solid 1px #b5cfd9;right:0;bottom:0;top:110px;left:180px; padding:15px; padding-right:0px; padding-bottom:0px; overflow:auto; border-top:1px solid #b5cfd9; padding-right:15px;}
+.admin{background:#fff;position:fixed;border-left:solid 1px #b5cfd9;right:0;bottom:0;top:110px;left:180px; padding:15px; padding-right:0px; padding-bottom:5px; overflow:auto; border-top:1px solid #b5cfd9; padding-right:15px;}
 .content{width:100%;}
 .body-content{padding:20px 0; overflow:hidden;}
 .content .title{ border-bottom:1px solid #dfdfdf; line-height:35px; font-size:14px; font-weight:bold; color:#09c}

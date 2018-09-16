@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Wechat\\' => array($vendorDir . '/zoujingli/wechat-php-sdk/Wechat'),
+    'Qcloud\\Sms\\' => array($vendorDir . '/qcloudsms/qcloudsms_php/src'),
 );

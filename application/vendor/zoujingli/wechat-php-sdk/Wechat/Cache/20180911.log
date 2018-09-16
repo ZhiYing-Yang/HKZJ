@@ -1,0 +1,24 @@
+[2018/09/11 01:21:01] MSG - wx6054b990b2f13757 - Get New AccessToken Success.
+[2018/09/11 04:21:01] MSG - wx6054b990b2f13757 - Get New AccessToken Success.
+[2018/09/11 07:16:16] MSG - wx6054b990b2f13757 - Get New AccessToken Success.
+[2018/09/11 11:24:19] MSG - wx6054b990b2f13757 - Get New AccessToken Success.
+[2018/09/11 12:07:50] MSG - wx6054b990b2f13757 - Payment notification signature verification success.array (
+  'appid' => 'wx6054b990b2f13757',
+  'bank_type' => 'CFT',
+  'cash_fee' => '100',
+  'fee_type' => 'CNY',
+  'is_subscribe' => 'Y',
+  'mch_id' => '1514040091',
+  'nonce_str' => '3dxdfl7wej951kcugk7ff7gzzieekrjl',
+  'openid' => 'oLDpi0XOB8pyXBQuzWA-4jeTZZ1s',
+  'out_trade_no' => '15366676643382',
+  'result_code' => 'SUCCESS',
+  'return_code' => 'SUCCESS',
+  'sign' => '2DDF5F3B32E2815CDD708036DB5B925A',
+  'time_end' => '20180911200749',
+  'total_fee' => '100',
+  'trade_type' => 'JSAPI',
+  'transaction_id' => '4200000201201809111442329503',
+)
+[2018/09/11 12:50:55] MSG - wx6054b990b2f13757 - Get New AccessToken Success.
+[2018/09/11 23:38:38] MSG - wx6054b990b2f13757 - Get New AccessToken Success.

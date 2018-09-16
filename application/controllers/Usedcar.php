@@ -281,8 +281,27 @@ class Usedcar extends CI_Controller {
 
         $this->db->update('used-car_sale', array('read'=>($data['sale']['read']+1)));//访问量加一
 
+        $data["id"] = $id;
+
         $this->load->view('usedcar/car-detail.html', $data);
+
     }
+    public function see_json($id){ //根据车辆id返回json数据
+    $info = $this->usedcar_model->get_sale_list(array('id'=>$id), 0, 1);
+    if(empty($info)){
+        $data['str'] = '该卖车信息已被删除！';
+        $this->load->view('usedcar/not_found.html', $data);
+        return;
+    }
+
+    $data['sale'] = $info[0];   //卖车信息
+
+
+    $data["id"] = $id;
+
+    return $data["sale"];
+
+}
 
     //收藏卖车信息
     public function collect($id){
@@ -429,6 +448,18 @@ class Usedcar extends CI_Controller {
     public function authcode(){
         $this->load->library('myclass');
         $this->myclass->authcode('usedcar_authcode');
+    }
+    public function record(){  //历史记录
+
+        $this->load->view("usedcar/record.html");
+        $this->load->view("usedcar/footer.html",array("active"=>""));
+    }
+    public function record_process_data(){  //历史记录
+        $data = $this->input->post("data");
+        foreach ($data as $v){
+            $result[]=$this->see_json($v);
+        }
+        echo json_encode($result);
     }
 
 }

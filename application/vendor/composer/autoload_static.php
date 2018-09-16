@@ -11,12 +11,20 @@ class ComposerStaticInit83638b185194dfb080eb53c4d4ea3ca7
         array (
             'Wechat\\' => 7,
         ),
+        'Q' => 
+        array (
+            'Qcloud\\Sms\\' => 11,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Wechat\\' => 
         array (
             0 => __DIR__ . '/..' . '/zoujingli/wechat-php-sdk/Wechat',
+        ),
+        'Qcloud\\Sms\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/qcloudsms/qcloudsms_php/src',
         ),
     );
 

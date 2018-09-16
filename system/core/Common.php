@@ -849,3 +849,9 @@ function & load_wechat($type = '') {
     }
     return $wechat[$index];
 }
+function p($data){  //格式化打印
+    foreach ($data as $k=>$v){
+        echo "<pre>${k} => ${v}</pre>";
+    }
+
+}

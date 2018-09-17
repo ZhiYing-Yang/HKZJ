@@ -15,6 +15,7 @@ class Monitor extends CI_Controller{
         $this->load->model('monitor_model');
     }
 
+    //用户列表
     public function user_list($order = 'default', $offset = 0){
         if($order = 'money'){
             $order_str = 'money DESC';
@@ -29,6 +30,14 @@ class Monitor extends CI_Controller{
         $data['link'] = $this->myclass->fenye($page_url, $total_rows, $offset_uri_segment, $per_page);
         $data['user'] = $this->monitor_model->get_user_list(array(), $order_str, $offset, $per_page);
         $this->load->view('admin/monitor/user_list.html', $data);
+    }
+
+    //搜索用户
+    public function user_search($keywords){
+        $data['keywords'] = urldecode($keywords);
+        $data['user'] = $this->monitor_model->get_user_search($data['keywords']);
+        $data['link'] = '';
+        $this->load->view('admin/monitor/');
     }
 
 }

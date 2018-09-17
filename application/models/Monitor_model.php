@@ -14,8 +14,18 @@ class Monitor_model extends CI_model {
         return $status;
     }
 
+    /*************** 后台 ****************/
+
+    //后台获取用户列表
     public function get_user_list($where_arr, $order_str = 'id DESC', $offset=0, $per_page = 10){
         $status = $this->db->order_by($order_str)->get_where('monitor_user', $where_arr, $per_page, $offset)->result_array();
+        return $status;
+    }
+
+    //搜索用户
+    public function get_user_search($keywords){
+        $keywords = addslashes($keywords);
+        $status = $this->db->get('monitor_user')->like('nickname', $keywords)->result_array();
         return $status;
     }
 }

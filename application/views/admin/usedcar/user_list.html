@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>车辆监控用户列表</title>
+    <title>二手车用户列表</title>
     <link rel="stylesheet" href="/style/admin/css/pintuer.css">
     <link rel="stylesheet" href="/style/admin/css/admin.css">
     <script src="/style/admin/js/jquery.js"></script>
@@ -19,13 +19,14 @@
         <div class="panel-head"><strong class="icon-reorder"> 论坛用户列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
             <ul class="search" style="padding-left:10px;">
-                <li>搜索：</li>
+                <li>用户类型：</li>
                 <if condition="$iscid eq 1">
                     <li>
                         <select name="cid" class="input" style="width:200px; line-height:17px;" onchange="changetype(this)">
                             <option value="">请选择排序</option>
-                            <option value="default">默认顺序</option>
-                            <option value="pay_total">累计充值</option>
+                            <option value="个人">个人</option>
+                            <option value="经纪人">经纪人</option>
+                            <option value="商家">商家</option>
                         </select>
                     </li>
                 </if>
@@ -38,10 +39,10 @@
             <tr>
                 <th>昵称</th>
                 <th>头像</th>
-                <th>当月剩余免费次数</th>
-                <th>货卡币</th>
-                <th>累计充值</th>
-
+                <th>真实姓名</th>
+                <th>手机号</th>
+                <th>身份</th>
+                <th>操作</th>
             </tr>
             <volist name="list" id="vo">
                 <?php foreach($user as $u):?>
@@ -50,10 +51,14 @@
                     <td width="10%">
                         <img style="width: 50px;height: 50px;border-radius: 50%" src="<?=$u['headimgurl']?>" alt="无头像">
                     </td>
-                    <td><span style="color: #f4615c"><?=$u['free_time']?></span> 次</td>
-                    <td><span style="color: #f4615c"><?=$u['money']?></span> 个</td>
-                    <td><span style="color: #f4615c"><?=$u['pay_total']?></span> 元</td>
-
+                    <td><?=$u['realname']?></td>
+                    <td><?=$u['phone']?></td>
+                    <td><?=$u['merchant_type']?></td>
+                    <td>
+                        <div class="button-group">
+                            <a class="button border-main" href="<?=site_url('usedcar/see/'.$u['id'])?>"><span class="icon-eye"></span> 查看</a>
+                        </div>
+                    </td>
                 </tr>
                 <?php endforeach;?>
 
@@ -63,6 +68,7 @@
                         <div class="pagelist"> <?=$link?> </div>
                     </td>
                 </tr>
+
             </volist>
         </table>
     </div>

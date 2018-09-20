@@ -354,7 +354,7 @@ class Usedcar extends CI_Controller {
             $this->load->view('usedcar/apply-for-personal.html');
         }else if($type == 'company'){   //商家认证页
             $this->load->view('usedcar/apply-for-company.html');
-        }else{  //选择认证方式
+        }else{  //选择认证类型
             $this->load->view('usedcar/apply-for.html');
         }
     }
@@ -369,6 +369,7 @@ class Usedcar extends CI_Controller {
         }
 
         $data = array(
+            'user_id'   =>  $this->id,
             'realname'  =>  $this->input->post('realname'),     //真实姓名
             'address'   =>  $this->input->post('address'),      //所在地址
             'ID_card'   =>  $this->input->post('ID_card'),      //身份证号
@@ -378,7 +379,9 @@ class Usedcar extends CI_Controller {
             'img1'      =>  $this->input->post('img1'),         //身份证背面
             'img2'      =>  $this->input->post('img2'),         //手持身份证
             'type'      =>  $type, //认证类型
+            'create_time'      =>  time(),
         );
+
         //商家额外信息
         if($type == '商家'){
             $data['img3'] = $this->input->post('img3'); //营业执照
@@ -389,7 +392,7 @@ class Usedcar extends CI_Controller {
             $data['company_address'] = $this->input->post('company_address'); //公司地址
         }
 
-        if($this->db->insert('used-car_apply', $data)){
+        if($this->db->update('used-car_user', $data, array('id'=>$this->id))){
             get_json(200, '提交成功!');
         }else{
             get_json(200, '提交失败!');

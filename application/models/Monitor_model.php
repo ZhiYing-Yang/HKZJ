@@ -25,7 +25,8 @@ class Monitor_model extends CI_model {
     //搜索用户
     public function get_user_search($keywords){
         $keywords = addslashes($keywords);
-        $status = $this->db->get('monitor_user')->like('nickname', $keywords)->result_array();
+        $this->db->like('nickname', $keywords);
+        $status = $this->db->get('monitor_user')->result_array();
         return $status;
     }
 }

@@ -37,7 +37,7 @@ class Monitor extends CI_Controller{
         $data['keywords'] = urldecode($keywords);
         $data['user'] = $this->monitor_model->get_user_search($data['keywords']);
         $data['link'] = '';
-        $this->load->view('admin/monitor/');
+        $this->load->view('admin/monitor/user_list.html', $data);
     }
 
 }

@@ -9,6 +9,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Usedcar_model extends CI_model {
+
     //获取用户信息
     public function get_user_info($where_arr){
         $status = $this->db->get_where('used-car_user', $where_arr)->result_array();
@@ -55,5 +56,35 @@ class Usedcar_model extends CI_model {
     //获取开发日志
     public function develop(){
 
+    }
+
+    /*
+     * 二手车后台管理
+     * */
+
+    //用户列表
+    public function get_user_list($where_arr, $offset, $per_page = 10){
+        $status = $this->db->order_by('id DESC')->get_where('used-car_user', $where_arr, $per_page, $offset)->result_array();
+        return $status;
+
+    }
+
+    //搜索用户
+    public function get_user_search($keywords){
+        $keywords = addslashes($keywords);
+        $status = $this->db->like('nickname', $keywords)->or_like('realname', $keywords);
+        return $status;
+    }
+
+    //认证申请
+    public function get_apply_list($where_arr, $offset, $per_page = 10){
+        $status = $this->db->order_by('create_time DESC')->get_where('used-car_apply', $where_arr, $per_page, $offset)->result_array();
+        return $status;
+    }
+
+    //获取所有数据条数
+    public function get_total_rows($where_arr, $table){
+        $status = $this->db->where($where_arr)->count_all_results($table);
+        return $status;
     }
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,52 +11,46 @@
     <script src="/style/admin/js/jquery.js"></script>
     <script src="/style/admin/js/pintuer.js"></script>
 </head>
-
 <body>
-<form method="post" action="<?=site_url('admin/admin/car_list')?>" id="listform">
-    <button type="submit" hidden></button>
+<form method="post" action="" id="listform">
     <div class="panel admin-panel">
         <div class="panel-head"><strong class="icon-reorder">二手车列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
             <ul class="search" style="padding-left:10px;">
-                <li style="line-height: 43px;font-weight: bold">搜索：</li>
-                <li>车型 :
-                    <select name="s_ishome" class="input text-center"  onchange="changetype('车型', this)" style="width:auto; min-width: 60px; line-height:17px; padding: 10px 10px 10px 10px; display:inline-block">
-                        <option value="全部" <?=set_select("s_ishome","全部") ?> >全部</option>
-                        <option value="牵引车" <?=set_select("s_ishome","牵引车") ?> >牵引车</option>
-                        <option value="载货车" <?=set_select("s_ishome","载货车") ?>>载货车</option>
-                        <option value="自卸车" <?=set_select("s_ishome","自卸车") ?>>自卸车</option>
-                        <option value="轻卡" <?=set_select("s_ishome","轻卡") ?>>轻卡</option>
-                        <option value="挂车" <?=set_select("s_ishome","挂车") ?>>挂车</option>
-                        <option value="搅拌车" <?=set_select("s_ishome","搅拌车") ?>>搅拌车</option>
-                        <option value="专用车" <?=set_select("s_ishome","专用车") ?>>专用车</option>
+                <li>搜索：</li>
+                <li>车型
+                    <select name="s_ishome" class="input" onchange="changetype('车型', this)" style="width:60px; line-height:17px; display:inline-block">
+                        <option value="">选择</option>
+                        <option value="牵引车">牵引车</option>
+                        <option value="载货车">载货车</option>
+                        <option value="自卸车">自卸车</option>
+                        <option value="轻卡">轻卡</option>
+                        <option value="挂车">挂车</option>
+                        <option value="搅拌车">搅拌车</option>
+                        <option value="专用车">专用车</option>
                     </select>
                     &nbsp;&nbsp;
-                    价格 :
-                    <select name="s_isvouch" class="input text-center" onchange="changetype('价格', this)"  style="width:auto; min-width: 40px; line-height:17px; padding: 10px 10px 10px 10px; display:inline-block">
-                        <option value="全部"    <?=set_select("s_isvouch","全部") ?> >全部</option>
-                        <option value="0到5"   <?=set_select("s_isvouch","0到5") ?> >0-5万</option>
-                        <option value="5到10"  <?=set_select("s_isvouch","5到10") ?> >5万-10万</option>
-                        <option value="10到20" <?=set_select("s_isvouch","10到20") ?> >10万-20万</option>
-                        <option value="20到50" <?=set_select("s_isvouch","20到50") ?> >20万-50万</option>
+                    价格
+                    <select name="s_isvouch" class="input" onchange="changetype('价格', this)"  style="width:60px; line-height:17px;display:inline-block">
+                        <option value="">选择</option>
+                        <option value="0到5">0-5万</option>
+                        <option value="5到10">5万-10万</option>
+                        <option value="10到20">10万-20万</option>
+                        <option value="20到50">20万-50万</option>
                     </select>
                     &nbsp;&nbsp;
-                    排放 :
-                    <select name="s_istop" class="input text-center" onchange="changetype('排放', this)"  style="width:auto; min-width: 60px; line-height:17px; padding: 10px 10px 10px 10px; display:inline-block">
-                        <option value="全部" <?=set_select("s_istop","全部") ?>  >全部</option>
-                        <option value="国二" <?=set_select("s_istop","国二") ?>  >国二</option>
-                        <option value="国三" <?=set_select("s_istop","国三") ?>  >国三</option>
-                        <option value="国四" <?=set_select("s_istop","国四") ?>  >国四</option>
-                        <option value="国五" <?=set_select("s_istop","国五") ?>  >国五</option>
+                    排放
+                    <select name="s_istop" class="input" onchange="changetype('排放', this)"  style="width:60px; line-height:17px;display:inline-block">
+                        <option value="">选择</option>
+                        <option value="国二">国二</option>
+                        <option value="国三">国三</option>
+                        <option value="国四">国四</option>
+                        <option value="国五">国五</option>
                     </select>
                 </li>
                 <li>
-                    <input type="text" placeholder="请输入搜索关键字" name="keywords"   id="search" class="input" style="width:450px; line-height:17px;display:inline-block" value="<?=set_value('keywords')?>"/>
-                    <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()"> 搜索</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" onclick="refresh()" class="button border-main icon-edit ">重置搜索选项</a>
-                </li>
+                    <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:450px; line-height:17px;display:inline-block" value="<?=isset($keywords)?$keywords:''?>"/>
+                    <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()"> 搜索</a></li>
             </ul>
         </div>
         <table class="table table-hover text-center">
@@ -84,8 +77,6 @@
                     </td>
                 </tr>
                 <?php endforeach;?>
-
-
                 <tr>
                     <td colspan="8">
                         <div class="pagelist"> <?=$link?> </div>
@@ -97,32 +88,16 @@
 </form>
 <script type="text/javascript">
     function changetype(key, the){
-        //location.href = "<?=site_url('admin/admin/car_list/')?>"+key+ '/' +the.value;
-        /**
-         * select内容改变后直接提交表单
-         *
-         */
-        $("button[type='submit']").click();
+        location.href = "<?=site_url('admin/admin/car_list/')?>"+key+ '/' +the.value;
     }
-
     //搜索
     function changesearch() {
         var keywords = $.trim($('input[name="keywords"]').val());
-
         if(keywords.length == 0){
             alert('请输入关键字');
         }else{
-           // location.href="<?=site_url('admin/admin/car_search/')?>"+keywords;
-            //点击搜索即为提交表单
-            $("button[type='submit']").click();
+            location.href="<?=site_url('admin/admin/car_search/')?>"+keywords;
         }
-
-    }
-    //重置搜索选项
-    function refresh() {
-        $("select").find("option[value='全部']").attr("selected",true);
-        $("#search").val("");
-        $("button[type='submit']").click();
     }
     //单个删除
     function del(id) {
@@ -130,9 +105,6 @@
             location.href="<?=site_url('admin/admin/car_action/delete/')?>"+id;
         }
     }
-
-
 </script>
 </body>
-
 </html>

@@ -58,6 +58,37 @@ class UsedCar extends CI_Controller
         $data['apply'] = $this->usedcar_model->get_apply_list($where_arr, $offset, $per_page);
         $this->load->view('admin/usedcar/apply_list.html', $data);
     }
+
+    //认证页面
+    public function approve($id){
+        if(!is_numeric($id)){
+            alert_msg('参数错误');
+        }
+        $data['apply'] = $this->usedcar_model->get_apply_info(array('id'=>$id))[0]; //申请信息
+        if(empty($data['apply'])){
+            alert_msg('该申请已被删除');
+        }
+        $data['user'] = $this->usedcar_model->get_user_info(array('id'=>$data['apply']['user_id']))[0]; //发起申请的用户的信息
+        $this->load->view('admin/usedcar/apply_info.html', $data);
+    }
+
+    public function do_approve(){
+        $apply_id = $this->input->post('apply_id'); //申请信息 id
+        $code = $this->input->post('code'); //认证结果 1=>通过认证 -1=> 未通过
+        $status = $this->db->update('used-car_apply', array('status'=>$code), array('id'=>$apply_id));
+        if($code == 1){
+            $user_id = $this->input->post('user_id');
+            $identify = $this->input->post('identify');
+            $this->db->update('used-car_user', array('identify'=>$identify), array('id'=>$user_id));
+        }
+
+        if($status){
+            get_json(200, '操作成功！');
+        }else{
+            get_json(400, '操作失败，请稍后重试！');
+        }
+
+    }
     public function developLog(){
         $this->load->view("admin/usedcar/developLog.html");
     }

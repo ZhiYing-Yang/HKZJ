@@ -82,9 +82,16 @@ class Usedcar_model extends CI_model {
         return $status;
     }
 
+    //获取弹跳认证信息
+    public function get_apply_info($where_arr){
+        return $this->db->get_where('used-car_apply', $where_arr)->result_array();
+    }
+
     //获取所有数据条数
     public function get_total_rows($where_arr, $table){
         $status = $this->db->where($where_arr)->count_all_results($table);
         return $status;
     }
+
+
 }

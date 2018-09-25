@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>网站信息</title>
+    <link rel="stylesheet" href="/style/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/style/admin/css/admin.css">
+    <script src="/style/admin/js/jquery.js"></script>
+    <script src="/style/admin/js/pintuer.js"></script>
+</head>
+
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 网站信息</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="">
+            <div class="form-group">
+                <div class="label">
+                    <label>真实姓名：</label>
+                </div>
+                <div class="field">
+                    <input type="hidden" name="apply_id" class="input" value="<?=$apply['id']?>" readonly/>
+                    <input type="hidden" name="user_id" class="input" value="<?=$apply['user_id']?>" readonly/>
+                    <input type="text" class="input" value="<?=$apply['realname']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>身份证号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$apply['ID_card']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>手机号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$apply['phone']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>申请时间：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$apply['create_time']?>" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>申请类型：</label>
+                </div>
+                <div class="field">
+                    <input type="text" name="identify" class="input"  value="<?=$apply['type']?>" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$apply['address']?>" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>微信号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$apply['we_chat']?>" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>身份证正面照：</label>
+                </div>
+                <div class="field">
+                    <img src="<?=$apply['img0']?>" alt="未上传身份证正面照">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>身份证正面照：</label>
+                </div>
+                <div class="field">
+                    <img src="<?=$apply['img0']?>" alt="未上传身份证正面照">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>身份证反面照：</label>
+                </div>
+                <div class="field">
+                    <img src="<?=$apply['img1']?>" alt="未上传身份证反面照">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>手持身份证照：</label>
+                </div>
+                <div class="field">
+                    <img src="<?=$apply['img2']?>" alt="未上传手持身份证照">
+                    <div class="tips"></div>
+                </div>
+            </div>
+
+            <!-- 申请成为商家 -->
+            <?php if($apply['type'] == '商家'){?>
+            <div class="form-group">
+                <div class="label">
+                    <label>营业执照：</label>
+                </div>
+                <div class="field">
+                    <img src="<?=$apply['img3']?>" alt="未上传营业执照">
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>商家类型：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$apply['merchant_type']?>" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>公司名称：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$apply['company_name']?>" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>有效期：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$apply['indate']?>" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>注册号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$apply['registration_number']?>" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>公司地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$apply['company_address']?>" readonly/>
+                </div>
+            </div>
+            <?php }?>
+
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" id="pass" type="button"> 通过认证</button>
+                    <button class="button border-red icon-trash-o" id="refuse" type="button" style="margin-left: 50px;"> 拒绝认证</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+$('button').click(function (e) {
+    //alert(1);
+    if($(this).attr('id') == 'pass'){ //通过认证
+        var data = {code: 1}
+    }else{
+        var data = {code: -1}
+    }
+    data.apply_id = $('input[name="apply_id"]').val();
+    data.user_id = $('input[name="user_id"]').val();
+    data.identify = $('input[name="identify"]').val();
+    $.post('/admin/usedCar/do_approve', data, function(data){
+        if(data.code == 200){
+            alert('操作成功！');
+            window.history.go(-1);
+        }else{
+            alert(data.message);
+        }
+    }, 'json');
+});
+</script>
+</html>

@@ -85,7 +85,7 @@ $('input[type="file"]').on('change', function(e){
 $(".submit_btn").click(function(e) {
     e.preventDefault();
     $.showLoading('正在提交');
-    var url = '/usedcar/apply/'+$(this).attr('type');
+    var url = '/usedcar/apply/'+$(this).attr('data-type');
     //验证码
     var authcode = $.trim($('input[name="authcode"]').val());
     if(authcode.length != 4){

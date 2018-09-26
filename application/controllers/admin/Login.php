@@ -26,19 +26,29 @@ class Login extends CI_Controller {
 		$this->load->model('admin_model');
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-		$status = $this->admin_model->get_admin_info($username, md5($password));
+
+		$status = $this->admin_model->get_admin_info($username);
+
 		if (empty($status)) {
 			alert_msg('用户名或密码错误');
 		} else {
-			$this->session->set_userdata(array('admin_name' => $username, 'id' => $status[0]['id'], 'identity' => $status[0]['identity']));
-			header('location:' . site_url('admin/admin/'));
+            //载入加密类 初始化散列器为不可移植(这样更安全)
+            $this->load->library('password_hash', array(8, false));
+            if($this->passwrod_hash->CheckPassword($password, $status[0]['password'])){
+                $this->session->set_userdata(array('admin_name' => $username, 'id' => $status[0]['id'], 'identity' => $status[0]['identity']));
+                header('location:' . site_url('admin/admin/'));
+            }else{
+                alert_msg('用户名或密码错误');
+            }
 		}
-		exit;
 	}
-	/*
-		修改密码
-	*/
-
+	
+    public function ceshi(){
+        $this->load->library('password_hash', array(8, false));
+        $hashed_password = $this->password_hash->HashPassword('123456');
+        echo $hashed_password;
+        var_dump($this->password_hash->CheckPassword('123456', $hashed_password));
+    }
 	/*
 		退出
 	*/

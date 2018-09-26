@@ -25,7 +25,7 @@
                 <div class="panel-body" style="padding:30px; padding-bottom:10px; padding-top:10px;">
                     <div class="form-group">
                         <div class="field field-icon-right">
-                            <input type="text" class="input input-big" name="name" placeholder="登录账号" data-validate="required:请填写账号" />
+                            <input type="text" class="input input-big" name="username" placeholder="登录账号" data-validate="required:请填写账号" />
                             <span class="icon icon-user margin-small"></span>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="form-group">
                         <div class="field">
-                            <input type="text" class="input input-big" name="code" placeholder="填写右侧的验证码" data-validate="required:请填写右侧的验证码" />
+                            <input type="text" class="input input-big" name="authcode" placeholder="填写右侧的验证码" data-validate="required:请填写右侧的验证码" />
                             <a class="passcode" href="javascript:void(0)" onclick="document.getElementById('yanzhengma').src='<?php echo site_url('admin/login/authcode'); ?>/'+Math.random()">
                                 <img  id="yanzhengma" src="<?php echo site_url('admin/login/authcode'); ?>/<?php echo rand(); ?>" style="right"/>
                             </a>

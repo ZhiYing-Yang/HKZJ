@@ -4,7 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
-        $this->session->set_userdata('admin_id', 9);//货卡之家货运平台管理员
+        if(empty($this->session->userdata('user_id'))){
+            $this->session->set_userdata('user_id', 9);
+        }
         $this->load->library('my_control'); //登录控制
         $this->load->model('admin_model');
 	}
@@ -17,6 +19,37 @@ class Admin extends CI_Controller {
 
     public function see_view(){
         $this->load->view('admin/list.html');
+    }
+
+    //修改密码
+    public function edit_password($action = 'view'){
+        if($action == 'do'){
+            $new_password = $this->input->post('new_password');
+            $repeat_password = $this->input->post('repeat_password');
+            if($new_password != $repeat_password){
+                alert_msg('两次输入密码不一致');
+            }
+
+            $old_password = $this->input->post('old_password');
+            $admin_id = $this->session->userdata('admin_id');
+            $admin =  $this->admin_model->get_admin_info(array('id'=>$admin_id))[0];
+            $this->load->library('password_hash', array(8, false));
+            if($this->password_hash->CheckPassword($old_password, $admin['password'])){ //旧密码校验成功
+                $hashed_password = $this->password_hash->HashPassword($new_password);
+                if($this->db->update('admin', array('password'=>$hashed_password), array('id'=>$admin_id))){
+                    $this->session->sess_destroy();
+                    alert_msg('密码修改成功，请重新登录！');
+                }else{
+                    alert_msg('密码修改失败，请重试！');
+                }
+
+            }else{
+                alert_msg('旧密码输入错误');
+            }
+
+        }else{
+            $this->load->view('admin/edit_password.html');
+        }
     }
     
 	/**********************  论坛用户部分  ***********************/

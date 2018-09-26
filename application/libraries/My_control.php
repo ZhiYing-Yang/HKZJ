@@ -13,12 +13,11 @@ class My_control{
         # code...
         $this->CI = &get_instance();
 
-        $this->CI->session->set_userdata('admin_id', 9);//货卡之家货运平台管理员
-        /*$id = $this->CI->session->userdata('id');
+        $id = $this->CI->session->userdata('admin_id');
         $admin_name = $this->CI->session->userdata('admin_name');
         $identity = $this->CI->session->userdata('identity');
         if (empty($id) || empty($admin_name) || empty($identity)) {
             header('location:' . site_url('admin/login'));
-        }*/
+        }
     }
 }

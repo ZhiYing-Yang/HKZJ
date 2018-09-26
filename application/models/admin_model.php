@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin_model extends CI_Model {
     //管理员
-    public function get_admin_info($username){
-        return $this->db->get_where('admin', array('username'=>$username))->result_array();
+    public function get_admin_info($where_arr){
+        return $this->db->get_where('admin', $where_arr)->result_array();
     }
     /******************** 论坛部分Begin *********************/
     //论坛文章搜索

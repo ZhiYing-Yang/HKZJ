@@ -16,7 +16,7 @@ class Usedcar extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        /*$this->session->set_userdata('used_car_user_id', 1);*/
+        //$this->session->set_userdata('used_car_user_id', 1); //测试用户
         $this->id = $this->session->userdata('used_car_user_id');
         if(empty($this->id)){
             header('location:'.site_url('login/used_car_login'));

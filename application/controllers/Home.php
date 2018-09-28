@@ -6,9 +6,9 @@ class Home extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('index_model');
-		if(empty($this->session->userdata('user_id'))){
+		/*if(empty($this->session->userdata('user_id'))){ //测试用户
 		    $this->session->set_userdata('user_id', 4);
-        }
+        }*/
 	}
 
 	//论坛首页帖子，type = '精品' => 精品帖子 '所有'=>除了卡友求助以外的全部帖子 '热门'=>卡友求助的热门帖子

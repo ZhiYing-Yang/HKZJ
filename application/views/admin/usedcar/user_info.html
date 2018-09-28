@@ -14,17 +14,99 @@
 </head>
 
 <body>
+
 <div class="panel admin-panel">
-    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> <?=$apply['realname']?>的认证申请</strong></div>
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> <?=$user['nickname']?>的个人信息</strong></div>
     <div class="body-content">
-        <form method="post" class="form-x" action="">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>昵称：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$user['nickname']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>头像：</label>
+                </div>
+                <div class="field">
+                    <img src="<?=$user['headimgurl']?>" alt="无头像">
+                    <div class="tips"></div>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="label">
                     <label>真实姓名：</label>
                 </div>
                 <div class="field">
-                    <input type="hidden" name="apply_id" class="input" value="<?=$apply['id']?>" readonly/>
-                    <input type="hidden" name="user_id" class="input" value="<?=$apply['user_id']?>" readonly/>
+                    <input type="text" class="input" value="<?=$user['realname']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>手机号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$user['phone']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$user['address']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>微信号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$user['wechat']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>身份：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=empty($user['identify'])?'个人':$user['identify']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php if(isset($apply) && !empty($apply)):?>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> <?=$apply['realname']?>的认证信息</strong></div>
+    <div class="body-content">
+
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>认证状态：</label>
+                </div>
+                <div class="field">
+
+                    <input type="text" class="input" value="<?php if($apply['status']==0){echo '未认证';}elseif($apply['status']==1){echo '通过认证';}else{echo '拒绝认证';}?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>真实姓名：</label>
+                </div>
+                <div class="field">
+
                     <input type="text" class="input" value="<?=$apply['realname']?>" readonly/>
                     <div class="tips"></div>
                 </div>
@@ -166,18 +248,12 @@
             </div>
             <?php }?>
 
-            <div class="form-group">
-                <div class="label">
-                    <label></label>
-                </div>
-                <div class="field">
-                    <button class="button bg-main icon-check-square-o" id="pass" type="button"> 通过认证</button>
-                    <button class="button border-red icon-trash-o" id="refuse" type="button" style="margin-left: 50px;"> 拒绝认证</button>
-                </div>
-            </div>
-        </form>
+
+        </div>
+
     </div>
 </div>
+<?php endif;?>
 </body>
 <script>
 $('button').click(function (e) {

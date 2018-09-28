@@ -41,6 +41,23 @@ class UsedCar extends CI_Controller
         $this->load->view('admin/usedcar/user_list.html', $data);
     }
 
+    //用户具体信息
+    public function user_info($id){
+        $user = $this->usedcar_model->get_user_info(array('id'=>$id));
+        if(empty($user)){
+           alert_msg('用户不存在！');
+        }
+
+        $data['user'] = $user[0];
+        $data['total_rows'] = $this->usedcar_model->get_total_rows(array('user_id'=>$id), 'used-car_sale');
+        $apply = $this->usedcar_model->get_apply_list(array('user_id'=>$id), 0, 1);
+        if(!empty($apply)){
+            $data['apply'] = $apply[0];
+        }
+
+        $this->load->view('admin/usedcar/user_info.html', $data);
+    }
+
     //认证申请列表
     public function apply_list($status = 0, $offset = 0){
         if($status != 0 && $status !=1){

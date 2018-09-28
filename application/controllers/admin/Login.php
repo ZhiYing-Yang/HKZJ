@@ -41,11 +41,19 @@ class Login extends CI_Controller {
 		}
 	}
 
-    public function ceshi(){
-        $this->load->library('password_hash', array(8, false));
+    public function test(){
+	    //载入类库
+        $this->load->library('Password_hash', array(8, false));
+
+        // 计算密码的哈希值。$hashedPassword 是一个长度为 60 个字符的字符串.
         $hashed_password = $this->password_hash->HashPassword('123456');
-        echo $hashed_password;
-        //var_dump($this->password_hash->CheckPassword('123456', $hashed_password));
+
+        echo $hashed_password; //输出加密后的数据查看
+        echo '<hr>';
+
+        // 通过比较用户输入内容（产生的哈希值）和我们之前计算出的哈希值，来判断用户是否输入了正确的密码
+        var_dump($this->password_hash->CheckPassword('123456', $hashed_password)); //bool(true)
+        var_dump($this->password_hash->CheckPassword('000123', $hashed_password)); //bool(false)
     }
 	/*
 		退出

@@ -47,6 +47,7 @@ class Password_hash {
         $this->random_state = microtime();
         if (function_exists('getmypid'))
             $this->random_state .= getmypid();
+        return $this;
 	}
 
 	function PasswordHash($iteration_count_log2, $portable_hashes)

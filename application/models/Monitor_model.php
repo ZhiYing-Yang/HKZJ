@@ -29,4 +29,9 @@ class Monitor_model extends CI_model {
         $status = $this->db->get('monitor_user')->result_array();
         return $status;
     }
+
+    //获取订单信息
+    public function get_order_info($where_arr){
+        return $this->db->get_where('monitor_pay', $where_arr)->result_array();
+    }
 }

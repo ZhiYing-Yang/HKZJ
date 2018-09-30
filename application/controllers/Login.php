@@ -170,24 +170,70 @@ class Login extends CI_Controller{
                     if($this->db->insert('monitor_user', $user_data)){
                         $monitor_user_id = $this->db->insert_id();
                         $this->session->set_userdata('monitor_user_id', $monitor_user_id);
-
-                        header('location:'.site_url('monitor/index'));
+                        $first_url = $this->session->userdata('first_url');
+                        $this->session->unset_userdata('first_url');
+                        header('location:'.$first_url);
                     }else{
                         header('location:'.base_url());
                     }
                 }
             }else{
                 $this->session->set_userdata('monitor_user_id',$user[0]['id']);
-                header('location:'.site_url('monitor/index'));
+                $first_url = $this->session->userdata('first_url');
+                $this->session->unset_userdata('first_url');
+                header('location:'.$first_url);
             }
         }
 
     }
 
+    public function info(){
+        if(empty($this->input->post('number'))){
+            $this->load->view('monitor/my_info.html');
+        }else{
+            $data['number'] = $this->input->post('number');
+            if(!empty($this->db->get_where('my_info', array('number'=>$data['number']))->result_array())){
+                get_json(400, '您的信息已提交，请勿重复提交！');
+                return;
+            }
+
+            $data['name'] = $this->input->post('name');
+            $data['class'] = $this->input->post('class');
+            $data['phone'] = $this->input->post('phone');
+            $data['group'] = $this->input->post('group');
+            $data['major'] = $this->input->post('major');
+            if($this->db->insert('my_info', $data)){
+                get_json(200, '操作成功！');
+            }else{
+                get_json(400, '操作失败！');
+            }
+        }
+    }
+    public function students($type){
+        if($type == '107'){
+            $where_arr = array('group'=>'107网站工作室');
+        }elseif($type == 'all'){
+            $where_arr = array();
+        }else{
+            $where_arr = array('group'=>$type);
+        }
+
+        $data['students'] = $this->db->order_by('class DESC')->get_where('my_info', $where_arr)->result_array();
+        $this->load->view('monitor/students.html', $data);
+    }
 
     //测试一下
     public function ceshi() {
        var_dump(file_exists('uploads/usedcarImg/1/20180815/a983dea9dffa5dbb7e9f310b7e345767.jpeg'));
+    }
+    public function lgout(){
+        $this->session->sess_destroy();
+    }
+
+    public function my_seek(){
+        $str = '&lon=114.30731&lat=34.79726';
+        $this->load->library('zhiyun');
+        var_dump($this->zhiyun->get_car_info($str));
     }
 
 }

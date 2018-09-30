@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>202自主创新实验室个人信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+</head>
+<body>
+<div class="weui-cells__title" style="text-align: center">202自主创新实验室个人信息完善</div>
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">学号：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" name="number" placeholder="请输入您的学号" required="required">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">姓名：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" name="name" placeholder="请输入您的姓名" required="required">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">班级：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" name="class" placeholder="请输入您的班级 例：16-1" required="required">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">联系方式：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" name="phone" placeholder="请输入您的手机号" required="required">
+        </div>
+    </div>
+    <!--组别-->
+    <div class="weui-cells__title">请选择您的组别：</div>
+    <div class="weui-cells weui-cells_radio">
+        <label class="weui-cell weui-check__label" for="g1">
+            <div class="weui-cell__bd">
+                <p>107网站工作室</p>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="radio" class="weui-check" name="group" id="g1" value="107网站工作室">
+                <span class="weui-icon-checked"></span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="g2">
+            <div class="weui-cell__bd">
+                <p>Android</p>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="radio" name="group" class="weui-check" id="g2" value="Android">
+                <span class="weui-icon-checked"></span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="g3">
+            <div class="weui-cell__bd">
+                <p>IOS</p>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="radio" name="group" class="weui-check" id="g3" value="IOS">
+                <span class="weui-icon-checked"></span>
+            </div>
+        </label>
+    </div>
+
+    <!--专业-->
+    <div class="weui-cells__title">请选择您的专业：</div>
+    <div class="weui-cells weui-cells_radio">
+        <label class="weui-cell weui-check__label" for="m1">
+            <div class="weui-cell__bd">
+                <p>计算机科学与技术</p>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="radio" class="weui-check" name="major" id="m1" value="计算机科学与技术">
+                <span class="weui-icon-checked"></span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="m2">
+            <div class="weui-cell__bd">
+                <p>软件工程</p>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="radio" name="major" class="weui-check" id="m2" value="软件工程">
+                <span class="weui-icon-checked"></span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="m3">
+            <div class="weui-cell__bd">
+                <p>网络工程</p>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="radio" name="major" class="weui-check" id="m3" value="网络工程">
+                <span class="weui-icon-checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui-btn-area">
+        <button class="weui-btn weui-btn_primary" type="submit" id="submit">提交</button>
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+</html>
+<script>
+    $('#submit').click(function(){
+        $.showLoading('正在提交');
+        var data = {};
+        data.number = $.trim($('input[name="number"]').val());
+        if(!data.number){
+            $.hideLoading();
+            $.toptip('请输入您的学号', 'error');
+            $('input[name="number"]').focus();
+            return;
+        }
+
+        data.name = $.trim($('input[name="name"]').val());
+        if(!data.name){
+            $.hideLoading();
+            $.toptip('请输入您的姓名', 'error');
+            $('input[name="name"]').focus();
+            return;
+        }
+
+        data.class = $.trim($('input[name="class"]').val());
+        if(!data.class){
+            $.hideLoading();
+            $.toptip('请输入您的班级', 'error');
+            $('input[name="class"]').focus();
+            return;
+        }
+
+        data.phone = $.trim($('input[name="phone"]').val());
+        if(!data.phone){
+            $.hideLoading();
+            $.toptip('请输入您的联系方式', 'error');
+            $('input[name="phone"]').focus();
+            return;
+        }
+
+        data.group = $.trim($('input[name="group"]:checked').val());
+        if(!data.group){
+            $.hideLoading();
+            $.toptip('请选择您的组别', 'error');
+            return;
+        }
+
+        data.major = $.trim($('input[name="major"]:checked').val());
+        if(!data.major){
+            $.hideLoading();
+            $.toptip('请选择您的专业', 'error');
+            return;
+        }
+        $.post('/login/info', data, function(data){
+            if(data.code == 200){
+                $.hideLoading();
+                $.toast('提交成功');
+            }else{
+                $.hideLoading();
+                $.toptip(data.message, 'error');
+            }
+        }, 'json');
+    });
+
+</script>

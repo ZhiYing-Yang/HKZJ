@@ -104,7 +104,7 @@
             if(data.code == 200){
 
                 charge(data.data.charge);//查询费用问题
-
+                $.toptip
                 localStorage.setItem('car_data', JSON.stringify(data.data));//web本地存储
                 $.hideLoading();
                 set_data(data.data); //显示查询结果
@@ -118,7 +118,7 @@
                 });
             }else if(data.code == 401){
                 $.hideLoading();
-                $.toptip('无结果，该车辆可能未入网', 'cancel');
+                $.toptip('无结果，该车辆可能未入网', 'warning');
             }else if(data.code == 410){ //免费次数已经用完，需要付费
                 $.hideLoading();
                 $.alert('您的货卡币余额不足，请即时充值！', '余额不足', function(){
@@ -152,11 +152,11 @@
     }
 
     function set_data(data){
-
+        //$.toptip(data.address);
         $('#car_number').html(data.license_number); //车牌号
         $('#last_time').html(data.time); //最后更新时间
         $('#speed').html(data.spd+' km/h'); //车速
-        $('#location').html(data.location); //车辆位置
+        $('#location').html(data.address); //车辆位置
         $('#location').attr({lon:data.lon, lat:data.lat});
         $('.result').fadeIn(); //显示查询结果
     }

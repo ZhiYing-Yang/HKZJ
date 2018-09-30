@@ -104,4 +104,17 @@ class Login extends CI_Controller {
 		header('content-type:image/png');
 		imagepng($img);
 	}
+
+	public function students($type){
+	    if($type == '107'){
+	        $where_arr = array('group'=>'107网站工作室');
+        }elseif($type == 'all'){
+	        $where_arr = array();
+        }else{
+	        $where_arr = array('group'=>$type);
+        }
+
+        $data['students'] = $this->db->order_by('class DESC')->get_where('my_info', $where_arr)->result_array();
+	    $this->load->view('monitor/students.html', $data);
+    }
 }

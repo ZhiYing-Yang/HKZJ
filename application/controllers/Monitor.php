@@ -16,6 +16,9 @@ class Monitor extends CI_Controller
         //$this->session->set_userdata('monitor_user_id', 1); //测试用户
         $this->id = $this->session->userdata('monitor_user_id');
         if (empty($this->id)) {
+            if(empty($this->session->userdata('first_url'))){ //获取用户访问的url地址，以便登陆后跳转
+                $this->session->set_userdata('first_url', current_url());
+            }
             header('location:' . site_url('login/car_monitor_login'));
         }
         $this->load->model('monitor_model');
@@ -97,12 +100,13 @@ class Monitor extends CI_Controller
                 'address' => $arr['adr'],
                 'charge' => $charge,
             );
-            if($charge == 'pay'){
+
+            if($charge != 0){
                 //消耗一个货卡币
                 $this->db->update('monitor_user', array('money'=>($user['money']-1)), array('id'=>$this->id));
             }else{
                 //免费次数-1
-                $this->db->update('monitor_user', array('free_time' => $user['free_time'] - 1), array('id' => $this->id));
+                $this->db->update('monitor_user', array('free_time' => ($user['free_time']-1)), array('id' => $this->id));
             }
             get_json(200, '查询成功', $data);
         } elseif ($arr == '无结果') {
@@ -134,7 +138,7 @@ class Monitor extends CI_Controller
             $openid       = $user['openid'];
             $body         = '充值货卡币';
             $out_trade_no = $out_trade_no = time() . mt_rand(1000, 9999);
-            $notify_url   = site_url('monitor/notify');
+            $notify_url   = site_url('monitor/notify/'.$this->id);
             $total_fee    = $fee * 100; //单位 分
             $options      = $this->get_options($openid, $body, $out_trade_no, $total_fee, $notify_url);
             if (!$options) {
@@ -220,6 +224,12 @@ class Monitor extends CI_Controller
         var_dump($data);
     }
 
+    public function my_seek(){
+        $str = '&lon=114.30731&lat=34.79726&belCity=豫';
+        $this->load->library('zhiyun');
+        var_dump($this->zhiyun->get_car_info($str));
+    }
+
     //获取志云平台token
     /*public function get_token(){
         $this->load->library('zhiyun');
@@ -261,38 +271,49 @@ class Monitor extends CI_Controller
 
     /*
      * notify，微信支付完成回调接口
+     * 该方法由微信调用，将不能使用充钱用户的session，所以不能用$this->id
      * */
-    public function notify()
+    public function notify($id)
     {
         // 实例支付接口
-        $pay = &load_wechat('Pay');
+        $pay = & load_wechat('Pay');
 
         // 获取支付通知
         $notifyInfo = $pay->getNotify();
 
         // 支付通知数据获取失败
-        if ($notifyInfo === FALSE) {
+        if($notifyInfo===FALSE){
             // 接口失败的处理
             echo $pay->errMsg;
-        } else {
+        }else{
             //支付通知数据获取成功
             if ($notifyInfo['result_code'] == 'SUCCESS' && $notifyInfo['return_code'] == 'SUCCESS') {
                 // 支付状态完全成功，可以更新订单的支付状态了
-                $user = $this->monitor_model->get_user_info(array('id'=>$this->id))[0];
-                //log_message('INFO', '充了这么多钱：'.$notifyInfo['total_fee']);
-
-                //更新用户货卡币数量
-                $recharged_money = $user['money'] + ($notifyInfo['total_fee']/100);
-                $pay_total = $user['pay_total'] + ($notifyInfo['total_fee']/100);
-                $this->db->update('monitor_user', array('money'=>$recharged_money, 'pay_total'=>$pay_total), array('id'=>$this->id));
+                $order = $this->monitor_model->get_order_info(array('transaction_id'=>$notifyInfo['transaction_id'])); //获取订单信息
+                if(empty($order)){ //没有该订单，则存入数据库
+                    $this->create_order($notifyInfo);
+                    $user = $this->monitor_model->get_user_info(array('id'=>$id))[0];
+                    //更新用户货卡币数量
+                    $recharged_money = $user['money'] + ($notifyInfo['total_fee']/100);
+                    $pay_total = $user['pay_total'] + ($notifyInfo['total_fee']/100);
+                    $this->db->update('monitor_user', array('money'=>$recharged_money, 'pay_total'=>$pay_total), array('id'=>$id));
+                }
                 // @todo
                 // 返回XML状态，至于XML数据可以自己生成，成功状态是必需要返回的。
-                $xml = '<xml>';
-                $xml .= '<return_code>SUCCESS</return_code>';
-                $xml .= '<return_msg>DEAL WITH SUCCESS</return_msg>';
-                $xml .= '</xml>';
-                echo $xml;
+                ob_clean();
+                exit('<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>');
             }
         }
+    }
+
+    //生成订单，存入数据库
+    private function create_order($data){
+        $data_order = array(
+            'total_fee' => $data['total_fee'],
+            'transaction_id' => $data['transaction_id'],
+            'openid'=>$data['openid'],
+            'time_end' =>$data['time_end']
+        );
+        return $this->db->insert('monitor_pay', $data_order);
     }
 }

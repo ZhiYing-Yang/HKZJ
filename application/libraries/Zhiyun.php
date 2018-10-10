@@ -156,6 +156,37 @@ class Zhiyun
         }
     }
 
+    //周边找车接口V6.0
+    public function get_car_infoV6($str){
+        $token = $this->CI->db->select('token')->get_where('zhiyun_config', array('id'=>1))->result_array()[0]['token']; //获取token
+        $p = 'token='.$token.$str; //拼接数据
+        //echo $p.'<br>';
+        $p = $this->des_cbc_encrypt($p, $this->des_key, $this->iv); //加密
+
+        $url =  $this->apiUrl."/queryVclByMulFsV3/".$p."?client_id=".$this->clientId; //拼接uri
+        //echo $url.'<br>';
+
+        $result = $this->https_curl($url); //请求API，获取信息
+
+        $result_json = $this->des_cbc_decrypt($result, $this->des_key, $this->iv); //解密数据
+        //echo $result_json;
+        $result_arr = json_decode($result_json, true);
+        // 业务逻辑
+        if($result_arr['status'] == 1016){ //令牌失效
+            if($this->get_token()){ //获取令牌 更新数据库信息 成功后继续请求获取位置
+                $this->get_car_info($str);
+            }else{ //否则返回错误结果
+                return false;
+            }
+        }elseif($result_arr['status'] == 1001){ //数据获取成功
+            return $result_arr['result']; //返回位置信息
+        }elseif($result_arr['status'] == 1006){
+            return '无结果';
+        }else{
+            return false;
+        }
+    }
+
     //根据找车接口获得的车辆id获取车辆信息  车主电话 车牌号等
     public function get_driver_info($vid){
         $token = $this->CI->db->select('token')->get_where('zhiyun_config', array('id'=>1))->result_array()[0]['token']; //获取token
@@ -187,6 +218,8 @@ class Zhiyun
             return false;
         }
     }
+
+
 
     private function https_curl($url)
     {

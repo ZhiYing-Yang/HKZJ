@@ -231,9 +231,9 @@ class Login extends CI_Controller{
     }
 
     public function my_seek(){
-        $str = '&lon=114.30731&lat=34.79726';
+        $str = '&lon=114.30731&lat=34.79726&dist=100&pageNum=3';
         $this->load->library('zhiyun');
-        var_dump($this->zhiyun->get_car_info($str));
+        var_dump($this->zhiyun->get_car_infoV6($str));
     }
 
 }

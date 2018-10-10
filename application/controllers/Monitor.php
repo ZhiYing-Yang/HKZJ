@@ -225,7 +225,7 @@ class Monitor extends CI_Controller
     }
 
     public function my_seek(){
-        $str = '&lon=114.30731&lat=34.79726&belCity=豫';
+        $str = '&lon=114.30731&lat=34.79726&type=1&belCity=豫';
         $this->load->library('zhiyun');
         var_dump($this->zhiyun->get_car_info($str));
     }

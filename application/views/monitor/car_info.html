@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/style/monitor/css/monitor.css">
 </head>
 <body>
+<?php $car_type = array('未知', '低栏车', '高栏车', '厢式货车', '自卸车', '冷藏车', '混凝土车', '平板车', '其他', '集装箱车', '牵引车')?>
 <div class="weui-panel weui-panel_access">
     <div class="weui-panel__hd">附近车辆</div>
     <div class="weui-panel__bd">
@@ -23,10 +24,26 @@
                     <button data-lon="<?=$c['lon']?>" data-lat="<?=$c['lat']?>" class="location weui-btn weui-btn_mini weui-btn_plain-primary">查看位置</button><span></span>
                     <button data-vid="<?=$c['vid']?>" class="connect weui-btn weui-btn_mini weui-btn_plain-primary">联系车主</button>
                 </p>
-                <p class="weui-media-box__desc info">车牌号：<?=$c['vno']?>&emsp;车型：<?=$c['vcltype']?><br>定位时间：<?=date('Y-m-d H:i:s', ($c['utc']/1000))?></p>
+                <p class="weui-media-box__desc info">车牌号：<?=$c['vno']?>&emsp;车型：<?=is_numeric($c['vcltype'])?$car_type[$c['vcltype']]:'未知车型'?><br>定位时间：<?=date('Y-m-d H:i:s', ($c['utc']/1000))?></p>
             </div>
         </div>
         <?php endforeach;?>
+    </div>
+    <!--分页-->
+    <form action="<?=site_url('monitor/seek_car')?>" method="post" id="seek_car_form">
+        <div class="weui-btn-area">
+            <input type="hidden" name="str" value="<?=$str?>">
+            <input type="hidden" name="pageNum" value="<?=($page+1)?>">
+            <button type="submit" class="weui-btn weui-btn_primary">下一页</button>
+        </div>
+    </form>
+    <!--没有更多数据-->
+    <div class="weui-msg no_more" style="display: none">
+        <div class="weui-msg__extra-area">
+            <div class="weui-footer">
+                <p class="weui-footer__text">没有更多了</p>
+            </div>
+        </div>
     </div>
     <div id="result" class="weui-popup__container">
         <div class="weui-popup__overlay"></div>
@@ -113,6 +130,7 @@
 
     });
 
+    //填充数据
     function set_data(data){
         $('#car_number').html(data.vehicleno);
         if( data.platecolorid == 1){
@@ -125,6 +143,12 @@
         $('#name').html(data.vehicleOwnerName);
         $('#phone').html(data.vehicleOwnerPhone);
         $('#phone').attr('href', 'tel:'+data.vehicleOwnerPhone)
+    }
+
+    //判断是否还有更多数据
+    if($('.weui-media-box').length < 100){
+        $('.no_more').css('display', 'block');
+        $('form').css('display', 'none');
     }
 </script>
 </html>

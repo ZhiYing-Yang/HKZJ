@@ -182,9 +182,14 @@ class Monitor extends CI_Controller
 
         }else{ //调用接口获取附近车辆信息
             $str = $this->input->post('str');
-
+            $data['str'] = $str;
+            $pageNum = $this->input->post('pageNum');
+            $pageNum = empty($pageNum)?1:$pageNum;
+            $data['page'] = $pageNum;
+            $str .='&pageNum='.$pageNum;
+            //echo $str;
             $this->load->library('zhiyun');
-            $data['car'] = $this->zhiyun->get_car_info($str);
+            $data['car'] = $this->zhiyun->get_car_infoV3($str);
             //print_r($data['car']);
             $this->load->view('monitor/car_info.html', $data);
         }

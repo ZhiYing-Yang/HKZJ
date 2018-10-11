@@ -31,12 +31,12 @@
         </div>
     </div>
 
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">车辆籍贯地</label></div>
-        <div class="weui-cell__bd">
-            <input class="weui-input" type="text" id="belCity"  placeholder="例如：黑">
-        </div>
-    </div>
+    <!--<div class="weui-cell">-->
+        <!--<div class="weui-cell__hd"><label class="weui-label">车辆籍贯地</label></div>-->
+        <!--<div class="weui-cell__bd">-->
+            <!--<input class="weui-input" type="text" id="belCity"  placeholder="例如：黑">-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">车型</label></div>
         <div class="weui-cell__bd">
@@ -72,7 +72,7 @@
         1. 请根据您的找车需求填写相应信息，如只需要查找附近的所有车辆，可不必填写，直接点击立即找车按钮，货卡之家大数据将立刻为您奉上附近车辆信息以上均为非必填项<br>
         2. 请允许货卡之家获取您的位置信息，以便为您查找附近车辆<br>
         3. 找车不消耗您的车辆监控免费次数和您的货卡币<br>
-
+        4. 默认查找方圆100公里内的车辆
     </div>
 </div>
 
@@ -154,13 +154,15 @@
         var dist = $.trim($('#dist').val());
         if(dist.length != 0){
             str += '&dist='+dist;
+        }else{
+            str += '&dist=100';
         }
 
         //车辆籍贯地
-        var belCity = $.trim($('#belCity').val());
+        /*var belCity = $.trim($('#belCity').val());
         if(belCity.length != 0){
             str += '&belCity='+belCity;
-        }
+        }*/
 
         $('input[name="str"]').val(str);
         $('#my_form').submit();

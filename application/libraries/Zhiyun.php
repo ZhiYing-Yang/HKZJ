@@ -156,8 +156,8 @@ class Zhiyun
         }
     }
 
-    //周边找车接口V6.0
-    public function get_car_infoV6($str){
+    //周边找车接口V3
+    public function get_car_infoV3($str){
         $token = $this->CI->db->select('token')->get_where('zhiyun_config', array('id'=>1))->result_array()[0]['token']; //获取token
         $p = 'token='.$token.$str; //拼接数据
         //echo $p.'<br>';

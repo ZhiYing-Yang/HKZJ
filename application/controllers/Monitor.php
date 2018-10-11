@@ -177,9 +177,7 @@ class Monitor extends CI_Controller
         $data = $this->get_signature($data); //获取签名
 
         if(empty($this->input->post('str'))){ //找车页面
-
             $this->load->view('monitor/seek_car.html', $data);
-
         }else{ //调用接口获取附近车辆信息
             $str = $this->input->post('str');
             $data['str'] = $str;

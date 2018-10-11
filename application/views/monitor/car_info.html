@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <title>附近车辆信息</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weui/1.1.3/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-weui/1.2.0/css/jquery-weui.min.css">
     <link rel="stylesheet" href="/style/monitor/css/car_info.css">
     <link rel="stylesheet" href="/style/monitor/css/monitor.css">
+    <style>
+        .page_input{
+            width: 30px;
+            margin-right: 5px;
+            border-radius: 3px;
+            border: 1px solid #4c5161;
+            height: 20px;
+            padding: 0 2px;
+        }
+
+    </style>
 </head>
 <body>
 <?php $car_type = array('未知', '低栏车', '高栏车', '厢式货车', '自卸车', '冷藏车', '混凝土车', '平板车', '其他', '集装箱车', '牵引车')?>
@@ -30,13 +41,23 @@
         <?php endforeach;?>
     </div>
     <!--分页-->
-    <form action="<?=site_url('monitor/seek_car')?>" method="post" id="seek_car_form">
+    <form action="<?=site_url('monitor/seek_car')?>" method="post">
         <div class="weui-btn-area">
             <input type="hidden" name="str" value="<?=$str?>">
             <input type="hidden" name="pageNum" value="<?=($page+1)?>">
             <button type="submit" class="weui-btn weui-btn_primary">下一页</button>
         </div>
     </form>
+    <!--跳转到第几页-->
+    <form action="<?=site_url('monitor/seek_car')?>" method="post" style="margin-top: 20px;">
+        <input type="hidden" name="str" value="<?=$str?>">
+        <div class="weui-flex" style="padding: 0 15px;">
+            <div class="weui-flex__item" style="text-align: right">跳转到第：<input type="number" name="pageNum" class="page_input" value="">页</div>
+            <div class="weui-flex__item"><button type="submit" class="weui-btn weui-btn_mini weui-btn_primary" style="width: 60%;">跳转</button></div>
+        </div>
+        <div class="weui-cells__title" style="text-align: center">当前为第 <?=$page?> 页</div>
+    </form>
+
     <!--没有更多数据-->
     <div class="weui-msg no_more" style="display: none">
         <div class="weui-msg__extra-area">
@@ -68,9 +89,10 @@
 
 </div>
 </body>
-<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=jAhvocUWT3VAlMWA8EKOQwQhPT0aKq0t"></script>
 <script>
     wx.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -89,24 +111,36 @@
         e.stopPropagation();
         var lat = $(this).attr('data-lat');
         var lon = $(this).attr('data-lon');
+        var myGeo = new BMap.Geocoder();
+        // 根据坐标得到地址描述
+        myGeo.getLocation(new BMap.Point(lon, lat), function(result){
+            if (result){
+                wechat_map(lon, lat, result.address);
+            }else{
+                wechat_map(lon, lat, '');
+            }
+        });
+    });
+
+    //微信内置地图获取位置信息
+    function wechat_map(lon, lat, address){
         wx.ready(function() {
             wx.openLocation({
                 latitude: lat, //维度
                 longitude: lon, //经度
                 name: '',
-                address: '',
+                address: address,
                 scale: 15,
                 infoUrl: 'http://www.jxhkzj.com'
             });
         });
-    });
-
+    }
     //获取车主联系方式
     $('.weui-panel').on('click', '.connect', function(e){
         e.stopPropagation();
         $.showLoading('正在查询');
         var vid = $(this).attr('data-vid');
-        $.alert("本次查询将消耗2货卡币，你将获得车主联系电话，车主姓名，及车牌号码等相关信息！", '温馨提示', function(){
+        $.confirm("本次查询将消耗2货卡币，你将获得车主联系电话，车主姓名，及车牌号码等相关信息！", '温馨提示', function(){
 
             //$.alert(vid);return;
             $.post('/monitor/driver_info', {vid: vid}, function(data){
@@ -125,6 +159,9 @@
                     $.toptip(data.message, 'error');
                 }
             }, 'json');
+        }, function(){
+            $.hideLoading();
+            $.toptip('您取消了联系车主操作，将不消耗货卡币！', 'warning');
         });
 
 
@@ -149,6 +186,14 @@
     if($('.weui-media-box').length < 100){
         $('.no_more').css('display', 'block');
         $('form').css('display', 'none');
+    }
+
+    //添加历史记录 用户点击返回键直接进入找车页面
+    history.pushState(null, null, '<?=site_url("monitor/seek_car")?>');
+</script>
+<script>
+    function get_address(){
+
     }
 </script>
 </html>

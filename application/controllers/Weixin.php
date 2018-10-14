@@ -234,7 +234,7 @@ class Weixin extends CI_Controller {
     }
 
     //简单创建菜单 public=>允许访问创建菜单；private=>不允许访问创建菜单;
-    public function create_menu(){
+    private function create_menu(){
         $data = array(
             //button类型
             'button'=>array(
@@ -260,8 +260,8 @@ class Weixin extends CI_Controller {
                         ),
                         array(
                             'type'=>'view',
-                            'name'=>'车辆监控',
-                            'url'=>site_url('monitor/index'),
+                            'name'=>'司机群',
+                            'url'=>site_url('home/flock_list'),
                         ),
                     ),
                 ),

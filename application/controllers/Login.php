@@ -224,7 +224,9 @@ class Login extends CI_Controller{
 
     //测试一下
     public function ceshi() {
-       var_dump(file_exists('uploads/usedcarImg/1/20180815/a983dea9dffa5dbb7e9f310b7e345767.jpeg'));
+       //var_dump(file_exists('uploads/usedcarImg/1/20180815/a983dea9dffa5dbb7e9f310b7e345767.jpeg'));
+        echo time().'<br>';
+        echo date('Y-m-d H:i:s', time());
     }
     public function lgout(){
         $this->session->sess_destroy();
@@ -234,6 +236,13 @@ class Login extends CI_Controller{
         $str = '&lon=113.83547595139142&lat=34.543187905858325&dist=100&pageNum=3';
         $this->load->library('zhiyun');
         var_dump($this->zhiyun->get_car_infoV3($str));
+    }
+
+    public function seek_car(){
+        $car_num = '赣C4A032';
+        $this->load->library('zhiyun');
+        $arr = $this->zhiyun->get_location($car_num);
+        var_dump($arr);
     }
 
 }

@@ -188,6 +188,9 @@ class Monitor extends CI_Controller
             //echo $str;
             $this->load->library('zhiyun');
             $data['car'] = $this->zhiyun->get_car_infoV3($str);
+            if(!is_array($data['car'])){
+                $data['car'] = array();
+            }
             //print_r($data['car']);
             $this->load->view('monitor/car_info.html', $data);
         }

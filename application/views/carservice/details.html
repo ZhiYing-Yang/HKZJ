@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>维修站详情</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.css">
+     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="/application/views/carservice/static/css/details.css">
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+
+        <div class="content">
+  <!-- Slider -->
+   <div class="img-container">
+   	<a href="#" onclick="javascript:window.history.go(-1);" class="return_tab"  external> <span class="icon icon-left"></span></a>
+   <img src="<?=$info['img']?>" />
+</div>
+
+<div class="details">
+	<span><?=$info['name']?></span>
+</div>
+  <div class="position">
+  	<a href="<?=site_url('carservice/map/').$sid?>">
+  		<span class="words"><?=$info['position1']?></span>
+  		<span class="logo">></span>
+  	</a>
+  </div>
+  <div class="call">
+  		<a class="icon icon-phone" href="tel:<?=$info['phone']?>" style="color:white;" >电话联系</a>
+  </div>
+        </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>$.config = {router: false}</script>
+   <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.js"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.11&key=5d493777514565298e14dde91c4be448"></script>
+  </body>
+</html>
+ <script>
+ </script>

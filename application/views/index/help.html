@@ -30,6 +30,7 @@
     </ul>
     <div class="container-fluid">
         <!-- 搜索框 -->
+        <form>
         <div class="row">
             <div class="search">
                 <div class="col-xs-9">
@@ -40,6 +41,7 @@
                 </div>
             </div>
         </div>
+      </form>
         <!-- 求助列表 -->
         <div class="row help-item">
             <div class="col-xs-12 help-list">
@@ -47,8 +49,8 @@
                     <?php foreach($article as $a):?>
                     <li class="list-group-item">
                         <a href="<?=site_url('home/see_article/').$a['article_id']?>">
-                            <h3 class="list-group-item-heading"><?=$a['title']?></h3>
-                            <p class="list-group-item-text">
+                            <h3 class="list-group-item-heading" style="color:#444;font-size:18px;"><?=$a['title']?></h3>
+                            <p class="list-group-item-text" style="color:#aaa ;font-size:12px;">
                                 <?=$a['content']?>
                             </p>
                             <span class="datatime"><?=$a['create_time']?></span>
@@ -65,8 +67,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <span class="help-state <?=$a['solve']==0?'text-danger':'text-success'?> col-xs-6"><?=$a['solve']==0?'未解决':'已解决'?></span>
-                                <a href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self"><span class="col-xs-6 help-btn btn">帮助</span></a>
+                                <span class="help-state <?=$a['solve']==0?'text-danger':'text-success'?> col-xs-6" style="color:#444;font-size:14px;"><?=$a['solve']==0?'未解决':'已解决'?></span>
+                                <a style=";font-size:14px;" href="<?=site_url('home/see_article/').$a['article_id']?>" target="_self"><span class="col-xs-6 help-btn btn" style=";font-size:14px;">帮助</span></a>
                             </div>
                         </a>
                     </li>
@@ -91,7 +93,7 @@
     $('#search_button').click(function(event) {
         /* Act on the event */
         var search = $('#search_input').val();
-        if(search_input.length == 0){
+        if(search.length == 0){
             layer.open({
                 content: '请输入搜所内容',
                 btn: '我知道了'

@@ -1,0 +1,82 @@
+.main_content{
+	margin-top: 0px;
+	margin-bottom: 55px;
+}
+.min_block{
+	width: 100%;
+	margin-top: 0;
+}
+.min_block:after{
+	border-bottom: none;
+}
+.one_news{
+	font-size: 15px;
+	width: 100%;
+	height: 90px;
+	background: white;
+	line-height: 30px;
+}
+.new_block{
+	padding: 1px 15px;
+}
+.first_line{
+	height: 30px;
+}
+.first_line div{
+	height: 30px;
+	line-height: 30px;
+	float: left;
+}
+.first_line .place{
+	width: auto;
+	max-width: 100px;
+	overflow: hidden;
+}
+.first_line .arrows{
+	width: 50px;
+	text-align: center;
+}
+.first_line .times{
+	color: gray;
+	font-size: 12px;
+	float: right;
+}
+
+.second_line{
+	height: 30px;
+}
+.second_line .second_left{
+	color: gray;
+	float: left;
+}
+.second_line .second_right{
+	float: right;
+	width: 65px;
+	height: 25px;
+	text-align: center;
+	border-radius: 2px;
+	line-height: 25px;
+	background: #DC143C;
+	color: white;
+	box-shadow: lightcoral 1px 1px 1px 1px ;
+}
+.third_line{
+	height: 30px;
+}
+.third_line div{
+	width: 65px;
+	height: 25px;
+	text-align: center;
+	border-radius: 4px;
+	line-height: 25px;
+	color: white;
+	
+}
+.goods_third div{
+	background: #00ccff;
+	box-shadow: lightblue 1px 1px 1px 1px ;
+}
+.car_third div{
+	background:#FFC125;
+	box-shadow: lightgoldenrodyellow 1px 1px 1px 1px ;
+}

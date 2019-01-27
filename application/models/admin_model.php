@@ -14,7 +14,10 @@ class Admin_model extends CI_Model {
         $status = $this->db->query($sql)->result_array();
         return $status;
     }
-
+    public function get_admin_list($offset, $per_page)
+    {
+         return  $this->db->select("*")->from("admin")->limit($per_page , $offset)->get()->result_array();
+    }
     //用户举报帖子
     public function get_accuse_article_list($where_arr, $offset, $per_page=10){
         $get_info = 'id, accuse_article.article_id, reason, accuse_article.content, accuse_article.create_time, disposed, title, accuse_article.user_id as accuser_id, article.user_id as accused_id';
@@ -50,7 +53,13 @@ class Admin_model extends CI_Model {
         return $status;
 
     }
-
+    //首页广告
+    public function get_adver_list($where_arr,$offset, $per_page,$order_str)
+    {
+         $status = $this->db->get_where('advertise_index', $where_arr, $per_page, $offset)->result_array();
+            //echo $this->db->last_query();
+          return $status;
+    }
     /******************** 论坛部分End *********************/
 
 
@@ -69,5 +78,12 @@ class Admin_model extends CI_Model {
         $status = $this->db->get_where('used-car_sale', $where_arr)->result_array();
         return $status;
     }
-	
+
+    /*******************  货源信息平台  *********************/
+    //获取车辆信息
+    public function get_source_info($where_arr){
+        $status = $this->db->get_where('resource', $where_arr)->result_array();
+        return $status;
+    }
+
 }

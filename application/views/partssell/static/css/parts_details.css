@@ -1,0 +1,82 @@
+body{
+	font-family: SimHei;
+}
+.swiper-container .return_tab{
+	position: absolute;
+	z-index: 8888;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: white;
+	margin: 15px;
+	border-radius: 50%;
+	background: rgba(0,0,0,0.5);
+}
+.swiper-container {
+    height: 12rem;
+}
+.swiper-container img{
+	width: 100%;
+	height: 12rem;
+}
+.details{
+	height: auto;
+	width: 100%;
+	padding: 10px 15px;
+	background: white;
+}
+.details .price{
+	height: 25px;
+	line-height: 25px;
+}
+.details .price i,.details .price span{
+	color: #FF5000;
+}
+.details .price i{
+	font-size: 10px;
+}
+.details .price span{
+	font-size: 18px;
+}
+.details .word_desibe{
+	line-height: 25px;
+	font-size: 15px;
+	color: black;
+}
+.divide{
+	text-align: center;
+	line-height: 40px;
+}
+.explain{
+	line-height: 25px;
+	font-size: 15px;
+	color: black;
+	width: 100%;
+	height: auto;
+	background: white;
+	padding: 5px;
+}
+.photo{
+	width: 100%;
+}
+.photo img{
+	width: 100%;
+	height: 100%;
+}
+.photo .big_pic{
+	width: 100%;
+	height: 12rem;
+}
+.photo .small_pic{
+	width: 100%;
+	height: 6rem;
+}
+.photo .small_pic .one{
+	width: 50%;
+	float: left;
+}
+.photo .small_pic .two{
+	width: 50%;
+	float: right;
+}

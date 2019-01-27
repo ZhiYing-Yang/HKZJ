@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <?php include("commonhead.html")?>
+    <link rel="stylesheet" href="/style/driverhire/css/dist.css">
+  </head>
+  <body>
+  <div class="pageheader text-center " style="background:white">
+    <span class="fa fa-arrow-left big-font  text-grey border-small" style="position:absolute;left:0;" onclick="javascript:history.go(-1)"></span>
+    <p  class="text-grey" style="">店家发布</p>
+  </div>
+<form class="weui-cells weui-cells_form" id = "form" name ="distform" action="/carservice/distform" method="post" >
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label"><span class="orange">*</span>店铺名:</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input"  name="name" placeholder="请输入店名">
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label"><span class="orange">*</span>工作地:</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input"  name="position1" placeholder="选择地区" id="city-picker">
+        <input class="weui-input"  name="position2" value="123" hidden>
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label"><span class="orange">*</span>联系人名字:</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" name="username" placeholder="请输入您的名字">
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label"><span class="orange">*</span>联系电话:</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" type="tel" name = "phone"  placeholder="请输入您的电话">
+    </div>
+  </div>
+  <!-- <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label"><span class="orange">*</span>手机验证码:</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" name="capt"  placeholder="输入验证码">
+      <img src="" width="" height="" alt="">
+    </div>
+  </div> -->
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+      <div class="weui-uploader">
+        <div class="weui-uploader__hd">
+          <p class="weui-uploader__title">图片描述：</p>
+
+        </div>
+        <div class="weui-uploader__bd">
+          <div class="weui-uploader__input-box">
+            <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd">
+      <div class="">
+          <label class="weui-label"><span class="orange"></span>地图:</label>
+      </div>
+      <div id="container" style="width:500px;height:200px;">
+
+      </div>
+    </div>
+  </div>
+
+</form>
+<div class="weui-flex">
+  <div class="weui-flex__item"></div>
+<div class="weui-flex__item "><a href="javascript:;" class="weui-btn weui-btn_primary submit" style="background: #00a5e0; margin-top:30px;">提交</a></div>
+<div class="weui-flex__item"></div>
+
+</div>
+<div class="weui-cells__tips">注：带<span class="orange">*</span> 标识的为必填项</div>
+      <?php include("commonscript.html") ?>
+      <script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/city-picker.min.js"></script>
+      <script src="/style/driverhire/js/dist.js" charset="utf-8"></script>
+      <script src="/style/driverhire/js/util.js" charset="utf-8"></script>
+      <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.11&key=5d493777514565298e14dde91c4be448&plugin=AMap.Geocoder"></script>
+<script type="text/javascript">
+    var position2 = "";
+    var map = new AMap.Map("container", {
+        resizeEnable: true
+    });
+    $('#city-picker').change(function(){
+      AMap.plugin('AMap.Geocoder', function() {
+    var geocoder = new AMap.Geocoder({
+      // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+      city: '全国'
+    })
+    geocoder.getLocation($("[name=position1]").val(), function(status, result) {
+    if (status === 'complete' && result.info === 'OK') {
+      // result中对应详细地理坐标信息
+      obj = result['geocodes'][0]['location'];
+      position2 = String(obj['lng'])+','+String(obj['lat']);
+      $("[name=position2]").attr("value",position2) ;
+    }
+  })
+
+    // 使用geocoder做地理/逆地理编码
+  })
+
+    })
+
+
+    $(function() {
+      $("#city-picker").cityPicker({
+          title: "请选择收货地址"
+          });
+          $(".submit").click(function() {
+            $("#form").submit();
+          })
+
+      $("#form").submit(function(e){//表单提交事件重写
+                e.preventDefault();
+                var formdata = {
+                  name : 0 , //职位名称
+                  position1 : 0 , //地区
+                  username : 0 , //联系人名字
+                  phone : 0 , //联系人电话
+                  position2: position2
+                }
+                  for(x in formdata){  //收集表单数据
+                    formdata[x] = $("[name='"+x+"']").val() ;
+                  }
+                  img =  $(".weui-uploader .upload_img").attr("data-url")
+                  if(typeof img != "undefinded"){
+                    formdata.img=img;
+                  }
+                  if(formdata["name"].length ==0) {
+                    $.toptip("店名不能为空"); return ;
+                  }
+                  if(formdata["position1"].length ==0) {
+                    $.toptip("地址不能为空"); return ;
+                  }
+                  if(formdata["username"].length ==0) {
+                    $.toptip("联系人不能为空"); return ;
+                  }
+                  var url = "<?=site_url("/carservice/distform") ?>";
+
+                  $.post(url ,formdata , function(data) {
+                    if(data.code==200){
+                      $.showLoading(data.message);
+                      window.history.go(-1)
+                    }else if(data.code==405){
+                      $.toptip(data.message, 'error')
+                    }else {
+                      $.toptip("出现未知错误", 'error')
+                    }
+                    alert
+                  },"json");
+                  })
+        })
+
+      </script>
+  </body>
+</html>

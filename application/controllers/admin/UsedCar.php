@@ -8,13 +8,62 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class UsedCar extends CI_Controller
 {
-    public function __construct() {
-        parent::__construct();
+  public function __construct() {
+		parent::__construct();
+        if(empty($this->session->userdata('user_id'))){
+            $this->session->set_userdata('user_id', 9);
+        }
         $this->load->library('my_control'); //登录控制
-
+        $this->load->model('admin_model');
         $this->load->model('usedcar_model');  //别名admin
-    }
+	}
 
+  //广告
+  public function advertisement($offset='')
+  {
+    $data["adver"] = $this->db->get("advertise_usedcar")->result_array();
+
+    $this->load->view("admin/usedcar/advertise.html" , $data);
+  }
+  //广告管理
+  public function advertisement_manage($action , $id)
+  {
+    if($action=="add"){
+      $this->load->view("admin/usedcar/adver_add.html") ;
+      return ;
+    }
+    if($action=="edit"){
+      $res = $this->db->get_where("advertise_usedcar" , array("id"=>$id))->row_array();
+      $data["res"] = $res ;
+      $this->load->view("admin/usedcar/adver_edit.html" , $data ) ;
+      return ;
+    }
+    if($action=="doedit"){
+      $url = $this->input->post("url");
+      $content = $this->input->post("content");
+      $img = $this->input->post("img");
+      if($this->db->update("advertise_usedcar" , array("url"=>$url ,"content"=>$content , "img"=>$img ) , array("id"=>$id))){
+        get_json(200 , " " , "");
+      }
+      return ;
+    }
+    if($action=="doadd"){
+      $url = $this->input->post("url");
+      $content = $this->input->post("content");
+      $img = $this->input->post("img");
+      $this->db->insert("advertise_usedcar" , array(
+        "url"=>$url,
+        "img"=>$img ,
+        "content"=>$content ));
+        get_json(200,"" , "");
+      return ;
+    }
+    if($action=="delete"){
+      if($this->db->delete("advertise_usedcar" , array("id"=>$id ))){
+        get_json(200," " ,"");
+      }
+    }
+  }
     //用户列表
     public function user_list($type = '全部', $offset = 0){
         $type = urldecode($type);
@@ -106,8 +155,97 @@ class UsedCar extends CI_Controller
         }
 
     }
-    public function developLog(){
-        $this->load->view("admin/usedcar/developLog.html");
+
+
+    //车辆列表
+    public function car_list($key = '其他', $value = '其他', $offset = 0){
+        $key = urldecode($key);
+        $value = urldecode($value);
+
+        $data['key'] = $key;
+        $data['value'] = $value;
+
+
+        $order_str = 'create_time DESC';
+        $array = array();
+        if($key == '排序'){
+            switch ($value){
+                case '最新上架':
+                    $order_str = 'create_time DESC';
+                    break;
+                case '价格最低':
+                    $order_str = 'whole_price ASC';
+                    break;
+                case '价格最高':
+                    $order_str = 'whole_price DESC';
+                    break;
+                case '降价急售':
+                    $order_str = 'whole_price ASC';
+                    break;
+            }
+        }elseif ($key == '车型'){
+            $array = array('car_type'=>$value);
+        }elseif ($key == '价格'){
+            $price = explode('到', $value);
+            $array = array('whole_price <=' => (float)$price[1], 'whole_price >=' => (float)$price[0]);
+        }elseif ($key == '排放'){
+            $array = array('parameter0' => $value);
+        }
+        else{
+            $array = array();
+            $order_str = 'create_time DESC';
+        }
+        $this->load->model('usedcar_model');
+
+        $per_page = 10;
+        $data['car'] = $this->usedcar_model->get_sale_list($array, $offset, $per_page, $order_str);
+
+
+        $page_url = site_url('admin/usedCar/car_list/'.$key.'/'.$value);
+        $total_rows = $this->db->where($array)->count_all_results('used-car_sale');
+        $offset_uri_segment = 6;
+        $this->load->library('myclass');
+        $data['link'] = $this->myclass->fenye($page_url, $total_rows, $offset_uri_segment, $per_page);
+
+        $this->load->view('admin/usedcar/car_list.html', $data);
+    }
+
+    //车辆搜索
+    public function car_search($keywords, $offset = 0){
+        $data['keywords'] = urldecode($keywords);
+        $this->load->model('usedcar_model');
+        $data['car'] = $this->usedcar_model->get_search_list($data['keywords'], $offset, 10);
+
+        $data['link'] = '';
+        $this->load->view('admin/usedcar/car_list.html', $data);
+    }
+
+    //车辆操作
+    public function car_action($action, $id){
+        $car = $this->admin_model->get_car_info(array('id'=>$id));
+        if(empty($car)){ //判断车辆是否存在
+            alert_msg('该车辆信息已被删除！');
+        }
+        $car = $car[0];
+        $status = false;
+        if($action == 'delete'){  //删除
+            $msg = '删除';
+            if($this->db->delete('used-car_sale', array('id'=>$id))){
+                $status = true;
+            }
+        }elseif($action == 'check'){ //审核
+            $msg = '审核';
+            $check_code = $car['status'] == 1?0:1;
+            if($this->db->update('used-car_sale', array('status'=>$check_code), array('id'=>$id))){
+                $status = true;
+            }
+        }
+
+        if($status){
+            alert_msg($msg.'成功');
+        }else{
+            alert_msg($msg.'失败，请稍后重试！');
+        }
     }
 
 }

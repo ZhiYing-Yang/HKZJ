@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>货卡之家货源信息我的平台</title>
+		<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+		<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+		<link rel="stylesheet" href="/application/views/source/static/font/style.css" />
+		<link rel="stylesheet" href="/application/views/source/static/css/mine.css" />
+		<link rel="stylesheet" href="/application/views/source/static/css/footer.css" />
+	</head>
+
+	<body>
+		<!--头部-->
+	<div class="message-box">
+	<div class="message-content">
+		<div class="head-photo-wrap">
+			<a href=""><img src="/application/views/source/static/images/1.jpg" alt=""></a>
+		</div>
+		<div class="personal-desc">
+			<p class="name"><?=$user['nickname']?></p>
+			<p class="identification">个人</p>
+		</div>
+		<div class="edit-button-wrap ">
+			<a href="<?=site_url('source/editData')?>" class="button ">编辑</a>
+		</div>
+	</div>
+</div>
+
+<!--功能区-->
+<div class="function-wrap">
+	<div class="function-list-wrap">
+		<ul class="function-list">
+			<li class="function-item-box">
+				<a href="<?=site_url('source/myPublish')?>" class="function-item">
+					<span class="icon-14"></span>
+					<span class="desc">我的发布</span>
+					<span class="icon-_2"></span>
+				</a>
+			</li>
+			<li class="function-item-box">
+				<a href="<?=site_url('source/myCollect')?>" class="function-item">
+					<span class="icon--2"></span>
+					<span class="desc">我的收藏</span>
+					<span class="icon-_2"></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+
+
+		<!--------------------------footer------------------>
+		<div class="weui_tabbar foot_tabber">
+			<a href="<?=site_url('source/index')?>" class="weui_tabbar_item foot_tabbar_item">
+				<div class="weui_tabbar_icon">
+					<i class="icon-12"></i>
+				</div>
+				<p class="weui_tabbar_label">首页</p>
+			</a>
+			<a href="<?=site_url('source/source')?>" class="weui_tabbar_item foot_tabbar_item">
+				<div class="weui_tabbar_icon">
+					<i class="icon-17"></i>
+				</div>
+				<p class="weui_tabbar_label">货源</p>
+			</a>
+			<a class="weui_tabbar_item foot_tabbar_item publish">
+				<div class="weui_tabbar_icon">
+					<i class="icon-19"></i>
+				</div>
+				<p class="weui_tabbar_label">发布</p>
+			</a>
+			<a href="<?=site_url('source/mine')?>" class="weui_tabbar_item foot_tabbar_item foot_tabbar_active">
+				<div class="weui_tabbar_icon">
+					<i class="icon-16"></i>
+				</div>
+				<p class="weui_tabbar_label">我的</p>
+			</a>
+
+		</div>
+
+		<!------------------发布底部弹出框------------------------>
+		<div class="eject_bottom">
+			<div class="bottom_head">
+				<h4>发布信息</h4>
+			</div>
+			<div class="eject_options">
+				<ul>
+					<li><a href="<?=site_url('source/PSource')?>">发布货源</a></li>
+					<li><a href="<?=site_url('source/PCar')?>">发布车源</a></li>
+					<li class="cancel">取消</li>
+				</ul>
+			</div>
+		</div>
+
+
+	</body>
+	<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/city-picker.min.js"></script>
+	<script src="/application/views/source/static/js/mine.js"></script>
+	<script src="/application/views/source/static/js/footer.js"></script>
+
+</html>

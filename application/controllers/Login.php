@@ -142,6 +142,242 @@ class Login extends CI_Controller{
     }
 
     /**
+     * 货源信息登录
+     */
+    public function source_login(){
+        if(empty($this->session->userdata('user_id'))){ //如果用户没有登录论坛，先登录论坛
+            $this->session->set_userdata('go_url', site_url('login/source_login'));
+            $this->weChat_login();return;
+        }else{
+            $forum_id = $this->session->userdata('user_id');
+            $this->load->model('source_model');
+            $user = $this->source_model->get_user_info(array('forum_id'=>$forum_id));
+
+            if(empty($user)){
+                $this->load->model('index_model');
+                $data = $this->index_model->get_user(array('user_id'=>$forum_id));
+                if(empty($data)){   //论坛用户表里没有用户数据，重新执行微信网页授权登录
+                    $this->weChat_login();return;
+                }else{
+                    $user_data = array(
+                        'forum_id'=>$data[0]['user_id'],
+                        'nickname'=>$data[0]['nickname'],
+                    );
+                    if($this->db->insert('source_user', $user_data)){
+                        $used_car_user_id = $this->db->insert_id();
+                        $this->session->set_userdata('source_user_id', $used_car_user_id);
+
+                        header('location:'.site_url('source/index'));
+                    }else{
+                        header('location:'.base_url());
+                    }
+                }
+            }else{
+                $this->session->set_userdata('source_user_id',$user[0]['id']);
+                header('location:'.site_url('source/index'));
+            }
+        }
+    }
+
+    /**
+     * 配件销售平台登录
+     */
+    public function parts_sell_login(){
+        if(empty($this->session->userdata('user_id'))){ //如果用户没有登录论坛，先登录论坛
+            $this->session->set_userdata('go_url', site_url('login/parts_sell_login'));
+            $this->weChat_login();
+            return;
+        }else{  //取用户部分信息填入
+            $forum_id = $this->session->userdata('user_id');
+
+            $this->load->model('partssell_model','parts_model');
+            $user = $this->parts_model->get_user_info(array('forum_id'=>$forum_id));
+
+            if(empty($user)){   //用户表里没有该用户相关信息
+                $this->load->model('index_model');
+                $data = $this->index_model->get_user(array('user_id'=>$forum_id));
+                if(empty($data)){   //论坛用户表里没有用户数据，重新执行微信网页授权登录
+                    $this->weChat_login();return;
+                }else{ //将信息插入用户表
+                    $user_data = array(
+                        'forum_id'=>$data[0]['user_id'],
+                        'headimgurl'=>$data[0]['headimgurl'],
+                        'nickname'=>$data[0]['nickname'],
+                    );
+                    if($this->db->insert('parts-sell_user', $user_data)){
+                        $parts_sell_user_id = $this->db->insert_id();
+                        $this->session->set_userdata('parts_sell_user_id', $parts_sell_user_id);
+
+                        header('location:'.site_url('partssell/index'));
+                    }else{
+                        header('location:'.base_url());
+                    }
+                }
+            }else{
+                $this->session->set_userdata('parts_sell_user_id',$user[0]['id']);
+                header('location:'.site_url('partssell/index'));
+            }
+        }
+    }
+
+    /**
+     * 新闻平台登录
+     */
+    public function news_login(){
+        if(empty($this->session->userdata('user_id'))){ //如果用户没有登录论坛，先登录论坛
+            $this->session->set_userdata('go_url', site_url('login/news_login'));
+            $this->weChat_login();
+            return;
+        }else{  //取用户部分信息填入
+            $forum_id = $this->session->userdata('user_id');
+
+            $this->load->model('news_model','news');
+            $user = $this->news->get_user_info(array('forum_id'=>$forum_id));
+
+            if(empty($user)){   //用户表里没有该用户相关信息
+                $this->load->model('index_model');
+                $data = $this->index_model->get_user(array('user_id'=>$forum_id));
+                if(empty($data)){   //论坛用户表里没有用户数据，重新执行微信网页授权登录
+                    $this->weChat_login();return;
+                }else{ //将信息插入用户表
+                    $user_data = array(
+                        'forum_id'=>$data[0]['user_id'],
+                    );
+                    if($this->db->insert('news_user', $user_data)){
+                        $news_user_id = $this->db->insert_id();
+                        $this->session->set_userdata('news_user_id', $news_user_id);
+
+                        header('location:'.site_url('news/index'));
+                    }else{
+                        header('location:'.base_url());
+                    }
+                }
+            }else{
+                $this->session->set_userdata('news_user_id',$user[0]['id']);
+                header('location:'.site_url('news/index'));
+            }
+        }
+    }
+
+    /**
+     * 车辆维修登录
+     */
+    public function carservice_login(){
+        if(empty($this->session->userdata('user_id'))){ //如果用户没有登录论坛，先登录论坛
+            $this->session->set_userdata('go_url', site_url('login/carservice_login'));
+            $this->weChat_login();
+            return;
+        }else{  //取用户部分信息填入
+            $forum_id = $this->session->userdata('user_id');
+
+            $this->load->model('carservice_model','carservice');
+            $user = $this->carservice->get_user_info(array('forum_id'=>$forum_id));
+
+            if(empty($user)){   //用户表里没有该用户相关信息
+                $this->load->model('index_model');
+                $data = $this->index_model->get_user(array('user_id'=>$forum_id));
+                if(empty($data)){   //论坛用户表里没有用户数据，重新执行微信网页授权登录
+                    $this->weChat_login();return;
+                }else{ //将信息插入用户表
+                    $user_data = array(
+                        'forum_id'=>$data[0]['user_id'],
+                    );
+                    if($this->db->insert('carservice_user', $user_data)){
+                        $news_user_id = $this->db->insert_id();
+                        $this->session->set_userdata('carservice_user_id', $news_user_id);
+
+                        header('location:'.site_url('carservice/index'));
+                    }else{
+                        header('location:'.base_url());
+                    }
+                }
+            }else{
+                $this->session->set_userdata('carservice_user_id',$user[0]['id']);
+                header('location:'.site_url('carservice/index'));
+            }
+        }
+    }
+
+    /**
+     * 养车护车平台登录
+     */
+    public function keepcar_login(){
+        if(empty($this->session->userdata('user_id'))){ //如果用户没有登录论坛，先登录论坛
+            $this->session->set_userdata('go_url', site_url('login/keepcar_login'));
+            $this->weChat_login();
+            return;
+        }else{  //取用户部分信息填入
+            $forum_id = $this->session->userdata('user_id');
+
+            $this->load->model('keepcar_model','keepcar');
+            $user = $this->keepcar->get_user_info(array('forum_id'=>$forum_id));
+
+            if(empty($user)){   //用户表里没有该用户相关信息
+                $this->load->model('index_model');
+                $data = $this->index_model->get_user(array('user_id'=>$forum_id));
+                if(empty($data)){   //论坛用户表里没有用户数据，重新执行微信网页授权登录
+                    $this->weChat_login();return;
+                }else{ //将信息插入用户表
+                    $user_data = array(
+                        'forum_id'=>$data[0]['user_id'],
+                    );
+                    if($this->db->insert('keepcars_user', $user_data)){
+                        $news_user_id = $this->db->insert_id();
+                        $this->session->set_userdata('keepcar_user_id', $news_user_id);
+
+                        header('location:'.site_url('keepcar/index'));
+                    }else{
+                        header('location:'.base_url());
+                    }
+                }
+            }else{
+                $this->session->set_userdata('keepcar_user_id',$user[0]['id']);
+                header('location:'.site_url('keepcar/index'));
+            }
+        }
+    }
+
+
+    /**
+     * 问题咨询登录
+     */
+    public function advisory_login(){
+        if(empty($this->session->userdata('user_id'))){ //如果用户没有登录论坛，先登录论坛
+            $this->session->set_userdata('go_url', site_url('login/advisory_login'));
+            $this->weChat_login();
+            return;
+        }else{  //取用户部分信息填入
+            $forum_id = $this->session->userdata('user_id');
+
+            $this->load->model('advisory_model','advisory');
+            $user = $this->advisory->get_user_info(array('forum_id'=>$forum_id));
+
+            if(empty($user)){   //用户表里没有该用户相关信息
+                $this->load->model('index_model');
+                $data = $this->index_model->get_user(array('user_id'=>$forum_id));
+                if(empty($data)){   //论坛用户表里没有用户数据，重新执行微信网页授权登录
+                    $this->weChat_login();return;
+                }else{ //将信息插入用户表
+                    $user_data = array(
+                        'forum_id'=>$data[0]['user_id'],
+                    );
+                    if($this->db->insert('advisory_user', $user_data)){
+                        $advisory_user_id = $this->db->insert_id();
+                        $this->session->set_userdata('advisory_user_id', $advisory_user_id);
+
+                        header('location:'.site_url('advisory/index'));
+                    }else{
+                        header('location:'.base_url());
+                    }
+                }
+            }else{
+                $this->session->set_userdata('advisory_user_id',$user[0]['id']);
+                header('location:'.site_url('advisory/index'));
+            }
+        }
+    }
+
+    /**
      *车辆监控登录
      */
     public function car_monitor_login(){

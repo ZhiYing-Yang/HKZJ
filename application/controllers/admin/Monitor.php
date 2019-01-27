@@ -16,14 +16,14 @@ class Monitor extends CI_Controller{
     }
 
     //用户列表
-    public function user_list($order = 'default', $offset = 0){
+    public function user_list($offset = 0 ,$order = 'default'){
         if($order = 'money'){
             $order_str = 'money DESC';
         }else{
             $order_str = 'id DESC';
         }
         $this->load->library('myclass');
-        $page_url = site_url('admin/monitor/user_list'.$order);
+        $page_url = site_url('admin/monitor/user_list');
         $offset_uri_segment = 5;
         $total_rows = $this->db->count_all_results('monitor_user');
         $per_page = 10;
@@ -31,7 +31,6 @@ class Monitor extends CI_Controller{
         $data['user'] = $this->monitor_model->get_user_list(array(), $order_str, $offset, $per_page);
         $this->load->view('admin/monitor/user_list.html', $data);
     }
-
     //搜索用户
     public function user_search($keywords){
         $data['keywords'] = urldecode($keywords);

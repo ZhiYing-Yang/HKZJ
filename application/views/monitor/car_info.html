@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-weui/1.2.0/css/jquery-weui.min.css">
     <link rel="stylesheet" href="/style/monitor/css/car_info.css">
     <link rel="stylesheet" href="/style/monitor/css/monitor.css">
+    <link rel="stylesheet" href="/style/common/common.css">
     <style>
         .page_input{
             width: 30px;
@@ -21,51 +22,48 @@
     </style>
 </head>
 <body>
-<?php $car_type = array('未知', '低栏车', '高栏车', '厢式货车', '自卸车', '冷藏车', '混凝土车', '平板车', '其他', '集装箱车', '牵引车')?>
-<div class="weui-panel weui-panel_access">
-    <div class="weui-panel__hd">附近车辆</div>
-    <div class="weui-panel__bd">
-        <?php foreach($car as $c): ?>
-        <div class="weui-media-box weui-media-box_appmsg">
-            <div class="weui-media-box__hd">
-                <img class="weui-media-box__thumb" src="<?=$c['img']?>">
-            </div>
-            <div class="weui-media-box__bd">
-                <p class="weui-media-box__title">
-                    <button data-lon="<?=$c['lon']?>" data-lat="<?=$c['lat']?>" class="location weui-btn weui-btn_mini weui-btn_plain-primary">查看位置</button><span></span>
-                    <button data-vid="<?=$c['vid']?>" class="connect weui-btn weui-btn_mini weui-btn_plain-primary">联系车主</button>
-                </p>
-                <p class="weui-media-box__desc info">车牌号：<?=$c['vno']?>&emsp;车型：<?=is_numeric($c['vcltype'])?$car_type[$c['vcltype']]:'未知车型'?><br>定位时间：<?=date('Y-m-d H:i:s', ($c['utc']/1000))?></p>
-            </div>
+<div class="weui-panel weui-panel_access" style="background:white">
+    <a class=""  href="javascript:windw.history.go(-1)" style="display:block ; position: absolute;;background-color:white ;border:1px #888 solid; padding:10px">
+      返回
+    </a>
+    <div class="weui-panel__hd text-center dark middlefont " style="background:#2486ff ;font-weight: bold ; color:white" >附近车辆</div>
+    <!--单个项目  -->
+    <div class="weui-media-box weui-media-box_appmsg"  style="display:none" id="model" height:"100">
+        <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb car_img" src="">
         </div>
-        <?php endforeach;?>
+        <div class="weui-media-box__bd">
+            <p class="weui-media-box__title">
+                <button data-lon="" data-lat="" class="location weui-btn weui-btn_mini weui-btn_plain-primary blue" style="border-color:#00a5e0;">查看位置</button><span></span>
+                <button data-vid="" class="connect weui-btn weui-btn_mini weui-btn_plain-primary blue" style="border-color:#00a5e0;">联系车主</button>
+            </p>
+            <p class="weui-media-box__desc info">车牌号： <span class="vno"></span>&emsp; 车型： <span class="type"></span> <br>定位时间： <span class="lastpositiondate"></span> </p>
+          <p style="font-size:12px; " class="info">   联系电话:<span class="phonenum">******</span> </p>
+        </div>
+    </div>
+    <div class="weui-panel__bd">
+
     </div>
     <!--分页-->
     <form action="<?=site_url('monitor/seek_car')?>" method="post">
         <div class="weui-btn-area">
             <input type="hidden" name="str" value="<?=$str?>">
             <input type="hidden" name="pageNum" value="<?=($page+1)?>">
-            <button type="submit" class="weui-btn weui-btn_primary">下一页</button>
+            <!-- <button type="submit" class="weui-btn weui-btn_primary">下一页</button> -->
         </div>
     </form>
     <!--跳转到第几页-->
-    <form action="<?=site_url('monitor/seek_car')?>" method="post" style="margin-top: 20px;">
+    <div style="margin-top: 20px;">
         <input type="hidden" name="str" value="<?=$str?>">
         <div class="weui-flex" style="padding: 0 15px;">
-            <div class="weui-flex__item" style="text-align: right">跳转到第：<input type="number" name="pageNum" class="page_input" value="">页</div>
-            <div class="weui-flex__item"><button type="submit" class="weui-btn weui-btn_mini weui-btn_primary" style="width: 60%;">跳转</button></div>
+            <!-- <div class="weui-flex__item" style="text-align: right">跳转到第：<input type="number" name="pageNum" id="gotopage" class="page_input" value="1">页</div> -->
+            <!-- <div class="weui-flex__item"><button type="submit" class="weui-btn weui-btn_mini weui-btn_primary" style=" background: #00a5e0; width: 60%;">跳转</button></div> -->
+            <div class="weui-flex__item" style="padding-left:20%"><button type="submit" class="weui-btn weui-btn_mini weui-btn_primary"  id="lastpage" style=" background: #00a5e0;  20%; width: 60%; font-size:20px;"><</button></div>
+            <div class="weui-flex__item" style=""><button type="submit" class="weui-btn weui-btn_mini weui-btn_primary" id="nextpage" style=" background: #00a5e0; width: 60%; font-size:20px;">></button></div>
         </div>
-        <div class="weui-cells__title" style="text-align: center">当前为第 <?=$page?> 页</div>
-    </form>
-
-    <!--没有更多数据-->
-    <div class="weui-msg no_more" style="display: none">
-        <div class="weui-msg__extra-area">
-            <div class="weui-footer">
-                <p class="weui-footer__text">没有更多了</p>
-            </div>
-        </div>
+        <div class="weui-cells__title" style="text-align: center">当前为第<span id="pagenow">1</span> 页, 共<span id="pagesum"></span>页 , <span id="itemsum"></span>辆</div>
     </div>
+
     <div id="result" class="weui-popup__container">
         <div class="weui-popup__overlay"></div>
         <div class="weui-popup__modal">
@@ -80,7 +78,7 @@
                 </div>
             </div>
             <div style="padding: 0 15px; margin-top: 50px">
-                <a href="javascript:void(0);" class="weui-btn weui-btn_primary close-popup" data-target="result">返回</a>
+                <a href="javascript:void(0);" class="weui-btn weui-btn_primary close-popup" style="background:#00a5e0;" data-target="result">返回</a>
             </div>
 
         </div>
@@ -93,6 +91,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=jAhvocUWT3VAlMWA8EKOQwQhPT0aKq0t"></script>
+
 <script>
     wx.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -105,6 +104,7 @@
             'getLocation'
         ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
+    window.cars = JSON.parse('<?=$car?>');
 
     //查看位置
     $('.weui-panel').on('click', '.location', function(e){
@@ -163,8 +163,6 @@
             $.hideLoading();
             $.toptip('您取消了联系车主操作，将不消耗货卡币！', 'warning');
         });
-
-
     });
 
     //填充数据
@@ -196,4 +194,5 @@
 
     }
 </script>
+<script src="/style/monitor/js/findcar.js" charset="utf-8"></script>
 </html>

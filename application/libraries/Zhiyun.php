@@ -9,7 +9,7 @@ defined('BASEPATH') or die('No direct script access allowed');
 class Zhiyun
 {
     private $CI;
-    private $apiUrl = "https://zhiyunopenapi.95155.com/apis";//接口地址
+    private $apiUrl = "http://zhiyunopenapi.95155.com/apis";//接口地址
     private $apiUser = '704adeb1-b360-4cac-9e37-cac416b6a366'; //API账号
     private $apiPwd = '2BPi136g473a4o104aAL7F24aNe6jS'; //API密码
     private $clientId = 'abce276f-32ea-4eb9-a48b-0454031a562c'; //API客户端ID
@@ -30,6 +30,31 @@ class Zhiyun
             $this->token =$config['token'];
         }*/
     }
+
+      //https 加密请求
+        private function https_curl($url)
+        {
+            $ua = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.172 Safari/537.22';
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            //curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_REFERER, 'http://www.jxhkzj.com');
+            curl_setopt($ch, CURLOPT_USERAGENT, $ua);
+
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_SSLKEY, 'certificate/monitor.pem');
+
+            $res = curl_exec($ch);
+            if($res === FALSE ){
+              echo "CURL Error:".curl_error($ch);  //这里出现证书错误    错误信息 ：Peer's certificate has expired ;
+            }
+            curl_close($ch);
+
+            return $res;
+        }
+
 
     //登录开放平台
     public function get_token()
@@ -52,7 +77,6 @@ class Zhiyun
         }else{
             return false;
         }
-
     }
 
     //获取车辆位置
@@ -172,6 +196,7 @@ class Zhiyun
         //echo $result_json;
         $result_arr = json_decode($result_json, true);
         // 业务逻辑
+        // echo $result ; die ; 
         if($result_arr['status'] == 1016){ //令牌失效
             if($this->get_token()){ //获取令牌 更新数据库信息 成功后继续请求获取位置
                 $this->get_car_info($str);
@@ -218,28 +243,32 @@ class Zhiyun
             return false;
         }
     }
-
-
-
-    private function https_curl($url)
+    //车辆轨迹查询 接口
+    public function get_trace($license ,$qryBtm , $qryEtm)
     {
-        $ua = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.172 Safari/537.22';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        //curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_REFERER, 'http://www.jxhkzj.com');
-        curl_setopt($ch, CURLOPT_USERAGENT, $ua);
+      $token = $this->CI->db->select('token')->get_where('zhiyun_config', array('id'=>1))->result_array()[0]['token']; //获取token
+      $p = 'token='.$token.'&vclN='.$license."&qryBtm=".$qryBtm."&qryEtm=".$qryEtm; //拼接数据
+      $p = $this->des_cbc_encrypt($p, $this->des_key, $this->iv); //加密
+      $url =  $this->apiUrl."/vHisTrack24/".$p."?client_id=".$this->clientId; //拼接uri
+      $result = $this->https_curl($url); //请求API，获取信息
 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($ch, CURLOPT_SSLKEY, 'certificate/monitor.pem');
+      $result_json = $this->des_cbc_decrypt($result, $this->des_key, $this->iv); //解密数据
+      $result_arr = json_decode($result_json, true);
 
-        $res = curl_exec($ch);
-        curl_close($ch);
-
-        return $res;
+      if($result_arr['status'] == 1016){ //令牌失效
+          if($this->get_token()){ //获取令牌 更新数据库信息 成功后继续请求获取位置
+              $this->get_car_info($vid);
+          }else{ //否则返回错误结果
+              return false;
+          }
+      }elseif($result_arr['status'] == 1001){ //数据获取成功
+          return $result_arr; //返回位置信息
+      }else{
+        return false ;
+      }
     }
+
+
 
 
 
@@ -269,7 +298,7 @@ class Zhiyun
 
         $data = hex2bin($data);
         $decrypted_data =  openssl_decrypt ($data, 'des-cbc', $key, OPENSSL_RAW_DATA | OPENSSL_NO_PADDING, $iv);
-
+        //测试语句 echo $data ; echo "----".$decrypted_data;die ;
         $decrypted_data = $this->pkcs5_unpad($decrypted_data); //对解密后的明文进行去掉字符填充
         return rtrim($decrypted_data); //返回去掉空格之后的数据
     }
@@ -286,6 +315,9 @@ class Zhiyun
      * 对解密后的已字符填充的明文进行去掉填充字符
     */
     private function pkcs5_unpad($text) {
+        if(strlen($text)==0){
+          return "" ;
+        }
         $pad = ord($text{strlen($text) - 1});
         if ($pad > strlen($text))
             return false;

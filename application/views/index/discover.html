@@ -37,17 +37,18 @@
         </div>
 
 
+
         <div class="row houkashop">
             <div class="panel-heading">
                 <h4 class="discover_title">货卡商城</h4></div>
             <div>
                 <ul class="icon-ul">
-                    <li><a href="javascript:ing();"><i id="goodsinfo"></i><span class="discover-span text-center">货源信息</span></a></li>
+                    <li><a href="<?=site_url('source/index');?>"><i id="goodsinfo"></i><span class="discover-span text-center">货源信息</span></a></li>
                     <li><a href="<?=site_url('usedcar/index')?>"><i id="used-car"></i><span class="discover-span text-center">二手车</span></a></li>
-                    <li><a href="javascript:ing();"><i id="newcar"></i><span class="discover-span text-center">新车</span></a></li>
-                    <li><a href="javascript:ing();"><i id="trailer"></i><span class="discover-span text-center">挂车</span></a></li>
-                    <li><a href="javascript:ing();"><i id="choose-car"></i><span class="discover-span text-center">选车报价</span></a></li>
-                    <li><a href="javascript:ing();"><i id="sell-parts"></i><span class="discover-span text-center">配件销售</span></a></li>
+                    <!-- <li><a href="javascript:ing();"><i id="newcar"></i><span class="discover-span text-center">新车</span></a></li>
+                    <li><a href="javascript:ing();"><i id="trailer"></i><span class="discover-span text-center">挂车</span></a></li> -->
+                    <!-- <li><a href="javascript:ing();"><i id="choose-car"></i><span class="discover-span text-center">选车报价</span></a></li> -->
+                    <li><a href="/partssell/index"><i id="sell-parts"></i><span class="discover-span text-center">配件销售</span></a></li>
                 </ul>
             </div>
         </div>
@@ -57,45 +58,46 @@
                 <h4 class="discover_title">货卡服务</h4></div>
             <div>
                 <ul class="icon-ul">
-                    <li><a href="javascript:ing();"><i id="driverjor"></i><span class="discover-span text-center">司机招聘</span></a></li>
-                    <li><a href="javascript:ing();"><i id="carmaintain"></i><span class="discover-span text-center">车辆维修</span></a></li>
-                    <li><a href="javascript:ing();"><i id="kayouenjor"></i><span class="discover-span text-center">卡友喜好</span></a></li>
-                    <li><a href="javascript:ing();"><i id="road-condition"></i><span class="discover-span text-center">路况查询</span></a></li>
-                    <li><a href="javascript:ing();"><i id="platfromactive"></i><span class="discover-span text-center">平台活动</span></a></li>
-                    <li><a href="javascript:ing();"><i id="buycar-counter"></i><span class="discover-span text-center">购车计数器</span></a></li>
-                    <li><a href="javascript:ing();"><i id="recommend"></i><span class="discover-span text-center">推荐公司</span></a></li>
-                    <li><a href="javascript:ing();"><i id="addshanjia"></i><span class="discover-span text-center">商家入驻</span></a></li>
+                    <li><a href="/driverhire/index"><i id="driverjor"></i><span class="discover-span text-center">司机招聘</span></a></li>
+                    <li><a href="/carservice/"><i id="carmaintain"></i><span class="discover-span text-center">车辆维修</span></a></li>
+                    <li><a href="http://www.qingting.fm/"><i id="kayouenjor"></i><span class="discover-span text-center">卡友喜好</span></a></li>
+                    <!-- <li><a href="javascript:ing();"><i id="road-condition"></i><span class="discover-span text-center">路况查询</span></a></li> -->
+                    <li><a href="/activities/"><i id="platfromactive"></i><span class="discover-span text-center">平台活动</span></a></li>
+                    <!-- <li><a href="javascript:ing();"><i id="buycar-counter"></i><span class="discover-span text-center">购车计数器</span></a></li> -->
+                    <!-- <li><a href="javascript:ing();"><i id="recommend"></i><span class="discover-span text-center">推荐公司</span></a></li> -->
+                    <li><a href="<?=site_url('Merchantcheck/index')?>"><i id="addshanjia"></i><span class="discover-span text-center">商家入驻</span></a></li>
+                    <li><a href="<?=site_url('home/flock_list/0')?>"><i id="driver_qun"></i><span class="discover-span text-center">司机群</span></a></li>
+                    <!-- <li><a href="javascript:ing();"><i id="trading-record"></i><span class="discover-span text-center">交易记录</span></a></li> -->
                 </ul>
             </div>
         </div>
-
         <div class="row huokainfo">
             <div class="panel-heading">
                 <h4 class="discover_title">货卡资讯</h4></div>
             <div>
                 <ul class="icon-ul">
-                    <li><a href="javascript:ing();"><i id="expose"></i><span class="discover-span text-center">曝光台</span></a></li>
+                    <li><a href="/advisory"><i id="expose"></i><span class="discover-span text-center">信息咨询</span></a></li>
                     <li>
-                        <a href="javascript:ing();"><i id="merchant-ranking"></i><span class="discover-span text-center">商家排名</span></a>
+                        <a href="/merchantcheck/merchant_rank"><i id="merchant-ranking"></i><span class="discover-span text-center">商家排名</span></a>
                     </li>
-                    <li><a href="javascript:ing();"><i id="news"></i><span class="discover-span text-center">新闻资讯</span></a></li>
-                    <li><a href="javascript:ing();"><i id="ychehche"></i><span class="discover-span text-center">养车护车</span></a></li>
+                    <li><a href="/news/"><i id="news"></i><span class="discover-span text-center">新闻资讯</span></a></li>
+                    <li><a href="/keepcar/"><i id="ychehche"></i><span class="discover-span text-center">养车护车</span></a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="row kayouessential">
+        <!-- <div class="row kayouessential">
             <div class="panel-heading">
                 <h4 class="discover_title">卡友必备</h4></div>
             <div>
                 <ul class="icon-ul">
                     <li><a href="<?=site_url('home/flock_list/0')?>"><i id="driver_qun"></i><span class="discover-span text-center">司机群</span></a></li>
                     <li><a href="javascript:ing();"><i id="serialnumbel"></i><span class="discover-span text-center">流水号查询</span></a></li>
-                    <li><a href="javascript:ing();"><i id="waybill"></i><span class="discover-span text-center">运单查询</span></a></li>
+                     <li><a href="javascript:ing();"><i id="waybill"></i><span class="discover-span text-center">运单查询</span></a></li>
                     <li><a href="javascript:ing();"><i id="trading-record"></i><span class="discover-span text-center">交易记录</span></a></li>
                 </ul>
             </div>
-        </div>
+        </div> -->
         <hr/>
     </div>
     <!-- menu -->

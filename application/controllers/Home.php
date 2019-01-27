@@ -2,10 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends MY_Controller {
-
+  private $id = "";
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('index_model');
+      $this->id = $this->session->userdata("user_id");
+		  $this->load->model('index_model');
+      if(empty($this->id)){
+        $this->session->set_userdata(  array("go_url"=>'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']));
+        header("location:".site_url("login/weChat_login"));
+      }
 		/*if(empty($this->session->userdata('user_id'))){ //测试用户
 		    $this->session->set_userdata('user_id', 4);
         }*/
@@ -16,13 +21,14 @@ class Home extends MY_Controller {
 		$type = urldecode($type); //文章类型
 		$data['type'] = $type;
 		$where_arr = '论坛';//除了 卡友求助, 公告, 广告以外的所有文章
-
+    $data["banner"]=$this->db->get("advertise_index")->result_array() ;
 		//精品帖子
 		if ($type == '精品') {
 			$order_str = 'praise DESC, read DESC';
 			$article = $this->index_model->get_user_article_list($where_arr, $order_str, $offset, 10);
 			$data['article'] = $this->index_model->format_data($article);
 			$data['user'] = $this->index_model->get_user(array('user_id'=>$this->session->userdata('user_id')))[0];
+
             $data['active'] = '论坛'; //底部高亮标签名
 			$this->load->view('index/index_boutique.html', $data);
 			return;
@@ -73,20 +79,20 @@ class Home extends MY_Controller {
 	}
 
 	//卡友求助的搜索页
-	public function help_search($search, $offset = 0, $la = '') {
+	public function help_search($search="", $offset = 0, $la = '1') {
 		$search = urldecode($search);
 		$status = $this->index_model->get_help_search($search, $offset);
 		$data['article'] = $this->index_model->format_data($status);
 		//print_r($data['article']);
-		if (!empty($la)) {
-			get_json(200, '加载成功！', $data['article']);return;
-		} else {
+		// if (!empty($la)) {
+		// 	get_json(200, '加载成功！', $data['article']);return;
+		// } else {
 			$total_rows = $this->index_model->get_help_search_count($search);
 			$data['total_rows'] = empty($total_rows) ? 0 : $total_rows[0]['total_rows'];
 			$data['search'] = $search;
             $data['active'] = '求助'; //底部高亮标签名
 			$this->load->view('index/help-search.html', $data);
-		}
+		// }
 	}
 	//查看文章页
 	public function see_article($id) {
@@ -289,9 +295,11 @@ class Home extends MY_Controller {
     }
 
     //个人中心 $id=>被访问者的id
-    public function person($id = '', $type = 'article'){
+    public function person(  $as =1, $type = 'article'){
+        $id = $this->id;
         if(!is_numeric($id)){
-            $this->load->view('404/404.html');return;
+          $data["str"] = "未找到";
+            $this->load->view('404/404.html',$data);return;
         }
         $user_id = $this->session->userdata('user_id'); //当前访问者的id
 
@@ -397,6 +405,20 @@ class Home extends MY_Controller {
             $data['message']=$status;
             $this->load->view('index/message.html', $data);
         }
+    }
+    //签到
+    public function sign($value='')
+    {
+        $id = $this->id ;
+        $info = $this->db->get_where("user", array("user_id " =>$id));
+        $lastday = date( "Y-m-d" , $info["lastsign"]) ;
+        $nowday = date("Y-m-d") ;
+        if($lastday!=$nowday){
+          $this->db->set("user" , array("sign"=>$info["sign"]+1 , "lastsign"=>time() ,array("user_id"=>$id))) ;
+          get_json(200,"签到成功","");
+        }
+
+
     }
 
     /***************************** 论坛部分结束 ***************************/

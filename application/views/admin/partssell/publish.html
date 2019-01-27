@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , user-scalable=no , initial-scale=1.0 , maximum-scale=1.0 ,minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="">
+    <title>发布零件</title>
+    <link rel="stylesheet" href="/style/usedcar/css/apply-for-personal.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style/usedcar/css/footer.css">
+    
+    <link rel="stylesheet" href="/application/views/source/static/css/PuGoodSource.css" />
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+</head>
+
+<body>
+<div class="header">
+    <div class="wrap">
+        <h1>发布零件</h1>
+    </div>
+</div>
+<form enctype="multipart/form-data" >
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">零件名</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="name" placeholder="请输入要发售货物的名称">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">价格</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="money" placeholder="请输入价格">
+            </div>
+        </div>
+        <div class="choise_options weui_cell">
+  			<div class="weui_cells weui_cells_radio car_length">
+  				<p>
+  					类型
+  				</p>
+
+			       <label class="weui_cell weui_check_label" for="x23">
+                      <div class="weui_cell_bd weui_cell_primary">
+                          <p>柴滤</p>
+                      </div>
+                      <div class="weui_cell_ft">
+                          <input type="radio" class="weui_check" name="radio2" id="x23" value="柴滤">
+                          <span class="weui_icon_checked"></span>
+                      </div>
+                  </label>
+			    <label class="weui_cell weui_check_label" for="x24">
+                      <div class="weui_cell_bd weui_cell_primary">
+                          <p>机滤</p>
+                      </div>
+                      <div class="weui_cell_ft">
+                          <input type="radio" name="radio2" class="weui_check" id="x24" value="机滤">
+                          <span class="weui_icon_checked"></span>
+                      </div>
+                  </label>
+                  <label class="weui_cell weui_check_label" for="x25">
+                              <div class="weui_cell_bd weui_cell_primary">
+                                  <p>空滤</p>
+                              </div>
+                              <div class="weui_cell_ft">
+                                  <input type="radio" name="radio2" class="weui_check" id="x25" value="空滤">
+                                  <span class="weui_icon_checked"></span>
+                              </div>
+                </label>
+                <label class="weui_cell weui_check_label" for="x26">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>机油</p>
+                            </div>
+                            <div class="weui_cell_ft">
+                                <input type="radio" name="radio2" class="weui_check" id="x26" value="机油">
+                                <span class="weui_icon_checked"></span>
+                            </div>
+              </label>
+              <label class="weui_cell weui_check_label" for="x27">
+                          <div class="weui_cell_bd weui_cell_primary">
+                              <p>配件</p>
+                          </div>
+                          <div class="weui_cell_ft">
+                              <input type="radio" name="radio2" class="weui_check" id="x27" value="配件">
+                              <span class="weui_icon_checked"></span>
+                          </div>
+            </label>
+            <label class="weui_cell weui_check_label" for="x28">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>内饰</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" name="radio2" class="weui_check" id="x28" value="内饰">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+          </label>
+          <label class="weui_cell weui_check_label" for="x29">
+                      <div class="weui_cell_bd weui_cell_primary">
+                          <p>外饰</p>
+                      </div>
+                      <div class="weui_cell_ft">
+                          <input type="radio" name="radio2" class="weui_check" id="x29" value="外饰">
+                          <span class="weui_icon_checked"></span>
+                      </div>
+        </label>
+        <label class="weui_cell weui_check_label" for="x30">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>安全</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                        <input type="radio" name="radio2" class="weui_check" id="x30" value="安全">
+                        <span class="weui_icon_checked"></span>
+                    </div>
+      </label>
+      <label class="weui_cell weui_check_label" for="x31">
+                  <div class="weui_cell_bd weui_cell_primary">
+                      <p>加装</p>
+                  </div>
+                  <div class="weui_cell_ft">
+                      <input type="radio" name="radio2" class="weui_check" id="x31" value="加装">
+                      <span class="weui_icon_checked"></span>
+                  </div>
+    </label>
+
+  			</div>
+      </div>
+
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">内容</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <textarea class="weui_textarea input_box" placeholder="内容" name="content"></textarea>
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">商品详情</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <textarea class="weui_textarea input_box" placeholder="商品详情" name="detail"></textarea>
+            </div>
+        </div>
+        <div class="weui_cell weui_vcode">
+            <div class="weui_cell_hd">
+                <label class="weui_label">验证码</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="authcode" placeholder="验证码">
+            </div>
+            <div class="weui_cell_ft">
+                <img class="authcode_img" src="http://www.jxhkzj.com/admin/partssell/authcode" onclick="this.src='http://www.jxhkzj.com/usedcar/authcode/44'">
+            </div>
+        </div>
+        <div class="weui_cell weui_cell_warn">
+            <div class="weui_cell upload" style="position: relative;margin: 0 auto;">
+                <div class="upload_box">
+                    <div class="weui_uploader_input_wrp">
+                        <input class="weui_uploader_input" type="file" name="img0" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                        <p class="note">货物照片</p>
+                    </div>
+                </div>
+                <div class="upload_box">
+                <div class="weui_uploader_input_wrp">
+                    <input class="weui_uploader_input" type="file" name="img1" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">货物照片</p>
+                </div>
+                </div>
+                <div class="upload_box">
+                <div class="weui_uploader_input_wrp">
+                    <input class="weui_uploader_input" type="file" name="img2" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">货物照片</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="weui-row">
+        <a href="javascript:;" type="submit"  class="weui_btn submit_btn  weui_btn_warn  weui-col-20">提交</a>
+    </div>
+</form>
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/city-picker.min.js"></script>
+<script src="<?=base_url('style/partssell/js/apply.js')?>"></script>
+<script>
+  $(function () {
+    $(".submit_btn").click(function () {
+      $("button[type='submit']").click()
+  })
+
+})
+
+</script>
+</body>
+
+</html>

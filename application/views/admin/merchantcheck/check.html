@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>商家申请审核列表</title>
+    <link rel="stylesheet" href="/style/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/style/admin/css/admin.css">
+    <script src="/style/admin/js/jquery.js"></script>
+    <script src="/style/admin/js/pintuer.js"></script>
+</head>
+<body>
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder">商家申请审核</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+        <form method="post" action="" id="listform">
+        <div class="padding border-bottom">
+            <ul class="search" style="padding-left:10px;">
+                <li>按条件筛选:&nbsp</li>
+                <li>地区:
+                    <select name="s_ishome" class="input" onchange="changetype('车型', this)" style="width:auto; padding:5px 20px; line-height:17px; display:inline-block">
+                        <option value="">选择</option>
+
+                    </select>
+                    &nbsp;&nbsp;
+                    类型:
+                    <select name="s_isvouch" class="input" onchange="changetype('价格', this)"  style="width:auto; padding:5px 20px; line-height:17px;display:inline-block">
+                        <option value="">选择</option>
+
+                    </select>
+                    &nbsp;&nbsp;
+
+                </li>
+
+
+            </ul>
+        </div>
+      </form>
+        <table class="table table-hover text-center">
+            <tr>
+                <th>所属模块</th>
+                <th>类型</th>
+                <th>申请人</th>
+                <th>查看详情</th>
+                <th>申请时间</th>
+
+                <th width="310">操作</th>
+            </tr>
+            <volist name="list" id="vo">
+                <?php foreach($merchant as $c):?>
+                <tr>
+                    <td><?=empty($c['module'])?"测试":$c["module"] ?></td>
+                    <td><?= $c['nature']=="1"?"个体":"公司" ?></td>
+                    <td><?=$c['realname'] ?></td>
+                    <td width="10%"><a href="<?=site_url('admin/merchantcheck/see_apply_message/'.$c['id'])?>" class="button border-main" target="right" >点击查看</a> </td>
+                    <td><?=date('Y-m-d', $c['create_time'])?></td>
+
+                    <td>
+                        <div class="button-group">
+                           <a class="button border-main" data-id="" onclick="pass_check(<?=$c['id'] ?>)" ><span class="icon-check"></span> 通过审核</a>
+                           <a class="button border-red" href="javascript:void(0)" onclick="return del(<?=$c['id']?>)"><span class="icon-trash-o"></span> 删除</a>
+                         </div>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+                <tr>
+                    <td colspan="8">
+                        <div class="pagelist"> <?=$link?> </div>
+                    </td>
+                </tr>
+            </volist>
+        </table>
+    </div>
+</body>
+<script type="text/javascript">
+  var this_url_server = "/admin/merchantcheck/";
+
+  function pass_check(id) {
+      $.get(this_url_server+"pass_check/"+id ,{} ,function(data){
+          if(data["status"]=="okay"){
+            alert(data["message"]);
+            window.location.reload();
+
+          }else{
+            alert($data["message"])
+          }
+
+      } ,"json");
+  }
+  function del(id) {
+      $.get(this_url_server+"del_check/"+id ,{} ,function(data){
+          if(data["status"]=="okay"){
+            alert(data["message"]);
+            window.location.reload();
+
+          }else{
+            alert($data["message"])
+          }
+
+      } ,"json");
+  }
+  $(function(){
+
+
+  })
+
+
+</script>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , user-scalable=no , initial-scale=1.0 , maximum-scale=1.0 ,minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="">
+    <title>申请成为个体商</title>
+    <link rel="stylesheet" href="/style/usedcar/css/apply-for-personal.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style/usedcar/css/footer.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+</head>
+
+<body>
+<div class="header">
+    <div class="wrap">
+        <a href="javascript:window.history.go(-1)"><i class="bowleft fa fa-angle-left"></i></a>
+        <h1>申请成为个体商</h1>
+    </div>
+</div>
+<form enctype="multipart/form-data">
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">姓名</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="realname" placeholder="请输入姓名">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">商店名称</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="merchant_name" placeholder="将要在货卡之家展示的商店名称">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">服务类型</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input type="text" name="module" class="weui_input" id="modulepicker" >
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">所在城市</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary " style="position: relative">
+                <input class="weui_input" type="text" name="address" id="city-picker" placeholder="">
+                <span style="position: absolute;right: 0;top: 0; "><i class="fa fa-angle-right"   ></i></span>
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">身份证号</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="ID_card" placeholder="请输入身份证号">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">卖车手机号</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="phone" placeholder="请输入手机号">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">微信号</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="we_chat" placeholder="请输入微信号">
+            </div>
+        </div>
+        <div class="weui_cell weui_vcode">
+            <div class="weui_cell_hd">
+                <label class="weui_label">验证码</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="authcode" placeholder="验证码">
+            </div>
+            <div class="weui_cell_ft">
+                <img class="authcode_img" src="<?=site_url('usedcar/authcode')?>" onclick="this.src='<?=site_url("usedcar/authcode/").mt_rand(0, 100)?>'">
+            </div>
+        </div>
+        <div class="weui_cell weui_cell_warn">
+            <div class="weui_cell upload" style="position: relative;margin: 0 auto;">
+                <div class="upload_box">
+                    <div class="weui_uploader_input_wrp">
+                        <input class="weui_uploader_input" type="file" name="id_card_front" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                        <p class="note">身份证正面照</p>
+                    </div>
+                </div>
+                <div class="upload_box">
+                <div class="weui_uploader_input_wrp">
+                    <input class="weui_uploader_input" type="file" name="id_card_back" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">身份证反面照</p>
+                </div>
+                </div>
+                <div class="upload_box">
+                <div class="weui_uploader_input_wrp">
+                    <input class="weui_uploader_input" type="file" name="id_card_handle" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">手持身份证照</p>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui_cell">
+          <div class="upload_box text-center upload headphoto" style="margin:0 auto ;">
+              <div class="weui_uploader_input_wrp  " >
+                  <input class="weui_uploader_input" type="file" name="headphoto" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                  <p class="note">商家头像</p>
+
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="weui-row">
+        <a href="javascript:;" type="submit" data-type="经纪人" class="weui_btn submit_btn  weui_btn_warn  weui-col-80">提交</a>
+    </div>
+</form>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/city-picker.min.js"></script>
+<script src="/style/usedcar/js/apply.js"></script>
+<script>
+
+    $(function() {
+        //$.toast("加载中","");
+        $("#city-picker").cityPicker({
+            title: "请选择地址"
+        });
+
+        $("#return").click(function() {
+            window.history.go(-1);
+        });
+        $("#modulepicker").picker({
+          title:  "请选择您的服务类型",
+          cols:[
+          {
+            textAlign:"center",
+            values:['二手车',"配件销售"]
+
+          }
+          ]
+        })
+    })
+
+</script>
+</body>
+
+</html>

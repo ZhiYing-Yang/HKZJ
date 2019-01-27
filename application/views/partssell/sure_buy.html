@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>确认订单</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/application/views/partssell/static/css/sure_buy.css">
+
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+        <header class="bar bar-nav main_head">
+    <a class="button button-link button-nav pull-left" onclick="javascript:window.history.go(-1);" data-transition='slide-out'>
+      <span class="icon icon-left"></span>
+      
+    </a>
+    <h1 class="title">确认订单</h1>
+  </header>
+  <nav class="bar bar-tab">
+      <a class="tab-item external total_money" style="color: black;" href="#">
+  合计：<i class="fa fa-jpy"></i>
+  <span>9.9</span>
+</a>
+      <a class="tab-item external sureTo" style="color: white;" href="#">
+  提交订单
+</a>
+  </nav>
+  <div class="content">
+    <div class="card">
+    	<a href="edit_address.html">
+    <div class="card-header">
+    	<div class="head_left">
+    	收货人:<span>、、</span>
+    	</div>
+    	<div class="head_right">1234567</div>
+    </div>
+    <div class="card-content">
+      <div class="card-content-inner">
+      	<div class="add_detail">
+      	收货地址：<span>河南省开封市龙亭区河南大学</span>
+      	<span class="icon icon-right pull-right"></span>
+      	</div>
+      	
+      </div>
+      </div>
+      </a>
+      </div>
+    <div class="main-part content-padded">
+    	<ul>
+    		<!--每个li代表一个商品-->
+  <li>
+    <div class="item-content">
+      <a href="parts_details.html"   external>
+      <div class="main_photo">
+      	<img src="/application/views/partssell/static/images/timg.jpg" />
+      </div>
+      <div class="item-inner">
+        <div class="item-title-row">
+          <div class="item-title">标题类别</div>
+        </div>
+        <div class="item-content"><span>此处是内容此处是内容此处是内容此处是内容此处是内容。。。。</span></div>
+        <div class="item-botton">
+        	<div class="money"><i class="fa fa-jpy"></i><span>9.9</span></div>
+        	<div class="number">
+        		<span class="reduce">-</span>
+        		<input class="nuinput" type="text" value="1"  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/"/>
+        		<span class="add">+</span>
+        	</div>
+        </div>
+      </div>
+      </a>
+    </div>
+  </li>
+  
+  <li>
+    <div class="item-content">
+      <a href="parts_details.html"   external>
+      <div class="main_photo">
+      	<img src="/application/views/partssell/static/images/timg.jpg" />
+      </div>
+      <div class="item-inner">
+        <div class="item-title-row">
+          <div class="item-title">标题类别</div>
+        </div>
+        <div class="item-content"><span>此处是内容此处是内容此处是内容此处是内容此处是内容。。。。</span></div>
+        <div class="item-botton">
+        	<div class="money"><i class="fa fa-jpy"></i><span>9.9</span></div>
+        	<div class="number">
+        		<span class="reduce">-</span>
+        		<input class="nuinput" type="text" value="1"  onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/"/>
+        		<span class="add">+</span>
+        	</div>
+        </div>
+      </div>
+      </a>
+    </div>
+  </li>
+</ul>
+    </div>
+  </div>
+  
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>$.config = {router: false}</script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+  </body>
+</html>
+<script>
+	$(function(){
+		
+		$('.number').click(function(){
+			return false;
+		});
+		//减少数量点击事件
+		$('.number .reduce').click(function(){
+			var now_number=$(this).next('.nuinput').val();
+			 var eleInput = $(this).next('.nuinput');
+   
+			if(now_number==1){
+				$.toast("已经不能再减少了哟~");
+			}
+			else{
+				eleInput.val(parseInt(eleInput.val()) - 1);
+			}
+		})
+		//增加数量点击事件
+		$('.number .add').click(function(){
+			 var eleInput = $(this).prev('.nuinput');
+				eleInput.val(parseInt(eleInput.val()) + 1);
+		})
+	})
+</script>

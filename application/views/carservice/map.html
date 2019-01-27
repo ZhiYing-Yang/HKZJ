@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>店铺详情</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.css">
+     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current" id="container">
+       <div  class="bar bar-tab footer">
+       	<?=$info['name']?>
+       </div>
+        <div class="content">
+        </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+     <script>$.config = {router: false}</script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.11&key=5d493777514565298e14dde91c4be448"></script>
+    <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+
+  </body>
+</html>
+ <script>
+ window.onLoad  = function(){
+      var map = new AMap.Map('container',{
+         zoom:20,//级别
+      });
+      var currentCenter = map.getCenter();
+      // 创建 AMap.Icon 实例：
+      var icon = new AMap.Icon({
+        size: new AMap.Size(40, 50),    // 图标尺寸
+        image: '<?=base_url().$info["img"]?>',  // Icon的图像
+        //imageOffset: new AMap.Pixel(0, -60),  // 图像相对展示区域的偏移量，适于雪碧图等
+        imageSize: new AMap.Size(40, 50)   // 根据所设置的大小拉伸或压缩图片
+      });
+
+        AMap.plugin(['AMap.ToolBar'],function(){//异步同时加载多个插件
+        var toolbar = new AMap.ToolBar();
+        map.addControl(toolbar);
+      });
+      var marker1 = new AMap.Marker({
+             position:[<?=$lng?>, <?=$lat?>],//位置
+             title:'<?=$info["name"]?>',
+             icon: icon // 添加 Icon 实例
+         })
+         var marker2 = new AMap.Marker({
+                position:[currentCenter.lng, currentCenter.lat],//位置
+                title:'当前位置',
+            })
+       map.add([marker1,marker2]);//添加到地图
+
+}
+
+var url = 'https://webapi.amap.com/maps?v=1.4.11&key=5d493777514565298e14dde91c4be448&callback=onLoad';
+var jsapi = document.createElement('script');
+jsapi.charset = 'utf-8';
+jsapi.src = url;
+document.head.appendChild(jsapi);
+ </script>

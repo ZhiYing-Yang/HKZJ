@@ -14,6 +14,14 @@ class Login extends CI_Controller {
 	/*
 		登陆验证页
 	*/
+	public function adduser()
+	{
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$password = $this->input->post('repeat_password');
+		
+	}
+
 	public function login_in() {
 		$code = $this->input->post('authcode');
 		if (!isset($_SESSION)) {

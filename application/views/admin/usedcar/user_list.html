@@ -16,20 +16,19 @@
 <body>
 <form method="post" action="" id="listform">
     <div class="panel admin-panel">
-        <div class="panel-head"><strong class="icon-reorder"> 论坛用户列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+        <div class="panel-head"><strong class="icon-reorder"> 二手车用户列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
             <ul class="search" style="padding-left:10px;">
                 <li>用户类型：</li>
-                <if condition="$iscid eq 1">
+                <!-- <if condition="$iscid eq 1">
                     <li>
                         <select name="cid" class="input" style="width:200px; line-height:17px;" onchange="changetype(this)">
                             <option value="">请选择排序</option>
-                            <option value="个人">个人</option>
                             <option value="经纪人">经纪人</option>
                             <option value="商家">商家</option>
                         </select>
                     </li>
-                </if>
+                </if> -->
                 <li>
                     <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:450px; line-height:17px;display:inline-block" value="<?=isset($keywords)?$keywords:''?>"/>
                     <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()"> 搜索</a></li>

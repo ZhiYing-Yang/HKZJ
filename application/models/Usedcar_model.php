@@ -93,5 +93,16 @@ class Usedcar_model extends CI_model {
         return $status;
     }
 
+    public function get_car_by_id($id)
+    {
+       return $this->db->get_where("used-car_sale" , array("id" =>$id))->row_array();
+    }
+    // public get_car_info_by_ids($ids){  //传ID数组获取车辆信息
+    //   $data =array() ;
+    //   foreach ($ids as $key => $value) {
+    //     $data[] =$this->db->get_where("used-car_sale" , array("id"=>$value) );
+    //     }
+    //   return $data;
+    // }
 
 }

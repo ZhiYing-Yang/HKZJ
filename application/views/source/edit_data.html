@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>编辑个人信息</title>
+    <link rel="stylesheet" href="/style/resource/css/edit-data.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style/resource/font/style.css">
+    <link rel="stylesheet" href="/style/resource/css/footer.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+</head>
+<body>
+<div class="header">
+    <div class="wrap">
+        <a href="<?=site_url('source/mine')?>"><i class="bowleft fa fa-angle-left"></i></a>
+        <h1>编辑个人信息</h1>
+    </div>
+</div>
+<div class="banner">
+    <img src="/style/resource/images/car.jpg" alt="">
+</div>
+<div class="edit">
+    <form action="<?=site_url('source/editData')?>" id="myForm" method="post" class="weui_cells_form">
+        <div class="weui_cells ">
+            <div class="weui_cell">
+                <div class="weui_cell_hd weui_cell_primary ">
+                    <label for="city-picker" class="weui_label"  style="width: 150px;">所在城市:</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input type="text" id='city-picker' name="address" class="weui_input" value="<?=$user['address']?>" placeholder="单击选择城市" required="required"/>
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd weui_cell_primary ">
+                    <label for="realname" class="weui_label">姓名:</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input type="text" name="realname" id="realname" class="weui_input" value="<?=$user['realname']?>" placeholder="请输入姓名" required="required">
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd  ">
+                    <label for="phone" class="weui_label" style="width: 160px;">联系电话:</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input type="text" name="phone" id="phone" class="weui_input" value="<?=$user['phone']?>" placeholder="请输入电话号" required="required">
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd  ">
+                    <label for="wechat" class="weui_label" style="width: 160px;">微信号:</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input type="text" name="wechat" id="wechat" class="weui_input" value="<?=$user['wechat']?>" placeholder="请输入微信号" required="required">
+                </div>
+            </div>
+            <div class="weui_cell">
+                <button type="button" class="weui_btn weui_btn_warn">提交信息</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/city-picker.min.js"></script>
+<script>
+    $("#city-picker").cityPicker({
+        title: "请选择所在城市"
+    });
+</script>
+</body>
+</html>
+<script>
+$('button[type="button"]').click(function(e){
+    e.preventDefault();
+
+    if($.trim($('input[name="address"]').val()).length == 0){
+        $.toptip('请选择所在城市', 'warning');return;
+    }
+
+    if($.trim($('input[name="realname"]').val()).length == 0){
+        $.toptip('请输入您的姓名', 'warning');
+        $('input[name="realname"]').focus();
+        return;
+    }
+    if($.trim($('input[name="phone"]').val()).length == 0){
+        $.toptip('请输入您的联系电话', 'warning');
+        $('input[name="phone"]').focus();
+        return;
+    }
+    if($.trim($('input[name="wechat"]').val()).length == 0){
+        $.toptip('请输入您的微信号', 'warning');
+        $('input[name="wechat"]').focus();
+        return;
+    }
+    var form = $('#myForm');
+    $.post(form.attr('action'), form.serialize(), function(data){
+        if(data.code == 200){
+            $.toast('编辑成功', function(){
+                window.history.go(-1);
+            });
+        }else{
+            $.toptip(data.message, 'error');
+        }
+    }, 'json');
+});
+</script>

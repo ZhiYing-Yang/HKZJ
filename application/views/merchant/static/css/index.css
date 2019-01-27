@@ -1,0 +1,57 @@
+body{
+	font-family: SimHei;
+
+}
+.main_head{
+	background: #2486ff#2486ff;
+}
+.bar .button-link{
+	color: white;
+}
+.main_head h1{
+	color: white;
+}
+.bar .searchbar .searchbar-cancel{
+	color: white;
+}
+.bar .searchbar{
+	background: rgba(0,0,0);
+	/*background:#F2760B;*/
+	background: #2486ff;
+}
+.buttons-tab .button.active{
+	color: #2486ff;
+	border-color: #2486ff;
+}
+.content-block{
+	margin: 10px 0px;
+}
+.list-block{
+	margin: 10px 0px;
+}
+.one_parts ul{
+	width: 100%;
+	border-radius: 10px;
+	color: black;
+}
+
+.one_parts .item-media{
+	width: 90px;
+}
+.one_parts .item-media img{
+	width: 100%;
+	height: 100%;
+}
+
+.font12px{
+	font-size: 12px;
+}
+.font13px{
+	font-size: 13px;
+}
+.font14px{
+	font-size: 14px;
+}
+.font18px{
+	font-size: 18px;
+}

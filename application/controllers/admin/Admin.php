@@ -20,7 +20,57 @@ class Admin extends CI_Controller {
     public function see_view(){
         $this->load->view('admin/list.html');
     }
+		public function advertisement($offset='')
+		{
+			$where_arr = array();
+      $per_page = 10;
+      $page_url = site_url('admin/admin/advertisement/');
+      $total_rows = $this->db->count_all_results('driverhire_content');
+      $offset_uri_segment = 4;
+      $this->load->library('myclass');
+      $data['link'] = $this->myclass->fenye($page_url, $total_rows, $offset_uri_segment, $per_page);
+      $data['adver'] = $this->admin_model->get_adver_list($where_arr,$offset, $per_page,"sequence asc");
 
+			$this->load->view("admin/advertisement.html" , $data);
+		}
+		public function advertisement_manage($action , $id)
+		{
+			if($action=="add"){
+				$this->load->view("admin/advertise_add.html") ;
+				return ;
+			}
+			if($action=="edit"){
+				$res = $this->db->get_where("advertise_index" , array("id"=>$id))->row_array();
+				$data["res"] = $res ;
+				$this->load->view("admin/advertise_edit.html" , $data ) ;
+				return ;
+			}
+			if($action=="doedit"){
+				$url = $this->input->post("url");
+				$content = $this->input->post("content");
+				$img = $this->input->post("img");
+				if($this->db->update("advertise_index" , array("url"=>$url ,"content"=>$content , "img"=>$img ) , array("id"=>$id))){
+					get_json(200 , " " , "");
+				}
+				return ;
+			}
+			if($action=="doadd"){
+				$url = $this->input->post("url");
+				$content = $this->input->post("content");
+				$img = $this->input->post("img");
+				$this->db->insert("advertise_index" , array(
+					"url"=>$url,
+					"img"=>$img ,
+					"content"=>$content ));
+					get_json(200,"" , "");
+				return ;
+			}
+			if($action=="delete"){
+				if($this->db->delete("advertise_index" , array("id"=>$id ))){
+					get_json(200," " ,"");
+				}
+			}
+		}
     //修改密码
     public function edit_password($action = 'view'){
         if($action == 'do'){
@@ -38,20 +88,69 @@ class Admin extends CI_Controller {
                 $hashed_password = $this->password_hash->HashPassword($new_password);
                 if($this->db->update('admin', array('password'=>$hashed_password), array('id'=>$admin_id))){
                     $this->session->sess_destroy();
-                    alert_msg('密码修改成功，请重新登录！');
+										alert_msg('密码修改成功，请重新登录！' ,"parentrefresh");
                 }else{
                     alert_msg('密码修改失败，请重试！');
                 }
 
             }else{
-                alert_msg('旧密码输入错误');
+                alert_msg('旧密码错误');
             }
 
         }else{
             $this->load->view('admin/edit_password.html');
         }
     }
-    
+		public function adduser($action='see')
+		{
+
+			if($action == 'do'){
+					$username = $this->input->post('username');
+					$new_password = $this->input->post('password');
+					$repeat_password = $this->input->post('repeatpassword');
+					if($new_password != $repeat_password){
+							alert_msg('两次输入密码不一致');
+					}
+
+					$old_password = $this->input->post('old_password');
+					$this->load->library('password_hash', array(8, false));
+					$hashed_password = $this->password_hash->HashPassword($new_password);
+					if($this->db->insert('admin', array('password'=>$hashed_password , "username"=>$username , "identity"=>"root"  ) )){
+							alert_msg('添加成功' );
+					}else{
+							alert_msg('增加用户失败，请重试！');
+					}
+
+			}else{
+					$this->load->view('admin/adduser.html');
+			}
+		}
+		public function user_list( $offset = 0)
+		{
+			$where_arr = array();
+			$per_page = 10;
+			$page_url = site_url('admin/admin/user_list/');
+			$total_rows = $this->db->count_all_results('admin');
+			$offset_uri_segment = 4;
+			$this->load->library('myclass');
+			$data['link'] = $this->myclass->fenye($page_url, $total_rows, $offset_uri_segment, $per_page);
+			$data['u'] = $this->admin_model->get_admin_list($offset, $per_page);
+
+			$this->load->view("admin/userlist.html" , $data);
+		}
+
+		public function user_manage($action='',$option="")
+		{
+			$option = urldecode($option);
+				if($action=="delete"){
+					if($option==1) alert_msg("抱歉，该用户无法被删除");
+					if($this->db->delete("admin" , array("id"=>$option)))  {
+							alert_msg("删除成功");
+					}
+				}
+
+		}
+
 	/**********************  论坛用户部分  ***********************/
 
 	/********************************** 论坛部分Begin ************************************/
@@ -63,7 +162,7 @@ class Admin extends CI_Controller {
         $type      = urldecode($type);
         $data['type'] = $type;
         $data['keywords'] = '';//无意义
-        $data['notice']=$type == '公告'?true:false;
+        $data['notice']= $type == '公告';
 
         if ($type != 'all') { //根据单个类型获取帖子
             $where_arr = array('type' => $type);
@@ -106,7 +205,7 @@ class Admin extends CI_Controller {
         //格式化数据
         $this->load->model('index_model');
         $data['article'] = $this->index_model->format_data($article);
-
+				$data["notice"] = false;
         //其他数据
         $data['type'] = $data['link'] = '';
         $data['keywords'] = $keywords;
@@ -310,95 +409,7 @@ class Admin extends CI_Controller {
     }
     /*********************** 司机群部分END ***************************/
 
-    /**************************** 二手车管理 Begin************************************/
-    //车辆列表
-    public function car_list($key = '其他', $value = '其他', $offset = 0){
-        $key = urldecode($key);
-        $value = urldecode($value);
-
-        $data['key'] = $key;
-        $data['value'] = $value;
 
 
-        $order_str = 'create_time DESC';
-        $array = array();
-        if($key == '排序'){
-            switch ($value){
-                case '最新上架':
-                    $order_str = 'create_time DESC';
-                    break;
-                case '价格最低':
-                    $order_str = 'whole_price ASC';
-                    break;
-                case '价格最高':
-                    $order_str = 'whole_price DESC';
-                    break;
-                case '降价急售':
-                    $order_str = 'whole_price ASC';
-                    break;
-            }
-        }elseif ($key == '车型'){
-            $array = array('car_type'=>$value);
-        }elseif ($key == '价格'){
-            $price = explode('到', $value);
-            $array = array('whole_price <=' => (float)$price[1], 'whole_price >=' => (float)$price[0]);
-        }elseif ($key == '排放'){
-            $array = array('parameter0' => $value);
-        }
-        else{
-            $array = array();
-            $order_str = 'create_time DESC';
-        }
-        $this->load->model('usedcar_model');
 
-        $per_page = 10;
-        $data['car'] = $this->usedcar_model->get_sale_list($array, $offset, $per_page, $order_str);
-
-
-        $page_url = site_url('admin/admin/car_list/'.$key.'/'.$value);
-        $total_rows = $this->db->where($array)->count_all_results('used-car_sale');
-        $offset_uri_segment = 6;
-        $this->load->library('myclass');
-        $data['link'] = $this->myclass->fenye($page_url, $total_rows, $offset_uri_segment, $per_page);
-
-        $this->load->view('admin/usedcar/car_list.html', $data);
-    }
-
-    //车辆搜索
-    public function car_search($keywords, $offset = 0){
-        $data['keywords'] = urldecode($keywords);
-        $this->load->model('usedcar_model');
-        $data['car'] = $this->usedcar_model->get_search_list($data['keywords'], $offset, 10);
-
-        $data['link'] = '';
-        $this->load->view('admin/usedcar/car_list.html', $data);
-    }
-
-    //车辆操作
-    public function car_action($action, $id){
-        $car = $this->admin_model->get_car_info(array('id'=>$id));
-        if(empty($car)){ //判断车辆是否存在
-            alert_msg('该车辆信息已被删除！');
-        }
-        $car = $car[0];
-        $status = false;
-        if($action == 'delete'){  //删除
-            $msg = '删除';
-            if($this->db->delete('used-car_sale', array('id'=>$id))){
-                $status = true;
-            }
-        }elseif($action == 'check'){ //审核
-            $msg = '审核';
-            $check_code = $car['status'] == 1?0:1;
-            if($this->db->update('used-car_sale', array('status'=>$check_code), array('id'=>$id))){
-                $status = true;
-            }
-        }
-
-        if($status){
-            alert_msg($msg.'成功');
-        }else{
-            alert_msg($msg.'失败，请稍后重试！');
-        }
-    }
 }

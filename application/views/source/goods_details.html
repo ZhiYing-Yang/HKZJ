@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>货卡之家货源信息详情</title>
+		<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+		<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+		<link rel="stylesheet" href="/application/views/source/static/font/style.css" />
+		<link rel="stylesheet" href="/application/views/source/static/css/goods_details.css" />
+		<link rel="stylesheet" href="/style/common/common.css" />
+	</head>
+	<body>
+		
+		<div class="main_infor">
+			<div class="main_head">
+			<a onclick="javascript:window.history.go(-1)"><i><</i>返回</a>
+		</div>
+		<div class="header">
+			<div class="photo">
+				<img src="/application/views/source/static/images/truck.jpg" />
+			</div>
+			<div class="type">
+				<p><?=$username?></p>
+				<p>货找车</p>
+			</div>
+			<div class="puTime">
+				<i class="icon-2"></i>发布于<?=$uptime?>
+			</div>
+		</div>
+		<form>
+			<p><label><i class="icon--1" style="color: red;"></i>出发地：</label>
+				<span><?=$departure?></span>
+			</p>
+			<p><label><i class="icon--1" style="color:orangered"></i>目的地：</label>
+				<span><?=$destination?></span>
+			</p>
+			<p><label><i class="icon-5" style="color: purple"></i>用车类型：</label>
+				<span><?=$cartype?></span>
+			</p>
+			<p><label><i class="icon-3" style="color: orange"></i>货物类型：</label>
+				<span><?=$goodstype?></span>
+			</p>
+			<p><label><i class="icon-_weight9"></i>货物重量体积：</label>
+				<span><?=$weight?></span>
+			</p>
+			<p><label><i class="icon-7"></i>运费金额：</label>
+				<span><?=$money?></span>
+			</p>
+			<p><label><i class="icon-2"></i>装车时间：</label>
+				<span><?=$time?></span>
+			</p>
+		</form>
+
+		<div class="add_infor">
+			<p>备注：</p>
+			<p class="test"><?=$other?></p>
+		</div>
+		<div class="call">
+			<i class="icon-iconfont-phone"><a href="tel:<?=$user['phone']?>">电话联系</a></i>
+		</div>
+		</div>
+
+		<div class="footer">
+			<a href="<?=site_url('source/index')?>"><div class="choise_tab">
+				<p class="icon-9 "></p>
+				<p>首页</p>
+			</div>
+			</a>
+			<div class="choise_tab">
+				<p class="icon-8"></p>
+				<p>转发</p>
+			</div>
+			<div class="collsion <?=$collect?'collsioned':''?> choise_tab" >
+				<p style="color: #4B92FE;" class="icon-_o1 <?=$collect?'':'collect'?>"></p>
+			<p>收藏</p>
+		</div>
+			<div class="choise_tab bohao">
+				<p class="icon-iconfont-phone"></p>
+				<p><a href="tel:<?=$user['phone']?>" class="light">一键拨号</a></p>
+			</div>
+		</div>
+    </body>
+	<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+	</html>
+	<script>
+	$('.collsion').click(function () {
+			if($('.collsioned').length != 0){
+					$.toptip('您已收藏该信息！如需删除，请到我的收藏。', 'warning');
+			}else{
+					$.showLoading('正在收藏');
+					$.get('<?=site_url("source/collect/").$id?>', function(data){
+							if(data.code == 200){
+
+									$('.collsion').addClass('collsioned');
+									$.hideLoading();
+									$.toast('收藏成功');
+							}else{
+									$.hideLoading();
+									$.toast(data.message, 'cancel');
+							}
+					}, 'json');
+			}
+	});
+	</script>

@@ -25,92 +25,89 @@ class Usedcar extends CI_Controller {
     }
 
     //二手车交易首页
-    public function index($type = '', $data_type = ''){
-        $type = urldecode($type);
-        if($type == '最好车源'){
-            $order_str = 'create_time DESC';
-        }elseif($type == '降价急售'){
+    public function index($type = ''){
+      $data=[];
+      $data["active"]="首页";
+      $data["banner"] = $this->db->get("advertise_usedcar")->result_array() ;
+      $this->load->model("merchant_model","merchant");
+      $data["merchants"] = $this->merchant->get_merchant("二手车",3);
+      $this->load->view('usedcar/index.html' ,$data);
+    }
 
-            $order_str = 'whole_price ASC';
-        }else{
-            $order_str = 'read DESC';
-        }
+    public function index_search()//首页检索
+    {
+      $sql="";
+      $data=[];
+      $type = $this->input->post("type");//类型
+      $index = $this->input->post("index");//offset
+      $sum= $this->input->post("sum");  //拿多少
+      if(empty($type)){
+        return ;
+      }elseif ($type=="new") {
+        $data = $this->db->select("*")->from("used-car_sale")->order_by("create_time desc" )->limit($sum , $index);
+      }elseif ($type=="great") {
 
-        $data['sale'] = $this->usedcar_model->get_sale_list(array(), 0, 10, $order_str);
+        $data = $this->db->select("*")->from("used-car_sale")->order_by("read desc" )->limit($sum , $index);
 
-        if($data_type == 'json'){
-            get_json(200, '获取成功', $data['sale']);
-        }else{
-            $data['active'] = '首页';
-            $this->load->view('usedcar/index.html', $data);
-        }
+        // code...
+      }elseif ($type=="lowprice") {
+        $data = $this->db->select("*")->from("used-car_sale")->order_by("whole_price  asc" )->limit($sum , $index);
+      }
+      echo json_encode($data->get()->result_array()) ; die;
     }
 
     //买车
-    public function buy($offset = 0, $key = '其他', $value = '其他', $data_type = 'html'){
-        $key = urldecode($key);
-        $value = urldecode($value);
+    public function buy(){
+        $type = urldecode($this->input->get("type")) ;
+        $data["type"] = $type;
         $data['active'] = '买车';
-        $order_str = 'create_time DESC';
-        $array = array();
-        if($key == '排序'){
-            switch ($value){
-                case '最新上架':
-                    $order_str = 'create_time DESC';
-                    break;
-                case '价格最低':
-                    $order_str = 'whole_price ASC';
-                    break;
-                case '价格最高':
-                    $order_str = 'whole_price DESC';
-                    break;
-                case '降价急售':
-                    $order_str = 'whole_price ASC';
-                    break;
-            }
-        }elseif ($key == '车型'){
-            $array = array('car_type'=>$value);
-        }elseif ($key == '价格'){
-            $price = explode('到', $value);
-            $array = array('whole_price <=' => (float)$price[1], 'whole_price >=' => (float)$price[0]);
-        }elseif ($key == '排放'){
-                $array = array('parameter0' => $value);
-        }
-        else{
-            $array = array();
-            $order_str = 'create_time DESC';
-        }
-        $data['car'] = $this->usedcar_model->get_sale_list($array, $offset, 10, $order_str);
 
-        $data['key'] = $key;
-        $data['value'] = $value;
-        if($data_type == 'json'){
-            get_json(200, '加载成功', $data['car']);
-        }else{
-            $this->load->view('usedcar/buycar.html', $data);
-        }
-
+        $this->load->view("usedcar/buycar.html",$data);
     }
     //车辆搜索
-    public function search($offset = 0, $type = 'html'){
-        $data['active'] = '买车';
-        if($type == 'html'){ //正常请求
-            $keywords = $this->input->post('keywords');
-        }else{
-            $keywords = urldecode($type);
+    public function buy_search(){
+
+        $index = $this->input->post("index");
+        $sum = $this->input->post("sum");
+        $sql = $this->db->select("*")->from("used-car_sale");
+        $option = $this->input->post("option");
+        switch (trim($option["cartype"])) { //车型
+          case '不限':  ; break;
+          case '':  ; break;
+          default:
+            $sql->where( array('car_type' => $option["cartype"] , ) );
+          break;
         }
-
-
-        $data['car'] = $this->usedcar_model->get_search_list($keywords, $offset, 10);
-
-        if($type == 'html'){
-            $data['keywords'] = $keywords; //将关键字传给前端
-            $data['is_search'] = '搜索'; //标识为搜索页
-            $this->load->view('usedcar/buycar.html', $data);
-        }else{
-            get_json(200,'加载成功！', $data['car']);
+        switch ($option["city"]) { //车型
+          case '全国':  ; break;
+          default:
+            $sql->like( array('address' => $option["city"] , ));
+          break;
         }
-
+        switch ($option["name"]) { //车型
+          case '':  ; break;
+          default:
+            $sql->like( array('brand' => $option["name"] , ));
+          break;
+        }
+        switch ($option["price"]) {//排序
+          case '不限':  ; break;
+          case "0-5万":$sql->where(array("whole_price <"=>5.0 , "whole_price >"=>0)) ; break;
+          case "5-10万":$sql->where(array("whole_price <="=>10 , "whole_price >="=>5)); break;
+          case "10-20万":$sql->where(array("whole_price <="=>20 , "whole_price >="=>10)); break;
+          case "20-50万":$sql->where(array("whole_price <="=>50 , "whole_price >="=>20)) ;break;
+          case "50万以上":$sql->where(array("whole_price >="=>50 )) ;break;
+          default: ; break;
+        }
+        switch ($option["sequence"]) {//排序
+          case '最新上架': $sql->order_by("create_time desc ") ; break;
+          case "价格最低":$sql->order_by("whole_price asc ") ; break;
+          case "价格最高":$sql->order_by("whole_price desc ") ; break;
+          case "降价急售":$sql->order_by("whole_price asc ") ; break;
+          default: $sql->order_by("create_time desc ") ; break;
+        }
+        $res = $sql->limit($sum ,$index )->get()->result_array();
+        echo json_encode($res);
     }
     //卖二手车
     public function sale(){
@@ -284,25 +281,35 @@ class Usedcar extends CI_Controller {
         $data["id"] = $id;
 
         $this->load->view('usedcar/car-detail.html', $data);
-
     }
     public function see_json($id){ //根据车辆id返回json数据
-    $info = $this->usedcar_model->get_sale_list(array('id'=>$id), 0, 1);
-    if(empty($info)){
-        $data['str'] = '该卖车信息已被删除！';
-        $this->load->view('usedcar/not_found.html', $data);
-        return;
+        $info = $this->usedcar_model->get_sale_list(array('id'=>$id), 0, 1);
+        if(empty($info)){
+            $data['str'] = '该卖车信息已被删除！';
+            $this->load->view('usedcar/not_found.html', $data);
+            return;
+        }
+
+        $data['sale'] = $info[0];   //卖车信息
+
+
+        $data["id"] = $id;
+
+        return $data["sale"];
+
     }
+    public function get_car_info()  //通过id数组获取一组车辆信息
+    {
 
-    $data['sale'] = $info[0];   //卖车信息
+        $this->load->model('usedcar_model');
+        $id_arr = $this->input->post("ids");
+        $data = [] ;
+        foreach ($id_arr as $key => $value) {
+          $data[]= $this->usedcar_model->get_car_by_id($value);
+        }
 
-
-    $data["id"] = $id;
-
-    return $data["sale"];
-
-}
-
+        echo json_encode($data);die;
+    }
     //收藏卖车信息
     public function collect($id){
         $collect = $this->usedcar_model->get_user_info(array('id'=>$this->id))[0]['collect'];
@@ -359,45 +366,6 @@ class Usedcar extends CI_Controller {
         }
     }
 
-    //执行认证操作 提交表单处理后存放数据库
-    public function apply($type){
-        $type = urldecode($type);
-        $authcode = $this->input->post('authcode');
-        if($authcode != $this->session->userdata('usedcar_authcode')){
-            get_json(400, '验证码错误!');
-            return;
-        }
-
-        $data = array(
-            'user_id'   =>  $this->id,
-            'realname'  =>  $this->input->post('realname'),     //真实姓名
-            'address'   =>  $this->input->post('address'),      //所在地址
-            'ID_card'   =>  $this->input->post('ID_card'),      //身份证号
-            'phone'     =>  $this->input->post('phone'),        //卖车手机号
-            'we_chat'   =>  $this->input->post('we_chat'),      //微信号
-            'img0'      =>  $this->input->post('img0'),         //身份证正面
-            'img1'      =>  $this->input->post('img1'),         //身份证背面
-            'img2'      =>  $this->input->post('img2'),         //手持身份证
-            'type'      =>  $type, //认证类型
-            'create_time'      =>  time(),
-        );
-
-        //商家额外信息
-        if($type == '商家'){
-            $data['img3'] = $this->input->post('img3'); //营业执照
-            $data['merchant_type'] = $this->input->post('merchant_type'); //商家类型
-            $data['company_name'] = $this->input->post('company_name'); //公司名称
-            $data['indate'] = $this->input->post('indate'); //有效期
-            $data['registration_number'] = $this->input->post('registration_number'); //注册号
-            $data['company_address'] = $this->input->post('company_address'); //公司地址
-        }
-
-        if($this->db->update('used-car_user', $data, array('id'=>$this->id))){
-            get_json(200, '提交成功!');
-        }else{
-            get_json(200, '提交失败!');
-        }
-    }
 
     //图片上传
     public function uploadImage(){
@@ -455,7 +423,7 @@ class Usedcar extends CI_Controller {
     public function record(){  //历史记录
 
         $this->load->view("usedcar/record.html");
-        $this->load->view("usedcar/footer.html",array("active"=>""));
+
     }
     public function record_process_data(){  //历史记录
         $data = $this->input->post("data");

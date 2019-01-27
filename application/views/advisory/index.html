@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>问题咨询页面</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/application/views/news/static/css/index.css">
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+       <header class="bar bar-nav main_head">
+    <h1 class="title">问题咨询</h1>
+  </header>
+  <nav class="bar bar-tab">
+    <a class="tab-item active" href="#">
+      <span class="icon"><i class="fa fa-home"></i></span>
+      <span class="tab-label">首页</span>
+    </a>
+    <a class="tab-item" href="/advisory/collection">
+      <span class="icon"><i class="fa fa-star"></i></span>
+      <span class="tab-label">我的收藏</span>
+    </a>
+  </nav>
+  <div class="bar bar-header-secondary">
+  <div class="searchbar">
+    <a class="searchbar-cancel">取消</a>
+    <div class="search-input">
+      <label class="icon icon-search" for="search"></label>
+      <input type="search" id='search' placeholder='输入关键字...'/>
+    </div>
+  </div>
+</div>
+  <div class="content">
+  <div class="content-block">
+    <div class="tabs">
+      <div id="tab1" class="tab active">
+        <?php foreach($info as $s):?>
+          <div class="list-block media-list one_parts">
+            <ul>
+              <li>
+                <a href="<?=$s['url']?>" class="item-link item-content">
+                  <div class="item-media"><img src="<?=$s['img']?>"></div>
+                  <div class="item-inner">
+                    <div class="item-text" style="color: black;"><?=$s['title']?></div>
+                    <div class="bottom">
+                      <span class="icon delete font15px <?=$s['collection']?'choised':''?>" tag="<?=$s['id']?>"><i class="<?=$s['collection']?'fa fa-star':'icon icon-star'?>"></i><span class="conumber"><?=$s['collect']?></span></span>
+                      <span class="icon pay font15px <?=$s['dianzan']?'choised':''?>" tag="<?=$s['id']?>"><i class="<?=$s['dianzan']?'fa fa-thumbs-up':'fa fa-thumbs-o-up'?>"></i><span class="linumber"><?=$s['zan']?></span></span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+  <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+  </div>
+
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>$.config = {router: false}</script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+  </body>
+</html>
+<script>
+//搜索
+$('input[type="search"]').on('keypress', function(){
+  if(event.keyCode == 13){
+  var url = '/advisory/search/'+$(this).val();
+  window.location.href=url;
+}
+})
+
+$(function(){
+	$('.delete').click(function(){
+			return false;
+	})
+	$('.pay').click(function(){
+			return false;
+	})
+
+	//收藏点击事件
+	$('.bottom .delete').click(function(){
+    var pid = $(this).attr('tag');
+		var elespan = $(this).children('.conumber');
+		if($(this).children('i').hasClass('icon icon-star')){
+			$(this).children('i').addClass('fa fa-star').removeClass('icon icon-star');
+			$(this).addClass('choised');
+			elespan.text(parseInt(elespan.text()) + 1);
+      var url = "<?=site_url('advisory/action/')?>"+pid+"/collect";
+      $.get(url);
+		}
+		else{
+			$(this).children('i').addClass('icon icon-star').removeClass('fa fa-star');
+			$(this).removeClass('choised');
+			elespan.text(parseInt(elespan.text()) - 1);
+      var url = "<?=site_url('advisory/noAction/')?>"+pid+"/collect";
+      $.get(url);
+		}
+	})
+
+	//点赞点击事件
+	$('.bottom .pay').click(function(){
+		var elespan = $(this).children('.linumber');
+      var pid = $(this).attr('tag');
+		if($(this).children('i').hasClass('fa fa-thumbs-o-up')){
+			$(this).children('i').removeClass('fa fa-thumbs-o-up').addClass('fa fa-thumbs-up');
+			$(this).addClass('choised');
+			elespan.text(parseInt(elespan.text()) + 1);
+      var url = "<?=site_url('advisory/action/')?>"+pid+"/zan";
+      $.get(url);
+		}
+		else{
+			$(this).children('i').removeClass('fa fa-thumbs-up').addClass('fa fa-thumbs-o-up');
+			$(this).removeClass('choised');
+			elespan.text(parseInt(elespan.text()) - 1);
+      var url = "<?=site_url('advisory/noAction/')?>"+pid+"/zan";
+      $.get(url);
+		}
+	})
+
+})
+
+</script>

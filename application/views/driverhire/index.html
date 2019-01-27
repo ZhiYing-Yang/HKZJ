@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <?php include("commonhead.html") ?>
+    <link rel="stylesheet" href="/style/driverhire/css/index.css">
+  </head>
+  <body>
+<div class="weui-search-bar" id="searchBar" style="background:0">
+  <form class="weui-search-bar__form">
+    <div class="weui-search-bar__box">
+      <i class="weui-icon-search"></i>
+      <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required="">
+      <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+    </div>
+    <label class="weui-search-bar__label" id="searchText">
+      <i class="weui-icon-search"></i>
+      <span>搜索:岗位/薪资/地区</span>
+    </label>
+    <button type="submit" name="button" hidden></button>
+  </form>
+  <a href="javascript:" class="weui-search-bar__cancel-btn orange" id="searchCancel">取消</a>
+</div>
+<!-- 岗位列表 -->
+<div class="hireMessages weui-cells" style="margin-top:0;">
+
+</div>
+<!-- model  -->
+<a class="weui-cell  bordertop model" href="" style="display:none; color:black">
+  <div class="weui-cell__hd imagebox"><img class="image" style="width:60px; height:60px"  src="/style/driverhire/images/"></div>
+  <div class="weui-cell__bd">
+    <div class="message">
+      <span class="name middle-font">?????</span>
+      <p class=" small-font text-grey" style="position:absolute ;right:100px; bottom:20px;"> <span class="address">????</span> </p>
+      <p class=" orange"> <span class="salary"></span> <span class="orange">元</span> </p>
+      <p class="date text-grey small-font">??????</p>
+    </div>
+  </div>
+</a>
+<!-- modelEnd -->
+
+<!-- modelEnd -->
+<div class="loadview">
+  <div class="weui-loadmore " id="loadmore">
+    <i class="weui-loading"></i>
+    <span class="weui-loadmore__tips" >正在加载</span>
+  </div>
+  <div class="weui-loadmore weui-loadmore_line" id="no_more">
+    <span class="weui-loadmore__tips">暂无更多职位</span>
+  </div>
+</div>
+<div class="add foot "  style="position:fixed ;z-index:200; background: #00a5e0 ;  bottom: 100px ;  right: 0;   padding: 10px ; border-radius: 20px 0 0 20px   color: white;" >
+<a href="/driverhire/dist" style="color:white; z-index:2000"><p><span class="fa fa-plus" style="z-index:2000"></span> 点击发布职位</p></a>
+</div>
+  <?php include("commonscript.html") ?>
+<script src="/style/plugin/loadModelmini/loadmini.js" charset="utf-8"></script>
+  </body>
+<script type="text/javascript">
+
+  //------------------------------------------------
+
+   driverhireModel = new LoadModel({
+    url:"http://www.jxhkzj.com/driverhire/load",
+    model:".model",
+    list : ".hireMessages",   //列表要显示的dom节点
+    more_view: "#loadmore" , //加载中样式选择器
+    no_more: "#no_more",  //全部加载完样式选择器
+    singleadd:function(data) {
+        model = $(".model").clone();
+        model.removeClass("model").css("display","");
+        it = model;
+        it.attr("href","/driverhire/detail/"+data["id"])
+        it.find(".image").attr("src",data["img"]);
+        it.find(".name").text(data["postname"]);
+        it.find(".address").text(data["address"].split(" ")[1]);
+        it.find(".salary").text(data["salary"]);
+        it.find(".date").text(formatDate(data["create_time"]));
+          it.appendTo($(this.setting.list));
+
+    }
+  });
+
+
+  $(document.body).infinite(100).on("infinite", function() {
+
+    if(driverhireModel.setting.loadstatus=="loading") return ;
+
+    driverhireModel.setting.loadstatus="loading";
+    driverhireModel.more();
+  });
+  $("#searchBar form").submit(function(e) {
+    e.preventDefault();
+    driverhireModel.setting.option.keyword = $("#searchBar input").val();
+    driverhireModel.changeOption();
+  })
+  $("#searchCancel").click(function() {
+    driverhireModel.setting.option.keyword = null;
+    driverhireModel.changeOption();
+  })
+  //--------------------------
+
+  function formatDate(date){
+      console.log(date);
+      var date = new Date(date*1000);
+      var Y = date.getFullYear() + '/';
+      var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
+      var D = date.getDate() + ' ';
+      return (Y+M+D);
+  }
+
+</script>
+</html>

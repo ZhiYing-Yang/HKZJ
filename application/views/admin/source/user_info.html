@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>网站信息</title>
+    <link rel="stylesheet" href="/style/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/style/admin/css/admin.css">
+    <script src="/style/admin/js/jquery.js"></script>
+    <script src="/style/admin/js/pintuer.js"></script>
+</head>
+
+<body>
+
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> <?=$user['nickname']?>的个人信息</strong></div>
+    <div class="body-content">
+        <div class="form-x">
+            <div class="form-group">
+                <div class="label">
+                    <label>昵称：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$user['nickname']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>真实姓名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$user['realname']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>手机号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$user['phone']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$user['address']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>微信号：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input" value="<?=$user['wechat']?>" readonly/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+</script>
+</html>

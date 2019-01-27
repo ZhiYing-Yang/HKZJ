@@ -1,0 +1,145 @@
+body{
+	font-family: SimHei;
+	
+}
+a{
+	color: black;
+}
+li{
+	list-style: none;
+}
+.main_head{
+	background: #FE0539;
+	
+}
+.main_head h1{
+	color: white;
+}
+.bar .searchbar .searchbar-cancel{
+	color: white;
+}
+.bar .searchbar{
+	background: rgba(0,0,0);
+	/*background:#F2760B;*/
+	background: #FE0539;
+}
+.bar-tab .tab-item.active{
+	color: #FE0539;
+}
+.main-part ul{
+	padding: 0;
+}
+.main-part ul li{
+	padding: 20px 10px;
+	height: 130px;
+	border-radius:5px ;
+	width: 100%;
+	background: white;
+	margin-bottom: 10px;
+}
+.main-part .item-content .item-media{
+	width: 9%;
+	float: left;
+	height: 90px;
+	line-height: 90px;
+}
+.main-part .item-content .main_photo{
+	width: 30%;
+	height: 90px;
+	float: left;
+	overflow: hidden;
+}
+.main-part .item-content .main_photo img{
+	width: 100%;
+	height: 100%;
+	
+}
+.main-part .item-content .item-inner{
+	float: left;
+	width: 58%;
+	margin-left: 3%;
+}
+.main-part .item-content .item-title{
+	height: 25px;
+}
+.main-part .item-content .item-content{
+	height: 40px;
+	line-height: 20px;
+	overflow: hidden;
+	font-size: 13px;
+}
+.main-part .item-content .item-botton{
+	height: 25px;
+	
+}
+.main-part .item-content .item-botton .money{
+	float: left;
+	line-height: 25px;
+}
+.main-part .item-content .item-botton .money i,.main-part .item-content .item-botton .money span{
+	color: #FF5000;
+}
+.main-part .item-content .item-botton .number{
+	float: right;
+	margin-top: 5px;
+	line-height: 20px;
+	height: 20px;
+	width: 69px;
+	border: 1px solid lightgray;
+	margin-right: 10px;
+	border-radius: 3px;
+}
+.main-part .item-content .item-botton .number .reduce{
+	float: left;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+}
+.main-part .item-content .item-botton .number .nuinput{
+	float: left;
+	width: 25px;
+	height: 17px;
+	border-left: 1px solid lightgray;
+	border-right: 1px solid lightgray;
+	border-top: none;
+	border-bottom: none;
+	font-size: 13px;
+	text-align: center;
+}
+.main-part .item-content .item-botton .number .nuinput input{
+	border: none;
+	width: 20px;
+	
+}
+.main-part .item-content .item-botton .number .add{
+	float: left;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+}
+.footer_second{
+	padding: 10px 20px;
+}
+.footer_second label{
+	width: 20px;
+	float: left;
+	line-height: 20px;
+}
+.footer_second .left{
+	float: left;
+	width: 40px;
+	margin-left: 10px;
+}
+.footer_second .right{
+	width: 120px;
+	float: right;
+}
+.footer_second .right .delete{
+	float: left;
+	width: 40px;
+}
+.footer_second .right .account{
+	float: right;
+	width: 40px;
+	color: #FF5500;
+}

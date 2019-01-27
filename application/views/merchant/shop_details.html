@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商家详情</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.css">
+     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="/application/views/merchant/static/css/shop_details.css">
+
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+
+        <div class="content">
+  <!-- Slider -->
+  <div class="banner">
+   <div class="swiper-container">
+   	<a href="#" onclick="javascript:window.history.go(-1);" class="return_tab"  external> <span class="icon icon-left"></span></a>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="/application/views/merchant/static/images/timg.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="/application/views/merchant/static/images/timg.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="/application/views/merchant/static/images/timg.jpg" alt=""></div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+</div>
+
+<div class="details">
+	<div class="word_desibe" style="color: black;font-weight: 900;font-size: 17px;">商家名称。。。。。。</div>
+</div>
+  <div class="divide">——商品详情——</div>
+
+<div class="explain">
+	这里是。。。。
+</div>
+<div class="phone">
+	<i class="icon icon-phone"></i>电话联系
+</div>
+</div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.js"></script>
+
+  </body>
+</html>
+ <script>$.init()</script>
+ <script>
+ 	//轮播图
+	var mySwiper = new Swiper ('.swiper-container', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+     autoplay: {
+    delay: 2000,
+},
+})
+
+
+</script>

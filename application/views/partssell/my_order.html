@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>配件销售我的订单</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/application/views/partssell/static/css/my_order.css">
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+       <header class="bar bar-nav main_head">
+    <a class="button button-link button-nav pull-left" href="#" onclick="javascript:window.history.go(-1)" data-transition='slide-out'>
+      <span class="icon icon-left"></span>
+      返回
+    </a>
+    <h1 class="title">我的订单</h1>
+  </header>
+  <div class="bar bar-header-secondary">
+  <div class="searchbar">
+    <a class="searchbar-cancel">取消</a>
+    <div class="search-input">
+      <label class="icon icon-search" for="search"></label>
+      <input type="search" id='search' placeholder='输入关键字...'/>
+    </div>
+  </div>
+</div>
+  <div class="content">
+    <div class="buttons-tab">
+    <a href="#tab1" class="tab-link active button">全部</a>
+    <a href="#tab2" class="tab-link button">待付款</a>
+    <a href="#tab3" class="tab-link button">待发货</a>
+    <a href="#tab4" class="tab-link button">待收货</a>
+    <a href="#tab5" class="tab-link button">已完成</a>
+  </div>
+  <div class="content-block">
+    <div class="tabs">
+      <div id="tab1" class="tab active">
+      	<!--每个.one_parts代表一个商品-->
+          <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+        <a href="parts_details.html" class="item-link item-content">
+          <div class="item-media"><img src="/application/views/partssell/static/images/timg.jpg"></div>
+          <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title">这里是类别</div>
+              <div class="item-after"style="color: #FF5000;">
+              	<i class="fa fa-jpy font12px" style="line-height: 27px;"></i>
+              	9.9
+              		<span style="color: gray;">×1</span>
+              </div>
+            </div>
+            <div class="item-text" style="color: black;">此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容...</div>
+            <div class="bottom">
+            <div class="delete font13px">取消订单</div>
+            <div class="pay font13px">付款</div>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+  
+        
+        
+      </div>
+      <div id="tab2" class="tab">
+          <!--每个.one_parts代表一个商品-->
+          <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+        <a href="parts_details.html" class="item-link item-content">
+          <div class="item-media"><img src="/application/views/partssell/static/images/timg.jpg"></div>
+          <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title">这里是类别</div>
+              <div class="item-after"style="color: #FF5000;">
+              	<i class="fa fa-jpy font12px" style="line-height: 27px;"></i>
+              	9.9
+              		<span style="color: gray;">×1</span>
+              </div>
+            </div>
+            <div class="item-text" style="color: black;">此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容...</div>
+            <div class="bottom">
+            <div class="delete font13px">取消订单</div>
+            <div class="pay font13px">付款</div>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+         <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+        <a href="parts_details.html" class="item-link item-content">
+          <div class="item-media"><img src="/application/views/partssell/static/images/timg.jpg"></div>
+          <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title">这里是类别</div>
+              <div class="item-after"style="color: #FF5000;">
+              	<i class="fa fa-jpy font12px" style="line-height: 27px;"></i>
+              	9.9
+              		<span style="color: gray;">×1</span>
+              </div>
+            </div>
+            <div class="item-text" style="color: black;">此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容...</div>
+            <div class="bottom">
+            <div class="delete font13px">取消订单</div>
+            <div class="pay font13px">付款</div>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+      </div>
+      <div id="tab3" class="tab">
+          <!--每个.one_parts代表一个商品-->
+           <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+        <a href="parts_details.html" class="item-link item-content">
+          <div class="item-media"><img src="/application/views/partssell/static/images/timg.jpg"></div>
+          <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title">这里是类别</div>
+              <div class="item-after"style="color: #FF5000;">
+              	<i class="fa fa-jpy font12px" style="line-height: 27px;"></i>
+              	9.9
+              		<span style="color: gray;">×1</span>
+              </div>
+            </div>
+            <div class="item-text" style="color: black;">此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容...</div>
+            <div class="bottom">
+            <div class="remind font13px">提醒发货</div>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+         <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+        <a href="parts_details.html" class="item-link item-content">
+          <div class="item-media"><img src="/application/views/partssell/static/images/timg.jpg"></div>
+          <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title">这里是类别</div>
+              <div class="item-after"style="color: #FF5000;">
+              	<i class="fa fa-jpy font12px" style="line-height: 27px;"></i>
+              	9.9
+              		<span style="color: gray;">×1</span>
+              </div>
+            </div>
+            <div class="item-text" style="color: black;">此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容...</div>
+            <div class="bottom">
+            <div class="remind font13px">提醒发货</div>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+      </div>
+      <div id="tab4" class="tab">
+          <!--每个.one_parts代表一个商品-->
+          <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+        <a href="parts_details.html" class="item-link item-content">
+          <div class="item-media"><img src="/application/views/partssell/static/images/timg.jpg"></div>
+          <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title">这里是类别</div>
+              <div class="item-after"style="color: #FF5000;">
+              	<i class="fa fa-jpy font12px" style="line-height: 27px;"></i>
+              	9.9
+              		<span style="color: gray;">×1</span>
+              </div>
+            </div>
+            <div class="item-text" style="color: black;">此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容...</div>
+            <div class="bottom">
+            <div class="receive font13px">确认收货</div>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!------------------------>
+      </div>
+      <div id="tab5" class="tab">
+          <!--每个.one_parts代表一个商品-->
+          <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+        <a href="parts_details.html" class="item-link item-content">
+          <div class="item-media"><img src="/application/views/partssell/static/images/timg.jpg"></div>
+          <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title">这里是类别</div>
+              <div class="item-after"style="color: #FF5000;">
+              	<i class="fa fa-jpy font12px" style="line-height: 27px;"></i>
+              	9.9
+              		<span style="color: gray;">×1</span>
+              </div>
+            </div>
+            <div class="item-text" style="color: black;">此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容...</div>
+            <div class="bottom">
+            <div class="delete font13px">删除订单</div>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+         <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+        <a href="parts_details.html" class="item-link item-content">
+          <div class="item-media"><img src="/application/views/partssell/static/images/timg.jpg"></div>
+          <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title">这里是类别</div>
+              <div class="item-after"style="color: #FF5000;">
+              	<i class="fa fa-jpy font12px" style="line-height: 27px;"></i>
+              	9.9
+              		<span style="color: gray;">×1</span>
+              </div>
+            </div>
+            <div class="item-text" style="color: black;">此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容...</div>
+            <div class="bottom">
+            <div class="delete font13px">删除订单</div>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+      </div>
+    </div>
+  </div>
+  </div>
+  
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>$.config = {router: false}</script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+  </body>
+</html>
+<script>
+$(function(){
+	$('.delete').click(function(){
+			return false;
+	})
+})
+
+</script>

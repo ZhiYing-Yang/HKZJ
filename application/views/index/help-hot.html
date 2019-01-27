@@ -27,7 +27,7 @@
         <li role="presentation" class="active"><a href="<?=site_url('home/index/热门')?>" target="_self"><img src="/style/index/img/icon/hot.png">热门</a></li>
     </ul>
     <div class="container-fluid">
-       
+
         <!-- 热门求助列表 -->
         <div class="row">
             <div class="help-list">
@@ -36,8 +36,8 @@
                     <li class="list-group-item" data-aos="zoom-in">
                         <a href="<?=site_url('home/see_article/').$a['article_id']?>">
                             <div class="row">
-                                <span class="boutique <?=$i<4?'boutique'.$i:'boutiqueorther'?> col-xs-2"><?=$i?></span>
-                                <h3 class="col-xs-10 list-group-item-heading hot-list-h1"><?=$a['title']?></h3>
+                                <span class="boutique <?=$i<4?'boutique'.$i:'boutiqueorther'?> col-xs-2"style="font-size:18px;"><?=$i?></span>
+                                <h3 class="col-xs-10 list-group-item-heading hot-list-h1" style="color:#444;font-size:14px;"><?=$a['title']?></h3>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
@@ -52,8 +52,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <span class="text-right help-count col-xs-6">已帮助<?=$a['comment_total']?></span>
-                                <a href="invicomment.html" target="_self"><span class="col-xs-6 help-btn btn">帮助</span></a>
+                                <span class="text-right help-count col-xs-6" style="color:#444;font-size:14px;">已帮助<?=$a['comment_total']?></span>
+                                <a href="invicomment.html" target="_self"><span style="font-size:14px;" class="col-xs-6 help-btn btn">帮助</span></a>
                             </div>
                         </a>
                     </li>

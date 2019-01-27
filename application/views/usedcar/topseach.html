@@ -1,0 +1,67 @@
+<div class="header">
+  <div class="searchbox">
+    <div class="weui_search_bar" id="search_bar">
+      <form class="weui_search_outer" action="/usedcar" >
+        <div class="weui_search_inner">
+          <i class="weui_icon_search"></i>
+          <input type="text" class="weui_search_input" id="search_input" placeholder="搜索" required/>
+          <button name="button" type="submit" hidden >sa</button>
+          <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+        </div>
+        <label for="search_input" class="weui_search_text" id="search_text">
+          <i class="weui_icon_search"></i>
+          <span>搜索车源</span>
+        </label>
+      </form>
+      <a href="javascript:" class="weui_search_cancel" id="search_cancel_" style="display: none;">取消</a>
+    </div>
+  </div>
+  <div class="select-adress" id="select-adress">
+    <span class="adress">全国</span><span class="fa fa-angle-down"></span>
+  </div>
+ </div>
+<!-- <div class="fullscreen-search">
+  <div class="head-search">
+    <div class="search_bar" id="search_wrap">
+      <form class="">
+        <div class="input" id="input_search">
+          <label for="search_input">
+            <i class="weui_icon_search"></i>
+          </label>
+          <input type="text" id="search" placeholder="搜索" name="search" autofocus />
+        </div>
+        <a href="javascript:" class="search_cancel" id="search_cancel">确定</a>
+      </form>
+    </div>
+    <a href="javascript:void(0)"></a>
+  </div>
+  <div class="hot" style="clear:both">
+    <h1>热门搜索</h1>
+    <span class="hot_item">4.2</span>
+    <span class="hot_item">冷藏车</span>
+    <span class="hot_item">前四后八</span>
+    <span class="hot_item">牵引车</span>
+    <span class="hot_item">4.2</span>
+    <span class="hot_item">4.2</span>
+    <span class="hot_item">自卸车</span>
+    <span class="hot_item">4.2</span>
+  </div>
+</div> -->
+
+<!--城市选择 Begin-->
+<?php include('city.html')?>
+<!--城市选择 End-->
+<script>
+$(function(){
+
+      $("#search_cancel").click(function() {
+          $(".fullscreen-search").animate({ "left": "100%" }, 200);
+          $("#search_cancel_").click();
+      });
+      $("#search_text").click(function() {
+          $(".fullscreen-search").animate({ "left": "0" }, 200);
+          $("#search").focus()
+      });
+
+})
+</script>

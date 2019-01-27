@@ -12,548 +12,88 @@
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
   <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+  <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 </head>
-
 <body>
 <div class="header">
-  <div class="searchbox">
-    <div class="weui_search_bar" id="search_bar">
-      <form class="weui_search_outer">
-        <div class="weui_search_inner">
-          <i class="weui_icon_search"></i>
-          <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" required/>
-          <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
-        </div>
-        <label for="search_input" class="weui_search_text" id="search_text">
-          <i class="weui_icon_search"></i>
-          <span>搜索车源</span>
-        </label>
-      </form>
-      <a href="javascript:" class="weui_search_cancel" id="search_cancel_" style="display: none;">取消</a>
-    </div>
-  </div>
-  <div class="select-adress" id="select-adress">
-    <span class="adress">全国</span><span class="fa fa-angle-down"></span>
-  </div>
+  <?php $this->load->view("usedcar/topseach.html") ?>
 </div>
-<div class="fullscreen-search">
-  <div class="head-search">
-    <div class="search_bar" id="search_wrap">
-      <form class="">
-        <div class="input" id="input_search">
-          <label for="search_input">
-            <i class="weui_icon_search"></i>
-          </label>
-          <input type="text" id="search" placeholder="搜索" name="search" />
-        </div>
-        <a href="javascript:" class="search_cancel" id="search_cancel">取消</a>
-      </form>
-    </div>
-    <a href="javascript:void(0)"></a>
-  </div>
-  <div class="hot" style="clear:both">
-    <h1>热门搜索</h1>
-    <span class="hot_item">4.2</span>
-    <span class="hot_item">冷藏车</span>
-    <span class="hot_item">前四后八</span>
-    <span class="hot_item">牵引车</span>
-    <span class="hot_item">4.2</span>
-    <span class="hot_item">4.2</span>
-    <span class="hot_item">自卸车</span>
-    <span class="hot_item">4.2</span>
-  </div>
-</div>
-<!--城市选择 Begin-->
-<?php include('city.html')?>
-<!--城市选择 End-->
+
 <!------------------遮罩层---------->
 <div class="mask_layer"></div>
-<!-------------->
-<!-------------选项------------------>
-<!---------------选择排序--------------->
-<div class="choice_form">
-  <div class="caption">
-    <span><</span>
-    <h4>选择排序</h4>
-  </div>
-  <div class="weui_cells weui_cells_radio form_suc">
-    <label class="weui_cell weui_check_label" for="x11">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>默认排序</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" class="weui_check" name="radio1" value="默认排序" id="x11" checked="checked">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x12">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>最新上架</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio1" value="最新上架" class="weui_check" id="x12">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x13">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>价格最低</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio1" value="价格最低" class="weui_check" id="x13">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x14">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>价格最高</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio1" value="价格最高" class="weui_check" id="x14">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x15">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>降价急售</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio1" value="降价急售" class="weui_check" id="x15">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-  </div>
-</div>
-<!--------------选择排序end------------------->
-<!---------------选择来源--------------->
-<div class="choice_form">
-  <div class="caption">
-    <span><</span>
-    <h4>选择来源</h4>
-  </div>
-  <div class="weui_cells weui_cells_radio source">
-    <label class="weui_cell weui_check_label" for="x16">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>全部</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" class="weui_check" name="radio2" id="x16" checked="checked">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x17">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>个人</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio2" class="weui_check" id="x17">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x18">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>经纪人</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio2" class="weui_check" id="x18">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x19">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>商家</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio2" class="weui_check" id="x19">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x20">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>卡车认证</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio2" class="weui_check" id="x20">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-  </div>
-</div>
-<!--------------选择来源end------------------->
-
-<!---------------选择车型--------------->
-<div class="choice_form">
-  <div class="caption">
-    <span><</span>
-    <h4>选择车型</h4>
-  </div>
-  <div class="weui_cells weui_cells_radio sort">
-    <label class="weui_cell weui_check_label" for="x21">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>不限</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" class="weui_check" name="radio3" id="x21" value="不限" checked="checked">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x22">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>牵引车</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" class="weui_check" name="radio3" value="牵引车" id="x22">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x23">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>载货车</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio3" class="weui_check" value="载货车" id="x23">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x24">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>自卸车</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio3" class="weui_check" value="自卸车" id="x24">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x25">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>轻卡</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio3" class="weui_check" value="轻卡" id="x25">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x26">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>挂车</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio3" class="weui_check" value="挂车" id="x26">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x27">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>搅拌车</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio3" class="weui_check" value="搅拌车" id="x27">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x28">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>专用车</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio3" class="weui_check" value="专用车" id="x28">
-        <span class="weui_icon_checked"></span>
-      </div>
-    </label>
-  </div>
-</div>
-<!--------------选择车型end------------------->
-<!---------------更多筛选------------>
-<div class="choice_form more_choise">
-  <div class="caption">
-    <span><</span>
-    <h4>更多筛选</h4>
-  </div>
-  <p>车辆性质</p>
-  <div class="weui_cells weui_cells_radio nozv effect">
-    <label class="weui_cell weui_check_label" for="x29">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>不限</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio4" class="weui_check" id="x29" checked="checked">
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x30">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>库存车</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio4" class="weui_check" id="x30">
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x31">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>二手车</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio4" class="weui_check" id="x31">
-      </div>
-    </label>
-  </div>
-  <p>价格</p>
-  <div class="weui_cells weui_cells_radio option nozv price">
-    <label class="weui_cell weui_check_label" for="x32">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>不限</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio5" class="weui_check" value="不限" id="x32" checked="checked">
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x33">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>0-5万</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio5" value="0到5" class="weui_check" id="x33">
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x34">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>5-10万</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio5" value="5到10" class="weui_check" id="x34">
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x35">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>10-20万</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio5" value="10到20"  class="weui_check" id="x35">
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x36">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>20-50万</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio5" value="20到50" class="weui_check" id="x36">
-      </div>
-    </label>
-  </div>
-  <p>排放</p>
-  <div class="weui_cells weui_cells_radio option nozv goout">
-    <label class="weui_cell weui_check_label" for="x36">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>不限</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio6" value="不限" class="weui_check">
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x37">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>国二</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio6" value="国二" class="weui_check" id="x37">
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x38">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>国三</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio6" value="国三" class="weui_check" id="x38">
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x39">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>国四</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio6" value="国四" class="weui_check" id="x39">
-      </div>
-    </label>
-    <label class="weui_cell weui_check_label" for="x40">
-      <div class="weui_cell_bd weui_cell_primary">
-        <p>国五</p>
-      </div>
-      <div class="weui_cell_ft">
-        <input type="radio" name="radio6" value="国五" class="weui_check" id="x40">
-      </div>
-    </label>
-  </div>
-</div>
-<!-----------------更多筛选end-------------->
-<!-------------选项end---------------->
-<div class="main_head">
-  <div class="element">
-    排序<i class="fa fa-caret-down"></i>
-  </div>
-  <div class="element">
-    来源<i class="fa fa-caret-down"></i>
-  </div>
-  <div class="element">
-    车型<i class="fa fa-caret-down"></i>
-  </div>
-  <div class="element">
-    更多<i class="fa fa-caret-down"></i>
-  </div>
-</div>
-<div class="check-option-box weui-cells ">
-  <div class="replace" id="replace">
-    清空
-  </div>
-  <div class="checked-items weui-cell">
-  </div>
-</div>
-
+<?php $this->load->view("usedcar/option.html") ?>
 
 <!--列表-->
 <div class="lovebox" style="margin-bottom: 60px">
   <div class="weui_cells loves">
     <!--空位视图-->
-    <div class="empty">
+    <div class="empty" hidden>
       <div class="text-center"><i class="fa fa-ban"></i></div>
       <p class="text-center">没有任何信息</p>
     </div>
-
     <!--List-->
-    <?php foreach($car as $c):?>
-    <a href="<?=site_url('usedcar/see/'.$c['id'])?>" class="weui_cell love">
+    <a href="" class="weui_cell love model " style="display:none" >
       <div class="weui_cell_hd thumb">
-        <img src="<?=explode('-$-', $c['img_arr_str'])[0]?>" alt="icon">
+        <img src="" class="image" alt="icon">
       </div>
       <div class="weui_cell_bd">
         <div class="message">
-          <span class="car-type"><?=$c['car_type']?></span>
-          <span class="car-name"><?=$c['title']?></span>
+          <span class="car-name"  style=" font-size:16px"></span>
+          <span class="car-type"   style="margin-left:20px ; font-size:18px"></span>
         </div>
-        <div class="other"><span class="price"><?=$c['whole_price']?>万</span></div>
+        <div class="other"><span class="price"></span></div>
         <div>
-          <span class="date text-grey"><?=date('Y-m-d', $c['create_time'])?></span><span class="adress text-grey"><?=$c['address']?></span>
+          <span class="date text-grey"></span><span class="adress text-grey"></span>
         </div>
       </div>
     </a>
-    <?php endforeach;?>
+    <div class="list loves">
+
+    </div>
   </div>
 
-  <div class="more" style="text-align: center; margin-top: 10px; background:#ffffff;">
-    <a id="get_more" href="javascript:void(0);" style="color: #09bb07;"><i class="weui_icon_download"></i> 查看更多</a>
-    <p id="no_more" style="color: #ccc; text-align: center;font-size: 14px;display:none">-----已加载全部内容-----</p>
+  <div class="weui-infinite-scroll more">
+    <div class="infinite-preloader"></div><!-- 菊花 -->
+    正在加载... <!-- 文案，可以自行修改 -->
   </div>
+  <div class="weui-row nomore ">
+      <div class="weui-col-33"></div>
+      <div class="weui-col-33" style="color:#777">---暂无更多数据---</div>
+      <div class="weui-col-33"></div>
+    </div>
 </div>
 <!-- ******************************----footer-------------******************************************** -->
 <?php include('footer.html')?>
 
+<script type="text/javascript">
+var car_type ="<?=$type?>";
+
+window.site_url="http://www.jxhkzj.com/usedcar/";
+window.carloading  ={
+  status : false ,
+  index : 0 ,
+  perload : 7 ,  //每次加载
+  init:7,  //初始的个数
+  option:{
+    sequence:"最新上架",
+    source: "全部",
+    cartype:car_type.replace(/\s+/g,"") ,
+    price:"",
+    discharge:"",
+    city:"全国",
+    name:""
+  },
+  more: true
+
+}
+</script>
 
 
-<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
 <script src="/style/usedcar/js/city.js"></script>
+<script src="/style/usedcar/js/option.js" charset="utf-8"></script>
 <script>
-  //车型选择
-  $('input[name="radio3"]').on('change', function(){
-      if($(this).val() == '不限'){
-          location.href = '/buy/0';
-          return;
-      }
-      go('车型', $(this).val());
-  });
 
-  //排序
-  $('input[name="radio1"]').on('change', function () {
-    if($(this).val() == '默认排序'){
-        location.href = '/buy/0';
-        return;
-    }
-      go('排序', $(this).val());
-  });
-
-  //价格
-  $('input[name="radio5"]').on('change', function () {
-      if($(this).val() == '不限'){
-          location.href = '/buy/0';
-          return;
-      }
-      go('价格', $(this).val());
-  });
-
-  //排放
-  $('input[name="radio6"]').on('change', function () {
-      if($(this).val() == '不限'){
-          location.href = '/buy/0';
-          return;
-      }
-      go('排放', $(this).val());
-  });
-  function go(key, value){
-      location.href = '<?=site_url("usedcar/buy/0/")?>'+ key + '/' +value;
-  }
-
-
-  $(function () {
-        if($(".loves a").length==0){
-            $(".empty").css("display","block");
-        }else{
-            $(".empty").css("display","none");
-        }
-    });
-
-    $("#search_cancel").click(function() {
-        $(".fullscreen-search").animate({ "left": "100%" }, 200);
-        $("#search_cancel_").click();
-    });
-    $("#search_text").click(function() {
-        $(".fullscreen-search").animate({ "left": "0" }, 200);
-    });
-
-  $('#get_more').click(function () {
-      $.showLoading('正在加载');
-      var url = '<?=site_url("usedcar/buy/")?>'+$('.love').length+'/<?=$key?>'+'/<?=$value?>/'+'json';
-      console.log(url);
-      $.get(url, function(data){
-          if(data.code == 200){
-              if(data.data.length < 10){
-                  $('#get_more').css('display', 'none');
-                  $('#no_more').css('display', 'block');
-              }
-              $.hideLoading();
-              setDataList(data.data, $('.weui_tab_bd'));
-          }else{
-              $.hideLoading();
-              $.toptip(data.message, 'error');
-          }
-      }, 'json');
-  });
-  function setDataList(data){
-      for(var i = 0, len = data.length; i<len; i++){
-        var html = '<a href="/usedcar/see/'+ data[i].id +'" class="weui_cell love">';
-              html+='<div class="weui_cell_hd thumb">'
-              html+='<img src="'+ data[i].img_arr_str.split('-$-')[0] +'" alt="icon">'
-              html+='</div>'
-              html+='<div class="weui_cell_bd">'
-              html+='<div class="message">'
-              html+='<span class="car-type"><?=$c['car_type']?></span>'
-          html+='<span class="car-name">'+ data[i].title +'</span>';
-          html+='</div>';
-          html+='<div class="other"><span class="price">'+ data[i].whole_price +'万</span></div>';
-          html+='<div>';
-          html+='<span class="date text-grey">'+ formatDate(data[i].create_time) +'</span><span class="adress text-grey"><?=$c['address']?></span>';
-          html+= '</div>';
-          html+='</div>';
-          html+='</a>';
-          $('.loves').append(html);
-      }
-  }
-  //格式化时间
-  function formatDate(date){
-      //console.log(date);
-      var date = new Date(date*1000);
-      var Y = date.getFullYear() + '.';
-      var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
-      var D = date.getDate() + ' ';
-      return (Y+M+D);
-  }
 </script>
 </body>
 

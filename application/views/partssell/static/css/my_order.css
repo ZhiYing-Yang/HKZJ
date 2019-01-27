@@ -1,0 +1,85 @@
+body{
+	font-family: SimHei;
+	
+}
+.main_head{
+	background: #FE0539;
+	
+	
+}
+.bar .button-link{
+	color: white;
+}
+.main_head h1{
+	color: white;
+}
+.bar .searchbar .searchbar-cancel{
+	color: white;
+}
+.bar .searchbar{
+	background: rgba(0,0,0);
+	/*background:#F2760B;*/
+	background: #FE0539;
+}
+.buttons-tab .button.active{
+	color: #FF5000;
+	border-color: #FF5000;
+}
+.content-block{
+	margin: 10px 0px;
+}
+.list-block{
+	margin: 10px 0px;
+}
+.one_parts ul{
+	width: 100%;
+	border-radius: 10px;
+	color: black;
+}
+
+.one_parts .item-media{
+	width: 90px;
+}
+.one_parts .item-media img{
+	width: 100%;
+	height: 100%;
+}
+.bottom{
+	width: auto;
+	float: right;
+	
+}
+.delete{
+	padding: 0px 10px;
+	width: auto;
+	height: 27px;
+	line-height: 27px;
+	text-align: center;
+	float: left;
+	border: 1px solid grey;
+	border-radius: 15px;
+}
+.pay,.receive,.remind{
+	padding: 0px 10px;
+	width: auto;
+	height: 27px;
+	line-height: 27px;
+	text-align: center;
+	float: right;
+	margin-left: 10px;
+	border: 1px solid #FF5000;
+	border-radius: 15px;
+	color: #FF5000;
+}
+.font12px{
+	font-size: 12px;
+}
+.font13px{
+	font-size: 13px;
+}
+.font14px{
+	font-size: 14px;
+}
+.font18px{
+	font-size: 18px;
+}

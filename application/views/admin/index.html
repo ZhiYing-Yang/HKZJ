@@ -7,11 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
     <title>货卡之家后台管理中心</title>
+    <link rel="icon" href="/style/admin/images/icon.png">
     <link rel="stylesheet" href="/style/admin/css/pintuer.css">
     <link rel="stylesheet" href="/style/admin/css/admin.css">
+    <link rel="stylesheet" href="/style/plugin/jqueryscroll/jquery.mCustomScrollbar.css">
     <script src="/style/admin/js/jquery.js"></script>
 </head>
-
+<style media="screen">
+  .admin{
+    overflow-x: hidden;
+  }
+</style>
 <body style="background-color:#f2f9fd; ">
 <div class="header bg-main">
     <div class="logo margin-big-left fadein-top">
@@ -22,48 +28,141 @@
 <div class="leftnav">
     <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
 
-    <h2><span class="icon-pencil-square-o"></span>管理员</h2>
+    <h2><span class="icon-pencil-square-o "> </span>管理员</h2>
     <ul>
-        <li><a href="<?=site_url('admin/admin/edit_password/view')?>" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
+        <li><a href="<?=site_url('admin/admin/edit_password/view')?>" target="right"><span class="asjhdbhjasdhjsa"></span>修改密码</a></li>
+        <li><a href="<?=site_url('admin/admin/adduser/view')?>" onclick="" target="right"><span class="asjhdbhjasdhjsa"></span>增加管理员</a></li>
+        <li><a href="<?=site_url('admin/admin/user_list')?>" onclick="" target="right"><span class="asjhdbhjasdhjsa"></span>后台用户管理</a></li>
     </ul>
 
     <!--论坛管理 Begin-->
     <h2><span class="icon-pencil-square-o"></span>论坛管理</h2>
     <ul>
-        <li><a href="<?=site_url('admin/admin/forum_list/all/0')?>" target="right"><span class="icon-caret-right"></span>帖子列表</a></li>
-        <li><a href="<?=site_url('admin/admin/forum_list/公告/0')?>" target="right"><span class="icon-caret-right"></span>公告列表</a></li>
-        <li><a href="<?=site_url('admin/admin/forum_add_notice')?>" target="right"><span class="icon-caret-right"></span>添加公告</a></li>
-        <li><a href="<?=site_url('admin/admin/forum_user')?>" target="right"><span class="icon-caret-right"></span>论坛用户</a></li>
-        <li><a href="<?=site_url('admin/admin/accuse_article_list/')?>" target="right"><span class="icon-caret-right"></span>用户举报</a></li>
+        <li><a href="<?=site_url('admin/admin/advertisement/')?>" target="right"><span class="asjhdbhjasdhjsa"></span>首页广告</a></li>
+        <li><a href="<?=site_url('admin/admin/forum_list/all/0')?>" target="right"><span class="asjhdbhjasdhjsa"></span>帖子列表</a></li>
+        <li><a href="<?=site_url('admin/admin/forum_list/公告/0')?>" target="right"><span class="asjhdbhjasdhjsa"></span>公告列表</a></li>
+        <li><a href="<?=site_url('admin/admin/forum_add_notice')?>" target="right"><span class="asjhdbhjasdhjsa"></span>添加公告</a></li>
+        <li><a href="<?=site_url('admin/admin/forum_user')?>" target="right"><span class="asjhdbhjasdhjsa"></span>论坛用户</a></li>
+        <li><a href="<?=site_url('admin/admin/accuse_article_list/')?>" target="right"><span class="asjhdbhjasdhjsa"></span>用户举报</a></li>
     </ul>
     <!--论坛管理 End-->
-
+    <!-- 内容发布 -->
+    <h2><span class="icon-pencil-square-o"></span>内容管理</h2>
+    <ul>
+        <li><a href="<?=site_url('admin/activity')?>" target="right"><span class="asjhdbhjasdhjsa"></span>活动中心</a></li>
+        <li><a href="<?=site_url('admin/news/manage')?>" target="right"><span class="icon-add"></span>新闻中心</a></li>
+        <li><a href="<?=site_url('admin/advisory/manage')?>" target="right"><span class="icon-add"></span>咨询中心</a></li>
+        <li><a href="<?=site_url('admin/keepcar/')?>" target="right"><span class="asjhdbhjasdhjsa"></span>养车护车</a></li>
+    </ul>
+    <!-- 内容发布End -->
     <!--司机群 Begin-->
     <h2><span class="icon-pencil-square-o"></span>司机群</h2>
     <ul>
-        <li><a href="<?=site_url('admin/admin/flock_list')?>" target="right"><span class="icon-caret-right"></span>司机群管理</a></li>
-        <li><a href="<?=site_url('admin/admin/flock_add')?>" target="right"><span class="icon-caret-right"></span>添加司机群</a></li>
+        <li><a href="<?=site_url('admin/admin/flock_list')?>" target="right"><span class="asjhdbhjasdhjsa"></span>司机群管理</a></li>
+        <li><a href="<?=site_url('admin/admin/flock_add')?>" target="right"><span class="asjhdbhjasdhjsa"></span>添加司机群</a></li>
     </ul>
     <!--司机群 End-->
 
     <!--二手车 Begin-->
-    <h2><span class="icon-pencil-square-o"></span>二手车</h2>
-    <ul>
-        <li><a href="<?=site_url('admin/admin/car_list')?>" target="right"><span class="icon-caret-right"></span>车辆列表</a></li>
-        <li><a href="<?=site_url('admin/usedCar/user_list')?>" target="right"><span class="icon-caret-right"></span>二手车用户</a></li>
-        <li><a href="<?=site_url('admin/usedCar/apply_list')?>" target="right"><span class="icon-caret-right"></span>认证申请</a></li>
-        <li><a href="<?=site_url('admin/usedCar/developLog')?>" target="right"><span class="icon-caret-right"></span>开发日志</a></li>
+    <h2><span class="icon-pencil-square-o on"></span>二手车</h2>
+    <ul >
+        <li><a href="<?=site_url('admin/usedCar/advertisement')?>" target="right"><span class="asjhdbhjasdhjsa"></span>首页广告</a></li>
+        <li><a href="<?=site_url('admin/usedCar/car_list')?>" target="right"><span class="asjhdbhjasdhjsa"></span>车辆列表</a></li>
+        <li><a href="<?=site_url('admin/usedCar/user_list')?>" target="right"><span class="asjhdbhjasdhjsa"></span>二手车用户</a></li>
+        <li><a href="<?=site_url('admin/usedCar/apply_list')?>" target="right"><span class="asjhdbhjasdhjsa"></span>认证申请</a></li>
     </ul>
     <!--二手车 End-->
+
+    <!--货源信息 Begin-->
+    <h2><span class="icon-pencil-square-o on"></span>货源信息</h2>
+    <ul >
+      <li><a href="<?=site_url('admin/Merchantcheck/check/全部/0')?>" target="right"><span class="asjhdbhjasdhjsa"></span>审核列表</a></li>
+      <li><a href="<?=site_url('admin/merchantcheck/merchant')?>" target="right"><span class="asjhdbhjasdhjsa"></span>商家列表</a></li>
+        <li><a href="<?=site_url('admin/source/user_list')?>" target="right"><span class="asjhdbhjasdhjsa"></span>货源信息用户</a></li>
+        <li><a href="<?=site_url('admin/source/goods_list')?>" target="right"><span class="asjhdbhjasdhjsa"></span>货物信息</a></li>
+        <li><a href="<?=site_url('admin/source/car_list')?>" target="right"><span class="asjhdbhjasdhjsa"></span>车辆信息</a></li>
+    </ul>
+    <!--货源信息 End-->
+
+    <!--零件销售 Begin-->
+    <h2><span class="icon-pencil-square-o on"></span>零件销售</h2>
+    <ul >
+        <li><a href="<?=site_url('admin/partssell/publish')?>" target="right"><span class="asjhdbhjasdhjsa"></span>发布配件</a></li>
+        <li><a href="<?=site_url('admin/partssell/manage')?>" target="right"><span class="asjhdbhjasdhjsa"></span>配件管理</a></li>
+    </ul>
+    <!--零件销售 End-->
+
+    <!--汽车维修 Begin-->
+    <h2><span class="icon-pencil-square-o on"></span>汽车维修</h2>
+    <ul >
+        <li><a href="<?=site_url('admin/carservice/check')?>" target="right"><span class="asjhdbhjasdhjsa"></span>审核列表</a></li>
+        <li><a href="<?=site_url('admin/carservice/manage')?>" target="right"><span class="asjhdbhjasdhjsa"></span>维修站管理</a></li>
+
+    </ul>
+    <!--汽车维修 End-->
 
     <!--车辆监控 Begin-->
     <h2><span class="icon-pencil-square-o"></span>车辆监控</h2>
     <ul>
-        <li><a href="<?=site_url('admin/monitor/user_list')?>" target="right"><span class="icon-caret-right"></span>用户列表</a></li>
-
+        <li><a href="<?=site_url('admin/monitor/user_list')?>" target="right"><span class="asjhdbhjasdhjsa"></span>用户列表</a></li>
     </ul>
     <!--车辆监控 End-->
+    <!--司机招聘 Begin-->
+    <h2><span class="icon-pencil-square-o"></span>司机招聘</h2>
+    <ul>
+        <li><a href="<?=site_url('admin/driverhire/check/')?>" target="right"><span class="asjhdbhjasdhjsa"></span>职位审核</a></li>
+        <li><a href="<?=site_url('admin/driverhire/index/')?>" target="right"><span class="asjhdbhjasdhjsa"></span>职位管理</a></li>
+    </ul>
+    <!--司机招聘 End-->
+    <!--新闻中心 Begin-->
+    <!-- <h2><span class="icon-pencil-square-o"></span>新闻中心</h2>
+    <ul>
+        <li><a href="<?=site_url('admin/news/publish')?>" target="right"><span class="asjhdbhjasdhjsa"></span>发布新闻</a></li>
+        <li><a href="<?=site_url('admin/news/manage')?>" target="right"><span class="asjhdbhjasdhjsa"></span>新闻管理</a></li>
 
+    </ul> -->
+    <!--新闻中心 End-->
+    <!--养车护车 Begin-->
+    <!-- <h2><span class="icon-pencil-square-o"></span>养车护车</h2>
+    <ul>
+        <li><a href="<?=site_url('admin/keepcar/publish')?>" target="right"><span class="asjhdbhjasdhjsa"></span>养车护车</a></li>
+        <li><a href="<?=site_url('admin/keepcar/manage')?>" target="right"><span class="asjhdbhjasdhjsa"></span>新闻管理</a></li>
+
+    </ul> -->
+    <!--养车护车 End-->
+    <!--问题咨询 Begin-->
+    <!-- <h2><span class="icon-pencil-square-o"></span>问题咨询</h2>
+    <ul>
+        <li><a href="<?=site_url('admin/advisory/publish')?>" target="right"><span class="asjhdbhjasdhjsa"></span>发布咨询</a></li>
+        <li><a href="<?=site_url('admin/advisory/manage')?>" target="right"><span class="asjhdbhjasdhjsa"></span>内容管理</a></li>
+
+    </ul> -->
+    <!--问题咨询 End-->
+    <!--商家入驻 Begin-->
+    <h2><span class="icon-pencil-square-o"></span>商家入驻</h2>
+    <ul>
+        <li><a href="<?=site_url('admin/Merchantcheck/check/全部/0')?>" target="right"><span class="asjhdbhjasdhjsa"></span>审核列表</a></li>
+        <li><a href="<?=site_url('admin/merchantcheck/merchant')?>" target="right"><span class="asjhdbhjasdhjsa"></span>商家列表</a></li>
+
+    </ul>
+    <!--商家入驻 END-->
+    <!--商家入驻 Begin-->
+    <!-- <h2><span class="icon-pencil-square-o"></span>货源信息</h2>
+    <ul>
+        <li><a href="<?=site_url('admin/Merchantcheck/check/全部/0')?>" target="right"><span class="asjhdbhjasdhjsa"></span>审核列表</a></li>
+        <li><a href="<?=site_url('admin/merchantcheck/merchant')?>" target="right"><span class="asjhdbhjasdhjsa"></span>商家列表</a></li>
+
+    </ul> -->
+    <!--商家入驻 END-->
+
+    <!-- 开发者中心 -->
+    <!-- <h2><span class="icon-pencil-square-o on"></span>开发者中心</h2>
+    <ul style="display: block">
+        <li><a href="<?=site_url('admin/admin/developLog')?>" target="right"><span class="asjhdbhjasdhjsa"></span>开发日志</a></li>
+        <li><a href="<?=site_url('admin/admin/progress')?>" target="right"><span class="asjhdbhjasdhjsa"></span>开发进度计划</a></li>
+
+    </ul> -->
+    <!-- 开发者中心END -->
 </div>
 <script type="text/javascript">
     $(function() {
@@ -77,6 +176,9 @@
             $(this).addClass("on");
         });
     });
+    function  developing( ) {
+        alert("该功能尚未添加")
+    }
 </script>
 <ul class="bread">
     <li><a href="{:U('Index/info')}" target="right" class="icon-home"> 首页</a></li>
@@ -87,5 +189,10 @@
     <iframe scrolling="auto" rameborder="0" src="" name="right" width="100%" height="100%"></iframe>
 </div>
 </body>
-
+<script src="/style/plugin/jqueryscroll/jquery.mCustomScrollbar.concat.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+  $(function(){
+    $(".leftnav").mCustomScrollbar();
+  });
+</script>
 </html>

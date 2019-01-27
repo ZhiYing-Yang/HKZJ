@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>车辆维修</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/application/views/carservice/static/css/index.css">
+  </head>
+  <body>
+    <div id="container" style="width:0px;height:0px;"></div>
+<div class="page-group">
+  <div class="page page-current">
+  <header class="bar bar-nav main_head">
+    <h1 class="title" style="background:#FF9103">车辆维修</h1>
+  </header>
+  <div class="bar bar-header-secondary">
+  <div class="searchbar">
+    <a class="searchbar-cancel">取消</a>
+    <div class="search-input">
+      <label class="icon icon-search" for="search"></label>
+      <input type="search" id='search' placeholder='搜索店铺名称...'/>
+    </div>
+  </div>
+</div>
+  <div class="content">
+  	<div class="first">
+  		<span class="icon icon-code"></span>推荐店铺
+  	</div>
+  	<!--每个.one_parts代表一个店铺-->
+  <?php foreach($info as $s):?>
+    <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+        <a href="<?=site_url('carservice/details/').$s['id']?>" class="item-link item-content">
+          <div class="item-media"><img src="<?=$s['img']?>"></div>
+          <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title" style="color: black;font-weight: 900;font-size: 17px;"><?=$s['name']?></div>
+              </div>
+              <div class="distance font12px">1.33km</div>
+              <div class="item-subtitle item-text">
+              	<div class="position font14px"><?=$s['position1']?></div>
+
+              </div>
+            </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <?php endforeach;?>
+  </div>
+  <div class="add foot "  style="position:fixed ;z-index:200; background: #00a5e0 ;  bottom: 100px ;  right: 0;   padding: 5px ; border-radius: 20px 0 0 20px ;color: white;" >
+    <a href="/carservice/dist" style="color:white; z-index:2000"><p><span class="fa fa-plus" style="z-index:2000"></span> 点击出摊</p></a>
+  </div>
+
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>$.config = {router: false}</script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.11&key=5d493777514565298e14dde91c4be448"></script>
+    <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <script>
+   var map = new AMap.Map('container');
+  var currentCenter = map.getCenter();
+  var lnglat1 = new AMap.LngLat(currentCenter.lng,currentCenter.lat);
+  var count = 0;
+  <?php foreach($info as $s):?>
+
+
+    var lnglat2 = new AMap.LngLat(<?=explode(',',$s['position2'])[0]?>,<?=explode(',',$s['position2'])[1]?>);
+    var distance = lnglat1.distance(lnglat2);//计算lnglat1到lnglat2之间的实际距离(m)
+    $('.distance')[count].innerHTML = String((distance/1000).toFixed(2)) + "km";
+    count += 1;
+  <?php endforeach;?>
+
+    // var lnglat2 = new AMap.LngLat(117, 39);
+
+
+   var url = 'https://webapi.amap.com/maps?v=1.4.11&key=5d493777514565298e14dde91c4be448&callback=onLoad';
+   var jsapi = document.createElement('script');
+   jsapi.charset = 'utf-8';
+   jsapi.src = url;
+   document.head.appendChild(jsapi);
+    </script>
+  </body>
+</html>

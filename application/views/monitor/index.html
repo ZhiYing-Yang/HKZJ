@@ -7,68 +7,148 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weui/1.1.3/style/weui.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-weui/1.2.0/css/jquery-weui.min.css">
     <link rel="stylesheet" href="//qidian.gtimg.com/lulu/theme/peak/css/common/color.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/style/monitor/css/monitor.css">
+    <link rel="stylesheet" href="/style/common/common.css">
 </head>
 <body>
-<div class="weui-search-bar" id="searchBar">
-    <form class="weui-search-bar__form" id="my_form" action="<?=site_url('monitor/car_monitor')?>" method="post">
-        <div class="weui-search-bar__box">
-            <i class="weui-icon-search"></i>
-            <input type="search" class="weui-search-bar__input" name="license_number" id="searchInput" placeholder="请输入车牌号" required="">
-            <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
-        </div>
-        <label class="weui-search-bar__label" id="searchText">
-            <i class="weui-icon-search"></i>
-            <span>请输入车牌号</span>
-        </label>
-    </form>
-    <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
-</div>
-<div class="weui-flex" style="margin-top: 10px">
-    <div class="weui-flex__item"></div>
-    <div class="weui-flex__item"><a href="javascript:void(0);" id="submit_btn" class="weui-btn weui-btn_primary">立即查询</a></div>
-    <div class="weui-flex__item"></div>
-</div>
 
-<div class="weui-cells">
-    <div class="weui-cell">
-        <div class="weui-cell__bd">
-            <p>本月剩余免费次数</p>
-        </div>
-        <div class="weui-cell__ft" id="free"><?=$free_time?></div>
-    </div>
-    <a class="weui-cell weui-cell_access" href="<?=site_url('monitor/recharge')?>">
-        <div class="weui-cell__bd">
-            <p>剩余货卡币数量</p>
-        </div>
-        <div class="weui-cell__ft" id="pay">
-            <?=$money?>个
-        </div>
-    </a>
-</div>
 
-<div class="result" style="display: none">
-    <p class="title">查询结果</p>
-    <div class="result_info">
-        <p>车牌号：<span class="red" id="car_number">赣C1N980</span></p>
-        <p>最近更新时间：<span class="red" id="last_time">2018-09-13 13:23:03</span></p>
-        <p>当前车速：<span class="red" id="speed">23.7km/h</span></p>
-        <p>车辆位置：<span class="red" id="location">安徽省安庆市怀宁县长琳塑业，向西方向，148 米</span></p>
+  <div class="weui-tab">
+    <div class="weui-navbar" >
+      <a href="#position" class="weui-navbar__item weui-bar__item--on" style="font-size:16px;">
+        车辆定位
+      </a>
+      <a href="#track" class="weui-navbar__item" style="font-size:16px;">
+        轨迹查询
+      </a>
     </div>
-    <div style="overflow: hidden;">
-        <button style="float: right;" id="see_map" class="weui-btn weui-btn_mini weui-btn_primary">查看地图</button>
-    </div>
-</div>
+    <!-- <div class="header ">
+      <div class="rocket-box text-center blue"  style="margin-top:50px;">
+          <span class="fa fa-rocket rocket text-center"></span>
+      </div>
+    </div> -->
+    <div class="weui-tab__bd" style="background:white ; border : 0 ;">
+      <div class="weui-search-bar" id="searchBar" style="margin-top:30px  ; background:white ; border : 0 ;" >
+          <form class="weui-search-bar__form" id="my_form" action="<?=site_url('monitor/car_monitor')?>"  method="post">
+              <div class="weui-search-bar__box" >
+                  <i class="weui-icon-search"></i>
+                  <input type="search" class="weui-search-bar__input" name="license_number"  style="font-size :14px ; height:30px;" id="searchInput" placeholder="例:陕YH0009" required="">
+                  <a href="javascript:0;" class="weui-icon-clear" id="searchClear"></a>
+              </div>
+              <label class="weui-search-bar__label" style="margin-top:5px;" id="searchText">
+                  <i class="weui-icon-search"></i>
+                  <span>请输入完整车牌号</span>
+              </label>
+          </form>
+      </div>
+      <!-- 位置查询开始 -->
+      <div id="position" class="weui-tab__bd-item weui-tab__bd-item--active">
 
-<div class="content gray">
-    <h3 align="center">温馨提示</h3>
-    <div class="info" style="font-size: 14px;padding: 0 15px;">
-        1. 货卡之家为卡友每月提供30次免费查询，本月内超出30次以外的部分每查询一次消耗一货卡币。<br>
-        2. 查询车辆位置请先征得车主的同意，货卡之家提醒您提前和车主沟通好以免出现侵权的情况；如您未征得车主同意，查询了车辆位置，由此带来的法律责任将由您自行承担<br>
-        3. 货卡之家不对查询位置的准确性负责（数据来自于官方）。<br>
-        4. 鉴于车辆故障等原因，部分车辆可能会出现查询不到的情况（95%以上可以查询到结果）
+        <div class="weui-row" style="margin-top: 10px">
+
+          <a href="javascript:void(0);" id="submit_btn" class="button-blue button-center" style="font-size:16px;">查询位置</a>
+
+        </div>
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>本月<span class="" style="color:#FF7600">位置查询</span>剩余免费次数</p>
+                </div>
+                <div class="weui-cell__ft" id="free"><?=$free_time?></div>
+            </div>
+            <a class="weui-cell weui-cell_access" href="<?=site_url('monitor/recharge')?>">
+                <div class="weui-cell__bd">
+                    <p>剩余货卡币数量（点击充值）</p>
+                </div>
+                <div class="weui-cell__ft" id="pay">
+                    <?=$money?>个
+                </div>
+            </a>
+        </div>
+        <div class="result" style="display: none">
+            <p class="title">查询结果</p>
+            <div class="result_info">
+                <p>车牌号：<span class="red" id="car_number">赣C1N980</span></p>
+                <p>最近更新时间：<span class="red" id="last_time">2018-09-13 13:23:03</span></p>
+                <p>当前车速：<span class="red" id="speed">23.7km/h</span></p>
+                <p>车辆位置：<span class="red" id="location">安徽省安庆市怀宁县长琳塑业，向西方向，148 米</span></p>
+            </div>
+            <div style="overflow: hidden;">
+                <button style="float: right;" id="see_map" class="weui-btn weui-btn_mini weui-btn_primary">查看地图</button>
+            </div>
+        </div>
+      </div>
+      <!-- 位置查询 结束  -->
+      <!-- 轨迹查询开始 -->
+      <div id="track" class="weui-tab__bd-item">
+
+        <div class="weui-cells weui-cells_form">
+          <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">开始时间:</label></div>
+            <div class="weui-cell__bd">
+              <input class="weui-input" type=""  value="" id="btm" name="btm" placeholder="">
+            </div>
+          </div>
+          <div class="weui-cell">
+            <div class="weui-cell__hd"><label for=""  class="weui-label">结束时间:</label></div>
+            <div class="weui-cell__bd">
+              <input class="weui-input" type="" id="etm" name="etm" value="" placeholder="">
+            </div>
+          </div>
+        </div>
+        <div class="weui-row" style="margin-top: 10px">
+        <a  onclick="track_submit()" id="track_submit_btn" class="button-center button-blue" style="font-size:16px;">查询轨迹</a>
+
+        </div>
+        <div class="weui-cells">
+            <a class="weui-cell weui-cell_access" href="<?=site_url('monitor/recharge')?>">
+                <div class="weui-cell__bd">
+                    <p>剩余货卡币数量(点击充值)</p>
+                </div>
+                <div class="weui-cell__ft" id="pay">
+                    <?=$money?>个
+                </div>
+            </a>
+        </div>
+      </div>
+
     </div>
+<!-- 轨迹查询结束 -->
+  </div>
+
+<!-- 地图弹出层开始 -->
+<div id="map" class="weui-popup__container" style="z-index:10000">
+  <div class="weui-popup__overlay"></div>
+  <div class="weui-popup__modal">
+    <div class="" id="mapbox">
+
+    </div>
+  </div>
 </div>
+<!-- 地图弹出层结束 -->
+<!-- 卡车之家提示  -->
+<a href="javascript:0;" class="link-great smallmargintop smallmarginleft smallfont open-popup"  id="readservice" data-target="serviceReminder">点击阅读《服务条款》</a>
+<div id="serviceReminder" class="weui-popup__container " style="z-index:10000;">
+  <div class="weui-popup__overlay"></div>
+  <div class="weui-popup__modal">
+    <div class="content gray">
+        <p class="text-center bigfont blue">货卡之家车辆监控服务</p>
+        <div class="info" style="font-size: 14px;padding: 0 15px;">
+            1. 货卡之家为卡友每月提供30次免费位置查询，本月内超出30次以外的部分每查询一次消耗一货卡币。<br>
+            2. 轨迹查询不提供免费次数 ， 一次消耗1货卡币。
+            3. 查询车辆位置请先征得车主的同意，货卡之家提醒您提前和车主沟通好以免出现侵权的情况；如您未征得车主同意，查询了车辆位置，由此带来的法律责任将由您自行承担<br>
+            4. 货卡之家不对查询位置的准确性负责（数据来自于官方）。<br>
+            5. 鉴于车辆故障等原因，部分车辆可能会出现查询不到的情况（95%以上可以查询到结果）
+        </div>
+      <div class="weui-row" style="margin-top:20px;">
+          <a href="#" class=" button-center button-blue close-popup" >知道了</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 卡车之家提示结束 -->
+
 
 
 </body>
@@ -76,7 +156,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
 <script src="/style/monitor/js/cordinate.js"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=256b6bc8ce6a46ef21d037566f4191d1"></script>
+<script src="/style/common/common.js" charset="utf-8"></script>
 <script>
+
+$("#readservice").click(function() {
+  $("#serviceReminder").popup();
+});
+var searchHistory;
     wx.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: '<?=$appId?>', // 必填，公众号的唯一标识
@@ -88,37 +175,135 @@
             'getLocation'
         ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
+    $("#btm").datetimePicker();
+    $("#etm").datetimePicker();
+    function track_submit(){
+      var site_url = "<?=site_url()?>";
+      var etm = $("input[name='etm']").val();
+      var btm = $("input[name='btm']").val();
+      var license = $("input[name='license_number']").val();
+      if(etm=="") {
+        $.toast("结束时间不能为空" ,"text");  return ;
+      }
+      if(btm==""){
+         $.toast("开始时间不能为空","text");  return ;
+      }
+      if(license==""){
+         $.toast("车牌号不能为空","text");  return ;
+      }
+      $.showLoading();
+      $.post(site_url+"monitor/track",{
+        etm:etm ,
+        btm :btm ,
+        async :false,
+        license : license
+      } , function(data){
+        $.hideLoading();
 
+        if(data.code==401){
+          $.toast(data.message);
+        }else if(data.code==410) {
+          $.alert('您的货卡币余额不足，请即时充值！', '余额不足', function(){
+              window.location.href = '<?=site_url("monitor/recharge")?>';
+          });
+        }else if(data.code==200) {  //找到啦
+            $("#map").popup();
+            $("#mapbox").css({"height":$(window).height()  , "width":$(window).width()});//初始化容器
+            var map = new AMap.Map('mapbox', {
+               center:[117.000923,36.675807],
+               zoom:11
+            });
+            charge("pay")
+            map.on('complete',maprender(map ,data.data));
+
+        }else{
+          $.alert("车辆未找到，未知错误");
+        }
+      },"json")
+
+    }
+    function getTime(str) {
+      var a = str.split('/')[1];
+      return a.substr(0,2)+":"+a.substr(2,2)+":"+a.substr(4,2);
+    }
+    function getDay(str){
+      var a = str.split('/')[0];
+      return str.substr(4,2)+"-"+str.substr(6,2);
+    }
+
+    function maprender(map ,mapdata){//地图初始化完毕  开始业务
+
+       var pathpoints = mapdata ;
+
+       var pointSum = pathpoints['result'].length;
+       // 创建一条折线覆盖物
+       var path = [];
+       for(var i =0 ;i<pathpoints['result'].length;i++){
+         path[i] = new AMap.LngLat( pathpoints['result'][i]['lon']/600000 , pathpoints['result'][i]['lat']/600000 );
+       }
+       var polyline = new AMap.Polyline({
+           path: path,
+           borderWeight: 8, // 线条宽度，默认为 1
+           strokeColor: 'blue', // 线条颜色
+           lineJoin: 'round' // 折线拐点连接处样式
+       });
+       map.add(polyline);
+       // 创建两个点标记
+       var marker1 = new AMap.Marker({
+           position: new AMap.LngLat(pathpoints['result'][0]['lon']/600000,pathpoints['result'][0]['lat']/600000),   // 经纬度对象，如 new AMap.LngLat(116.39, 39.9); 也可以是经纬度构成的一维数组[116.39, 39.9]
+           title: '起点'
+       });
+       marker1.setLabel({
+         //修改label相对于maker的位置
+         offset: new AMap.Pixel(20, 20),
+         content: "<a class=' weui_btn weui_btn_primary blue' style='  line-height:30px; padding:5px 10px ;border-radius:5px;'>起点</a><p >"+getTime(pathpoints['result'][0]['gtm'])+"</p><p>"+getDay(pathpoints['result'][0]['gtm'])+"</p>"
+         });
+       var marker2 = new AMap.Marker({
+           position: new AMap.LngLat(pathpoints['result'][pointSum-1]['lon']/600000, pathpoints['result'][pointSum-1]['lat']/600000),   // 经纬度对象，如 new AMap.LngLat(116.39, 39.9); 也可以是经纬度构成的一维数组[116.39, 39.9]
+           title: '终点'
+       });
+       marker2.setLabel({
+         //修改label相对于maker的位置
+         offset: new AMap.Pixel(20, 20),
+         content: "<a class=' weui_btn weui_btn_primary blue' style='  line-height:30px; padding:5px 10px ;border-radius:5px;'>终点</a><p >"+getTime(pathpoints['result'][pointSum-1]['gtm'])+"</p><p >"+getDay(pathpoints['result'][0]['gtm'])+"</p>"
+         });
+       map.add(marker1);
+       map.add(marker2);
+         // 自动适配到合适视野范围
+       // 无参数，默认包括所有覆盖物的情况
+       map.setFitView();
+       $.hideLoading();
+
+     }
     //提交查询
     $('#my_form').submit(function(e){
         e.preventDefault();
-        $.showLoading('努力查询中');
+
         var license_number = $.trim($('input[name="license_number"]').val());
         if(license_number.length == 0){
             $.hideLoading();
-            $.toptip('请输入车牌号', 'error');
+              $.toast("请输入车牌号", "text");
             return;
         }
-
+            $.showLoading('努力查询中');
         $.post($('#my_form').attr('action'), {license_number: license_number}, function (data) {
             if(data.code == 200){
-
                 charge(data.data.charge);//查询费用问题
                 $.toptip
                 localStorage.setItem('car_data', JSON.stringify(data.data));//web本地存储
                 $.hideLoading();
                 set_data(data.data); //显示查询结果
-
+                  see_map(data.data);
                 $.confirm('已查到您的车辆信息，是否打开地图查看？', '查询成功', function(){
                     //点击确认后的回调函数
-                    see_map(data.data);
+
                 },function(){
                     //点击取消后的回调函数
                     $.toptip('查询成功，您的车辆位置信息如下', 'success');
                 });
             }else if(data.code == 401){
                 $.hideLoading();
-                $.toptip('无结果，该车辆可能未入网', 'warning');
+                $.toptip('无结果，该车辆可能处于离线状态', 'warning');
             }else if(data.code == 410){ //免费次数已经用完，需要付费
                 $.hideLoading();
                 $.alert('您的货卡币余额不足，请即时充值！', '余额不足', function(){
@@ -132,6 +317,7 @@
         }, 'json');
     });
     $('#submit_btn').click(function () {
+
         $('#my_form').submit();
     });
 

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商家排名首页</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/application/views/merchant/static/css/index.css">
+  </head>
+  <body>
+<div class="page-group">
+  <div class="page page-current">
+  <header class="bar bar-nav main_head">
+    <h1 class="title" style="background:#2486ff">商家排名</h1>
+  </header>
+  <div class="bar bar-header-secondary">
+  <div class="searchbar">
+    <a class="searchbar-cancel">取消</a>
+    <div class="search-input">
+      <label class="icon icon-search" for="search"></label>
+      <input type="search" id='search' placeholder='输入关键字...'/>
+    </div>
+  </div>
+</div>
+  <div class="content">
+    <div class="buttons-tab">
+      <a href="#tab1" class="tab-link active button"  >综合</a>
+      <a href="#tab2" class="tab-link button"    >热度  </a>
+    </div>
+
+
+  <div class="content-block">
+    <div class="tabs">
+      <div id="tab1" class="tab active">
+      	<!--每个.one_parts代表一个商家-->
+        <div class="list-block media-list one_parts">
+          <ul id="allmerchant">
+
+          </ul>
+
+        </div>
+    </div>
+    <div id="tab2" class="tab">
+        <!--每个.one_parts代表一个商家-->
+        <div class="list-block media-list one_parts">
+          <ul id="redu">
+
+          </ul>
+      </div>
+    </div>
+    <div class="loadstatus">
+            <div class="loading" style="padding:10px ; text-align:center; font-size:14px;color:#777;">
+                <p> <i class="fa fa-refresh fa-spin"></i> 加载中....</p>
+            </div>
+            <div class="nomore" style="padding:10px ; text-align:center; font-size:14px;color:#777;">
+                <p>--啊噢，没有更多了呢！--</p>
+            </div>
+    </div>
+    </div>
+  </div>
+  </div>
+
+        </div>
+    </div>
+<div class="model " style="display:none;">
+  <!-- 综合商家排名模板 -->
+  <li id="chantmodel">
+    <a href="shop_details.html" class="item-link item-content">
+      <div class="item-media"><img class="image" src="/application/views/news/static/images/timg.jpg"></div>
+      <div class="item-inner">
+        <div class="item-text name" style="  margin-top:20px; ;color: black;font-weight: 900;font-size: 17px;">商家名称...</div>
+        <div class="item-text address" style="color: #777;font-weight: 90;font-size: 12px;">地址</div>
+      </div>
+    </a>
+  </li>
+</div>
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>$.config = {router: false}</script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script src="/style/plugin/loadModelmini/loadmini.js" charset="utf-8"></script>
+    <script type="text/javascript">
+$(function() {
+
+         merchantModel = new LoadModel({
+          url:"http://www.jxhkzj.com/merchantcheck/merchant_list",
+          model:".model #chantmodel",
+          list : "#allmerchant",   //列表要显示的dom节点
+          more_view: " .loading" , //加载中样式选择器
+          no_more: " .nomore",  //全部加载完样式选择器
+          option:{
+            queue:"time"
+          },
+          singleadd:function(data) {
+              model = $(".model #chantmodel").clone();
+              model.removeClass("model").css("display","");
+              it = model;
+              it.attr("href","/merchantcheck/detail/"+data["id"])
+              it.find(".image").attr("src",data["headphoto"]);
+              if(data["type"]=="经纪人"){
+                it.find(".name").text(data["realname"]);
+              }else if(data["type"]=="公司"){
+                it.find(".name").text(data["merchant_name"]);
+              }
+              it.find(".address").text(data["address"].split(" ")[1]);
+              it.appendTo($(this.setting.list));
+          }
+        });
+        $("a[href='#tab1']").click(function() {
+          $(".content .buttons-tab a").removeClass("active");
+          $(this).addClass("active");
+          merchantModel.clear();
+          var st = merchantModel.setting ;
+          st.list="#allmerchant";
+          st.option.queue="time";
+
+          merchantModel.changeOption();
+        })
+        $("a[href='#tab2']").click(function() {
+          $(".content .buttons-tab a").removeClass("active");
+          merchantModel.clear();
+          $(this).addClass("active");
+          var st = merchantModel.setting ;
+          st.list="#redu";
+          $("#tab2").css("display","")
+          st.option.queue="redu";
+          merchantModel.changeOption();
+        })
+
+
+
+})
+    </script>
+  </body>
+</html>

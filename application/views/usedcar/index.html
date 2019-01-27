@@ -13,30 +13,15 @@
   <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
   <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
+  <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="/style/common/common.css">
 </head>
 
 <body>
-<div class="header">
-  <div class="searchbox">
-    <div class="weui_search_bar" id="search_bar">
-      <form class="weui_search_outer">
-        <div class="weui_search_inner">
-          <i class="weui_icon_search"></i>
-          <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" required/>
-          <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
-        </div>
-        <label for="search_input" class="weui_search_text" id="search_text">
-          <i class="weui_icon_search"></i>
-          <span>搜索车源</span>
-        </label>
-      </form>
-      <a href="javascript:" class="weui_search_cancel" id="search_cancel_" style="display: none;">取消</a>
-    </div>
-  </div>
-  <div class="select-adress" id="select-adress">
-    <span class="adress">全国</span><span class="fa fa-angle-down"></span>
-  </div>
-</div>
+  <!--城市选择 Begin-->
+  <?php include('city.html')?>
+  <!--城市选择 End-->
+
 <!-- 全屏搜索 -->
 <div class="fullscreen-search">
   <div class="head-search">
@@ -71,9 +56,9 @@
 <div class="banner">
   <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><a href=""><img src="/style/usedcar/images/car.jpg" alt=""></a></div>
-      <div class="swiper-slide"><a href=""><img src="/style/usedcar/images/car.jpg" alt=""></a></div>
-      <div class="swiper-slide"><a href=""><img src="/style/usedcar/images/car.jpg" alt=""></a></div>
+      <?php foreach($banner as $b) : ?>
+      <div class="swiper-slide"><a href="<?=$b['url']?>"><img src="<?=$b['img']?>" alt=""></a></div>
+    <?php endforeach;  ?>
     </div>
     <!-- 如果需要分页器 -->
     <div class="swiper-pagination"></div>
@@ -83,59 +68,23 @@
   <a href="<?=site_url('usedcar/buy')?>" class="buy"><i class="fa fa-cny"></i>我要买车</a>
   <a href="<?=site_url('usedcar/sale')?>" class="sale"><i class="fa fa-taxi"></i>我要卖车</a>
 </div>
-<!--     <div class="type">
-    <div class="items">
-        <a href="" class="item">
-            <div class="image">
-                <img src="/style/usedcar/images/cartype/qianyin.jpg" alt="">
-            </div>
-            <p>牵引车</p>
-        </a>
-        <a href="" class="item">
-            <div class="image">
-                <img src="/style/usedcar/images/cartype/zaihuo.jpg" alt="">
-            </div>
-            <p>载货车</p>
-        </a>
-        <a href="" class="item">
-            <div class="image">
-                <img src="/style/usedcar/images/cartype/zixie.jpg" alt="">
-            </div>
-            <p>自卸车</p>
-        </a>
-        <a href="" class="item">
-            <div class="image">
-                <img src="/style/usedcar/images/cartype/jiaoban.jpg" alt="">
-            </div>
-            <p>搅拌车</p>
-        </a>
-        <a href="" class="item">
-            <div class="image">
-                <img src="/style/usedcar/images/cartype/qingka.jpg" alt="">
-            </div>
-            <p>轻卡</p>
-        </a>
-        <a href="" class="item">
-            <div class="image">
-                <img src="/style/usedcar/images/cartype/guache.jpg" alt="">
-            </div>
-            <p>挂车</p>
-        </a>
-        <a href="" class="item">
-            <div class="image">
-                <img src="/style/usedcar/images/cartype/zhuanyong.jpg" alt="">
-            </div>
-            <p>专用车</p>
-        </a>
-        <a href="buycar.html" class="item">
-            <div class="more">
-                <i class="fa fa-plus-square-o"></i>
-            </div>
-            <p>更多车源</p>
-        </a>
+
+<div class="merchant-list weui_cells" style="padding:10px;">
+    <p style="height:20px ;margin:0 0 0 10px ; font-size:14px; font-weight:bold;">活跃商家</p>
+    <?php if(!empty($merchants)){ foreach($merchants as $key=>$v ){ ?>
+      <a href="/merchantcheck/detail/<?=$v['id'] ?>" class="weui_cell dark" style="height:50px ;">
+        <img src="<?=$v['headphoto']?>" alt="" style=" height:50px;width:50px; border-radius:25px;">
+        <p class="name" class="dark middlefont" style="margin-left:20px;"><?=$v['merchant_name']?></p>
+        <p class="address" class="dark smallfont" style="margin-left:20px; font-size:12px; color:#777"><?php echo explode( " " ,$v["address"] )[1]; ?></p>
+      </a>
+    <?php }}else{ ?>
+    <div class="no orange  text-center smallfont" style="padding:20px;">
+      <a href="/merchantcheck/index" class=" dark">还没有商户，<span class="blue underline">点击申请</span> 吧!</a>
     </div>
-</div> -->
-<div class="weui_grids type">
+    <?php } ?>
+</div>
+
+<div class="weui_grids search_car-type type ">
   <h3>车型快查</h3>
   <a href="javascript:;" class="weui_grid js_grid  type-item" data-id="button">
     <p class="weui_grid_label">
@@ -184,63 +133,72 @@
   </a>
 </div>
 <div class="weui_tab show">
-  <div class="weui_navbar">
-    <a href="javascript:void(0)" class="weui_navbar_item weui_bar_item_on checking">
+  <div class="weui_navbar menu">
+    <a href="#great" class="weui_navbar_item weui_bar_item_on ">
       精品车源
     </a>
-    <a href="javascript:void(0)" class="weui_navbar_item selling">
+    <a href="#new" class="weui_navbar_item selling">
       最新好车
     </a>
-    <a href="javascript:void(0)" class="weui_navbar_item done">
+    <a href="#lowprice" class="weui_navbar_item done">
       降价急售
     </a>
   </div>
   <div class="weui_tab_bd">
     <!-- 精品车源 -->
     <div class="lovebox" id="great">
+      <!-- 每个a链接表示一个单元 -->
+      <a href="" class="weui_cell  love model" style="display:none" >
+        <div class="weui_cell_hd thumb">
+          <img src="" class="image" alt="icon">
+        </div>
+        <div class="weui_cell_bd">
+          <div class="message">
+            <span class="car-type" style="font-size:16px"> 1 </span>
+            <span class="car-name" style="color:#666 ;margin-left:12px"> 2  </span>
+          </div>
+          <div class="other"><span class="price">3</span> </div>
+          <div>
+            <span class="date text-grey"></span><span class="adress text-grey"></span>
+          </div>
+        </div>
+      </a>
       <div class="loves">
-        <!-- 每个a链接表示一个单元 -->
-        <?php foreach($sale as $s):?>
-        <a href="<?=site_url('usedcar/see/'.$s['id'])?>" class="weui_cell  love">
-          <div class="weui_cell_hd thumb">
-            <img src="<?=explode('-$-', $s['img_arr_str'])[0]?>" alt="icon">
-          </div>
-          <div class="weui_cell_bd">
-            <div class="message">
-              <span class="car-type"><?=$s['car_type']?></span>
-              <span class="car-name"><?=$s['brand'].'&emsp;'.$s['title']?></span>
-            </div>
-            <div class="other"><span class="price"><?=$s['whole_price']?>万</span> </div>
-            <div>
-              <span class="date text-grey"><?=date('Y-m-d', $s['create_time'])?></span><span class="adress text-grey"><?=$s['address']?></span>
-            </div>
-          </div>
-        </a>
-        <?php endforeach;?>
       </div>
+
     </div>
     <!-- 最新好车 -->
-    <div class="lovebox" id="good">
+    <div class="lovebox" id="new">
       <div class="loves">
-
       </div>
     </div>
     <!-- 降价急售 -->
     <div class="lovebox" id="lowprice">
       <div class="loves">
-
-
       </div>
     </div>
   </div>
 </div>
+  <div class="weui-infinite-scroll more">
+    <div class="infinite-preloader"></div><!-- 菊花 -->
+    正在加载... <!-- 文案，可以自行修改 -->
+  </div>
+
 <!-- ******************************----footer-------------******************************************** -->
 <?php include('footer.html')?>
 </body>
-<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    $(".type .type-item ").click(function() {
+      var type = $(this).find("p").text()
+      location.href="<?=site_url('usedcar/buy') ?>"+"?type="+type;
+    })
+  })
+</script>
 <script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.js"></script>
 <script src="/style/usedcar/js/city.js"></script>
+<script src="/style/usedcar/js/index.js"></script>
 <script>
     var swiper = new Swiper(".swiper-container", {
         autoplay: true,
@@ -255,76 +213,20 @@
     });
 </script>
 <script>
-    $("#search_cancel").click(function() {
-        $(".fullscreen-search").animate({ "left": "100%" }, 200);
-        $("#search_cancel_").click();
-    });
-    $("#search_text").click(function() {
-        $(".fullscreen-search").animate({ "left": "0" }, 200);
-    });
+    // $("#search_cancel").click(function() {
+    //     $(".fullscreen-search").animate({ "left": "100%" }, 200);
+    //     $("#search_cancel_").click();
+    // });
+    // $("#search_text").click(function() {
+    //     $(".fullscreen-search").animate({ "left": "0" }, 200);
+    // });
 
 </script>
 <!--精品车源，最好车源，降价急售-->
 <script>
-  $('.weui_navbar a').click(function(){
-      $.showLoading();
-     var index = $(this).index();
-     var type = $(this).html();
-     $('.weui_navbar a').removeClass('weui_bar_item_on');
-     $(this).addClass('weui_bar_item_on');
-     var box = $('.loves').eq(index);
-     $('.lovebox').css('display', 'none');
-     $('.lovebox').eq(index).css('display', 'block');
-     if(box.find('a').length !=0){
-         $.hideLoading();
-         return;
-     }
 
-      $.get('<?=site_url("usedcar/index/")?>'+type+'/json', function (data) {
-          if(data.code == 200){
-              setDataList(data.data, box);
-              $.hideLoading();
-          }else{
-              $.hideLoading();
-              $.toptip(data.message, 'error');
-          }
-      }, 'json');
-
-  });
-
-  //格式化时间
-  function formatDate(date){
-      //console.log(date);
-      var date = new Date(date*1000);
-      var Y = date.getFullYear() + '.';
-      var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '.';
-      var D = date.getDate() + ' ';
-      return (Y+M+D);
-  }
 
   //遍历输出数据
-  function setDataList(data, box){
-      var html='';
-      for(var i = 0, len = data.length; i < len; i++){
-
-          html+= '<a href="'+ '/usedcar/see/'+ data[i].id +'" class="weui_cell  love">';
-          html+='<div class="weui_cell_hd thumb">';
-          html+='<img src="'+ data[i].img_arr_str.split('-$-')[0] +'" alt="icon">';
-          html+='</div>';
-          html+='<div class="weui_cell_bd">';
-          html+='<div class="message">';
-          html+='<span class="car-type">'+ data[i].car_type +'&emsp;</span>';
-          html+='<span class="car-name">'+ data[i].title +'</span>';
-          html+='</div>';
-          html+='<div class="other"><span class="price">'+ data[i].whole_price +'万</span></div>';
-          html+='<div>';
-          html+='<span class="date text-grey">'+ formatDate(data[i].create_time) +'</span><span class="adress text-grey">'+ data[i].address +'</span>';
-          html+='</div>';
-          html+='</div>';
-          html+='</a>';
-      }
-      box.append(html);
-  }
 
 </script>
 

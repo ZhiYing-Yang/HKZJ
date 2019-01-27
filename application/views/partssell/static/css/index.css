@@ -1,0 +1,134 @@
+body{
+	font-family: SimHei;
+	
+}
+a{
+	color: black;
+}
+.main_head{
+	background: #FE0539;
+	
+}
+.main_head h1{
+	color: white;
+}
+.bar .searchbar .searchbar-cancel{
+	color: white;
+}
+.bar .searchbar{
+	background: rgba(0,0,0);
+	/*background:#F2760B;*/
+	background: #FE0539;
+}
+.bar-tab .tab-item.active{
+	color: #FE0539;
+}
+.content{
+	/*background: #FFFAE8;*/
+	background: white;
+	/*background-image:url(/application/views/partssell/static/images/background12.jpg);*/
+}
+.small_logo{
+	height: 2rem;
+	width: 2rem;
+	margin: 0 auto;
+	/*background: red;*/
+	color: white;
+	border-radius: 50%;
+	text-align: center;
+	padding: 0.25rem;
+	box-shadow: 0.1rem 0.1rem 0.25rem rgba(34, 25, 25, 0.2);
+	overflow: hidden;
+}
+.small_logo div:nth-of-type(1){
+	font-size: 0.7rem;
+}
+.small_logo div:nth-of-type(2){
+	width: 1.5rem;
+	height: 1rem;
+	font-size: 0.75rem;
+	border-radius: 50%;
+	padding: 0.15rem;
+	/*background: deeppink;*/
+}
+.small_logo div{
+	line-height: 0.75rem;
+	margin: 0;
+}
+.single{
+	margin-top: 0.5rem;
+	text-align: center;
+	margin-bottom: 0.25rem;
+	
+}
+.single span{
+	font-size: 0.6rem;
+}
+.choise_column{
+	margin: 0;
+	padding: 0.5rem;
+	/*background-image:url(/application/views/partssell/static/images/bgphoto.jpg);*/
+	/*background-image: linear-gradient(#FF2800,#FF4940,#FF6E40,#FF8973);*/
+/*	border-radius: 0 0 30px 30px;*/
+height: 17rem;
+	
+	
+}
+
+.swiper-container {
+	box-shadow: 0.1rem 0.1rem 0.25rem rgba(34, 25, 25, 0.2);
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem;
+    height: 7.5rem;
+}
+.swiper-container img{
+	width: 100%;
+	height: 7.5rem;
+}
+
+.small_title{
+	text-align: center;
+}
+.demo-card-header-pic{
+	width: 44%;
+	float: left;
+	border-radius: 0.25rem;
+}
+.card-header{
+	height: 7.5rem;
+}
+.card-header img{
+	height: 100%;
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+}
+.card-content-inner{
+	padding: 0.25rem 0.5rem;
+	height: 1.45rem;
+	overflow: hidden;
+	color: black;
+}
+.card-content-inner p{
+	line-height: 1rem;
+}
+.card-footer:before{
+	height: 0;
+}
+.card-footer span{
+	color: #FF5000;
+	font-size: 1rem;
+}
+.card-footer i{
+	color: #FF5000;
+}
+.card-footer .footer_left i,.card-footer .footer_left span{
+	color: #FF5000;
+}
+.card-footer .footer_left{
+	float: left;
+}
+.card-footer .footer_right{
+	float: right;
+}

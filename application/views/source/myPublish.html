@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>我的发布</title>
+		<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+		<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+		<link rel="stylesheet" href="/application/views/source/static/font/style.css" />
+		<link rel="stylesheet" href="/application/views/source/static/css/myPublish.css" />
+		<link rel="stylesheet" href="/application/views/source/static/css/carAsource.css" />
+	</head>
+
+	<body>
+		<div class="pu_head">
+			<a href="<?=site_url('source/mine')?>">
+				   <i class="icon-_1"></i>
+					   返回</a>
+				    	<h4>我的发布</h4>
+		</div>
+
+		<div class="weui_tab" id='page-ptr-navbar'>
+  <div class="weui_navbar">
+    <a href='#tab1' class="weui_navbar_item weui_bar_item_on">
+      全部
+    </a>
+    <a href='#tab2' class="weui_navbar_item">
+      显示中
+    </a>
+    <a href='#tab3' class="weui_navbar_item">
+      已完成
+    </a>
+  </div>
+  <div class="weui_tab_bd">
+    <div id="tab1" class="weui_tab_bd_item weui_tab_bd_item_active">
+      <div class="main_content">
+			<!-----------------每个weui_cells代表一个单元---------------->
+			<?php foreach($list as $s): ?>
+				<div class="weui_cells min_block">
+					<a  class="weui_cell new_block" href="<?php $isgood=$s['isgood']?'goodsDetails':'carDetails';echo site_url('source/'.$isgood.'/'.$s['id']);?>">
+						<div class="one_news">
+							<div class="first_line">
+								<div class="place">
+									<?=$s['departure']?>
+								</div>
+								<div class="arrows">
+									<i class="icon-_"></i>
+								</div>
+								<div class="place">
+									<?=$s['destination']?>
+								</div>
+								<div class="times">
+									<?php echo pTime($s['uptime']);?> 发布
+								</div>
+							</div>
+							<div class="second_line">
+								<div class="second_left">
+									<i class="icon-2"></i>10-20日 35吨
+								</div>
+							</div>
+							<div class="third_line <?=$s['isgood']?'goods_third':'car_third'?>">
+								<div>
+									<?=$s['isgood']?'货找车':'车找货'?>
+								</div>
+							</div>
+						</div>
+					</a>
+					</div>
+			<?php endforeach; ?>
+			<!--货找车-->
+			<!-- <a href="goods_details.html" class="min_block">
+				<div class="one_news">
+					<div class="first_line">
+						<span>
+							山西省，晋城..
+						</span>
+						<span>
+							<i class="icon-_"></i>
+						</span>
+						<span>
+							河南省，洛阳..
+						</span>
+						<span>
+							10-20 08:00 发布
+						</span>
+					</div>
+					<div class="second_line">
+						<div class="second_left">
+							<i class="icon-2"></i>10-20日 35吨
+						</div>
+
+					</div>
+					<div class="third_line goods_third">
+						<div>货找车</div>
+					</div>
+				</div>
+			</a> -->
+			<!--车找货-->
+			<!-- <a href="car_details.html" class="min_block">
+				<div class="one_news">
+					<div class="first_line">
+						<span>
+							山西省，晋城..
+						</span>
+						<span>
+							<i class="icon-_"></i>
+						</span>
+						<span>
+							河南省，洛阳..
+						</span>
+						<span>
+							10-20 08:00 发布
+						</span>
+					</div>
+					<div class="second_line">
+						<div class="second_left">
+							<i class="icon-2"></i>10-20日 35吨
+						</div>
+
+					</div>
+					<div class="third_line car_third">
+						<div>车找货</div>
+					</div>
+				</div>
+			</a> -->
+		</div>
+
+
+
+    </div>
+    <div id="tab2" class="weui_tab_bd_item">
+      <div class="main_content">
+			<!-----------------每个a链接代表一个单元---------------->
+			<!--货找车-->
+			<div class="weui_cells min_block">
+			<a class="weui_cell new_block" href="goods_details.html">
+				<div class="one_news">
+					<div class="first_line">
+						<div class="place">
+							山西省，晋城..
+						</div>
+						<div class="arrows">
+							<i class="icon-_"></i>
+						</div>
+						<div class="place">
+							河南省，洛阳..
+						</div>
+						<div class="times">
+							10-20 08:00 发布
+						</div>
+					</div>
+					<div class="second_line">
+						<div class="second_left">
+							<i class="icon-2"></i>10-20日 35吨
+						</div>
+
+					</div>
+					<div class="third_line goods_third">
+						<div>货找车</div>
+					</div>
+				</div>
+			</a>
+			</div>
+			<!--车找货-->
+			<div class="weui_cells min_block">
+			<a class="weui_cell new_block" href="car_details.html">
+				<div class="one_news">
+					<div class="first_line">
+						<div class="place">
+							山西省，晋城..
+						</div>
+						<div class="arrows">
+						<i class="icon-_"></i>
+						</div>
+						<div class="place">
+							河南省，洛阳..
+						</div>
+						<div class="times">
+							10-20 08:00 发布
+						</div>
+					</div>
+					<div class="second_line">
+						<div class="second_left">
+							<i class="icon-2"></i>10-20日 35吨
+						</div>
+
+					</div>
+					<div class="third_line car_third">
+						<div>车找货</div>
+					</div>
+				</div>
+			</a>
+			</div>
+		</div>
+
+
+    </div>
+    <div id="tab3" class="weui_tab_bd_item">
+      <div class="main_content">
+			<!-----------------每个a链接代表一个单元---------------->
+			<!--货找车-->
+			<div class="weui_cells min_block">
+			<a class="weui_cell new_block" href="goods_details.html">
+				<div class="one_news">
+					<div class="first_line">
+						<div class="place">
+							山西省，晋城..
+						</div>
+						<div class="arrows">
+						<i class="icon-_"></i>
+						</div>
+						<div class="place">
+							河南省，洛阳..
+						</div>
+						<div class="times">
+							10-20 08:00 发布
+						</div>
+					</div>
+					<div class="second_line">
+						<div class="second_left">
+							<i class="icon-2"></i>10-20日 35吨
+						</div>
+
+					</div>
+					<div class="third_line goods_third">
+						<div>货找车</div>
+					</div>
+				</div>
+			</a>
+			<!--车找货-->
+			<div class="weui_cells min_block">
+			<a class="weui_cell new_block" href="car_details.html">
+				<div class="one_news">
+					<div class="first_line">
+						<div class="place">
+							山西省，晋城..
+						</div>
+						<div class="arrows">
+						<i class="icon-_"></i>
+						</div>
+						<div class="place">
+							河南省，洛阳..
+						</div>
+						<div class="times">
+							10-20 08:00 发布
+						</div>
+					</div>
+					<div class="second_line">
+						<div class="second_left">
+							<i class="icon-2"></i>10-20日 35吨
+						</div>
+
+					</div>
+					<div class="third_line car_third">
+						<div>车找货</div>
+					</div>
+				</div>
+			</a>
+			</div>
+		</div>
+
+    </div>
+  </div>
+</div>
+    </body>
+	<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>

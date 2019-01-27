@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>新闻列表</title>
+    <link rel="stylesheet" href="/style/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/style/admin/css/admin.css">
+    <script src="/style/admin/js/jquery.js"></script>
+    <script src="/style/admin/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="" id="listform">
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder">咨询列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+        <div class="padding border-bottom">
+            <ul class="search" style="padding-left:10px;">
+                <li>搜索：</li>
+                <li>
+                    <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:450px; line-height:17px;display:inline-block" value="<?=isset($keywords)?$keywords:''?>"/>
+                    <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()"> 搜索</a></li>
+                      <li>  <a href="<?=site_url('admin/activity/publish')?>" class="button border-main icon-plus" onclick=""> 发布咨询</a></li></li>
+            </ul>
+        </div>
+        <table class="table table-hover text-center">
+            <tr>
+                <th>图片</th>
+                <th>标题</th>
+                <th>发布时间</th>
+                <th width="310">操作</th>
+            </tr>
+            <volist name="list" id="vo">
+                <?php foreach($news as $u):?>
+                <tr>
+                  <td width="10%">
+                      <img style="width: 50px;height: 50px;border-radius: 50%" src="<?=$u['img']?>" alt="无图片">
+                  </td>
+                    <td><?=$u['title']?></td>
+
+                    <td><?=date('Y-m-d', $u['create_time'])?></td>
+                    <td>
+                        <div class="button-group">
+                          <div class="button-group">
+                            <a class="button border-main" href="<?=$u['url']?>"><span class="icon-eye"></span> 查看</a>
+                            <a class="button border-main" href="javascript:void(0)" onclick="return edit(<?=$u['id']?>)"><span class="icon-eye"></span> 编辑</a>
+                            <a class="button border-red" href="javascript:void(0)" onclick="return del(<?=$u['id']?>)"><span class="icon-trash-o"></span> 删除</a> </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+
+
+                <tr>
+                    <td colspan="8">
+                        <div class="pagelist"> <?=$link?> </div>
+                    </td>
+                </tr>
+
+            </volist>
+        </table>
+    </div>
+</form>
+<script type="text/javascript">
+
+    //搜索
+    function changesearch() {
+        var keywords = $.trim($('input[name="keywords"]').val());
+        if(keywords.length == 0){
+            alert('请输入关键字');
+        }else{
+            location.href="<?=site_url('admin/advisory/news_search/')?>"+keywords;
+        }
+    }
+    //单个删除
+    function del(id) {
+        if (confirm("您确定要删除吗?")) {
+            location.href="<?=site_url('admin/advisory/news_action/delete/')?>"+id;
+        }
+    }
+    function edit(id) {
+            location.href="<?=site_url('admin/advisory/edit/')?>"+id;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的足迹</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/application/views/partssell/static/css/sorts.css">
+
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+        <header class="bar bar-nav  main_head">
+  <a onclick="javascript:window.history.go(-1)" class="icon icon-left pull-left"></a>
+  <h1 class="title">我的足迹</h1>
+</header>
+
+<div class="bar bar-header-secondary">
+  <div class="searchbar">
+    <a class="searchbar-cancel">取消</a>
+    <div class="search-input">
+      <label class="icon icon-search" for="search"></label>
+      <input type="search" id='search' placeholder='输入关键字...'/>
+    </div>
+  </div>
+</div>
+<div class="content">
+	<div class="content-padded parts_card">
+  	<!--每个card是一个商品-->
+    <?php foreach($list as $s):?>
+      <div class="card demo-card-header-pic">
+       	<a href="<?=site_url('partssell/parts_detail/').$s['id']?>"  external>
+         <div valign="bottom" class="card-header color-white no-border no-padding">
+           <img class='card-cover' src="<?=$s['img0']?>" alt="">
+         </div>
+         <div class="card-content">
+           <div class="card-content-inner">
+             <p><?=$s['content']?></p>
+           </div>
+         </div>
+         </a>
+         <div class="card-footer">
+         	<div class="footer_left"><i class="fa fa-jpy"></i><span><?=$s['money']?></span></div>
+         	<div class="footer_right">
+            <span class="icon collect"><i class="<?=$s['collection']?'fa fa-star':'icon icon-star'?>" title="<?=$s['id']?>"></i></span>
+           <span class="icon shop_car"><i class="<?=$s['shopcar']?'fa fa-shopping-cart':'icon icon-cart'?>" title="<?=$s['id']?>"></i></span>
+           </div>
+         </div>
+
+       </div>
+    <?php endforeach; ?>
+
+
+
+
+  </div>
+</div>
+        </div>
+    </div>
+
+</div>
+
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>$.config = {router: false}</script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+  </body>
+</html>
+<script>
+$(function(){
+
+	//收藏点击事件
+	$('.card-footer .footer_right .collect i').click(function(){
+
+		if($(this).hasClass('icon icon-star')){
+			$(this).addClass('fa fa-star').removeClass('icon icon-star');
+      var url = "<?=site_url('partssell/collect/')?>"+$(this).attr('title');
+      $.get(url,function(data,status){
+          alert(data.message)
+      },'json');
+		}
+		else{
+			$(this).addClass('icon icon-star').removeClass('fa fa-star');
+      var url = "<?=site_url('partssell/noCollect/')?>"+$(this).attr('title');
+      $.get(url,function(data,status){
+          alert(data.message)
+      },'json');
+		}
+	})
+
+	//购物车点击事件
+	$('.card-footer .footer_right .shop_car i').click(function(){
+
+		if($(this).hasClass('icon icon-cart')){
+			$(this).addClass('fa fa-shopping-cart').removeClass('icon icon-cart');
+      var url = "<?=site_url('partssell/shopcar/')?>"+$(this).attr('title');
+      $.get(url,function(data,status){
+          alert(data.message)
+      },'json');
+
+		}
+		else{
+			$(this).addClass('icon icon-cart').removeClass('fa fa-shopping-cart');
+      var url = "<?=site_url('partssell/noshop/')?>"+$(this).attr('title');
+      $.get(url,function(data,status){
+        alert(data.message)
+      },'json');
+		}
+	})
+})
+
+</script>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商家信息</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/application/views/merchant/static/css/index.css">
+    <link rel="stylesheet" href="/style/common/common.css">
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+      <header class="bar bar-nav main_head">
+    <h1 class="title" style="background:#2486ff;">商家</h1>
+  </header>
+  <div class="content">
+    <div class="buttons-tab">
+    <a href="#tab1" class="tab-link active button">商家信息</a>
+  </div>
+  <div class="content-block" style="padding: 10px 0 ;">
+    <div class="tabs">
+      <div id="tab1" class="tab active">
+          <div class="row" style="height:80px;background:white;">
+              <div class="col-33 text-center" >
+                  <img src="<?=$merchant['headphoto']?>" class="smallmargintop" alt="" style="width:50px ; height:50px ; border-radius:50%; border:1px #aaa solid; ">
+              </div>
+              <div class="col-66 ">
+                <p > <span class="name"><?=$merchant["merchant_name"]?></span> </p>
+                  <p > <span class="realname smallfont" style="position:relative ; bottom:10px;">用户名：<?=$merchant["realname"]?></span> </p>
+              </div>
+          </div>
+          <div class="" style="">
+
+          </div>
+          <!-- <div class="row" >
+              <div class="col-33 text-center">
+                地址：
+              </div>
+              <div class="col-66">
+                <?=$merchant["address"]?>
+              </div>
+          </div> -->
+          <div class="content" style="margin:180px 0 0 0  ; ">
+            <div class="content-block-title">详细信息:</div>
+            <div class="list-block text-center">
+                <ul>
+                  <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">地址:</div>
+                      <div class="item-after"><?=$merchant["address"]?></div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">所属模块:</div>
+                      <div class="item-after"><?=$merchant["module"]?></div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">商家类型:</div>
+                      <div class="item-after"><?= $merchant["type"]=="经纪人"?"个人商家" : "公司";?></div>
+                    </div>
+                  </li>
+                </ul>
+            </div>
+        </div>
+          <div class="fix-bottom row" style="width:100% ; height:50px;">
+              <div class="col-80 text-center connect" style="background:#00a5e0;height:100%; margin-left:0;">
+                <div class="middlefont" style="color:white ; margin-top:10px;">
+                  <span > <i class="icon icon-phone "></i>联系商家</span>
+                </div>
+              </div>
+              <div class="col-20">
+                <div class=" text-center"style="border-radius:50% ; height:50px ; padding: 15px;width:50px ; border:1px #ccc solid">
+                  <span > <i class="fa fa-thumbs-o-up bigfont"  ></i> </span>
+                </div>
+              </div>
+          </div>
+      </div>
+      <div id="tab2" class="tab">
+
+          <div class="row">
+            <div class="col-33"></div>
+            <div class="col-66">暂时没有展示功能</div>
+            <div class="col-33"></div>
+
+            </div>
+          </div>
+          <!--每个.one_parts代表一个商家-->
+          <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+
+        <!-- <a href="shop_details.html" class="item-link item-content">
+          <div class="item-media"><img src="/application/views/news/static/images/timg.jpg"></div>
+          <div class="item-inner">
+            <div class="item-text" style="color: black;font-weight: 900;font-size: 17px;">商家名称...</div>
+          </div>
+        </a> -->
+      </li>
+    </ul>
+  </div>
+      </div>
+
+
+    </div>
+  </div>
+  </div>
+
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>$.config = {router: false}</script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+  </body>
+</html>

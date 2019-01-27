@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+    <title>货卡之家</title>
+    <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="panel panel-default">
+  <div class="panel-heading">发布新闻</div>
+  <div class="col-sm-6 panel-body" >
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">标题</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name" placeholder="请输入标题" value="">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="link" class="col-sm-2 control-label">链接</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="link" placeholder="请输入链接" value="">
+        </div>
+      </div>
+      <div class="form-group">
+          <label for="file" class="col-sm-2 control-label">封面</label>
+          <div class="col-sm-10">
+            <input type="file" id="file">
+          </div>
+      </div>
+      <div class="form-group" id="divpic">
+
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10 ">
+          <div class="row">
+            <button type="submit" class="btn btn-primary submit_btn">发布</button>
+            <a type="" href="javascript:history.go(-1)" class="col-sm-offset-1 btn btn-default ">返回</a>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+<script>
+//压缩图片
+
+function compressImage(img, fileSize, quality) {
+
+    quality = quality || 0.2;
+    if(fileSize > 1){ //大于1M 对图片进行压缩
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext('2d');
+        var tCanvas = document.createElement("canvas");
+        var tctx = tCanvas.getContext("2d");
+        var initSize = img.src.length;
+        var width = img.width;
+        var height = img.height;
+        var ratio;
+        if ((ratio = width * height / 4000000) > 1) {
+            ratio = Math.sqrt(ratio);
+            width /= ratio;
+            height /= ratio;
+        } else {
+            ratio = 1;
+        }
+        canvas.width = width;
+        canvas.height = height;
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        var count;
+        if ((count = width * height / 1000000) > 1) {
+            count = ~~(Math.sqrt(count) + 1);
+            var nw = ~~(width / count);
+            var nh = ~~(height / count);
+            tCanvas.width = nw;
+            tCanvas.height = nh;
+            for (var i = 0; i < count; i++) {
+                for (var j = 0; j < count; j++) {
+                    tctx.drawImage(img, i * nw * ratio, j * nh * ratio, nw * ratio, nh * ratio, 0, 0, nw, nh);
+                    ctx.drawImage(tCanvas, i * nw, j * nh, nw, nh);
+                }
+            }
+        } else {
+            ctx.drawImage(img, 0, 0, width, height);
+        }
+        var data = canvas.toDataURL('image/jpeg', quality);
+        tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
+        return data;
+    }else{
+        return img.src;
+    }
+
+}
+//上传图片
+$('input[type="file"]').on('change', function(e){
+    //$.showLoading('正在上传');
+    var _this = $(this);
+    // var info = _this.next().html(); //p标签里的内容
+    // var parent = _this.parent();
+    // var grandpa = parent.parent();
+    var file = e.target.files[0];
+    var img = new Image();
+    var reader = new FileReader();
+
+    reader.onload = function(f){
+        img.src = f.target.result;
+        setTimeout(function(){
+            var imageData = compressImage(img, Math.ceil(file.size / 1024 / 1024));
+
+            $.post('/admin/news/uploadImage', {image: imageData}, function(data){
+                if(data.code == 200){
+                  var html = '<label for="pic" class="col-sm-2 control-label">封面预览：</label>';
+                  html += '<div class="col-sm-10">';
+                  html += '<div  id="pic"  style="background-color:#aaa;width:100px;height:100px;">';
+                  html += '<img src="' + data.data.path + '" style="width:100px;height:100px;" id="img"/></div></div>';
+                  $('#divpic').append(html);
+                }else{
+                }
+            }, 'json');
+        }, 10);
+    };
+
+    reader.readAsDataURL(file);
+});
+$('.submit_btn').click(function(e){
+  //var uri = '/admin/news/publish';
+  var title = $.trim($('input[id="name"]').val());
+  var url = $.trim($('input[id="link"]').val());
+  var img = $('#img').attr('src');
+  var data = {title: title,url: url,img: img};
+  if(title==""||img==""){
+    alert("描述和图片不能为空");
+  }
+  $.post('/admin/activity/publish', data, function(data){
+      if(data.code == 200){
+        alert('发布成功');
+      }else{
+        alert('发布失败');
+      }
+  }, 'json');
+
+})
+</script>
+</body>
+</html>

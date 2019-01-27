@@ -71,7 +71,7 @@
                     <td width="10%"><img src="<?=explode('-$-', $c['img_arr_str'])[0]?>" alt="" width="70" height="50"/></td>
                     <td><span style="color: #f4615c;"><?=$c['whole_price']?></span> 万</td>
                     <td><?=date('Y-m-d', $c['create_time'])?></td>
-                    <td><a href="<?=site_url('admin/admin/car_action/check/'.$c['id'])?>" style="color: <?=$c['status']==1?'#01cf97':'#f4615c'?>"><?=$c['status']==1?'通过审核<br>点击取消':'未审核<br>点击通过'?></a></td>
+                    <td><a href="<?=site_url('admin/usedCar/car_action/check/'.$c['id'])?>" style="color: <?=$c['status']==1?'#01cf97':'#f4615c'?>"><?=$c['status']==1?'通过审核<br>点击取消':'未审核<br>点击通过'?></a></td>
                     <td>
                         <div class="button-group"> <a class="button border-main" href="<?=site_url('usedcar/see/'.$c['id'])?>"><span class="icon-eye"></span> 查看</a> <a class="button border-red" href="javascript:void(0)" onclick="return del(<?=$c['id']?>)"><span class="icon-trash-o"></span> 删除</a> </div>
                     </td>
@@ -88,7 +88,7 @@
 </form>
 <script type="text/javascript">
     function changetype(key, the){
-        location.href = "<?=site_url('admin/admin/car_list/')?>"+key+ '/' +the.value;
+        location.href = "<?=site_url('admin/usedCar/car_list/')?>"+key+ '/' +the.value;
     }
     //搜索
     function changesearch() {
@@ -96,13 +96,13 @@
         if(keywords.length == 0){
             alert('请输入关键字');
         }else{
-            location.href="<?=site_url('admin/admin/car_search/')?>"+keywords;
+            location.href="<?=site_url('admin/usedCar/car_search/')?>"+keywords;
         }
     }
     //单个删除
     function del(id) {
         if (confirm("您确定要删除吗?")) {
-            location.href="<?=site_url('admin/admin/car_action/delete/')?>"+id;
+            location.href="<?=site_url('admin/usedCar/car_action/delete/')?>"+id;
         }
     }
 </script>

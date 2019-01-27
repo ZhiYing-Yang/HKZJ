@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>配件销售商品详情</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.css">
+     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="/application/views/partssell/static/css/parts_details.css">
+
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+        	<nav class="bar bar-tab">
+  <div class="tab-item external add_collect" title="<?=$info[0]['id']?>" style="font-size: 0.8rem;">
+    <div class="this_logo"><i class=" <?=$info[0]['collection']?'fa fa-star':'icon icon-star'?>"></i></div>
+    <div class="this_word"><span class="tab-label">收藏</span></div>
+  </div>
+  <div class="tab-item external add_car" style="font-size: 0.8rem;" title="<?=$info[0]['id']?>">
+    <div class="this_logo"><i class="<?=$info[0]['shopcar']?'fa fa-shopping-cart':'icon icon-cart'?>"></i></div>
+    <div class="this_word"><span class="tab-label">加入购物车</span></div>
+  </div>
+  <div class="tab-item external" style="background: #FF9F01;color: white;">
+    <span class="icon icon-phone"></span>
+    <span class="tab-label">联系卖家</span>
+  </div>
+  <a href="sure_buy.html" class="tab-item external" style="background: #FF5D00;color: white;" external>
+    <span class="icon icon-emoji"></span>
+    <span class="tab-label">立即购买</span>
+  </a>
+</nav>
+        <div class="content">
+  <!-- Slider -->
+  <div class="banner">
+   <div class="swiper-container">
+   	<a href="#" onclick="javascript:window.history.go(-1);" class="return_tab"  external> <span class="icon icon-left"></span></a>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="<?=$info[0]['img0']?>" alt=""></div>
+        <div class="swiper-slide"><img src="<?=$info[0]['img1']?>" alt=""></div>
+        <div class="swiper-slide"><img src="<?=$info[0]['img2']?>" alt=""></div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+</div>
+
+<div class="details">
+	<div class="price"><i class="fa fa-jpy"></i><span><?=$info[0]['money']?></span></div>
+	<div class="word_desibe"><?=$info[0]['content']?></div>
+</div>
+  <div class="divide">——商品详情——</div>
+
+<div class="explain">
+	<?=$info[0]['detail']?>
+</div>
+<div class="photo">
+	<div class="big_pic"><img src="<?=$info[0]['img0']?>" alt=""></div>
+	<div class="small_pic">
+		<div class="one"><img src="<?=$info[0]['img1']?>" alt=""></div>
+		<div class="two"><img src="<?=$info[0]['img2']?>" alt=""></div>
+	</div>
+</div>
+</div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.js"></script>
+
+  </body>
+</html>
+ <script>$.init()</script>
+ <script>
+ 	//轮播图
+  var shop = <?=$info[0]['shopcar']?>;
+  if(shop){
+    $('.add_car').css('color','#FF5000');
+  }else{
+    $('.add_car').css('color','#929292');
+  }
+  if(<?=$info[0]['collection']?>){
+    $('.add_collect').css('color','#FF5000');
+  }else{
+    $('.add_collect').css('color','#929292');
+  }
+	var mySwiper = new Swiper ('.swiper-container', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+     autoplay: {
+    delay: 2000,
+},
+})
+
+	$(function(){
+
+	//收藏点击事件
+	$('.add_collect').click(function(){
+
+		if($('.add_collect i').hasClass('icon icon-star')){
+			$('.add_collect i').addClass('fa fa-star fa-lg').removeClass('icon icon-star');
+			$(this).css('color','#FF5000');
+      var url = "<?=site_url('partssell/collect/')?>"+$(this).attr('title');
+      alert(url);
+      $.get(url,function(data,status){
+          alert(data.message)
+      },'json');
+		}
+		else{
+			$('.add_collect i').addClass('icon icon-star').removeClass('fa fa-star');
+			$(this).css('color','#929292');
+      var url = "<?=site_url('partssell/noCollect/')?>"+$(this).attr('title');
+      $.get(url,function(data,status){
+          alert(data.message)
+      },'json');
+		}
+
+	})
+
+	//购物车点击事件
+	$('.add_car').click(function(){
+
+		if($('.add_car i').hasClass('icon icon-cart')){
+			$('.add_car i').addClass('fa fa-shopping-cart fa-lg').removeClass('icon icon-cart');
+			$(this).css('color','#FF5000');
+      var url = "<?=site_url('partssell/shopcar/')?>"+$(this).attr('title');
+      $.get(url,function(data,status){
+          alert(data.message)
+      },'json');
+		}
+		else{
+			$('.add_car i').addClass('icon icon-cart').removeClass('fa fa-shopping-cart');
+		    $(this).css('color','#929292');
+        var url = "<?=site_url('partssell/noshop/')?>"+$(this).attr('title');
+        $.get(url,function(data,status){
+          alert(data.message)
+        },'json');
+		}
+	})
+})
+</script>

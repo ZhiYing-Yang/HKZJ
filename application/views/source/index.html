@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>货卡之家货源信息平台首页</title>
+		<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+		<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+		<link rel="stylesheet" href="/application/views/source/static/font/style.css" />
+		<link rel="stylesheet" href="/application/views/source/static/css/index.css" />
+		<link rel="stylesheet" href="/application/views/source/static/css/carAsource.css" />
+		<link rel="stylesheet" href="/application/views/source/static/css/footer.css" />
+	</head>
+
+	<body>
+		<!-------------------头部搜索栏--------------------->
+		<div class="weui_search_bar header" id="search_bar">
+  <form class="weui_search_outer search_content" action='<?=site_url("source/search")?>' method="get">
+    <div class="weui_search_inner">
+      <i class="weui_icon_search"></i>
+      <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" name="keywords" required/>
+      <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+    </div>
+    <label for="search_input" class="weui_search_text" id="search_text">
+      <i class="weui_icon_search"></i>
+      <span>搜索</span>
+    </label>
+  </form>
+  <a href="javascript:" class="weui_search_cancel" id="search_cancel">取消</a>
+</div>
+<!------------------------------------------>
+<!-----------------图片轮播------------------------>
+
+	<div class="banner">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><a href=""><img src="/application/views/source/static/images/truck.jpg" alt=""></a></div>
+                <div class="swiper-slide"><a href=""><img src="/application/views/source/static/images/truck.jpg" alt=""></a></div>
+                <div class="swiper-slide"><a href=""><img src="/application/views/source/static/images/truck.jpg" alt=""></a></div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+<!------------------------------------->
+<!-----------------选项栏--------------------->
+<div class="choise_list">
+		<div class="listone">
+			<li><a href="<?=site_url('source/source')?>">货源信息</a></li>
+		</div>
+		<div class="listtwo">
+			<li><a href="<?=site_url('source/car')?>">车源信息</a></li>
+		</div>
+		<div class="listthree">
+			<li><a href="<?=site_url('source/PSource')?>">发布货源</a></li>
+		</div>
+		<div class="listfour">
+			<li><a href="<?=site_url('source/PCar')?>">发布车源</a></li>
+		</div>
+	</ul>
+</div>
+<!-------------------------------------->
+<!-------------------------全部消息-------------------------->
+<div class="all_news">
+	<p><i class="icon-10 new_font"></i>全部信息</p>
+</div>
+		<div class="main_content">
+			<!-----------------每个weui_cells代表一个单元---------------->
+				<?php foreach($list as $s): ?>
+					<div class="weui_cells min_block">
+						<a class="weui_cell new_block" href="<?php $isgood=$s['isgood']?'goodsDetails':'carDetails';echo site_url('source/'.$isgood.'/'.$s['id']);?>" >
+							<div class="one_news">
+							<div class="first_line">
+								<div class="place">
+									<?=$s['departure']?>
+								</div>
+								<div class="arrows">
+									<i class="icon-_"></i>
+								</div>
+								<div class="place">
+									<?=$s['destination']?>
+								</div>
+								<div class="times">
+									<?php echo pTime($s['uptime']);?> 发布
+								</div>
+							</div>
+							<div class="second_line">
+								<div class="second_left">
+									<i class="icon-2"></i>10-20日 35吨
+								</div>
+								<!-- <div class="second_right">
+									<i class="icon-iconfont-phone"></i>电话
+								</div> -->
+							</div>
+							<div class="third_line <?=$s['isgood']?'goods_third':'car_third'?>">
+								<div>
+									<?=$s['isgood']?'货找车':'车找货'?>
+								</div>
+							</div>
+						</div>
+						</a>
+					</div>
+			<?php endforeach; ?>
+
+		</div>
+
+
+			<!--货找车-->
+			<!-- <a href="<?=site_url('source/goodsDetails')?>" class="min_block">
+				<div class="one_news">
+					<div class="first_line">
+						<span>
+							山西省，晋城..
+						</span>
+						<span>
+							<i class="icon-_"></i>
+						</span>
+						<span>
+							河南省，洛阳..
+						</span>
+						<span>
+							10-20 08:00 发布
+						</span>
+					</div>
+					<div class="second_line">
+						<div class="second_left">
+							<i class="icon-2"></i>10-20日 35吨
+						</div>
+						<div class="second_right">
+							<i class="icon-iconfont-phone"></i>电话
+						</div>
+					</div>
+					<div class="third_line goods_third">
+						<div>货找车</div>
+					</div>
+				</div>
+			</a> -->
+
+			<!--车找货-->
+			<!-- <a href="<?=site_url('source/carDetails')?>" class="min_block">
+				<div class="one_news">
+					<div class="first_line">
+						<span>
+							山西省，晋城..
+						</span>
+						<span>
+							<i class="icon-_"></i>
+						</span>
+						<span>
+							河南省，洛阳..
+						</span>
+						<span>
+							10-20 08:00 发布
+						</span>
+					</div>
+					<div class="second_line">
+						<div class="second_left">
+							<i class="icon-2"></i>10-20日 35吨
+						</div>
+						<div class="second_right">
+							<i class="icon-iconfont-phone"></i>电话
+						</div>
+					</div>
+					<div class="third_line car_third">
+						<div>车找货</div>
+					</div>
+				</div>
+			</a>
+		</div> -->
+
+
+
+		<!--------------------------footer------------------>
+		<div class="weui_tabbar foot_tabber">
+			<a href="<?=site_url('source/index')?>" class="weui_tabbar_item foot_tabbar_item foot_tabbar_active">
+				<div class="weui_tabbar_icon">
+					<i class="icon-12"></i>
+				</div>
+				<p class="weui_tabbar_label">首页</p>
+			</a>
+			<a href="<?=site_url('source/source')?>" class="weui_tabbar_item foot_tabbar_item">
+				<div class="weui_tabbar_icon">
+					<i class="icon-17"></i>
+				</div>
+				<p class="weui_tabbar_label">货源</p>
+			</a>
+			<a class="weui_tabbar_item foot_tabbar_item publish">
+				<div class="weui_tabbar_icon">
+					<i class="icon-19"></i>
+				</div>
+				<p class="weui_tabbar_label">发布</p>
+			</a>
+			<a href="<?=site_url('source/mine')?>" class="weui_tabbar_item foot_tabbar_item">
+				<div class="weui_tabbar_icon">
+					<i class="icon-16"></i>
+				</div>
+				<p class="weui_tabbar_label">我的</p>
+			</a>
+
+		</div>
+
+		<!------------------发布底部弹出框------------------------>
+		<div class="eject_bottom">
+			<div class="bottom_head">
+				<h4>发布信息</h4>
+			</div>
+			<div class="eject_options">
+				<ul>
+					<li><a href="<?=site_url('source/PSource')?>">发布货源</a></li>
+					<li><a href="<?=site_url('source/PCar')?>">发布车源</a></li>
+					<li class="cancel">取消</li>
+				</ul>
+			</div>
+		</div>
+
+	</body>
+	<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/city-picker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.js"></script>
+	<script src="/application/views/source/static/js/index.js"></script>
+	<script src="/application/views/source/static/js/footer.js"></script>
+<script>
+var offset = 10;
+ var swiper = new Swiper(".swiper-container",{
+        autoplay:true,
+        loop:true,
+        pagination:{
+            el :".swiper-pagination"
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+//滚动加载
+var loading = false;  //状态标记
+$(document.body).infinite().on("infinite", function() {
+  if(loading) return;
+  loading = true;
+	var url = '<?=site_url("source/index/")?>' + offset + '/json';
+	//console.log(url);
+	$.get(url,function(data){
+		if(data.code == 200){
+			setDataList(data.data);
+			if(data.data.length < 10){
+				//alert(data.data.length);
+				$('#get_more').css('display', 'none');
+				$('#no_more').css('display', 'block');
+			}else{
+				offset += 10;
+				alert(offset);
+			}
+
+		}else{
+			$.toptip(data.message, 'error');
+		}
+	},'json');
+});
+
+function setDataList(data){
+	for(var i = 0; i < data.length; i++){
+		var content = data[i];
+		var sourceType;
+		var type;
+		var tags;
+		if(content['isgood'] == 1){
+				sourceType = 'goodsDetails';
+				type = '货找车';
+				tags = 'goods_third';
+			}else {
+				sourceType = 'carDetails';
+				type = '车找货';
+				tags = 'car_third';
+			}
+		var html = '<div class="weui_cells min_block">';
+		var time = new Date(content['uptime']*1000);
+		var m = time.getMonth() + 1;//月
+		var d = time.getDate();//日
+		var h = time.getHours();//时
+		var mm = time.getMinutes();//分
+		var uptime = m+"-"+d+" "+h+":"+mm;
+		html += '<a class="weui_cell new_block" href="<?=site_url('source/')?>'+sourceType+'/'+content["id"] +'">';
+		html += 	'	<div class="one_news"><div class="first_line"><div class="place">'+content['departure']+'</div>';
+		html +=  '<div class="arrows"><i class="icon-_"></i></div>';
+		html += '<div class="place">' + content['destination'] + '</div>';
+		html += '<div class="times">'+uptime+' 发布</div></div>';
+		html += '<div class="second_line"><div class="second_left"><i class="icon-2"></i>10-20日 35吨</div></div>';
+		html += '<div class="third_line '+tags+'">';
+		html += '<div>'+type+'</div></div></div></a></div>';
+		$('.main_content').append(html);
+	}
+	$('.main_content').append(html += '<div class="weui-infinite-scroll"><div id="get_more"><div class="infinite-preloader"></div><!-- 菊花 -->正在加载... <!-- 文案，可以自行修改 --></div><div id="no_more" style="display:none"><p style="color: #ccc; text-align: center;font-size: 14px;">-----已加载全部内容-----</p></div></div>');
+}
+</script>
+</html>

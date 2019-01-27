@@ -1,0 +1,88 @@
+body{
+	font-family: SimHei;
+	
+}
+.main_head{
+	background: #31D2B8;
+}
+.bar .button-link{
+	color: white;
+}
+.main_head h1{
+	color: white;
+}
+.bar .searchbar .searchbar-cancel{
+	color: white;
+}
+.bar .searchbar{
+	background: rgba(0,0,0);
+	/*background:#F2760B;*/
+	background: #31D2B8;
+}
+.buttons-tab .button.active{
+	color: #31D2B8;
+	border-color: #31D2B8;
+}
+.bar-tab .tab-item.active{
+	color: #31D2B8;
+}
+.content-block{
+	margin: 10px 0px;
+}
+.list-block{
+	margin: 10px 0px;
+}
+.one_parts ul{
+	width: 100%;
+	border-radius: 10px;
+	color: black;
+}
+
+.one_parts .item-media{
+	width: 90px;
+}
+.one_parts .item-media img{
+	width: 100%;
+	height: 100%;
+}
+.bottom{
+	width: auto;
+	float: right;
+	
+}
+.delete{
+	padding: 0px 10px;
+	width: auto;
+	height: 27px;
+	line-height: 27px;
+	text-align: center;
+	float: left;
+}
+.pay{
+	padding: 0px 10px;
+	width: auto;
+	height: 27px;
+	line-height: 27px;
+	text-align: center;
+	float: right;
+	margin-left: 10px;
+}
+.conumber,.linumber{
+	margin-left: 5px;
+}
+.choised{
+	color: #FF9F01;
+}
+.font12px{
+	font-size: 12px;
+}
+.font13px{
+	font-size: 13px;
+}
+.font14px{
+	font-size: 14px;
+}
+.font18px{
+	font-size: 18px;
+}
+

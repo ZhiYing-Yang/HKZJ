@@ -1,0 +1,149 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+body{
+	background: #F7F7F7;
+	font-size: 16px;
+}
+a{
+	color: black;
+	text-decoration: none;
+}
+i{
+	font-size: 17px;
+	margin-right: 5px;
+}
+.main_infor{
+	width: 100%;
+	height: auto;
+	background: white;
+}
+.main_head{
+	height: 30px;
+	background: #4B92FE;
+	border-bottom: 1px solid lightgray;
+}
+.main_head a{
+	margin-left: 2%;
+	line-height: 30px;
+	color: white;
+}
+.header{
+	padding: 10px 2%;
+	height: 80px;
+	width: 96%;
+}
+.photo{
+	float: left;
+	width: 80px;
+	height: 80px;
+}
+.photo img{
+	width: 100%;
+	height: 100%;
+}
+.type{
+	float: left;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+.type p{
+	margin-bottom: 10px;
+}
+.type p:nth-of-type(2){
+	color: white;
+	width: 60px;
+	height: 25px;
+	text-align: center;
+	border-radius: 2px;
+	line-height: 25px;
+	background: #00ccff;
+	box-shadow: lightblue 1px 1px 1px 1px ;
+}
+.car_type p:nth-of-type(2){
+	background:#00cc66;
+	box-shadow: palegreen 1px 1px 1px 1px ;
+}
+.puTime{
+	float: right;
+	font-size: 14px;
+	margin-top: 60px;
+	margin-right: 10px;
+	color: dimgray;
+}
+form{
+	padding: 10px 0px;
+	width: 94%;
+	margin-left: 3%;
+	border-top:1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+}
+form p{
+	height: 35px;
+	line-height: 35px;
+}
+.add_infor{
+	width: 94%;
+	margin-left: 3%;
+}
+.add_infor p{
+	height: 40px;
+	line-height: 40px;
+}
+.add_infor .test{
+	height: auto;
+	min-height: 60px;
+	width: 100%;
+	font-size: 16px;
+	border: none;
+}
+.call{
+	width: 94%;
+	margin-left: 3%;
+	height: 30px;
+	margin-top: 10px;
+	color: white;
+	background: #DC143C;
+	border: none;
+	border-radius: 5px;
+	text-align: center;
+	line-height: 30px;
+}
+.call a{
+	color: white;
+}
+.footer{
+	width: 100%;
+	height: 50px;
+	bottom: 0;
+	position: fixed;
+	background: white;
+}
+.footer .choise_tab{
+	height: 100%;
+	width: 22%;
+	float: left;
+	text-align: center;
+}
+.footer .bohao{
+	width: 34%;
+	background: #FFC125;
+}
+.choise_tab p:nth-of-type(1){
+	font-size: 25px;
+	line-height: 30px;
+}
+.choise_tab p:nth-of-type(2){
+	font-size: 16px;
+	line-height: 20px;
+}
+.footer p{
+	color: #4B92FE;
+}
+.collect:before{
+	color: #4B92FE;
+}
+.bohao p:nth-of-type(2){
+	color: black;
+}

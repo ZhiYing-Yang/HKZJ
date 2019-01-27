@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , user-scalable=no , initial-scale=1.0 , maximum-scale=1.0 ,minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="">
+    <title>申请成为商家</title>
+    <link rel="stylesheet" href="/style/usedcar/css/apply-for-company.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style/usedcar/css/footer.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+</head>
+<body>
+<div class="header">
+    <div class="wrap">
+        <a href="javascript:window.history.go(-1)"><i class="bowleft fa fa-angle-left"></i></a>
+        <h1>申请成为商家</h1>
+    </div>
+</div>
+<form action="<?=site_url('merchantcheck/personal_apply/company') ?>"  method="post" enctype="multipart/form-data">
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">商家类型</label></div>
+            <div class="weui_cell_bd weui_cell_primary " style="position: relative">
+                <input class="weui_input" type="text" name="merchant_type" id="merchant" placeholder="">
+                <span style="position: absolute;right: 0;top: 0; "><i class="fa fa-angle-right"   ></i></span>
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">公司名称</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="company_name" placeholder="请输入公司名称">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">商店名称</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="merchant_name" placeholder="将要在货卡之家展示的商店名称">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">有效期至</label></div>
+            <div class="weui_cell_bd weui_cell_primary " style="position: relative">
+                <input class="weui_input" type="text" name="indate" id="indate-picker" placeholder="">
+                <span style="position: absolute;right: 0;top: 0; "><i class="fa fa-angle-right"   ></i></span>
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">注册号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="registration_number" placeholder="请输入注册号">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">公司地址</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="company_address" placeholder="请输入公司地址">
+            </div>
+        </div>
+    </div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell" style=" ">
+            <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="realname" placeholder="请输入姓名">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">所在城市</label></div>
+            <div class="weui_cell_bd weui_cell_primary " style="position: relative">
+                <input class="weui_input" type="text" name="address" id="city-picker" placeholder="">
+                <span style="position: absolute;right: 0;top: 0; "><i class="fa fa-angle-right"   ></i></span>
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">身份证号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="ID_card" placeholder="请输入身份证号">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">卖车手机号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="phone" placeholder="请输入手机号">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">微信号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="we_chat" placeholder="请输入微信号">
+            </div>
+        </div>
+        <div class="weui_cell weui_vcode">
+            <div class="weui_cell_hd"><label class="weui_label">验证码</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="authcode" placeholder="验证码">
+            </div>
+            <div class="weui_cell_ft">
+                <img class="authcode_img" src="<?=site_url('usedcar/authcode')?>" onclick="this.src='<?=site_url("usedcar/authcode/").mt_rand(0, 100)?>'">
+            </div>
+        </div>
+        <div class="weui_cell weui_cell_warn weui-row">
+            <div class="weui_cell upload" style="position: relative; margin:0 auto;" >
+                <div class="upload_box">
+                <div class="weui_uploader_input_wrp" >
+                    <input class="weui_uploader_input" type="file" name="id_card_front" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">身份证正面照</p>
+                </div>
+                </div>
+
+                <div class="upload_box">
+                <div class="weui_uploader_input_wrp " style="margin-left: 40px" >
+                    <input class="weui_uploader_input" type="file" name="id_card_back"  accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">身份证反面照</p>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui_cell weui_cell_warn weui-row">
+            <div class="weui_cell upload" style="position: relative; margin:0 auto;">
+                <div class="upload_box">
+                <div class="weui_uploader_input_wrp">
+                    <input class="weui_uploader_input" type="file" name="id_card_handle"  accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">手持身份证照</p>
+                </div>
+                </div>
+
+                <div class="upload_box">
+                <div class="weui_uploader_input_wrp" style="margin-left: 40px">
+                    <input class="weui_uploader_input" type="file" name="business_license"  accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                    <p class="note">营业执照照片</p>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui_cell">
+          <div class="upload_box text-center " id="headphoto" style="margin:0 auto ;">
+              <div class="weui_uploader_input_wrp  upload" >
+                  <input class="weui_uploader_input" type="file" name="headphoto" accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                  <p class="note">商家头像</p>
+
+              </div>
+          </div>
+        </div>
+        <div class="weui_cell server_note_box">
+            <div class="weui_cell_hd weui_cell_primary">阅读并同意 <span  class="server_note">《 服务条款 》</span></div>
+            <input id="checkbox" type="checkbox" checked>
+        </div>
+    </div>
+    <div class="weui-row">
+        <a href="javascript:;" type="商家"  class="weui_btn submit_btn  weui_btn_warn  weui-col-80">提交</a>
+    </div>
+
+</form>
+<div id="popup-server-message" class="weui-popup-container">
+    <div class="weui-popup-overlay"></div>
+    <div class="weui-popup-modal "  style="background: #fff;">
+        <div class="weui-row text-center">
+            <h2  class="text-center weui-col-100">阅读服务条款</h2>
+        </div>
+        <div class="weui-row ">
+            <div class="weui-col-10"> </div>
+            <div class="weui-col-80">
+                <p>（下称"本服务"）。当使用卡车之家二手车的具体服务时，您和卡车之家二手车都将受到所有不时发布的、适用于此等服务的准则或规则的制约。卡车之家二手车可能不时推出新的服务，所有此等服务都将受此服务条款的制约。</p>
+                <p>您同意卡车之家二手车具有下列权利：</p>
+                1）卡车之家二手车对所有卡车之家二手车开发的或合作开发的服务的知识产权拥有所有权或使用权，这些服务受到适用的知识产权、版权、商标、服务商标、专利或其他法律的保护。
+
+                2） 卡车之家二手车可以对张贴的内容进行复制，也可根据法律要求对内容进行披露以
+
+                (a) 遵守法律程序；
+
+                (b) 执行服务条款；
+
+                (c) 为了答复因张贴内容侵犯第三方权利而引起的主张；
+
+                (d) 为了保护卡车之家二手车及其用户和公众的权利、财产、或人员的安全；
+
+                (e) 卡车之家二手车及其指定的人将有权利移走任何违反中国法律、法规、本服务条款的用户，或其他卡车之家二手车认为不可接受的内容。
+
+                3） 对于您选择并张贴在任何本服务中可公开获取区域的内容，您同意卡车之家二手车在全世界范围内具有免费的、永远的、不可撤销的、非独家的和完全再许可的权利和许可，以使用、复制、修改、改编、出版、翻译、据以创作衍生作品，传播、表演和展示此等内容（整体或部分），和/或将此等内容编入其他任何形式的作品、媒体、或技术中，不论是当前已知的或以后开发的。
+
+                4） 卡车之家二手车对于任何信息和其他通信或其他本服务所保留或传输的内容的删除或存储失败，不承担任何责任或义务。卡车之家二手车对于那些经过延长期限仍未重新使用的暂停帐户保留取消的权利，并可随时自主决定，发出或无须通知，而改变此等通常惯例和限制。无论是否发出通知，卡车之家二手车保留随时和不时地修改，或暂时或永久地中止本服务 （或其中的任何部分）。卡车之家二手车不会因任何本服务的修改、暂停或中止而对您或对任何第三方承担责任。卡车之家二手车可以终止任何帐户（或其中的部分），或中止本服务的使用，并去除和丢弃任何本服务中的内容，而无论任何原因，包括但不限于，不使用或违反服务条款。
+
+                作为卡车之家二手车服务的用户，您有责任：
+
+                1） 在登记时，提供真实的、准确的、最新的和完整的个人资料，并保持并及时更新上述资料，以保证其真实性、准确性、最新性和完整性。卡车之家二手车不能也不会对因您丢失了身份号码和密码而引起的任何损失或损害承担责任。
+
+                2） 对于您通过卡车之家二手车服务而上载、张贴、发送或其他形式的传输的任何内容负责。卡车之家二手车并不控制通过本服务而张贴的内容，因此，并不保证此等内容的准确性、完整性或质量。无论任何情况下，卡车之家二手车都不对任何内容以任何形式负责，包括但不限于，任何内容中的错误或疏忽，或任何由于使用所张贴、发送、或其他通过本服务的传输的内容而引起的损失或损害。
+
+                3） 不得上载、张贴、用电子邮件或其他方法传送违法、有害、威胁的、辱骂性的、骚扰性的、侵权性的、侮辱性的、粗俗的、淫秽的、诽谤性的、侵犯他人隐私的、仇恨的、或在种族、民族上或其他方面不能接受的，以及其他您无权传送的内容。
+
+                4） 不得上载、张贴、发送或以其他形式传输任何未经请求或授权的广告、推广材料，"垃圾邮件"、"连环信"、"金字塔游戏"，或任何其他形式的此类推销，但是，经卡车之家二手车许可专门为此等目的而设定的区域除外。
+
+                5） 不得针对本服务、与本服务连接的服务器或网络制造干扰、混乱，或违反连接本服务的网络的任何要求、程序、政策或规则。并遵守适用的中国的法律法规，包括并不限于《互联网信息服务管理办法 》、《全国人大关于维护互联网安全的决定 》等。
+
+                6） 同意并保障卡车之家二手车及其附属公司，关联机构，高级管理人员，代理人，共同推出方，或其他合作伙伴人，雇员，不受任何因您通过本服务而提交、张贴或传送的内容、 您对本服务的使用、您与本服务的连接、您对服务条款的违反，或您侵犯了任何其他人的权利，而引起的主张或要求，包括合理的律师费，并对此等主张或要求给予补偿。
+
+                7） 不得为商业目的而复制、出售、转售或利用本服务的任何部分、本服务的使用或本服务的接入。
+
+                8） 上载、张贴、发送或以其他形式传输任何侵害他人专利权、商标权、商业秘密、版权或其他专有权利（下称"权利"）的内容。
+
+                您对本服务的使用的风险将由您独自承担。本服务按照"现状"和"现有"的基础而提供。卡车之家二手车明示不提供任何明示或默示的担保，包括但不限于，商业适售性的默示担保、特定目的之适用性及未侵害他人权利。
+
+                您明确了解并同意，基于以下原因而造成之损失，包括但不限于利润、商誉、使用、资料损失或其他无形损失，卡车之家二手车不承担任何直接、间接、附带、特别、衍生性或惩罚性赔偿（即使卡车之家二手车已被告知上述损失之可能性）；
+
+                (I) 本服务之使用或无法使用；
+
+                (II) 经由或透过本服务购买或取得之任何商品、资料、资讯或服务，或接收之信息，或进行之交易所衍生之替代商品及服务之购买成本；
+
+                (III) 您的传输或资料遭到未获授权的存取或变造；
+
+                (IV) 本服务中任何第三人之声明或行为；
+
+                (V) 本服务其他相关事宜；
+
+                (VI) 卡车之家二手车对于经由本服务传输的任何信息的准确性、实用性或可获得性不承担任何义务或责任，对于根据此等信息而做出的商业交易或投资决定也不承担任何义务和责任。 您通过本服务而进行的通信、业务交易或对推广活动的参与，或建立的广告关系，包括但不限于，相关产品或服务的交付或支付，和任何其他条款、条件、保证或陈述，仅仅是您和此等广告商之间的关系。您同意卡车之家二手车将不必对本服务中的广告商的陈述而引起的任何损失或损害承担任何责任。
+
+            </div>
+            <div class="weui-col-10"> </div>
+        </div>
+
+
+        <div class="weui-row">
+            <a href="javascript:;" class="weui_btn weui_btn_warn close-popup weui-col-80" style="margin-top: 20px">关闭</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/city-picker.min.js"></script>
+<script src="/style/usedcar/js/apply.js"></script>
+<script>
+    $(function () {
+        $("#city-picker").cityPicker({
+            title: "请选择地址"
+        });
+
+        $("#return").click(function () {
+            window.history.go(-1);
+        });
+        $(".submit_btn").click(function () {
+            $("button[type='submit']").click()
+        })
+
+    })
+    $("#merchant").picker({
+        title:"商家类型",
+        cols:[{
+            textAlign:"center",
+            values:[ "经销商", "4S店" ,"货运公司" ,"其他"  ]
+        }]
+    })
+    $("#indate-picker").calendar();
+    $(".server_note").click(function () {
+        $("#popup-server-message").popup()
+    })
+</script>
+</body>
+</html>

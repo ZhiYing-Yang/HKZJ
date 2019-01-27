@@ -1,2 +1,7 @@
 /application/config/
 /.idea/
+/application/logs/
+/application/vendor
+/Test.php
+/MemcacheTest.php
+/uploads

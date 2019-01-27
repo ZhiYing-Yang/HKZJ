@@ -26,14 +26,14 @@ class Index_model extends CI_model {
 	public function get_help_search($search, $offset, $per_page = 10) {
 		$search = addslashes($search);
 		$offset = addslashes($offset);
-		$sql = 'SELECT * FROM ARTICLE WHERE type="卡友求助" AND ( title LIKE "%' . $search . '%" ESCAPE "!" OR content LIKE "%' . $search . '%" ESCAPE "!") ORDER BY create_time DESC LIMIT ' . $offset . ' ,' . $per_page;
+		$sql = 'SELECT * FROM article WHERE type="卡友求助" AND ( title LIKE "%' . $search . '%" ESCAPE "!" OR content LIKE "%' . $search . '%" ESCAPE "!") ORDER BY create_time DESC LIMIT ' . $offset . ' ,' . $per_page;
 		$status = $this->db->query($sql)->result_array();
 		return $status;
 	}
 	//获取共有多少条搜索到的信息
 	public function get_help_search_count($search) {
 		$search = addslashes($search);
-		$sql = 'SELECT COUNT(*) AS total_rows FROM ARTICLE WHERE type="卡友求助" AND ( title LIKE "%' . $search . '%" ESCAPE "!" OR content LIKE "%' . $search . '%" ESCAPE "!")';
+		$sql = 'SELECT COUNT(*) AS total_rows FROM article WHERE type="卡友求助" AND ( title LIKE "%' . $search . '%" ESCAPE "!" OR content LIKE "%' . $search . '%" ESCAPE "!")';
 		$status = $this->db->query($sql)->result_array();
 		return $status;
 	}

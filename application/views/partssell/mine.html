@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>配件销售个人中心</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/application/views/partssell/static/css/mine.css">
+     <link rel="stylesheet" href="/application/views/partssell/static/font/font.css">
+
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+
+  <nav class="bar bar-tab">
+    <a class="tab-item" href="<?=site_url('partssell/index')?>"  external>
+      <span class="icon"><i class="fa fa-home"></i></span>
+      <span class="tab-label">首页</span>
+    </a>
+    <a class="tab-item" href="<?=site_url('partssell/myShopCar')?>"  external>
+      <span class="icon"><i class="fa fa-shopping-cart"></i></span>
+      <span class="tab-label">购物车</span>
+    </a>
+    <a class="tab-item active" href="<?=site_url('partssell/mine')?>"  external>
+      <span class="icon"><i class="fa fa-user"></i></span>
+      <span class="tab-label">我的</span>
+    </a>
+  </nav>
+  <div class="content">
+
+    <div class="personal">
+    	<div class="message_box">
+    		<div class="photo">
+    			<img src="<?=$headimgurl?>" />
+    		</div>
+    		<div class="name">
+    			<span><?=$nickname?></span>
+    		</div>
+    	</div>
+    	<div class="row main_choise">
+    	 <a href="<?=site_url('partssell/myShopCar')?>" class="col-33"  external>
+    	 	<p><i class="fa fa-shopping-cart"></i></p>
+    	 	<p>购物车</p>
+    	 </a>
+      <a href="<?=site_url('partssell/my_collect')?>" class="col-33"   external>
+      	<p><i class="fa fa-star"></i></p>
+    	 	<p>收藏夹</p>
+      </a>
+      <a href="<?=site_url('partssell/my_footprint')?>" class="col-33"   external>
+      	<p><i class="icon icon-5"></i></p>
+    	 	<p>足迹</p>
+      </a>
+    	</div>
+
+
+    </div>
+    <div class="card" hidden>
+    <div class="card-header">
+    	<span>我的订单</span>
+    	<a href="my_order.html">查看全部订单&nbsp;></a>
+    </div>
+    <div class="card-content">
+      <div class="card-content-inner">
+      	<div class="row min_choise">
+      		<a href="my_order.html" class="col-20"   external>
+      			<p><i class="icon icon-1"></i></p>
+    	 	    <p>待付款</p>
+      		</a>
+      		<a href="my_order.html" class="col-20"   external>
+      			<p><i class="icon icon-uniE908"></i></p>
+    	 	    <p>待接单</p>
+      		</a>
+      		<a href="my_order.html" class="col-20"   external>
+      			<p><i class="icon icon-uniE900"></i></p>
+    	 	    <p>待发货</p>
+      		</a>
+      		<a href="my_order.html" class="col-20"   external>
+      			<p><i class="icon icon-3"></i></p>
+    	 	    <p>待收货</p>
+      		</a>
+      		<a href="my_order.html" class="col-20"   external>
+      			<p><i class="icon icon-4"></i></p>
+    	 	    <p>已完成</p>
+      		</a>
+      	</div>
+      </div>
+    </div>
+  </div>
+    <div class="card">
+    <div class="card-header">
+    	<span>我的收货地址</span>
+    	<a href="<?=site_url('partssell/edit_address')?>">编辑&nbsp;></a>
+    </div>
+    <div class="card-content">
+      <div class="card-content-inner">
+      	<div class="nameAphone">
+      	<div class="name">
+      		<?=$realname?$realname:'姓名'?>
+      	</div>
+      	<div class="phone"><?=$phone?$phone:'电话'?></div>
+      	</div>
+      	<div class="address"><?=$address?$address.$addressinfo:'地址'?></div>
+      </div>
+      </div>
+      </div>
+
+  </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script>$.config = {router: false}</script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+  </body>
+</html>

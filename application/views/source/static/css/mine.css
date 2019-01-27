@@ -1,0 +1,176 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+body{
+	background: #F7F7F7;
+	overflow: hidden;
+}
+.message-box{
+    width: 100%;
+    height: 150px;
+    background-color: #4B92FE;
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    -webkit-align-items: center ;
+}
+.message-box .message-content{
+    width: 100%;
+    height: 60px;
+}
+.message-box .message-content .head-photo-wrap{
+    float: left;
+    margin-left: 25px;
+    width: 60px ;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.message-box .message-content .head-photo-wrap a{
+    width: 100%;
+    height: 100%;
+}
+.message-box .message-content .head-photo-wrap img{
+    height: 100%;
+    width: 100%;
+}
+.message-box .message-content .personal-desc{
+    float: left;
+    width: 100px;
+    height:100%;
+    margin-left: 10px;
+}
+.message-box .message-content .personal-desc .name{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+    margin-top: 10px;
+    font-size: 14px;
+}
+.message-box .message-content .personal-desc .identification{
+    width:50px;
+    height: 20px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 20px;
+    background-color: rgba(0 ,0 ,0 ,.3);
+    font-size: 12px;
+    margin-top: 3px;
+    color: #fff;
+}
+.message-box .message-content .edit-button-wrap{
+    float: right;
+    margin-right: 20px;
+    width: 50px;
+    height: 100%;
+}
+.message-box .message-content .edit-button-wrap .button{
+    display: block;
+    width: 50px;
+    border-radius: 10px;
+    height: 20px;
+    background: #fff;
+    color:#FF6724 ;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    margin-top: 20px;
+}
+
+
+.function-wrap{
+    border-top: 1px #ccc solid;
+    width: 100%;
+    margin-top: 20px;
+}
+.function-wrap .function-list-wrap{
+    width: 100%;
+}
+.function-wrap .function-list-wrap .function-list{
+    width: 100%;
+}
+.function-wrap .function-list-wrap .function-list .function-item-box{
+    width: 100%;
+    height: 40px;
+    background-color: #fff;
+    border-bottom: 1px #ccc solid ;
+}
+.function-wrap .function-list-wrap .function-list .function-item-box .function-item{
+    display: block;
+    width: 100%;
+    color: #0d0d0d;
+    line-height: 40px;
+
+}
+.function-wrap .function-list-wrap .function-list .function-item-box .function-item:active{
+    background-color: #fff;
+    color: #000;
+}
+.function-wrap .function-list-wrap .function-list .function-item-box .function-item .icon{
+    float: left;
+    display: block;
+    line-height: 40px;
+    font-size: 30px;
+    margin-left: 10px;
+}
+.function-wrap .function-list-wrap .function-list .function-item-box .function-item .desc{
+    margin-left: 10px;
+    line-height: 40px;
+    font-size: 14px;
+
+}
+.function-wrap .function-list-wrap .function-list .function-item-box .function-item .goto{
+    display: block;
+    float: right;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 10px;
+}
+.function-wrap .function-list-wrap .function-list .function-item-box:nth-child(1)  .function-item .icon{
+    font-size: 26px;
+    font-weight: bold;
+    color: #FF6666;
+}
+.function-wrap .function-list-wrap .function-list .function-item-box:nth-child(2)  .function-item .icon{
+    font-size: 22px;
+    font-weight: bold;
+    color: #00af64;
+}
+.function-wrap .function-list-wrap .function-list .function-item-box:nth-child(3){
+    /*margin-top: 20px;*/
+    /*border-top: 1px #ccc solid;*/
+}
+.function-wrap .function-list-wrap .function-list .function-item-box:nth-child(3)  .function-item .icon{
+    font-weight: bold;
+    margin-left: 6px;
+    color: #0099CC;
+}
+.function-wrap .function-list-wrap .function-list .function-item-box:nth-child(4)  .function-item .icon{
+    font-size: 24px;
+    font-weight: bold;
+    color:#99CC66;
+}
+.icon-14:before{
+	color: rgba(247, 104, 47, 0.96);
+}
+.icon--2{
+	color:red;
+}
+.function-item span:nth-of-type(1){
+	font-size: 18px;
+	margin-left: 10px;
+}
+.function-item span:nth-of-type(3){
+	float:right;
+	margin-right: 10px;
+	line-height: 40px;
+}

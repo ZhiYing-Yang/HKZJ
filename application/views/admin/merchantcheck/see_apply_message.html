@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>商家申请审核列表</title>
+    <link rel="stylesheet" href="/style/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/style/admin/css/admin.css">
+    <script src="/style/admin/js/jquery.js"></script>
+    <script src="/style/admin/js/pintuer.js"></script>
+</head>
+<body>
+    <div class="panel admin-panel">
+        <div class="panel-head">
+          <a href="javascript:window.location.reload()" class="button button-" > <i class="icon-refresh"></i> 刷新</a>
+          <a href="javascript:window.history.go(-1)" class="button button-" > <i class="icon-exit"></i> 返回</a>
+          <strong class="icon-reorder ">商家名称:  <span class="text-blue" > <?=$m['merchant_name'] ?></span></strong>
+          <a href="" style="float:right; display:none;">添加字段</a>
+            <a href="javascript:0;" class="button border-main float-right" onclick="pass_check(<?=$m['id']?>)">通过审核</a>
+        </div>
+        <div class="panel-body container">
+            <hr>
+            <div class="x12">
+                <p class="text-center x3" >申请者：</p>
+                <p class="text-left x3 border-right  text-blue" ><?=$m["realname"]?></p>
+                <p class="text-center x3" >手机号：</p>
+                <p class="text-left x3 text-blue" ><?=$m["phone"]?></p>
+            </div>
+            <hr>
+            <div class="x12">
+                <p class="text-center x3" >身份证：</p>
+                <p class="text-left x3 border-right  text-blue" ><?=$m["idcardno"]?></p>
+                <p class="text-center x3" >微信号：</p>
+                <p class="text-left x3 text-blue" ><?=$m["we_chat"]?></p>
+            </div>
+            <hr>
+            <div class="x12">
+                <p class="text-center x3" >申请时间：</p>
+                <p class="text-left x3 border-right text-blue" ><?=$m["create_time"]?></p>
+                <p class="text-center x3" >所在地：</p>
+                <p class="text-left x3 text-blue" ><?=$m["address"]?></p>
+            </div>
+            <hr>
+            <div class="x12">
+                <p class="text-center x3" >模块：</p>
+                <p class="text-left x3 border-right  text-blue" >测试<?=$m["module"]?></p>
+                <p class="text-center x3" >商家类型（个体商户或者公司性质）：</p>
+                <p class="text-left x3  text-blue" ><?=$m["nature"]==1?"个人":"公司"?></p>
+            </div>
+            <hr>
+            <div class="x12">
+                <p class="text-center x3" >身份证正面照：</p>
+                <p class="text-left x3 border-right  text-blue ver"  > <img src="<?=$m['img0'] ?>" class="radius-small border-blue border " alt="" width="280px" height="140px">  </p>
+                <p class="text-center x3" >身份证反面照：</p>
+                <p class="text-left x3 text-blue ver"  > <img src="<?=$m['img1'] ?>" class="radius-small border-blue border " alt="" width="280px" height="140px">  </p>
+            </div>
+            <hr>
+            <div class="x12">
+                <p class="text-center x3" >手持身份证照：</p>
+                <p class="text-left x6 border-right  text-blue ver"  > <img src="<?=$m['img2'] ?>" class="radius-small border-blue border" alt="" width="600px" height="300px">  </p>
+            </div>
+            <hr>
+            <!-- 开始公司性质 -->
+            <?php if( $m['nature']=="2" ){ ?>
+              <div class="x12">
+                  <p class="text-center x3" >商户名称：</p>
+                  <p class="text-left x3 border-right text-blue" ><?=$m["create_time"]?></p>
+                  <p class="text-center x3" >商户所在地：</p>
+                  <p class="text-left x3 text-blue" ><?=$m["merchant_address"]?></p>
+              </div>
+              <hr>
+              <div class="x12">
+                  <p class="text-center x3" >营业执照：</p>
+                  <p class="text-left x6 border-right   text-blue ver"  > <img src="<?=$m['img3'] ?>" class="radius-small border-blue border" alt="" width="600px" height="300px">  </p>
+              </div>
+              <hr>
+              <div class="x12">
+                  <p class="text-center x3" >注册号：</p>
+                  <p class="text-left x3 border-right text-blue" ><?=$m["registernum"]?></p>
+                  <p class="text-center x3" >有效期至：</p>
+                  <p class="text-left x3 text-blue" ><?=$m["usefullife"]?></p>
+              </div>
+              <hr>
+            <?php } ?>
+
+        </div>
+
+    </div>
+</body>
+<script type="text/javascript">
+  var this_url_server = "/admin/merchantcheck/";
+  function pass_check(id) {
+      $.get(this_url_server+"pass_check/"+id ,{} ,function(data){
+          if(data["status"]=="okay"){
+            alert(data["message"])
+            window.history.go(-1);
+          }else{
+            alert($data["message"])
+          }
+
+      } ,"json");
+  }
+</script>
+</html>

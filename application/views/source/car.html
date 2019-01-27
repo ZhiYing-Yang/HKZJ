@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>车源信息</title>
+		<link rel="stylesheet" href="//cdn.bootcss.com/weui/0.4.3/style/weui.min.css">
+		<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/0.8.3/css/jquery-weui.min.css">
+		<link rel="stylesheet" href="/application/views/source/static/css/source.css" />
+		<link rel="stylesheet" href="/application/views/source/static/css/footer.css" />
+		<link rel="stylesheet" href="/application/views/source/static/css/carAsource.css" />
+		<link rel="stylesheet" href="/application/views/source/static/font/style.css" />
+	</head>
+
+	<body>
+		<!--header------------------------------>
+
+		<div class="head_top">
+			<h4>
+			车源信息
+		</h4>
+		</div>
+		<form action='' method='post'>
+		<div class="main_head">
+			<ul>
+				<li>
+					<input type="text" id='start_city' placeholder="出发地" name="departure"/>
+					<i class="icon-uniE924"></i>
+				</li>
+				<li>
+					<i class="icon-_ " aria-hidden="true"></i>
+				</li>
+				<li>
+					<input type="text" id='reach_city' placeholder="目的地" name="destination" placeholder-class="phcolor" />
+					<i class="icon-uniE924"></i>
+				</li>
+				<li class="choise">
+					<span style="font-size: 13px;">筛选</span><i class="icon-uniE924"></i>
+				</li>
+			</ul>
+		</div>
+		<!--筛选页面--------------------------->
+		<div class="mskeLayBg"></div>
+
+		    <div class="choise_click">
+
+			    <div class="min_head">
+				    <div class="head_left">
+					        <i class="icon-5"></i> 车源筛选
+				    </div>
+				    <div class="head_right">
+					    <i class="icon-4 " aria-hidden="true"></i>
+				    </div>
+			    </div>
+
+			    <div class="weui_cells weui_cells_radio type">
+				    <p>
+					   车型
+				    </p>
+				    <label class="weui_cell weui_check_label" for="x27">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>不限</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" class="weui_check" name="radio3" value="不限" id="x27" >
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x28">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>平板</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" name="radio3" class="weui_check" id="x28" value="平板">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x29">
+				    	<div class="weui_cell_bd weui_cell_primary">
+				    		<p>高栏</p>
+				    	</div>
+				    	<div class="weui_cell_ft">
+				    		<input type="radio" name="radio3" class="weui_check" id="x29" value="高栏">
+				    		<span class="weui_icon_checked"></span>
+				    	</div>
+				    </label>
+				    <label class="weui_cell weui_check_label" for="x30">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>厢式</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" name="radio3" class="weui_check" id="x30" value="厢式">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x31">
+				    	<div class="weui_cell_bd weui_cell_primary">
+				    		<p>保温</p>
+				    	</div>
+				    	<div class="weui_cell_ft">
+				    		<input type="radio" name="radio3" class="weui_check" id="x31" value="保温">
+				    		<span class="weui_icon_checked"></span>
+				    	</div>
+				    </label>
+				    <label class="weui_cell weui_check_label" for="x32">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>面包</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" name="radio3" class="weui_check" id="x32" value="面包">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x33">
+				    	<div class="weui_cell_bd weui_cell_primary">
+				    		<p>爬梯</p>
+				    	</div>
+				    	<div class="weui_cell_ft">
+				    		<input type="radio" name="radio3" class="weui_check" id="x33" value="爬梯">
+				    		<span class="weui_icon_checked"></span>
+				    	</div>
+				    </label>
+				    <label class="weui_cell weui_check_label" for="x34">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>自卸</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" name="radio3" class="weui_check" id="x34" value="自卸">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x35">
+				    	<div class="weui_cell_bd weui_cell_primary">
+				    		<p>危险品</p>
+				    	</div>
+				    	<div class="weui_cell_ft">
+				    		<input type="radio" name="radio3" class="weui_check" id="x35" value="危险品">
+				    		<span class="weui_icon_checked"></span>
+				    	</div>
+				    </label>
+				    <label class="weui_cell weui_check_label" for="x36">
+				    	<div class="weui_cell_bd weui_cell_primary">
+				    		<p>冷藏</p>
+				    	</div>
+				    	<div class="weui_cell_ft">
+				    		<input type="radio" name="radio3" class="weui_check" id="x36" value="冷藏">
+				    		<span class="weui_icon_checked"></span>
+				    	</div>
+				    </label>
+			    </div>
+
+
+
+			<div class="weui_cells weui_cells_radio car_length">
+				<p>
+					车长（米）
+				</p>
+				<label class="weui_cell weui_check_label" for="x14">
+    <div class="weui_cell_bd weui_cell_primary">
+      <p>不限</p>
+    </div>
+    <div class="weui_cell_ft">
+      <input type="radio" class="weui_check" name="radio2" id="x14" value="不限">
+      <span class="weui_icon_checked"></span>
+    </div>
+  </label>
+				<label class="weui_cell weui_check_label" for="x15">
+
+    <div class="weui_cell_bd weui_cell_primary">
+      <p>9.6</p>
+    </div>
+    <div class="weui_cell_ft">
+      <input type="radio" name="radio2" class="weui_check" id="x15" value="9.6">
+      <span class="weui_icon_checked"></span>
+    </div>
+  </label>
+				<label class="weui_cell weui_check_label" for="x16">
+
+    <div class="weui_cell_bd weui_cell_primary">
+      <p>13</p>
+    </div>
+    <div class="weui_cell_ft">
+      <input type="radio" name="radio2" class="weui_check" id="x16" value="13">
+      <span class="weui_icon_checked"></span>
+    </div>
+  </label>
+
+     <label class="weui_cell weui_check_label" for="x17">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>17.5</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" class="weui_check" name="radio2" id="x17" value="17.5">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x18">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>4.2</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" name="radio2" class="weui_check" id="x18" value="4.2">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x19">
+				    	<div class="weui_cell_bd weui_cell_primary">
+				    		<p>8.2</p>
+				    	</div>
+				    	<div class="weui_cell_ft">
+				    		<input type="radio" name="radio2" class="weui_check" id="x19" value="8.2">
+				    		<span class="weui_icon_checked"></span>
+				    	</div>
+				    </label>
+
+				       <label class="weui_cell weui_check_label" for="x20">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>7.7</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" class="weui_check" name="radio2" id="x20" value="7.7">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x21">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>6.2</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" name="radio2" class="weui_check" id="x21" value="6.2">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x22">
+				    	<div class="weui_cell_bd weui_cell_primary">
+				    		<p>5</p>
+				    	</div>
+				    	<div class="weui_cell_ft">
+				    		<input type="radio" name="radio2" class="weui_check" id="x22" value="5">
+				    		<span class="weui_icon_checked"></span>
+				    	</div>
+				    </label>
+
+				       <label class="weui_cell weui_check_label" for="x23">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>6.8</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" class="weui_check" name="radio2" id="x23" value="6.8">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x24">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>12.5</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input type="radio" name="radio2" class="weui_check" id="x24" value="12.5">
+                            <span class="weui_icon_checked"></span>
+                        </div>
+                    </label>
+				    <label class="weui_cell weui_check_label" for="x25">
+				    	<div class="weui_cell_bd weui_cell_primary">
+				    		<p>13.5</p>
+				    	</div>
+				    	<div class="weui_cell_ft">
+				    		<input type="radio" name="radio2" class="weui_check" id="x25" value="13.5">
+				    		<span class="weui_icon_checked"></span>
+				    	</div>
+				    </label>
+				    <label class="weui_cell weui_check_label" for="x26">
+				    	<div class="weui_cell_bd weui_cell_primary">
+				    		<p>15</p>
+				    	</div>
+				    	<div class="weui_cell_ft">
+				    		<input type="radio" name="radio2" class="weui_check" id="x26" value="15">
+				    		<span class="weui_icon_checked"></span>
+				    	</div>
+				    </label>
+			</div>
+
+
+			    <div class="choise_result">
+			    	<input TYPE="SUBMIT" VALUE="确定">
+			    </div>
+
+		</div>
+	</form>
+
+
+		<div class="main_content">
+		<!--每个weui_cells代表一个单元---------------->
+			<?php foreach($list as $s): ?>
+				<div class="weui_cells min_block">
+					<a class="weui_cell new_block" href="<?=site_url('source/carDetails/'.$s['id'])?>">
+						<div class="one_news">
+							<div class="first_line">
+								<div class="place">
+									<?=$s['departure']?>
+								</div>
+								<div class="arrows">
+									<i class="icon-_"></i>
+								</div>
+								<div class="place">
+									<?=$s['destination']?>
+								</div>
+								<div class="times">
+									<?php echo pTime($s['uptime']);?> 发布
+								</div>
+							</div>
+							<div class="second_line">
+								<div class="second_left">
+									<i class="icon-2"></i>10-20日 35吨
+								</div>
+								<!-- <div class="second_right">
+									<i class="icon-iconfont-phone"></i>电话
+								</div> -->
+							</div>
+							<div class="third_line car_third">
+								<div>
+								车找货
+								</div>
+							</div>
+						</div>
+					</a>
+					</div>
+			<?php endforeach; ?>
+
+
+		</div>
+			<!-- <a href="<?=site_url('source/carDetails')?>" class="min_block">
+				<div class="one_news">
+					<div class="first_line">
+						<span>
+							山西省，晋城..
+						</span>
+						<span>
+							<i class="icon-_ "></i>
+						</span>
+						<span>
+							河南省，洛阳..
+						</span>
+						<span>
+							10-20 08:00 发布
+						</span>
+					</div>
+					<div class="second_line">
+						<div class="second_left">
+							<i class="icon-2"></i>10-20日 35吨
+						</div>
+						<div class="second_right">
+							<i class="icon-iconfont-phone "></i>电话
+						</div>
+					</div>
+					<div class="third_line car_third car_third">
+						<div>车找货</div>
+					</div>
+				</div>
+			</a> -->
+
+
+		<!--<div class="main_content">
+
+				<?php foreach($list as $s): ?>
+					<div class="weui_cells min_block">
+						<a class="weui_cell new_block" href="<?=site_url('source/carDetails/'.$s['id'])?>" >
+							<div class="one_news">
+							<div class="first_line">
+								<div class="place">
+									<?=$s['departure']?>
+								</div>
+								<div class="arrows">
+									<i class="icon-_"></i>
+								</div>
+								<div class="place">
+									<?=$s['destination']?>
+								</div>
+								<div class="times">
+									<?php echo pTime($s['uptime']);?> 发布
+								</div>
+							</div>
+							<div class="second_line">
+								<div class="second_left">
+									<i class="icon-2"></i>10-20日 35吨
+								</div>
+								<div class="second_right">
+									<i class="icon-iconfont-phone"></i>电话
+								</div>
+							</div>
+							<div class="third_line car_third">
+								<div>
+									车找货
+								</div>
+							</div>
+						</div>
+						</a>
+					</div>
+			<?php endforeach; ?>
+				</div>-->
+
+		<!--------------------------footer------------------>
+
+		<div class="weui_tabbar foot_tabber">
+			<a href="<?=site_url('source/source')?>" class="weui_tabbar_item foot_tabbar_item foot_tabbar_active">
+				<div class="weui_tabbar_icon">
+					<i class="icon-12"></i>
+				</div>
+				<p class="weui_tabbar_label">首页</p>
+			</a>
+			<a href="<?=site_url('source/source')?>" class="weui_tabbar_item foot_tabbar_item">
+				<div class="weui_tabbar_icon">
+					<i class="icon-17"></i>
+				</div>
+				<p class="weui_tabbar_label">货源</p>
+			</a>
+			<a class="weui_tabbar_item foot_tabbar_item publish">
+				<div class="weui_tabbar_icon">
+					<i class="icon-19"></i>
+				</div>
+				<p class="weui_tabbar_label">发布</p>
+			</a>
+			<a href="<?=site_url('source/mine')?>" class="weui_tabbar_item foot_tabbar_item">
+				<div class="weui_tabbar_icon">
+					<i class="icon-16"></i>
+				</div>
+				<p class="weui_tabbar_label">我的</p>
+			</a>
+
+		</div>
+
+		<!------------------发布底部弹出框------------------------>
+		<div class="eject_bottom">
+			<div class="bottom_head">
+				<h4>发布信息</h4>
+			</div>
+			<div class="eject_options">
+				<ul>
+					<li><a href="<?=site_url('source/PSource')?>">发布货源</a></li>
+					<li><a href="<?=site_url('source/PCar')?>">发布车源</a></li>
+					<li class="cancel">取消</li>
+				</ul>
+			</div>
+		</div>
+
+	</body>
+	<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/jquery-weui.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-weui/0.8.3/js/city-picker.min.js"></script>
+	<script src="/application/views/source/static/js/source.js"></script>
+	<script src="/application/views/source/static/js/footer.js"></script>
+
+</html>

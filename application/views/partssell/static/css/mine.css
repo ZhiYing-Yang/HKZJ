@@ -1,0 +1,92 @@
+body{
+	font-family: SimHei;
+	font-size: 0.75rem;
+}
+a{
+	color: black;
+}
+.bar-tab .tab-item.active{
+	color: #FE0539;
+}
+.personal{
+	width: 100%;
+	height: 9rem;
+	background: #FE0539;
+	padding: 1rem;
+}
+.message_box{
+	height: 3rem;
+}
+.message_box .photo{
+	float: left;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 1px solid white;
+	box-shadow: 0.1rem 0.1rem 0.25rem rgba(34, 25, 25, 0.2);
+}
+.message_box .photo img{
+	width: 100%;
+	height: 100%;
+}
+.message_box .name{
+	width: auto;
+	float: left;
+	max-width: 5rem;
+	overflow: hidden;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	margin-left: 0.5rem;
+	color: white;
+	margin-top: 1.25rem;
+}
+.message_box .remove{
+	float: right;
+	margin-top: 1.5rem;
+	background: white;
+	text-align: center;
+	width: 2.5rem;
+	border-radius: 0.5rem;
+	height: 1rem;
+	line-height: 1rem;
+	font-size:0.65rem;
+}
+.message_box .remove a{
+	color: #F2760B;
+}
+.main_choise{
+	width: 100%;
+	margin-top: 0.4rem;
+}
+.main_choise p{
+	text-align: center;
+	color: white;
+}
+.main_choise p i{
+	font-size: 1rem;
+}
+.card{
+	border-radius: 0.5rem;
+}
+.card-header span{
+	float: left;
+	color: black;
+}
+.card-header a{
+	float: right;
+	color: darkgrey;
+	font-size: 0.65rem;
+}
+.min_choise p{
+	text-align: center;
+	color: #FF5000;
+}
+.min_choise p i{
+	font-size: 1.1rem;
+}
+.nameAphone .name{
+	float: left;
+	width: auto;
+	margin-right: 10px;
+}

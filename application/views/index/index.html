@@ -36,7 +36,7 @@
                             <p class="per_sign text-overflow"><?=$user['signature']?></p>
                         </div>
                     </div>
-                    <div class="col-xs-3 text-center signIn"><a class="btn btn-block" role="button" href="#">签到</a></div>
+                    <div class="col-xs-3 text-center signIn"><a class="btn btn-block" role="button" href="javascript:sign()"> 签到</a></div>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                     <div class="invitation_main">
                         <ul class="nav nav-tabs">
                             <li role="presentation" class="dropdown col-xs-4">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="<?=site_url('home/index')?>" target="_self" role="button" aria-haspopup="true" aria-expanded="false"><img src="/style/index/img/icon/quanbu.png" alt="">全部<span class="caret"></span></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="<?=site_url('home/index')?>" target="_self" role="button" aria-haspopup="true" aria-expanded="false"><img src="/style/index/img/icon/quanbu.png" alt=""> 全部</a>
                                 <ul class="dropdown-menu list-group">
                                     <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="<?=site_url('home/index/卡友生活')?>">卡友生活</a></li>
                                     <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="<?=site_url('home/index/卡友经验')?>">卡友经验</a></li>
@@ -55,8 +55,8 @@
                                     <li role="presentation" class="col-xs-12 text-center list-group-item"><a target="_self" href="<?=site_url('home/index/灌水区')?>">灌水区</a></li>
                                 </ul>
                             </li>
-                            <li role="presentation" class="col-xs-4"><a target="_self" href="<?=site_url('home/index/精品')?>"><img src="/style/index/img/icon/jingpin.png" alt="">精品</a></li>
-                            <li role="presentation" class="col-xs-4"><a href="<?=site_url('home/forum_message/')?>" target="_self"><img src="/style/index/img/icon/xiaoxi.png" alt="">消息</a></li>
+                            <li role="presentation" class="col-xs-4"><a target="_self" href="<?=site_url('home/index/精品')?>"><img src="/style/index/img/icon/jingpin.png" alt=""> 精品</a></li>
+                            <li role="presentation" class="col-xs-4"><a href="<?=site_url('home/forum_message/')?>" target="_self"><img src="/style/index/img/icon/xiaoxi.png" alt=""> 消息</a></li>
                         </ul>
                     </div>
                 </div>
@@ -65,33 +65,17 @@
         <!-- swiper轮播广告商 -->
         <div class="swiper-container">
             <div class="swiper-wrapper">
+              <?php foreach($banner as $b) : ?>
                 <div class="swiper-slide">
                     <div class="advertisement_content">
-                        <a href="#">
+                        <a href="<?$b['url']?>">
                         <img src="/style/index/img/marchant-img2.jpg" alt="">
-                        <p class="advertisement_label">广告</p>
-                        <p class="advertisement_info">内容介绍</p>
+                        <p class="advertisement_label"></p>
+                        <p class="advertisement_info"><?=$b['content']?></p>
                         </a>
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="advertisement_content">
-                        <a href="#">
-                        <img src="/style/index/img/marchant-img3.jpg" alt="">
-                        <p class="advertisement_label">广告</p>
-                        <p class="advertisement_info">内容介绍</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="advertisement_content">
-                        <a href="#">
-                        <img src="/style/index/img/marchant-img1.jpg" alt="">
-                        <p class="advertisement_label">广告</p>
-                        <p class="advertisement_info">内容介绍</p>
-                        </a>
-                    </div>
-                </div>
+              <?php endforeach;?>
             </div>
 
             <!-- 如果需要分页器 -->
@@ -106,7 +90,7 @@
                     <div class="message_main">
                         <div class="list-group">
                             <?php foreach($notice as $n):?>
-                            <a href="<?=site_url('home/see_article/').$n['article_id']?>" class="list-group-item"><span class="tip inform">置顶</span><?=$n['title']?><span class="date"><?=date('Y-m-d', $n['create_time'])?></span></a>
+                            <a href="<?=site_url('home/see_article/').$n['article_id']?>" class="list-group-item"><span class="tip inform">公告</span><?=$n['title']?><span class="date"><?=date('Y-m-d', $n['create_time'])?></span></a>
                             <?php endforeach;?>
                         </div>
                     </div>
@@ -176,7 +160,13 @@
             },
             //autoplay: true,
         });
+        function sign() {
+          $.get("/home/sign" ,  function(data) {
 
+              alert(1);
+
+          } ,"json")
+        }
     </script>
 
     <!--mescroll 上拉加载更多-->

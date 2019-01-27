@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <?php include("commonhead.html") ?>
+    <link rel="stylesheet" href="/style/driverhire/css/detail.css">
+  </head>
+  <body>
+    <div class="pageheader bg-blue" style="">
+      <span class="fa fa-arrow-left big-font ly-left text-grey border-small " onclick="javascript:history.go(-1)"></span>
+      <p  class="text-grey">职位详情</p>
+    </div>
+
+
+    <div class="weui-cells" style="border:0px;">
+      <p class="info" style= >基本信息</p>
+
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>职位名称</p>
+        </div>
+        <div class="weui-cell__ft"><?=$post["postname"] ?></div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>薪资</p>
+        </div>
+        <div class="weui-cell__ft"><?=$post["salary"] ?>元</div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>地址</p>
+        </div>
+        <div class="weui-cell__ft"><?=$post["address"] ?></div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>驾照等级要求</p>
+        </div>
+        <div class="weui-cell__ft"><?=$post["level"] ?></div>
+      </div>
+      <p class="info goodmargin" >详细信息</p>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>联系人</p>
+        </div>
+        <div class="weui-cell__ft"><?=$post["name"] ?></div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>联系电话</p>
+        </div>
+        <div class="weui-cell__ft"><?=$post["telphone"] ?></div>
+      </div>
+      <p class="info goodmargin" >要求</p>
+      <div class="content" style="padding:10px 20px; color:#777">
+        <?=$post["request"] ?>
+      </div>
+    </div>
+<div class="smalltools">
+  <div class="contact">
+    <span class="fa fa-phone"></span>
+  </div>
+</div>
+
+  <?php include("commonscript.html") ?>
+<script src="/style/plugin/loadModelmini/loadmini.js" charset="utf-8"></script>
+  </body>
+<script type="text/javascript">
+
+</script>
+</html>

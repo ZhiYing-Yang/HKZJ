@@ -1,0 +1,69 @@
+body{
+	font-family: SimHei;
+	
+}
+a{
+	color: black;
+}
+.main_head{
+	background: #FE0539;
+	
+}
+.main_head h1{
+	color: white;
+}
+.main_head a{
+	color: white;
+}
+.bar .searchbar .searchbar-cancel{
+	color: white;
+}
+.bar .searchbar{
+	background: rgba(0,0,0);
+	/*background:#F2760B;*/
+	background: #FE0539;
+}
+.demo-card-header-pic{
+	width: 44%;
+	float: left;
+	border-radius: 0.25rem;
+}
+.card-header{
+	height: 7.5rem;
+}
+.card-header img{
+	height: 100%;
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+}
+.card-content-inner{
+	padding: 0.25rem 0.5rem;
+	height: 1.45rem;
+	overflow: hidden;
+	color: black;
+}
+.card-content-inner p{
+	line-height: 1rem;
+}
+.card-footer:before{
+	height: 0;
+}
+.card-footer span{
+	color: #FF5000;
+	font-size: 1rem;
+}
+.card-footer i{
+	color: #FF5000;
+}
+.card-footer .footer_left i,.card-footer .footer_left span{
+	color: #FF5000;
+}
+.card-footer .footer_left{
+	float: left;
+}
+.card-footer .footer_right{
+	float: right;
+}
+.panel{
+	background: white;
+}

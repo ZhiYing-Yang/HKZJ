@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>养车护车详情</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.css">
+     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="/application/views/keepcar/static/css/keep_details.css">
+
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+        	<header class="bar bar-nav main_head">
+  <a href="#" onclick="javascript:window.history.go(-1);" class="button button-link button-nav pull-left" style="color: white;">
+    <span class="icon icon-left"></span>
+    返回
+  </a>
+</header>
+        	<nav class="bar bar-tab">
+  <div class="tab-item external add_collect" style="font-size: 0.8rem;">
+    <div class="this_logo"><i class="icon icon-star"></i></div>
+    <div class="this_word"><span class="tab-label">收藏</span></div>
+  </div>
+  <div class="tab-item external add_car" style="font-size: 0.8rem;">
+    <div class="this_logo"><i class="fa fa-thumbs-o-up fa-lg"></i></div>
+    <div class="this_word"><span class="tab-label">点赞</span></div>
+  </div>
+</nav>
+        <div class="content">
+	<div class="main_content">
+<div class="min_title">
+	<h3>这里是题目这里是题目这里是题目这里是题目这里是题目这里是题目这里是题目这里是题目这里是题目</h3>
+</div>
+<div class="first_content">
+	<p class="font16px">第一段内容第一段内容第一段内容第一段内容第一段内容第一段内容
+		第一段内容第一段内容第一段内容第一段内容第一段内容第一段内容
+		第一段内容第一段内容第一段内容第一段内容第一段内容第一段内容第一段内容
+		第一段内容第一段内容第一段内容第一段内容第一段内容
+	</p>
+	<div class="photo">
+		<img src="/application/views/news/static/images/timg.jpg" />
+	</div>
+	<p class="font16px">第二段内容第二段内容第一段内容第二段内容第二段内容
+		第二段内容第二段内容第一段内容第二段内容第二段内容第二段内容第二段内容第一段内容第二段内容第二段内容
+		第二段内容第二段内容第一段内容第二段内容第二段内容第二段内容第二段内容第一段内容第二段内容第二段内容
+		第二段内容第二段内容第一段内容第二段内容第二段内容
+	</p>
+</div>
+</div>
+<div class="recommend">
+	<h3>相关推荐</h3>
+	<!--每个.one_parts代表一条消息-->
+          <div class="list-block media-list one_parts">
+    <ul>
+      <li>
+        <a href="keep_details.html" class="item-link item-content">
+          <div class="item-media"><img src="/application/views/news/static/images/timg.jpg"></div>
+          <div class="item-inner">
+            <div class="item-text" style="color: black;">此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容此处是文本内容...</div>
+            <div class="bottom">
+            	<span class="icon delete font15px"><i class="icon icon-star"></i><span class="conumber">0</span></span>
+                <span class="icon pay font15px"><i class="fa fa-thumbs-o-up"></i><span class="linumber">0</span></span>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+</div>
+</div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.js"></script>
+
+  </body>
+</html>
+ <script>$.init()</script>
+ <script>
+	
+	$(function(){
+	
+	//导航收藏点击事件
+	$('.add_collect').click(function(){
+		
+		if($('.add_collect i').hasClass('icon icon-star')){
+			$('.add_collect i').addClass('fa fa-star fa-lg').removeClass('icon icon-star');
+			$(this).css('color','#FF9F01');
+		}
+		else{
+			$('.add_collect i').addClass('icon icon-star').removeClass('fa fa-star fa-lg');
+			$(this).css('color','#929292');
+		}
+		
+	})
+	
+	//导航点赞点击事件
+	$('.add_car').click(function(){
+		
+		if($('.add_car i').hasClass('fa fa-thumbs-o-up fa-lg')){
+			$('.add_car i').removeClass('fa fa-thumbs-o-up fa-lg').addClass('fa fa-thumbs-up fa-lg');
+			$(this).css('color','#FF9F01');
+		}
+		else{
+			$('.add_car i').removeClass('fa fa-thumbs-up fa-lg').addClass('fa fa-thumbs-o-up fa-lg');
+		    $(this).css('color','#929292');
+		}
+	})
+	
+	$('.delete').click(function(){
+			return false;
+	})
+	$('.pay').click(function(){
+			return false;
+	})
+	
+	//小收藏点击事件
+	$('.bottom .delete').click(function(){
+		var elespan = $(this).children('.conumber');
+				
+		if($(this).children('i').hasClass('icon icon-star')){
+			$(this).children('i').addClass('fa fa-star').removeClass('icon icon-star');
+			$(this).addClass('choised');
+			elespan.text(parseInt(elespan.text()) + 1);
+		}
+		else{
+			$(this).children('i').addClass('icon icon-star').removeClass('fa fa-star');
+			$(this).removeClass('choised');
+			elespan.text(parseInt(elespan.text()) - 1);
+		}
+	})
+	
+	//小点赞点击事件
+	$('.bottom .pay').click(function(){
+		var elespan = $(this).children('.linumber');
+				
+		if($(this).children('i').hasClass('fa fa-thumbs-o-up')){
+			$(this).children('i').removeClass('fa fa-thumbs-o-up').addClass('fa fa-thumbs-up');
+			$(this).addClass('choised');
+			elespan.text(parseInt(elespan.text()) + 1);
+		}
+		else{
+			$(this).children('i').removeClass('fa fa-thumbs-up').addClass('fa fa-thumbs-o-up');
+			$(this).removeClass('choised');
+			elespan.text(parseInt(elespan.text()) - 1);
+		}
+	})
+	
+})
+</script>

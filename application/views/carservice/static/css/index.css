@@ -1,0 +1,92 @@
+body{
+	font-family: SimHei;
+
+}
+.main_head{
+	background: #FF9103;
+}
+.bar .button-link{
+	color: white;
+}
+.main_head h1{
+	color: white;
+}
+.bar .searchbar .searchbar-cancel{
+	color: white;
+}
+.bar .searchbar{
+	background: rgba(0,0,0);
+	/*background:#F2760B;*/
+	background: #FF9103;
+}
+.buttons-tab .button.active{
+	color: #2486ff;
+	border-color: #2486ff;
+}
+.content-block{
+	margin: 10px 0px;
+}
+.list-block{
+	margin: 0px 0px;
+}
+.one_parts ul{
+	width: 100%;
+	/*border-radius: 10px;*/
+	color: black;
+}
+
+.one_parts .item-media{
+	width: 90px;
+}
+.one_parts .item-media img{
+	width: 100%;
+	height: 100%;
+}
+
+.font12px{
+	font-size: 12px;
+}
+.font13px{
+	font-size: 13px;
+}
+.font14px{
+	font-size: 14px;
+}
+.font18px{
+	font-size: 18px;
+}
+.first{
+	width: 100%;
+	height: 30px;
+	margin-top: 5px;
+	background: white;
+	padding: 0 20px;
+	line-height: 30px;
+}
+.first span{
+	color: #FF9103;
+	margin-right: 5px;
+}
+.list-block ul:after{
+	height: 0px;
+}
+.list-block .distance{
+	height: 1rem;
+	line-height: 1rem;
+	width: auto;
+	overflow: hidden;
+	color: gray;
+	padding: 0 3px;
+	width: 60px;
+	text-align: center;
+	border-radius: 5px;
+	border: 1px solid #FF9103;
+}
+.list-block .item-text{
+	color: gray;
+	height: 1rem;
+}
+.item-text .position{
+	width: auto;
+	overflow: hidden;
+}

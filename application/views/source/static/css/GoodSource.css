@@ -1,0 +1,240 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+body{
+	background: #F7F7F7;
+}
+p{
+	font-size: 15px;
+}
+label p{
+	font-size: 13px;
+}
+.weui_cells{
+	margin-top: 0px;
+}
+.pu_head{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	background:#4B92FE;
+}
+.pu_head i{
+	margin-left: 10px;
+}
+.pu_head h4{
+	color: black;
+	margin-top: -30px;
+	text-align: center;
+	font-weight: normal;
+}
+.pu_toknow{
+	float: right;
+	margin-right: 10px;
+	color: yellow;
+	margin-top: -30px;
+}
+/*---------遮罩层----------*/
+.mskeLayBg{
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	position: fixed;
+	background: rgba(0,0,0,0.5);
+	z-index: 888;
+	display: none;
+}
+.page_know{
+	height: 300px;
+	width: 240px;
+	left: 50%;
+	top: 50%;
+	margin-left: -120px;
+	position: fixed;
+	z-index: 8888;
+	margin-top: -150px;
+	background: white;
+	border-radius: 15px;
+	display: none;
+}
+.know_head{
+	height: 30px;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	background: #4B92FE;
+}
+.know_head h4{
+	color: yellow;
+	text-align: center;
+	font-weight: normal;
+}
+.know_content{
+	padding: 10px;
+	overflow:scroll;
+	height: 220px;
+	
+}
+.sure_know input{
+	background: #4B92FE;
+	width: 30%;
+	height: 25px;
+	color: yellow;
+	margin-left: 35%;
+	border: none;
+	border-radius: 5px;
+	font-size: 15px;
+}
+
+.main_pic{
+	width: 100%;
+	height: 200px;
+	background: aquamarine;
+}
+
+.choise_options{
+	margin-top:10px ;
+}
+.choise_options{
+	 border-top: 1px solid #d9d9d9;
+	 border-bottom: 1px solid #d9d9d9;
+}
+.choise_options .weui_cells::before{
+	border-top: none;
+}
+.choise_options .weui_cells::after{
+	border-bottom: none;
+}
+.choise_options .weui_cells .weui_cell::before{
+
+	border-top: none;
+}
+.choise_options p{
+	line-height: 40px;
+	margin-left: 8px;
+}
+.choise_options label{
+	width: auto;
+	padding: 0 8px;
+	margin-bottom: 8px;
+	height: 30px;
+	color: #4D4D4D;
+	/*background:#D3E2F8;*/
+	/*#C4ECF6;*/
+	background: #F0FDFD;
+	/*border: 1px dashed #5091F3;*/
+	border: 1px dashed #76F0F0;
+	border-radius: 5px;
+	float: left;
+	margin-left: 8px;
+}
+.blank{
+	border: none;
+	margin-left: 15px;
+	width: 120px;
+}
+.inradio1+ span::before {
+    content: "\a0"; /*不换行空格*/
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 13px;
+    width: 1em;
+    height: 1em;
+    margin-right: .4em;
+    border-radius: 50%;
+    border: 1px solid #01cd78;
+    text-indent: .15em;
+    line-height: 1; 
+}
+.inradio1:checked+ span::before {
+    background-color: #01cd78;
+    background-clip: content-box;
+    padding: 2px;
+}
+.inradio1{
+	opacity: 0;
+}
+.money_time{
+	margin-top: 10px;
+}
+.other_rest{
+	margin-top:10px ;
+}
+.other_rest p{
+	margin-left: 10px;
+	line-height: 30px;
+}
+.other_rest textarea{
+	width: 94%;
+	margin-left: 3%;
+	margin-bottom: 10px;
+	border: 1px solid #E6E6E6;
+	height: auto;
+	font-size: 13px;
+	min-height: 60px;
+}
+.touch_infor{
+	margin-top: 10px;
+}
+.touch_infor .weui_cell:nth-of-type(1){
+	padding: 0 15px;
+}
+.touch_infor .weui_cell:nth-of-type(1) p{
+	margin-top: 8px;
+}
+.touch_infor .weui_cell:nth-of-type(2)::before{
+	border-top: none;
+}
+.touch_infor label p{
+	font-size: 15px;
+}
+.touch_infor input{
+	border: none;
+	margin-left: 20px;
+}
+.yzm{
+	background: #01CD78;
+	border-radius: 15px;
+	height: 25px;
+	width: 80px;
+	color: white;
+}
+.sure_publish{
+	width: 100%;
+	height: 80px;
+	margin-top: 10px;
+	background: white;
+}
+.sure_publish p{
+	text-align: center;
+	line-height:30px;
+	font-size:13px;
+	
+}
+.sure_publish img{
+	width: 16px;
+	height: 16px;
+	margin-right: 2px;
+}
+.sure_publish span{
+	color: red;
+	
+}
+.input_submit{
+	background: #4B92FE;
+	width: 40%;
+	height: 40px;
+	color: white;
+	margin-left: 30%;
+	border: none;
+	border-radius: 20px;
+	font-size: 18px;
+}
